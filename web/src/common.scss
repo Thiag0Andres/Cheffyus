@@ -1,0 +1,96 @@
+@import "./mixin";
+
+//font-family: 'Montserrat', sans-serif;
+//font-family: 'Futura';
+
+/* Your default CSS. */
+:root {
+  --primary-color: #34cb79;
+  --title-color: #322153;
+  --text-color: #6c6c80;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: 0;
+}
+
+@font-face {
+}
+
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "liga";
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth; // scroll suavizado
+}
+
+body {
+  font-family: "Roboto", sans-serif !important;
+  font-size: 0.9375rem;
+  top: 0px;
+  left: 0px;
+  overflow-x: hidden;
+
+  max-width: 100%;
+  background-color: #f0f0f5 !important;
+  background-position: bottom !important;
+  background-repeat: no-repeat;
+  background-attachment: fixed !important;
+  opacity: 1;
+
+  @media only screen and (min-width: 1000px) {
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 500;
+  color: var(--title-color);
+  font-family: Ubuntu;
+  -webkit-font-smoothing: antialiased;
+}
+
+p {
+  -webkit-font-smoothing: antialiased;
+  color: var(--text-color);
+}
+
+body,
+input,
+button {
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+}

@@ -1,0 +1,7 @@
+{
+  "name": "dev",
+  "REACT_APP_LOCAL_STORAGE_USER": "atdTest/User",
+  "headers": {
+    "Content-type": "application/json"
+  }
+}
