@@ -1,0 +1,36 @@
+@import "../../mixin.scss";
+
+#navbar {
+  padding: 0 30px;
+  height: 80px;
+  background-color: #fff;
+
+  .logo {
+    width: 168px;
+    height: 44px;
+  }
+
+  .search {
+    width: 400px;
+    height: 44px;
+    border-radius: 50px;
+  }
+
+  .button {
+    width: 180px;
+    height: 44px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 50px;
+    margin-left: 20px;
+    box-shadow: none;
+    background-color: #d73d36;
+    border-color: #d73d36;
+    color: #fff;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #a12620;
+    }
+  }
+}

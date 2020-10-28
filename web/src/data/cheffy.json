@@ -1,0 +1,58 @@
+{
+  "data": [
+    {
+      "restaurants": [
+        {
+          "id": 1,
+          "name": "Fire Cave Kitchen",
+          "image": "https://user-assets.sharetribe.com/images/listing_images/images/3241437/big/d38cb6eafd689bc36d000bea82b7d9fe.jpg?1601668622",
+          "price": "23",
+          "location": [-7.0829657, -34.844022]
+        },
+        {
+          "id": 2,
+          "name": "Kick's Rental Kitchen",
+          "image": "https://user-assets.sharetribe.com/images/listing_images/images/3241432/big/seek-rental-kitchen-22153.jpg?1601668470",
+          "price": "22",
+          "location": [-7.0655247, -34.844334]
+        },
+        {
+          "id": 3,
+          "name": "Chop and Chew Kitchen",
+          "image": "https://user-assets.sharetribe.com/images/listing_images/images/3241424/big/3eddf2ba77de2bc944f200daba2e3250.jpg?1601668149",
+          "price": "25",
+          "location": [-7.0812717, -34.835883]
+        },
+        {
+          "id": 4,
+          "name": "Kapoor's Kitchen",
+          "image": "https://user-assets.sharetribe.com/images/listing_images/images/3241418/big/hot-bread-kitchen-90013.jpg?1601667999",
+          "price": "20",
+          "location": [-7.1026567, -34.836707]
+        }
+      ],
+      "chefs": [
+        {
+          "id": 1,
+          "name": "Emily W",
+          "image": "https://user-assets.sharetribe.com/images/people/images/jikuTVQ3d1IkJZ-1qpBNvA/small/12.jpg?1601671619"
+        },
+        {
+          "id": 2,
+          "name": "Chris M",
+          "image": "https://user-assets.sharetribe.com/images/people/images/arNPoUFQ7dWMLR3TrKDObw/small/11.jpeg?1601671747"
+        },
+        {
+          "id": 3,
+          "name": "Peter B",
+          "image": "https://user-assets.sharetribe.com/images/people/images/mBB7otZyJp-TlvhHnKWeBw/small/44.jpg?1601673565"
+        },
+        {
+          "id": 4,
+          "name": "Karina E",
+          "image": "https://user-assets.sharetribe.com/images/people/images/FOuKQWdvpf40LQdhbNk5Bg/small/422.jpg?1601673762"
+        }
+      ]
+    }
+  ]
+}

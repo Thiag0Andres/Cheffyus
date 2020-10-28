@@ -4,11 +4,6 @@
 //font-family: 'Futura';
 
 /* Your default CSS. */
-:root {
-  --primary-color: #34cb79;
-  --title-color: #322153;
-  --text-color: #6c6c80;
-}
 
 * {
   margin: 0;
@@ -62,7 +57,7 @@ body {
   overflow-x: hidden;
 
   max-width: 100%;
-  background-color: #f0f0f5 !important;
+  background-color: #fff !important;
   background-position: bottom !important;
   background-repeat: no-repeat;
   background-attachment: fixed !important;
@@ -79,14 +74,12 @@ h4,
 h5,
 h6 {
   font-weight: 500;
-  color: var(--title-color);
   font-family: Ubuntu;
   -webkit-font-smoothing: antialiased;
 }
 
 p {
   -webkit-font-smoothing: antialiased;
-  color: var(--text-color);
 }
 
 body,
