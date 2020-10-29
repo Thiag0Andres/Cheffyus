@@ -1,0 +1,137 @@
+@import "../../mixin.scss";
+
+#page-home-list {
+  padding: 0 50px;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 30px;
+
+    #dropdown-basic {
+      box-shadow: none;
+      background-color: #e8e8e8;
+      border-color: #e8e8e8;
+      color: #3c3c3c;
+    }
+
+    #pagination1 {
+      width: 120px;
+      height: 42px;
+      box-shadow: none;
+      background-color: #e8e8e8;
+      border-color: #e8e8e8;
+      color: #3c3c3c;
+
+      &:hover {
+        background-color: #cb2f28;
+        color: #fff;
+      }
+    }
+
+    #pagination2 {
+      width: 120px;
+      height: 42px;
+      box-shadow: none;
+      background-color: #d73d36;
+      border-color: #d73d36;
+      color: #fff;
+    }
+
+    #pagination3 {
+      width: 120px;
+      height: 42px;
+      box-shadow: none;
+      background-color: #e8e8e8;
+      border-color: #e8e8e8;
+      color: #3c3c3c;
+
+      &:hover {
+        background-color: #cb2f28;
+        color: #fff;
+      }
+    }
+
+    & {
+      border-bottom: 1px solid #c3c3c3;
+    }
+  }
+
+  .list {
+    ul {
+      display: flex;
+      flex-direction: column;
+      list-style: none;
+      overflow: hidden;
+
+      li {
+        display: flex;
+        flex-direction: row;
+        border-radius: 4px;
+        padding: 20px 0;
+        gap: 30px;
+
+        & + li {
+          border-top: 1px solid #c3c3c3;
+        }
+
+        img {
+          max-width: 180px;
+          max-height: 120px;
+          border-radius: 4px;
+        }
+
+        .info {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
+          .box1 {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            strong {
+              font-size: 22px;
+              font-weight: 600;
+              color: #d73d36;
+
+              &:hover {
+                color: #a12620;
+              }
+            }
+
+            .chef-info {
+              display: flex;
+              flex-direction: row;
+              gap: 10px;
+
+              img {
+                border-radius: 4px;
+                max-width: 40px;
+              }
+
+              a {
+                font-size: 16px;
+                font-family: "Source Sans Pro", helvetica, sans-serif;
+                text-decoration: none;
+                color: #d73d36;
+
+                &:hover {
+                  color: #a12620;
+                }
+              }
+            }
+
+            span {
+              font-size: 21px;
+              font-weight: bold;
+              color: #333;
+            }
+          }
+        }
+      }
+    }
+  }
+}

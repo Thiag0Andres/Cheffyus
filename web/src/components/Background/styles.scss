@@ -1,15 +1,12 @@
 @import "../../mixin.scss";
 
 #page-home-background {
-  height: 60vh;
-  overflow: hidden;
+  height: 45vh;
   //background-color: blue;
 
   img {
     width: 100%;
     height: 100%;
-    margin-top: 20px;
-    object-fit: contain;
   }
 
   .text {
@@ -17,7 +14,7 @@
     flex-direction: column;
     align-items: center;
     position: absolute;
-    top: 140px;
+    top: 160px;
     left: 450px;
     width: 400px;
     line-height: 30px;
@@ -25,7 +22,7 @@
     //background-color: red;
 
     h1 {
-      font-size: 55px;
+      font-size: 60px;
       font-weight: 700;
       color: #d73d36;
     }
@@ -34,19 +31,7 @@
       font-size: 24px;
       font-weight: 600;
       line-height: 38px;
+      color: #000;
     }
   }
-
-  /* .content {
-    img {
-      
-      object-fit: contain;
-      position: absolute;
-      top: 0;
-
-
-
-
-    }
-  } */
 }

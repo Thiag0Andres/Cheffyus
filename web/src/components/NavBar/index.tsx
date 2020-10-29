@@ -22,7 +22,7 @@ const NavBar: React.FC = () => {
 
   return (
     <>
-      <Navbar id="navbar" expand="xl" fixed="top">
+      <Navbar id="navbar" expand="xl">
         <Navbar.Brand className="logo" href="/">
           <img src={logo} alt="Cheffy" />
         </Navbar.Brand>
@@ -39,14 +39,10 @@ const NavBar: React.FC = () => {
             <Nav.Link style={{ fontSize: "14px" }}>Contact us</Nav.Link>
           </Nav>
           <Nav className="AddKitchen">
-            <Nav.Link
-              style={{ color: "#d73d36", fontSize: "14px", marginTop: "5px" }}
-            >
+            <Nav.Link style={{ color: "#d73d36", fontSize: "14px" }}>
               Sign up
             </Nav.Link>
-            <Nav.Link
-              style={{ color: "#d73d36", fontSize: "14px", marginTop: "5px" }}
-            >
+            <Nav.Link style={{ color: "#d73d36", fontSize: "14px" }}>
               log in
             </Nav.Link>
             <Button className="button" variant="outline-secondary">
