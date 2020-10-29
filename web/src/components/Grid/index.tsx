@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
+
+//Bootstrap
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import Pagination from "react-bootstrap/Pagination";
+
+//Icons
+import { BsFillGridFill } from "react-icons/bs";
+import { GoListUnordered } from "react-icons/go";
+import { FaMapMarkedAlt } from "react-icons/fa";
 
 import api from "../../services/api";
 
@@ -22,6 +29,7 @@ interface Restaurant {
 const Grid: React.FC = () => {
   // Estado
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+
   // Chamada a api
   useEffect(() => {
     api.get("restaurants").then((response) => {
@@ -38,25 +46,30 @@ const Grid: React.FC = () => {
             All listing types
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item href="">Action</Dropdown.Item>
-            <Dropdown.Item href="">Another action</Dropdown.Item>
-            <Dropdown.Item href="">Something else</Dropdown.Item>
+            <Dropdown.Item href="">All listing types</Dropdown.Item>
+            <Dropdown.Item href="">
+              Offering without online payment
+            </Dropdown.Item>
+            <Dropdown.Item href="">Offering with online payment</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <Pagination>
           <Pagination.Item id="pagination1" href="/" active={true}>
+            <BsFillGridFill />
             Grid
           </Pagination.Item>
           <Pagination.Item id="pagination2" href="/List" disabled={false}>
+            <GoListUnordered />
             List
           </Pagination.Item>
           <Pagination.Item id="pagination3" href="/Map" disabled={false}>
+            <FaMapMarkedAlt />
             Map
           </Pagination.Item>
         </Pagination>
       </Row>
       <Row>
-        <Col xl="4"></Col>
+        <Col className="slider" xl="4"></Col>
         <Col className="grid" xl="8">
           <ul>
             {restaurants.map((restaurant) => (

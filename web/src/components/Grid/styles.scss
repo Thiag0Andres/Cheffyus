@@ -1,7 +1,7 @@
 @import "../../mixin.scss";
 
 #page-home-grid {
-  padding: 0 50px;
+  padding: 0 170px;
 
   .header {
     display: flex;
@@ -19,6 +19,10 @@
     #pagination1 {
       width: 120px;
       height: 42px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
       box-shadow: none;
       background-color: #d73d36;
       border-color: #d73d36;
@@ -28,6 +32,10 @@
     #pagination2 {
       width: 120px;
       height: 42px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
       box-shadow: none;
       background-color: #e8e8e8;
       border-color: #e8e8e8;
@@ -42,6 +50,10 @@
     #pagination3 {
       width: 120px;
       height: 42px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
       box-shadow: none;
       background-color: #e8e8e8;
       border-color: #e8e8e8;
@@ -58,15 +70,22 @@
     }
   }
 
+  .slider {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
   .grid {
-    //background-color: #d73d36;
+    padding-right: 0;
+    padding-left: 0;
+
     ul {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      padding: 20px 0;
       grid-gap: 30px;
       list-style: none;
       overflow: hidden;
-      //background-color: #333;
 
       li {
         width: 225px;

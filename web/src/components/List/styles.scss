@@ -1,7 +1,7 @@
 @import "../../mixin.scss";
 
 #page-home-list {
-  padding: 0 50px;
+  padding: 0 170px;
 
   .header {
     display: flex;
@@ -19,6 +19,10 @@
     #pagination1 {
       width: 120px;
       height: 42px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
       box-shadow: none;
       background-color: #e8e8e8;
       border-color: #e8e8e8;
@@ -33,6 +37,10 @@
     #pagination2 {
       width: 120px;
       height: 42px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
       box-shadow: none;
       background-color: #d73d36;
       border-color: #d73d36;
@@ -42,6 +50,10 @@
     #pagination3 {
       width: 120px;
       height: 42px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
       box-shadow: none;
       background-color: #e8e8e8;
       border-color: #e8e8e8;
@@ -58,7 +70,15 @@
     }
   }
 
+  .slider {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
   .list {
+    padding-right: 0;
+    padding-left: 0;
+
     ul {
       display: flex;
       flex-direction: column;
@@ -68,7 +88,6 @@
       li {
         display: flex;
         flex-direction: row;
-        border-radius: 4px;
         padding: 20px 0;
         gap: 30px;
 
@@ -85,7 +104,6 @@
         .info {
           display: flex;
           flex-direction: row;
-          justify-content: space-between;
 
           .box1 {
             display: flex;
@@ -123,12 +141,13 @@
                 }
               }
             }
+          }
 
-            span {
-              font-size: 21px;
-              font-weight: bold;
-              color: #333;
-            }
+          span {
+            font-size: 32px;
+            font-weight: 400;
+            line-height: 1;
+            color: #3c3c3c;
           }
         }
       }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 //Bootstrap
 import Container from "react-bootstrap/Container";
@@ -12,6 +11,9 @@ import Pagination from "react-bootstrap/Pagination";
 import { BsFillGridFill } from "react-icons/bs";
 import { GoListUnordered } from "react-icons/go";
 import { FaMapMarkedAlt } from "react-icons/fa";
+
+//leaflet
+import { Map, TileLayer, Marker } from "react-leaflet";
 
 import api from "../../services/api";
 
@@ -27,9 +29,13 @@ interface Restaurant {
   image_url_chef: string;
 }
 
-const List: React.FC = () => {
+const Mapa: React.FC = () => {
   // Estado
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [initialPosition, setInitialPosition] = useState<[number, number]>([
+    -7.1215022,
+    -34.8814724,
+  ]);
 
   // Chamada a api
   useEffect(() => {
@@ -40,7 +46,7 @@ const List: React.FC = () => {
   }, []);
 
   return (
-    <Container fluid id="page-home-list">
+    <Container fluid id="page-home-map">
       <Row className="header">
         <Dropdown className="dropdown">
           <Dropdown.Toggle id="dropdown-basic">
@@ -59,11 +65,11 @@ const List: React.FC = () => {
             <BsFillGridFill />
             Grid
           </Pagination.Item>
-          <Pagination.Item id="pagination2" href="/List" active={true}>
+          <Pagination.Item id="pagination2" href="/List" disabled={false}>
             <GoListUnordered />
             List
           </Pagination.Item>
-          <Pagination.Item id="pagination3" href="/Map" disabled={false}>
+          <Pagination.Item id="pagination3" href="/Map" active={true}>
             <FaMapMarkedAlt />
             Map
           </Pagination.Item>
@@ -71,33 +77,16 @@ const List: React.FC = () => {
       </Row>
       <Row>
         <Col className="slider" xl="4"></Col>
-        <Col className="list" xl="8">
-          <ul>
-            {restaurants.map((restaurant) => (
-              <li key={restaurant.id}>
-                <img
-                  src={restaurant.image_url_restaurant}
-                  alt={restaurant.name}
-                />
-                <div className="info">
-                  <div className="box1">
-                    <strong>{restaurant.title}</strong>
-                    <div className="chef-info">
-                      <img
-                        src={restaurant.image_url_chef}
-                        alt={restaurant.name}
-                      />
-                      <Link to="">{restaurant.name}</Link>
-                    </div>
-                  </div>
-                  <span>{restaurant.price}</span>
-                </div>
-              </li>
-            ))}
-          </ul>
+        <Col className="map" xl="8">
+          <Map center={initialPosition} zoom={11}>
+            <TileLayer
+              attribution='&amp;copy <a href="http://osm.org/copyright%22%3EOpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+          </Map>
         </Col>
       </Row>
     </Container>
   );
 };
-export default List;
+export default Mapa;

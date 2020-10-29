@@ -3,14 +3,14 @@ import React from "react";
 //Component
 import NavBar from "../../components/NavBar";
 import Background from "../../components/Background";
-import Map from "../../components/Map";
+import Mapa from "../../components/Mapa";
 
 const HomeGrid: React.FC = () => {
   return (
     <>
       <NavBar />
       <Background />
-      <Map />
+      <Mapa />
     </>
   );
 };

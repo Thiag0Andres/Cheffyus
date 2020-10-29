@@ -1,0 +1,91 @@
+@import "../../mixin.scss";
+
+#page-home-map {
+  padding: 0 170px;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 30px;
+
+    #dropdown-basic {
+      box-shadow: none;
+      background-color: #e8e8e8;
+      border-color: #e8e8e8;
+      color: #3c3c3c;
+    }
+
+    #pagination1 {
+      width: 120px;
+      height: 42px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      box-shadow: none;
+      background-color: #e8e8e8;
+      border-color: #e8e8e8;
+      color: #3c3c3c;
+
+      &:hover {
+        background-color: #cb2f28;
+        color: #fff;
+      }
+    }
+
+    #pagination2 {
+      width: 120px;
+      height: 42px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      box-shadow: none;
+      background-color: #e8e8e8;
+      border-color: #e8e8e8;
+      color: #3c3c3c;
+
+      &:hover {
+        background-color: #cb2f28;
+        color: #fff;
+      }
+    }
+
+    #pagination3 {
+      width: 120px;
+      height: 42px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      box-shadow: none;
+      background-color: #d73d36;
+      border-color: #d73d36;
+      color: #fff;
+    }
+
+    & {
+      border-bottom: 1px solid #c3c3c3;
+    }
+  }
+
+  .slider {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .map {
+    padding-right: 0;
+    padding-left: 0;
+    overflow: hidden;
+
+    .leaflet-container {
+      width: 726px;
+      height: 480px;
+      margin-top: 20px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+  }
+}
