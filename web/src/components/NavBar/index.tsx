@@ -13,13 +13,6 @@ import logo from "../../images/logo.jpg";
 import "./styles.scss";
 
 const NavBar: React.FC = () => {
-  //Estados
-  const [show, setShow] = useState(false);
-
-  //Mudança de scroll para cima e para baixo
-  const scrollToNextPage = () => window.scrollTo(0, 1000);
-  const scrollToPreviousPage = () => window.scrollTo(0, 0);
-
   return (
     <>
       <Navbar id="navbar" expand="xl">
@@ -35,14 +28,18 @@ const NavBar: React.FC = () => {
         </Form>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link style={{ fontSize: "14px" }}>About</Nav.Link>
-            <Nav.Link style={{ fontSize: "14px" }}>Contact us</Nav.Link>
+            <Nav.Link id="text" href="/about">
+              About
+            </Nav.Link>
+            <Nav.Link id="text" href="/contact-us">
+              Contact us
+            </Nav.Link>
           </Nav>
           <Nav className="AddKitchen">
-            <Nav.Link style={{ color: "#d73d36", fontSize: "14px" }}>
+            <Nav.Link id="text" href="/signup" style={{ color: "#d73d36" }}>
               Sign up
             </Nav.Link>
-            <Nav.Link style={{ color: "#d73d36", fontSize: "14px" }}>
+            <Nav.Link id="text" href="/login" style={{ color: "#d73d36" }}>
               log in
             </Nav.Link>
             <Button className="button" variant="outline-secondary">

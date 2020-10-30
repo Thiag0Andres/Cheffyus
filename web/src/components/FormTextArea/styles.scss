@@ -1,0 +1,56 @@
+@import "../../mixin.scss";
+
+#content {
+  padding-right: 0;
+  padding-left: 0;
+  padding: 30px;
+
+  .body {
+    display: flex;
+    justify-content: center;
+
+    .form {
+      width: 432px;
+      height: 342px;
+
+      #text {
+        width: 100%;
+        display: block;
+        margin-top: 12px;
+        margin-bottom: 3px;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+        color: $gray_light;
+      }
+
+      .input {
+        border-radius: 5px;
+        border: 2px solid #c3c3c3;
+        min-height: 42px;
+        width: 100%;
+      }
+
+      .textarea {
+        border-radius: 5px;
+        border: 2px solid #c3c3c3;
+        min-height: 120px;
+        width: 100%;
+      }
+
+      .button {
+        width: 150px;
+        height: 42px;
+        box-shadow: none;
+        background-color: $red_classic;
+        border-color: $red_classic;
+        color: $white;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: $red_light;
+        }
+      }
+    }
+  }
+}

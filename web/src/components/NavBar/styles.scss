@@ -3,7 +3,7 @@
 #navbar {
   padding: 0 30px;
   height: 80px;
-  background-color: #fff;
+  background-color: $white;
 
   .logo {
     width: 168px;
@@ -16,21 +16,24 @@
     border-radius: 50px;
   }
 
+  #text {
+    font-size: 14px;
+  }
+
   .button {
     width: 180px;
     height: 44px;
-    font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
     border-radius: 50px;
     margin-left: 20px;
     box-shadow: none;
-    background-color: #d73d36;
-    border-color: #d73d36;
-    color: #fff;
+    background-color: $red_classic;
+    border-color: $red_classic;
+    color: $white;
     transition: background-color 0.2s;
 
     &:hover {
-      background-color: #a12620;
+      background-color: $red_dark;
     }
   }
 }

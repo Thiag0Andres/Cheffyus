@@ -65,19 +65,19 @@ const Mapa: React.FC = () => {
             <BsFillGridFill />
             Grid
           </Pagination.Item>
-          <Pagination.Item id="pagination2" href="/List" disabled={false}>
+          <Pagination.Item id="pagination2" href="/list" disabled={false}>
             <GoListUnordered />
             List
           </Pagination.Item>
-          <Pagination.Item id="pagination3" href="/Map" active={true}>
+          <Pagination.Item id="pagination3" href="/map" active={true}>
             <FaMapMarkedAlt />
             Map
           </Pagination.Item>
         </Pagination>
       </Row>
       <Row>
-        <Col className="slider" xl="4"></Col>
-        <Col className="map" xl="8">
+        <Col className="slider" xl="3"></Col>
+        <Col className="map" xl="9">
           <Map center={initialPosition} zoom={11}>
             <TileLayer
               attribution='&amp;copy <a href="http://osm.org/copyright%22%3EOpenStreetMap</a> contributors'

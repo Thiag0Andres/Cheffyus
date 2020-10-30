@@ -59,19 +59,19 @@ const List: React.FC = () => {
             <BsFillGridFill />
             Grid
           </Pagination.Item>
-          <Pagination.Item id="pagination2" href="/List" active={true}>
+          <Pagination.Item id="pagination2" href="/list" active={true}>
             <GoListUnordered />
             List
           </Pagination.Item>
-          <Pagination.Item id="pagination3" href="/Map" disabled={false}>
+          <Pagination.Item id="pagination3" href="/map" disabled={false}>
             <FaMapMarkedAlt />
             Map
           </Pagination.Item>
         </Pagination>
       </Row>
       <Row>
-        <Col className="slider" xl="4"></Col>
-        <Col className="list" xl="8">
+        <Col className="slider" xl="3"></Col>
+        <Col className="list" xl="9">
           <ul>
             {restaurants.map((restaurant) => (
               <li key={restaurant.id}>

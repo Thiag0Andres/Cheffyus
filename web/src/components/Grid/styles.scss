@@ -13,7 +13,7 @@
       box-shadow: none;
       background-color: #e8e8e8;
       border-color: #e8e8e8;
-      color: #3c3c3c;
+      color: $gray_light;
     }
 
     #pagination1 {
@@ -24,9 +24,9 @@
       align-items: center;
       gap: 5px;
       box-shadow: none;
-      background-color: #d73d36;
-      border-color: #d73d36;
-      color: #fff;
+      background-color: $red_classic;
+      border-color: $red_classic;
+      color: $white;
     }
 
     #pagination2 {
@@ -39,11 +39,11 @@
       box-shadow: none;
       background-color: #e8e8e8;
       border-color: #e8e8e8;
-      color: #3c3c3c;
+      color: $gray_light;
 
       &:hover {
-        background-color: #cb2f28;
-        color: #fff;
+        background-color: $red_dark;
+        color: $white;
       }
     }
 
@@ -57,11 +57,11 @@
       box-shadow: none;
       background-color: #e8e8e8;
       border-color: #e8e8e8;
-      color: #3c3c3c;
+      color: $gray_light;
 
       &:hover {
-        background-color: #cb2f28;
-        color: #fff;
+        background-color: $red_light;
+        color: $white;
       }
     }
 
@@ -100,13 +100,13 @@
         strong {
           font-size: 16px;
           line-height: 20px;
-          color: #333;
+          color: $gray_dark;
         }
 
         span {
           font-size: 21px;
           font-weight: bold;
-          color: #333;
+          color: $gray_dark;
         }
 
         .box2 {
@@ -124,7 +124,7 @@
           strong {
             font-size: 16px;
             line-height: 20px;
-            color: #d73d36;
+            color: $red_classic;
           }
         }
       }
