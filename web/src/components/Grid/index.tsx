@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-//Bootstrap
+// Bootstrap
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -10,7 +10,7 @@ import Pagination from "react-bootstrap/Pagination";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-//Icons
+// Icons
 import { BsFillGridFill } from "react-icons/bs";
 import { GoListUnordered } from "react-icons/go";
 import { FaMapMarkedAlt } from "react-icons/fa";
@@ -37,7 +37,7 @@ const Grid: React.FC = () => {
   useEffect(() => {
     api.get("restaurants").then((response) => {
       setRestaurants(response.data);
-      console.log(response);
+      //console.log(response);
     });
   }, []);
 
@@ -98,20 +98,20 @@ const Grid: React.FC = () => {
                     src={restaurant.image_url_restaurant}
                     alt={restaurant.title}
                   />
-                  <div className="box1">
+                  <Link className="box1" to="/restaurant">
                     <div className="price">
                       <span className="value">${restaurant.price}</span>
                       <span className="hour">/ hour</span>
                     </div>
                     <p>{restaurant.title}</p>
-                  </div>
-                  <div className="box2">
+                  </Link>
+                  <Link className="box2" to="/profile">
                     <img
                       src={restaurant.image_url_chef}
                       alt={restaurant.name}
                     />
-                    <Link to="/">{restaurant.name}</Link>
-                  </div>
+                    <Link to="/profile">{restaurant.name}</Link>
+                  </Link>
                 </li>
               </div>
             ))}

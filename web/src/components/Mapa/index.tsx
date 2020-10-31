@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-//Bootstrap
+// Bootstrap
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -9,12 +9,12 @@ import Pagination from "react-bootstrap/Pagination";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-//Icons
+// Icons
 import { BsFillGridFill } from "react-icons/bs";
 import { GoListUnordered } from "react-icons/go";
 import { FaMapMarkedAlt } from "react-icons/fa";
 
-//leaflet
+// leaflet
 import { Map, TileLayer, Marker } from "react-leaflet";
 
 import api from "../../services/api";
@@ -43,7 +43,7 @@ const Mapa: React.FC = () => {
   useEffect(() => {
     api.get("restaurants").then((response) => {
       setRestaurants(response.data);
-      console.log(response);
+      //console.log(response);
     });
   }, []);
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-//Bootstrap
+// Bootstrap
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -10,7 +10,7 @@ import Pagination from "react-bootstrap/Pagination";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-//Icons
+// Icons
 import { BsFillGridFill } from "react-icons/bs";
 import { GoListUnordered } from "react-icons/go";
 import { FaMapMarkedAlt } from "react-icons/fa";
@@ -37,7 +37,7 @@ const List: React.FC = () => {
   useEffect(() => {
     api.get("restaurants").then((response) => {
       setRestaurants(response.data);
-      console.log(response);
+      //console.log(response);
     });
   }, []);
 
@@ -98,14 +98,16 @@ const List: React.FC = () => {
                 />
                 <div className="info">
                   <div className="box1">
-                    <strong>{restaurant.title}</strong>
-                    <div className="chef-info">
+                    <Link to="/restaurant">
+                      <strong>{restaurant.title}</strong>
+                    </Link>
+                    <Link className="chef-info" to="/profile">
                       <img
                         src={restaurant.image_url_chef}
                         alt={restaurant.name}
                       />
-                      <Link to="">{restaurant.name}</Link>
-                    </div>
+                      <Link to="/profile">{restaurant.name}</Link>
+                    </Link>
                   </div>
                   <div className="price">
                     <span>${restaurant.price}</span>

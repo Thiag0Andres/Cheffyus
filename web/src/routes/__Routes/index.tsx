@@ -9,6 +9,11 @@ import About from "../../containers/About";
 import ContactUs from "../../containers/ContactUs";
 import LogIn from "../../containers/LogIn";
 import SignUp from "../../containers/SignUp";
+import AddKitchen from "../../containers/AddKitchen";
+import Restaurant from "../../containers/Restaurant";
+import Profile from "../../containers/Profile";
+import ContactChef from "../../containers/ContactChef";
+import Request from "../../containers/Request";
 
 export default function Routes() {
   return (
@@ -20,6 +25,11 @@ export default function Routes() {
       <Route path="/contact-us" component={ContactUs} />
       <Route path="/login" component={LogIn} />
       <Route path="/signup" component={SignUp} />
+      <Route path="/add-kitchen" component={AddKitchen} />
+      <Route path="/restaurant" component={Restaurant} />
+      <Route path="/profile" component={Profile} />
+      <Route path="/contact-chef" component={ContactChef} />
+      <Route path="/request" component={Request} />
       <Redirect from="*" to="/" />
     </Switch>
   );
