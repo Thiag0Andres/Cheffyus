@@ -1,7 +1,39 @@
 @import "../../mixin.scss";
 
-#content {
-  padding-right: 0;
-  padding-left: 0;
-  padding: 30px;
+.content {
+  padding: 30px 170px;
+
+  .column1 {
+    .list-group {
+      border-color: transparent !important;
+      .list-group-item.active {
+        border-radius: 0.3125em;
+        background-color: $gray_classic !important;
+        border-color: transparent !important;
+      }
+    }
+  }
+
+  .column2 {
+  }
+}
+
+#list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  color: $red_classic;
+
+  &:active {
+    color: $red_dark;
+  }
+
+  #space-between {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

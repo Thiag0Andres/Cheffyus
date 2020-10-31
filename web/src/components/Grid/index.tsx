@@ -77,17 +77,18 @@ const Grid: React.FC = () => {
                 <li>
                   <img
                     src={restaurant.image_url_restaurant}
-                    alt={restaurant.name}
+                    alt={restaurant.title}
                   />
-                  <strong>{restaurant.title}</strong>
-                  <span>{restaurant.price}</span>
-
+                  <div className="box1">
+                    <span>{restaurant.price}</span>
+                    <strong>{restaurant.title}</strong>
+                  </div>
                   <div className="box2">
                     <img
                       src={restaurant.image_url_chef}
                       alt={restaurant.name}
                     />
-                    <strong>{restaurant.name}</strong>
+                    <p>{restaurant.name}</p>
                   </div>
                 </li>
               </div>

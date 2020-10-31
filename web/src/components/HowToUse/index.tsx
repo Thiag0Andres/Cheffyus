@@ -1,17 +1,10 @@
 import React from "react";
 
-//Bootstrap
-import Row from "react-bootstrap/Row";
-
-import "./styles.scss";
-
 const HowToUse: React.FC = () => {
   return (
     <>
-      <Row id="content">
-        How it works <br />
-        Here you can find information about how Cheffy works.
-      </Row>
+      <h1>How it works</h1>
+      <p>Here you can find information about how Cheffy works.</p>
     </>
   );
 };

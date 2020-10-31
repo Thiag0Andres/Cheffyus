@@ -57,7 +57,7 @@ body {
   overflow-x: hidden;
 
   max-width: 100%;
-  background-color: #fff !important;
+  background-color: $white !important;
   background-position: bottom !important;
   background-repeat: no-repeat;
   background-attachment: fixed !important;
@@ -65,25 +65,68 @@ body {
 
   @media only screen and (min-width: 1000px) {
   }
-}
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Source Sans Pro", helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
+  h1 {
+    font-size: 1.625em;
+    line-height: 1.38462em;
+    font-weight: 600;
+    margin-top: 0.23077em;
+    margin-bottom: 0.46154em;
+    color: #171717;
+    font-family: "Source Sans Pro", helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
 
-p {
-  font-family: "Source Sans Pro", helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
+  h2 {
+    font-size: 1.375em;
+    line-height: 1.09091em;
+    font-weight: 500;
+    text-transform: none;
+    margin: 0em 0 0.75em;
+    color: #171717;
+    font-family: "Source Sans Pro", helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h3 {
+    padding-top: 0.375em;
+    padding-bottom: 0.375em;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 1.5em;
+    color: #171717;
+    font-family: "Source Sans Pro", helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h4,
+  h5,
+  h6 {
+    color: #171717;
+    font-family: "Source Sans Pro", helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
 
-body,
-input,
-button {
-  font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
+  p {
+    font-size: 1em;
+    line-height: 1.5em;
+    margin-bottom: 0.75em;
+    word-wrap: break-word;
+    color: $gray_light;
+    font-family: "Source Sans Pro", helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    text-decoration: none;
+    color: $red_classic;
+
+    &:hover {
+      color: $red_dark;
+    }
+  }
+
+  body,
+  input,
+  button {
+    font-family: "Source Sans Pro", Arial, Helvetica, sans-serif;
+  }
 }
