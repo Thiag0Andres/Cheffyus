@@ -4,8 +4,24 @@
   padding: 30px 170px;
 
   .column1 {
+    width: 228px;
+    height: 152px;
+    overflow: hidden;
     .list-group {
       border-color: transparent !important;
+      .list-group-item {
+        position: relative;
+        padding: 0.375em 0.75em;
+        display: block;
+        font-weight: normal;
+        border-radius: 0.3125em;
+        border-color: transparent;
+        width: 14.25em;
+        min-height: 2.375em;
+        font-size: 1em;
+        line-height: 1.5em;
+      }
+
       .list-group-item.active {
         border-radius: 0.3125em;
         background-color: $gray_classic !important;
@@ -15,6 +31,7 @@
   }
 
   .column2 {
+    padding: 5px 20px;
   }
 }
 
@@ -25,8 +42,13 @@
   gap: 8px;
   color: $red_classic;
 
+  &:hover {
+    color: $red_dark;
+  }
+
   &:active {
     color: $red_dark;
+    background-color: transparent;
   }
 
   #space-between {

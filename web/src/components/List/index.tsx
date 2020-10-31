@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import Pagination from "react-bootstrap/Pagination";
+import Form from "react-bootstrap/Form";
 
 //Icons
 import { BsFillGridFill } from "react-icons/bs";
@@ -70,7 +71,14 @@ const List: React.FC = () => {
         </Pagination>
       </Row>
       <Row>
-        <Col className="slider" xl="3"></Col>
+        <Col className="slider" xl="3">
+          <Form>
+            <Form.Group controlId="formBasicRangeCustom">
+              <Form.Label>Range</Form.Label>
+              <Form.Control type="range" custom />
+            </Form.Group>
+          </Form>
+        </Col>
         <Col className="list" xl="9">
           <ul>
             {restaurants.map((restaurant) => (

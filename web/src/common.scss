@@ -116,11 +116,11 @@ body {
   }
 
   a {
-    text-decoration: none;
     color: $red_classic;
 
     &:hover {
       color: $red_dark;
+      text-decoration: none;
     }
   }
 

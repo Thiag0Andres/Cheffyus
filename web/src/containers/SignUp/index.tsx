@@ -3,6 +3,7 @@ import React, { useState } from "react";
 //Components
 import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
+import FormSignup from "../../components/FormSignup";
 
 const SignUp: React.FC = () => {
   //Estado
@@ -11,6 +12,7 @@ const SignUp: React.FC = () => {
     <>
       <NavBar />
       <Background2 text={text} />
+      <FormSignup />
     </>
   );
 };

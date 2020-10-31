@@ -10,7 +10,7 @@ const Background: React.FC = () => {
     <div id="page-home-background">
       <img src={background} alt="background" />
       <div className="text">
-        <h1> Cheffy</h1>
+        <h6> Cheffy</h6>
         <p>Rent Kitchen. Lease Kitchen.</p>
       </div>
     </div>

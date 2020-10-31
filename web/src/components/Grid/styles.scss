@@ -71,8 +71,35 @@
   }
 
   .slider {
+    width: 234px;
+    height: 139px;
+    overflow: hidden;
     padding-right: 0;
     padding-left: 0;
+
+    .text {
+      display: block;
+      margin-top: 12px;
+      margin-bottom: 3px;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 24px;
+      color: $gray_light;
+
+      & {
+        font-weight: 700;
+        border-bottom: 1px solid #e8e8e8;
+      }
+    }
+
+    .range-slider {
+      width: 212px;
+      height: 10px;
+      border-radius: 2px;
+      box-shadow: none;
+      background: #d73d36;
+      transition: background 450ms;
+    }
   }
 
   .grid {

@@ -15,16 +15,18 @@ const FormTextArea: React.FC = () => {
         <Col className="body">
           <Form className="form">
             <Form.Group controlId="exampleForm.ControlInput1">
-              <Form.Label id="text">
+              <Form.Label className="text">
                 Your email address (to contact you)
               </Form.Label>
               <Form.Control className="input" type="email" />
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlTextarea1">
-              <Form.Label id="text">Your message to the Cheffy team</Form.Label>
+              <Form.Label className="text">
+                Your message to the Cheffy team
+              </Form.Label>
               <Form.Control className="textarea" as="textarea" rows={3} />
             </Form.Group>
-            <Button className="button">Send message</Button>
+            <Button className="button">Log message</Button>
           </Form>
         </Col>
       </Row>

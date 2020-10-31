@@ -3,6 +3,7 @@ import React, { useState } from "react";
 //Components
 import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
+import FormLogin from "../../components/FormLogin";
 
 const LogIn: React.FC = () => {
   //Estado
@@ -11,6 +12,7 @@ const LogIn: React.FC = () => {
     <>
       <NavBar />
       <Background2 text={text} />
+      <FormLogin />
     </>
   );
 };
