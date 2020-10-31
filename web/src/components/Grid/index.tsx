@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 //Bootstrap
 import Container from "react-bootstrap/Container";
@@ -7,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import Pagination from "react-bootstrap/Pagination";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 //Icons
 import { BsFillGridFill } from "react-icons/bs";
@@ -91,20 +93,24 @@ const Grid: React.FC = () => {
             {restaurants.map((restaurant) => (
               <div key={restaurant.id}>
                 <li>
+                  <div className="opacity"></div>
                   <img
                     src={restaurant.image_url_restaurant}
                     alt={restaurant.title}
                   />
                   <div className="box1">
-                    <span>{restaurant.price}</span>
-                    <strong>{restaurant.title}</strong>
+                    <div className="price">
+                      <span className="value">${restaurant.price}</span>
+                      <span className="hour">/ hour</span>
+                    </div>
+                    <p>{restaurant.title}</p>
                   </div>
                   <div className="box2">
                     <img
                       src={restaurant.image_url_chef}
                       alt={restaurant.name}
                     />
-                    <p>{restaurant.name}</p>
+                    <Link to="/">{restaurant.name}</Link>
                   </div>
                 </li>
               </div>

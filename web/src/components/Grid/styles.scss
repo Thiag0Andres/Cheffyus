@@ -73,6 +73,8 @@
   .slider {
     width: 234px;
     height: 139px;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
     padding-right: 0;
     padding-left: 0;
@@ -87,6 +89,7 @@
       color: $gray_light;
 
       & {
+        width: 212px;
         font-weight: 700;
         border-bottom: 1px solid #e8e8e8;
       }
@@ -96,9 +99,21 @@
       width: 212px;
       height: 10px;
       border-radius: 2px;
+    }
+
+    .button {
+      width: 131.131px;
+      height: 42px;
+      margin-top: 20px;
       box-shadow: none;
-      background: #d73d36;
-      transition: background 450ms;
+      background-color: $red_classic;
+      border-color: $red_classic;
+      color: $white;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: $red_light;
+      }
     }
   }
 
@@ -116,33 +131,77 @@
 
       li {
         width: 225px;
-        height: 200px;
+        height: 198px;
         display: flex;
         flex-direction: column;
         background: #e8e8e8;
         border-radius: 4px;
         overflow: hidden;
 
+        .opacity {
+          width: 225px;
+          height: 150px;
+          border-radius: 4px;
+          background: $black;
+          opacity: 0.4;
+          position: absolute;
+          z-index: 99;
+        }
+
         img {
           max-width: 225px;
+          border-top-right-radius: 4px;
+          border-top-left-radius: 4px;
         }
 
         .box1 {
+          width: 225px;
+          height: 150px;
           display: flex;
           flex-direction: column;
+          justify-content: space-between;
           align-items: flex-end;
-          padding: 15px;
-          margin-top: -160px;
-          gap: 85px;
+          position: absolute;
+          z-index: 99;
 
-          span {
-            font-size: 21px;
-            font-weight: bold;
-            color: $gray_dark;
+          //background-color: black;
+
+          .price {
+            width: 80px;
+            height: 33px;
+            padding: 2px 5px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: baseline;
+            gap: 3px;
+            background-color: #fbfbfb;
+            border-radius: 3px;
+            overflow: hidden;
+
+            .value {
+              font-size: 18px;
+              line-height: 1.5em;
+              font-weight: 600;
+              text-align: center;
+              white-space: nowrap;
+              color: $gray_light;
+            }
+            .hour {
+              font-size: 12px;
+              font-weight: 600;
+              line-height: 1.5em;
+              text-align: center;
+              white-space: nowrap;
+              color: $gray_light;
+            }
           }
+
           p {
-            font-size: 16px;
+            width: 100%;
+            padding: 0 10px;
             color: $white;
+            line-height: 1.2em;
           }
         }
 
@@ -151,17 +210,11 @@
           flex-direction: row;
           align-items: center;
           gap: 10px;
-          padding: 0 5px;
+          padding: 5px;
 
           img {
             border-radius: 4px;
             max-width: 36px;
-          }
-
-          strong {
-            font-size: 16px;
-            line-height: 20px;
-            color: $red_classic;
           }
         }
       }

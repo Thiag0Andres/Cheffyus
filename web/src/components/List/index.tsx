@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import Dropdown from "react-bootstrap/Dropdown";
 import Pagination from "react-bootstrap/Pagination";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 //Icons
 import { BsFillGridFill } from "react-icons/bs";
@@ -72,10 +73,18 @@ const List: React.FC = () => {
       </Row>
       <Row>
         <Col className="slider" xl="3">
-          <Form>
+          <Form className="range">
             <Form.Group controlId="formBasicRangeCustom">
-              <Form.Label>Range</Form.Label>
-              <Form.Control type="range" custom />
+              <Form.Label className="text">Price</Form.Label>
+              <Form.Control
+                className="range-slider"
+                type="range"
+                custom
+                size="lg"
+              />
+              <Button className="button" variant="primary" type="submit">
+                Update view
+              </Button>
             </Form.Group>
           </Form>
         </Col>
@@ -98,7 +107,10 @@ const List: React.FC = () => {
                       <Link to="">{restaurant.name}</Link>
                     </div>
                   </div>
-                  <span>{restaurant.price}</span>
+                  <div className="price">
+                    <span>${restaurant.price}</span>
+                    <p>per hour</p>
+                  </div>
                 </div>
               </li>
             ))}
