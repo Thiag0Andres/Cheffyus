@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
-//Components
+// Components
 import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
 
-const Restaurant: React.FC = () => {
-  //Estado
-  const [text, setText] = useState("");
+interface Props {
+  match: any;
+}
+
+const Restaurant: React.FC<Props> = ({ match }) => {
+  const restaurantName = match.params.restaurant;
+
+  // Estado
+  const [text, setText] = useState(restaurantName);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(location.state);
+  }, [location]);
+
   return (
     <>
       <NavBar />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // Bootstrap
 import Container from "react-bootstrap/Container";
@@ -32,6 +32,8 @@ interface Restaurant {
 const List: React.FC = () => {
   // Estado
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+
+  const history = useHistory();
 
   // Chamada a api
   useEffect(() => {
@@ -92,21 +94,54 @@ const List: React.FC = () => {
           <ul>
             {restaurants.map((restaurant) => (
               <li key={restaurant.id}>
-                <img
-                  src={restaurant.image_url_restaurant}
-                  alt={restaurant.name}
-                />
+                <Link
+                  to={{
+                    pathname: `/restaurant/${restaurant.title}`,
+                    state: {
+                      detail: restaurant,
+                    },
+                  }}
+                >
+                  <img
+                    src={restaurant.image_url_restaurant}
+                    alt={restaurant.name}
+                  />
+                </Link>
                 <div className="info">
                   <div className="box1">
-                    <Link to="/restaurant">
+                    <Link
+                      to={{
+                        pathname: `/restaurant/${restaurant.title}`,
+                        state: {
+                          detail: restaurant,
+                        },
+                      }}
+                    >
                       <strong>{restaurant.title}</strong>
                     </Link>
-                    <Link className="chef-info" to="/profile">
+                    <Link
+                      className="chef-info"
+                      to={{
+                        pathname: `/profile/${restaurant.name}`,
+                        state: {
+                          detail: restaurant,
+                        },
+                      }}
+                    >
                       <img
                         src={restaurant.image_url_chef}
                         alt={restaurant.name}
                       />
-                      <Link to="/profile">{restaurant.name}</Link>
+                      <Link
+                        to={{
+                          pathname: `/profile/${restaurant.name}`,
+                          state: {
+                            detail: restaurant,
+                          },
+                        }}
+                      >
+                        {restaurant.name}
+                      </Link>
                     </Link>
                   </div>
                   <div className="price">

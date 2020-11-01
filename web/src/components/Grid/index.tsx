@@ -98,19 +98,44 @@ const Grid: React.FC = () => {
                     src={restaurant.image_url_restaurant}
                     alt={restaurant.title}
                   />
-                  <Link className="box1" to="/restaurant">
+                  <Link
+                    className="box1"
+                    to={{
+                      pathname: `/restaurant/${restaurant.title}`,
+                      state: {
+                        detail: restaurant,
+                      },
+                    }}
+                  >
                     <div className="price">
                       <span className="value">${restaurant.price}</span>
                       <span className="hour">/ hour</span>
                     </div>
                     <p>{restaurant.title}</p>
                   </Link>
-                  <Link className="box2" to="/profile">
+                  <Link
+                    className="box2"
+                    to={{
+                      pathname: `/profile/${restaurant.name}`,
+                      state: {
+                        detail: restaurant,
+                      },
+                    }}
+                  >
                     <img
                       src={restaurant.image_url_chef}
                       alt={restaurant.name}
                     />
-                    <Link to="/profile">{restaurant.name}</Link>
+                    <Link
+                      to={{
+                        pathname: `/profile/${restaurant.name}`,
+                        state: {
+                          detail: restaurant,
+                        },
+                      }}
+                    >
+                      {restaurant.name}
+                    </Link>
                   </Link>
                 </li>
               </div>
