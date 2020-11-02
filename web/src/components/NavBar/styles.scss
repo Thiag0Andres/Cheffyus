@@ -11,9 +11,18 @@
   }
 
   .search {
-    width: 400px;
+    width: 396px;
     height: 44px;
     border-radius: 50px;
+    box-shadow: none;
+    display: inline-flex;
+    position: relative;
+    line-height: 1em;
+    font-weight: 500;
+    color: #7a7d80;
+    padding-left: 1.715em;
+    top: 0;
+    font-size: 14px;
   }
 
   #text {

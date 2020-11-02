@@ -82,7 +82,7 @@ const Grid: React.FC = () => {
                 custom
                 size="lg"
               />
-              <Button className="button" variant="primary" type="submit">
+              <Button className="button" type="submit">
                 Update view
               </Button>
             </Form.Group>
