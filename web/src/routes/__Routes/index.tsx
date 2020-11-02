@@ -8,6 +8,7 @@ import HomeMap from "../../containers/HomeMap";
 import About from "../../containers/About";
 import ContactUs from "../../containers/ContactUs";
 import LogIn from "../../containers/LogIn";
+import ConfirmLogin from "../../containers/ConfirmLogin";
 import SignUp from "../../containers/SignUp";
 import AddKitchen from "../../containers/AddKitchen";
 import Restaurant from "../../containers/Restaurant";
@@ -24,6 +25,7 @@ export default function Routes() {
       <Route path="/about" component={About} />
       <Route path="/contact-us" component={ContactUs} />
       <Route path="/login" component={LogIn} />
+      <Route path="/confirm-login" component={ConfirmLogin} />
       <Route path="/signup" component={SignUp} />
       <Route path="/add-kitchen" component={AddKitchen} />
       <Route path="/restaurant/:restaurant" component={Restaurant} />

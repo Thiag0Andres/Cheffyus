@@ -13,6 +13,9 @@ import logo from "../../images/logo.jpg";
 import "./styles.scss";
 
 const NavBar: React.FC = () => {
+  // Estado
+  const [show, setShow] = useState(false);
+
   return (
     <>
       <Navbar id="navbar" expand="xl">
@@ -42,7 +45,12 @@ const NavBar: React.FC = () => {
             <Nav.Link id="text" href="/login" style={{ color: "#d73d36" }}>
               log in
             </Nav.Link>
-            <Button className="button" variant="outline-secondary">
+            <Button
+              className="button"
+              type="submit"
+              href="/add-kitchen"
+              onClick={() => setShow(true)}
+            >
               + Add Your Kitchen
             </Button>
           </Nav>

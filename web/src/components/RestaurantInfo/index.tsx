@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Carousel from "react-bootstrap/Carousel";
 
 // Icons
 import { BsFillGridFill } from "react-icons/bs";
@@ -23,8 +24,14 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
     <Container fluid id="page-restaurant-info">
       <Row className="body">
         <Col className="image" xl="9">
-          <div className="opacity"></div>
-          <img src={detail.image_url_restaurant} alt={detail.title} />
+          <Carousel>
+            <Carousel.Item>
+              <img src={detail.image_url_restaurant} alt={detail.title} />
+            </Carousel.Item>
+            <Carousel.Item>
+              <img src={detail.image_url_restaurant} alt={detail.title} />
+            </Carousel.Item>
+          </Carousel>
           <p>{detail.description}</p>
         </Col>
         <Col className="info" xl="3">
@@ -35,9 +42,20 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
             </div>
           </div>
           <div className="box2">
-            <img src={detail.image_url_chef_medium} alt={detail.name} />
+            <Link
+              to={{
+                pathname: `/profile/${detail.name}`,
+                state: {
+                  detail: detail,
+                },
+              }}
+            >
+              <img src={detail.image_url_chef_medium} alt={detail.name} />
+              {detail.name}
+            </Link>
+
             <Button className="button" type="submit" href="/contact-chef">
-              Contact {detail.name}
+              Contact
             </Button>
           </div>
           <div className="box3"></div>

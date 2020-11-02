@@ -8,96 +8,6 @@
     height: 100vh;
     margin-top: 20px;
 
-    .info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      padding-right: 0;
-      padding-left: 0;
-      padding-top: 15px;
-      gap: 15px;
-
-      h2 {
-        width: 642px;
-        padding-bottom: 0.375em;
-        border-bottom: 1px solid #c3c3c3;
-      }
-
-      .box-image {
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-
-        .opacity {
-          width: 225px;
-          height: 150px;
-          border-radius: 5px;
-          background-color: $black;
-          opacity: 0.4;
-          position: absolute;
-          z-index: 99;
-        }
-
-        img {
-          max-width: 225px;
-          border-radius: 5px;
-          padding-bottom: 15px;
-        }
-
-        .box1 {
-          width: 225px;
-          height: 150px;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          align-items: flex-end;
-          position: absolute;
-          z-index: 99;
-
-          .price {
-            width: 80px;
-            height: 33px;
-            padding: 2px 5px;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: baseline;
-            gap: 3px;
-            background-color: #fbfbfb;
-            border-top-right-radius: 4px;
-            border-bottom-left-radius: 4px;
-            overflow: hidden;
-
-            .value {
-              font-size: 18px;
-              line-height: 1.5em;
-              font-weight: 600;
-              text-align: center;
-              white-space: nowrap;
-              color: $gray_light;
-            }
-
-            .hour {
-              font-size: 12px;
-              font-weight: 600;
-              line-height: 1.5em;
-              text-align: center;
-              white-space: nowrap;
-              color: $gray_light;
-            }
-          }
-
-          p {
-            width: 100%;
-            padding: 0 10px;
-            color: $white;
-            line-height: 1.2em;
-          }
-        }
-      }
-    }
-
     .image {
       flex: 1;
       display: flex;
@@ -108,31 +18,108 @@
       padding-left: 0;
 
       img {
-        width: 316px;
-        height: 316px;
+        width: 647px;
+        height: 431px;
         overflow: hidden;
-        border-radius: 4px;
       }
-      .button {
-        text-align: center;
-        margin: 0.75em 0;
-        padding: 0 1.5em;
-        padding-bottom: 0px;
-        padding-bottom: 4px;
-        width: 100%;
-        height: 2.625em;
-        font-size: 1em;
-        line-height: 1.5em;
-        color: #474747;
-        border: 0;
-        border-radius: 0.3125em;
-        box-shadow: none;
-        background-color: $gray_classic;
-        border-color: $gray_classic;
 
-        &:hover {
-          background-color: #dbdbdb;
-          border-color: #dbdbdb;
+      p {
+        width: 647px;
+        display: flex;
+        justify-content: flex-start;
+      }
+    }
+
+    .info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding-right: 0;
+      padding-left: 0;
+      padding-top: 15px;
+      gap: 15px;
+
+      .box1 {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-bottom: 0.375em;
+        border-bottom: 1px solid #c3c3c3;
+
+        .price {
+          width: 80px;
+          height: 33px;
+          padding: 2px 5px;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: baseline;
+          gap: 3px;
+          background-color: #fbfbfb;
+          border-top-right-radius: 4px;
+          border-bottom-left-radius: 4px;
+          overflow: hidden;
+
+          .value {
+            font-size: 18px;
+            line-height: 1.5em;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            color: $gray_light;
+          }
+
+          .hour {
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.5em;
+            text-align: center;
+            white-space: nowrap;
+            color: $gray_light;
+          }
+        }
+      }
+      .box2 {
+        display: flex;
+        flex-direction: row;
+        padding-bottom: 0.375em;
+        border-bottom: 1px solid #c3c3c3;
+
+        a {
+          display: flex;
+          flex-direction: row;
+          font-size: 1.375em;
+          font-weight: 600;
+          line-height: 3em;
+
+          img {
+            max-width: 108px;
+            max-height: 108px;
+            border-radius: 5px;
+          }
+        }
+
+        .button {
+          text-align: center;
+          margin: 0.75em 0;
+          padding-bottom: 0px;
+          padding-bottom: 4px;
+          width: 100%;
+          height: 2.625em;
+          font-size: 1em;
+          line-height: 1.5em;
+          color: #474747;
+          border: 0;
+          border-radius: 0.3125em;
+          box-shadow: none;
+          background-color: $gray_classic;
+          border-color: $gray_classic;
+
+          &:hover {
+            background-color: #dbdbdb;
+            border-color: #dbdbdb;
+          }
         }
       }
     }

@@ -3,13 +3,33 @@
 #contentLogin {
   padding-right: 0;
   padding-left: 0;
-  padding: 30px;
+  padding: 30px 150px;
+  display: flex;
+  flex-direction: column;
+
+  .alert {
+    width: 984px;
+    height: 44px;
+    gap: 10px;
+    padding: 0.5em 1.25em 0.75em 1.25em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 0.3125em;
+    font-size: 1em;
+    line-height: 1.5em;
+    color: #3c3c3c;
+    cursor: default;
+    box-shadow: none;
+    border-color: $gray_classic;
+    background-color: $gray_classic;
+  }
 
   .body {
     display: flex;
     justify-content: center;
 
-    .form {
+    .form1 {
       width: 360px;
       height: 406px;
 
@@ -67,6 +87,41 @@
 
         &:hover {
           background-color: $red_light;
+        }
+      }
+
+      .button3 {
+        width: 115px;
+        height: 21px;
+        padding: 0;
+        text-align: left;
+        box-shadow: none;
+        background-color: $white;
+        border-color: $white;
+        color: $red_classic;
+
+        &:hover {
+          color: $red_dark;
+          text-decoration: none;
+        }
+      }
+
+      .form2 {
+        padding: 50px 0;
+
+        .button4 {
+          width: 202px;
+          height: 42px;
+          box-shadow: none;
+          margin-bottom: 10px;
+          background-color: $red_classic;
+          border-color: $red_classic;
+          color: $white;
+          transition: background-color 0.2s;
+
+          &:hover {
+            background-color: $red_light;
+          }
         }
       }
     }

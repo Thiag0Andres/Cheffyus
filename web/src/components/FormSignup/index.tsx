@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
-//Bootstrap
+// Bootstrap
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-//Icons
+// Icons
 import { IoLogoFacebook } from "react-icons/io";
 
 import "./styles.scss";
 
 const FormSignup: React.FC = () => {
+  // Estado
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <>
       <Row id="contentSignup">
@@ -47,6 +50,7 @@ const FormSignup: React.FC = () => {
                 className="text2"
                 type="checkbox"
                 label="I accept the Terms of Use and Privacy policy"
+                onClick={() => setShowModal(true)}
               />
               <Form.Check
                 className="text2"
