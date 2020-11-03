@@ -18,14 +18,18 @@ const FormConfirmLogin: React.FC = () => {
   // Estado
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(true);
-
+  //Your account was created successfully. Now you need to confirm your email address. --> Quando o usário fez o cadastro
+  //Is already connected. --> Quando já se encrota conectado
+  //Check your inbox --> Quando o usuário manda refazer o email
+  //Welcome, "nome"! --> Quando fez o login e não confirmou ainda
   return (
     <>
       <Row id="content-confirm-login">
         {alert && (
           <Alert className="alert" variant="secondary">
             <FaInfoCircle size={18} />
-            Is already connected.
+            Your account was created successfully. Now you need to confirm your
+            email address.
           </Alert>
         )}
         <Col className="body">
@@ -35,15 +39,31 @@ const FormConfirmLogin: React.FC = () => {
               address. Don't forget to check your spam folder! After confirming
               your address, you can join Cheffy.
             </p>
-
-            {/*           <Form.Group controlId="formBasicForgotEmail">
-              <Form.Label className="text">Email</Form.Label>
-              <Form.Control className="input" type="email" />
-            </Form.Group> */}
-            <Button className="button4" type="submit">
-              Request new password
+            <Button className="button1" type="submit">
+              Resend confirmation instructions
             </Button>
-            <p>Your email is robson@hotmail.com. Change</p>
+            <p className="change-email">
+              Your email is "email".
+              <Button className="button2" onClick={() => setShow(true)}>
+                Change
+              </Button>
+            </p>
+
+            {show && (
+              <Form className="form2">
+                <Form.Group controlId="formBasicForgotEmail">
+                  <Form.Label className="text">New email address: </Form.Label>
+                  <Form.Control
+                    className="input"
+                    type="email"
+                    placeholder="email"
+                  />
+                </Form.Group>
+                <Button className="button3" type="submit">
+                  Change
+                </Button>
+              </Form>
+            )}
           </Form>
         </Col>
       </Row>

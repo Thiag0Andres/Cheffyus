@@ -11,6 +11,7 @@
     width: 984px;
     height: 44px;
     gap: 10px;
+    margin-bottom: 20px;
     padding: 0.5em 1.25em 0.75em 1.25em;
     display: flex;
     flex-direction: row;
@@ -28,36 +29,16 @@
   .body {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
 
     .form1 {
       width: 456px;
-      height: 258px;
+      height: 453px;
       display: flex;
       flex-direction: column;
-      gap: 50px;
+      gap: 30px;
 
-      .text {
-        width: 100%;
-        display: block;
-        margin-top: 12px;
-        margin-bottom: 3px;
-        font-size: 16px;
-        font-weight: 600;
-        line-height: 24px;
-        color: $gray_light;
-      }
-
-      .input {
-        border-radius: 5px;
-        border: 2px solid #c3c3c3;
-        box-shadow: none;
-        min-height: 42px;
-        width: 100%;
-      }
-
-      .button4 {
-        width: 202px;
+      .button1 {
+        width: 270px;
         height: 42px;
         box-shadow: none;
         margin-bottom: 10px;
@@ -68,6 +49,60 @@
 
         &:hover {
           background-color: $red_light;
+        }
+      }
+
+      .change-email {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        //background-color: black;
+
+        .button2 {
+          width: 115px;
+          height: 21px;
+          padding: 0 5px;
+          display: flex;
+          align-items: center;
+          text-align: left;
+          box-shadow: none;
+          background-color: $white;
+          border-color: $white;
+          color: $red_classic;
+
+          &:hover {
+            color: $red_dark;
+            text-decoration: none;
+          }
+        }
+      }
+
+      .form2 {
+        margin-top: -40px;
+        .text {
+          width: 100%;
+          display: block;
+          margin-top: 12px;
+          margin-bottom: 3px;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          color: $gray_light;
+        }
+
+        .button3 {
+          width: 98px;
+          height: 42px;
+          box-shadow: none;
+          margin-bottom: 10px;
+          background-color: $red_classic;
+          border-color: $red_classic;
+          color: $white;
+          transition: background-color 0.2s;
+
+          &:hover {
+            background-color: $red_light;
+          }
         }
       }
     }

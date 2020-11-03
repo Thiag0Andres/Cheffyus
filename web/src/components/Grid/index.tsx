@@ -41,6 +41,9 @@ const Grid: React.FC = () => {
     });
   }, []);
 
+  //Welcome, "nome"! --> Quando fez o login e confirmou o cadastro
+  //You are already a member of Cheffy. Welcome back! ->depois de confirmar o cadastro e da um F5
+
   return (
     <Container fluid id="page-home-grid">
       <Row className="header">
