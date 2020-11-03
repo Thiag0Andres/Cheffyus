@@ -31,7 +31,7 @@ export const checkAuth = (validationCase: string, value: string | any) => {
 
     case "auth":
       if (
-        value.email !== "thiagoapalacios@hotmail.com" ||
+        value.email !== "thiagoapalacios@gmail.com" ||
         value.password !== "123456"
       ) {
         // toast.error(value);

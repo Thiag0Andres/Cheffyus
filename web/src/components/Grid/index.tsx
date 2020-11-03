@@ -9,11 +9,13 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Pagination from "react-bootstrap/Pagination";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 
 // Icons
 import { BsFillGridFill } from "react-icons/bs";
 import { GoListUnordered } from "react-icons/go";
 import { FaMapMarkedAlt } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
 
 import api from "../../services/api";
 
@@ -42,11 +44,19 @@ const Grid: React.FC = () => {
   }, []);
 
   //Welcome, "nome"! --> Quando fez o login e confirmou o cadastro
-  //You are already a member of Cheffy. Welcome back! ->depois de confirmar o cadastro e da um F5
+  //You are already a member of Cheffy. Welcome back! -> Depois de confirmar o cadastro e da um F5
 
   return (
     <Container fluid id="page-home-grid">
-      <Row className="header">
+      <Row className="content-grid">
+        {alert && (
+          <Alert className="alert" variant="secondary">
+            <FaCheck size={18} />
+            <div>
+              Welcome, <Link to="/signup">"nome"</Link>!
+            </div>
+          </Alert>
+        )}
         <Dropdown className="dropdown">
           <Dropdown.Toggle id="dropdown-basic">
             All listing types

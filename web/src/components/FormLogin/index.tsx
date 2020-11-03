@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 //Bootstrap
 import Row from "react-bootstrap/Row";
@@ -8,6 +8,11 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Button";
 
+//Redux e Auth
+import { checkAuth } from "../../services/validation";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../store/ducks/user/actions";
+
 //Icons
 import { IoLogoFacebook } from "react-icons/io";
 import { FaInfoCircle } from "react-icons/fa";
@@ -15,9 +20,55 @@ import { FaInfoCircle } from "react-icons/fa";
 import "./styles.scss";
 
 const FormLogin: React.FC = () => {
-  // Estado
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  // States
   const [show, setShow] = useState(false);
-  const [alert, setAlert] = useState(true);
+  const [alert, setAlert] = useState(false);
+  const [error, setError] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  //const scrollToNextPage = () => window.scrollTo(0, 1000);
+
+  const signIn = () => {
+    // Cria um usuário padrão
+    const user = {
+      id: "1",
+      email: email.trim(),
+      name: "tp",
+      token: "tokem_valido",
+    };
+    //Validação do email
+    const isEmailValid = checkAuth("email", email.trim());
+
+    //Verificando autenticação
+    const isValidated = checkAuth("auth", {
+      email: email.trim(),
+      password,
+    });
+
+    if (email === "" && password === "") {
+      setError(true);
+      console.log(error);
+    } else if (email === "" || password === "") {
+      setError(true);
+      console.log(error);
+    } else if (!isEmailValid) {
+      setError(true);
+      console.log(error);
+    } else if (isValidated) {
+      dispatch(updateUser({ user }));
+      history.push("/");
+      console.log("Deu certo");
+      //enqueueSnackbar("Usuário logado com sucesso!", { variant: "success" });
+    } else {
+      setEmail("");
+      setPassword("");
+      //enqueueSnackbar("Falha ao autenticar.", { variant: "error" });
+    }
+  };
 
   return (
     <>
@@ -28,7 +79,7 @@ const FormLogin: React.FC = () => {
             <div>
               You must log in to Cheffy to create a new listing. If you don't
               have an account you can
-              <Link to="/signup"> create one here</Link>
+              <Link to="/signup"> create one here</Link>.
             </div>
           </Alert>
         )}
@@ -41,13 +92,27 @@ const FormLogin: React.FC = () => {
             <p>...or with your email:</p>
             <Form.Group controlId="formBasicEmail">
               <Form.Label className="text">Email:</Form.Label>
-              <Form.Control className="input" type="email" />
+              <Form.Control
+                className="input"
+                type="email"
+                value={email}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setEmail(event.target.value)
+                }
+              />
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
               <Form.Label className="text">Password:</Form.Label>
-              <Form.Control className="input" type="password" />
+              <Form.Control
+                className="input"
+                type="password"
+                value={password}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setPassword(event.target.value)
+                }
+              />
             </Form.Group>
-            <Button className="button2" type="submit" href="/confirm-login">
+            <Button className="button2" onClick={signIn}>
               Log in
             </Button>
             <div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 //Bootstrap
 import Row from "react-bootstrap/Row";
@@ -22,34 +22,78 @@ import Terms from "../../components/Terms";
 import "./styles.scss";
 
 const Informations: React.FC = () => {
+  // States
+  const [show, setShow] = useState(true);
+  const [show2, setShow2] = useState(false);
+  const [show3, setShow3] = useState(false);
+  const [show4, setShow4] = useState(false);
+
   return (
     <>
       <Tab.Container defaultActiveKey="#about">
         <Row className="content">
           <Col className="column1" xl={3}>
             <ListGroup>
-              <ListGroup.Item id="list" action href="#about">
+              <ListGroup.Item
+                id="list"
+                action
+                href="#about"
+                onClick={() => {
+                  setShow(true);
+                  setShow2(false);
+                  setShow3(false);
+                  setShow4(false);
+                }}
+              >
                 <FaInfoCircle />
-                <div id="space-between">
-                  About <BsArrowRight />
-                </div>
+                <div id="space-between">About {show && <BsArrowRight />}</div>
               </ListGroup.Item>
-              <ListGroup.Item id="list" action href="#how_to_use">
+              <ListGroup.Item
+                id="list"
+                action
+                href="#how_to_use"
+                onClick={() => {
+                  setShow(false);
+                  setShow2(true);
+                  setShow3(false);
+                  setShow4(false);
+                }}
+              >
                 <FaMapSigns />
                 <div id="space-between">
-                  How it works <BsArrowRight />
+                  How it works {show2 && <BsArrowRight />}
                 </div>
               </ListGroup.Item>
-              <ListGroup.Item id="list" action href="#privacy">
+              <ListGroup.Item
+                id="list"
+                action
+                href="#privacy"
+                onClick={() => {
+                  setShow(false);
+                  setShow2(false);
+                  setShow3(true);
+                  setShow4(false);
+                }}
+              >
                 <RiFileLockLine />
                 <div id="space-between">
-                  Privacy policy <BsArrowRight />
+                  Privacy policy {show3 && <BsArrowRight />}
                 </div>
               </ListGroup.Item>
-              <ListGroup.Item id="list" action href="#terms">
+              <ListGroup.Item
+                id="list"
+                action
+                href="#terms"
+                onClick={() => {
+                  setShow(false);
+                  setShow2(false);
+                  setShow3(false);
+                  setShow4(true);
+                }}
+              >
                 <CgFileDocument style={{ transform: "rotateX(180deg)" }} />
                 <div id="space-between">
-                  Terms of use <BsArrowRight />
+                  Terms of use {show4 && <BsArrowRight />}
                 </div>
               </ListGroup.Item>
             </ListGroup>

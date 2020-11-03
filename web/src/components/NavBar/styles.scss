@@ -3,46 +3,76 @@
 #navbar {
   padding: 0 30px;
   height: 80px;
+  display: flex;
+  justify-content: space-between;
   background-color: $white;
+  //font-family: "Proxima Soft", Helvetica, sans;
 
-  .logo {
-    width: 168px;
-    height: 44px;
+  .content1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .logo {
+      width: 168px;
+      height: 44px;
+    }
+    .search {
+      width: 396px;
+      height: 44px;
+      border-radius: 50px;
+      box-shadow: none;
+      display: inline-flex;
+      position: relative;
+      line-height: 1em;
+      font-weight: 500;
+      color: #7a7d80;
+      padding-left: 1.715em;
+      top: 0;
+      font-size: 14px;
+    }
+
+    .text1 {
+      font-size: 14px;
+    }
   }
 
-  .search {
-    width: 396px;
-    height: 44px;
-    border-radius: 50px;
-    box-shadow: none;
-    display: inline-flex;
-    position: relative;
-    line-height: 1em;
-    font-weight: 500;
-    color: #7a7d80;
-    padding-left: 1.715em;
-    top: 0;
-    font-size: 14px;
-  }
+  .content2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
-  #text {
-    font-size: 14px;
-  }
+    .text2 {
+      font-size: 14px;
+      color: $red_classic;
 
-  .button {
-    width: 180px;
-    height: 44px;
-    font-weight: 600;
-    border-radius: 50px;
-    margin-left: 20px;
-    box-shadow: none;
-    background-color: $red_classic;
-    border-color: $red_classic;
-    color: $white;
-    transition: background-color 0.2s;
+      &:hover {
+        color: $red_dark;
+        text-decoration: none;
+      }
+    }
 
-    &:hover {
-      background-color: $red_dark;
+    .button {
+      width: 167px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 43px;
+      letter-spacing: 0.35px;
+      border-radius: 50px;
+      box-shadow: none;
+      background-color: $red_classic;
+      border-color: $red_classic;
+      color: $white;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: $red_dark;
+      }
     }
   }
 }

@@ -14,7 +14,7 @@ export const isAuthenticated = () => {
     localStorage.getItem(REACT_APP_LOCAL_STORAGE_USER) as string
   );
 
-  if (userAuth.user && userAuth.user.email === "thiagoapalacios@hotmail.com") {
+  if (userAuth.user && userAuth.user.email === "thiagoapalacios@gmail.com") {
     return true;
   }
   return false;
