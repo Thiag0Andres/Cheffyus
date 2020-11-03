@@ -63,7 +63,19 @@ const NavBar: React.FC = () => {
         </Nav>
         <Nav className="content2">
           {isLogged ? (
-            <h1 onClick={logout}>{user.name}</h1>
+            <>
+              <div className="profile" onClick={logout}>
+                {user.name}
+              </div>
+              <Button
+                className="button"
+                type="submit"
+                href="/add-kitchen"
+                onClick={() => setShow(true)}
+              >
+                + Add Your Kitchen
+              </Button>
+            </>
           ) : (
             <>
               <Nav.Link className="text2" href="/signup">

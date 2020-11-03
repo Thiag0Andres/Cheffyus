@@ -12,9 +12,11 @@ import ConfirmLogin from "../../containers/ConfirmLogin";
 import SignUp from "../../containers/SignUp";
 import AddKitchen from "../../containers/AddKitchen";
 import Restaurant from "../../containers/Restaurant";
-import Profile from "../../containers/Profile";
+import ProfileChef from "../../containers/ProfileChef";
+import ProfileUser from "../../containers/ProfileUser";
 import ContactChef from "../../containers/ContactChef";
 import Request from "../../containers/Request";
+import Settings from "../../containers/Settings";
 
 export default function Routes() {
   return (
@@ -29,9 +31,10 @@ export default function Routes() {
       <Route path="/signup" component={SignUp} />
       <Route path="/add-kitchen" component={AddKitchen} />
       <Route path="/restaurant/:restaurant" component={Restaurant} />
-      <Route path="/profile/:profile" component={Profile} />
+      <Route path="/profile/:profile" component={ProfileChef} />
       <Route path="/contact-chef" component={ContactChef} />
       <Route path="/request" component={Request} />
+      <Route path="/settings" component={Settings} />
       <Redirect from="*" to="/" />
     </Switch>
   );

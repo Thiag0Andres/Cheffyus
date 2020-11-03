@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 //Components
@@ -11,7 +11,7 @@ interface Props {
   detail: any;
 }
 
-const Profile: React.FC<Props> = ({ match }) => {
+const ProfileUser: React.FC<Props> = ({ match }) => {
   const chefName = match.params.profile;
 
   //Estado
@@ -31,4 +31,4 @@ const Profile: React.FC<Props> = ({ match }) => {
   );
 };
 
-export default Profile;
+export default ProfileUser;
