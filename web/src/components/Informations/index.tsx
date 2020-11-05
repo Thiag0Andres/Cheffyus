@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 
-//Bootstrap
+// Bootstrap
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Tab from "react-bootstrap/Tab";
 import ListGroup from "react-bootstrap/ListGroup";
 
-//Icons
+// Icons
 import { FaInfoCircle } from "react-icons/fa";
 import { FaMapSigns } from "react-icons/fa";
 import { RiFileLockLine } from "react-icons/ri";
 import { CgFileDocument } from "react-icons/cg";
 import { BsArrowRight } from "react-icons/bs";
 
-//Components
+// Components
 import About from "../../components/About";
 import HowToUse from "../../components/HowToUse";
 import Privacy from "../../components/Privacy";

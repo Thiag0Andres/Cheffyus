@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-//images
+// Images
 import background2 from "../../images/background2.jpg";
 
 import "./styles.scss";

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-//Components
+// Components
 import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
 
 const Inbox: React.FC = () => {
-  //Estado
+  // States
   const [text, setText] = useState("Inbox");
   return (
     <>

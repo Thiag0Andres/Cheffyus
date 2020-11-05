@@ -12,7 +12,7 @@ import { IoLogoFacebook } from "react-icons/io";
 import "./styles.scss";
 
 const FormSignup: React.FC = () => {
-  // Estado
+  // State
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -20,7 +20,7 @@ const FormSignup: React.FC = () => {
       <Row id="contentSignup">
         <Col className="body">
           <Form className="form">
-            <Button className="button1" variant="primary" size="lg" block>
+            <Button className="button1" size="lg" block>
               <IoLogoFacebook size={25} />
               Sign up with Facebook
             </Button>
@@ -58,7 +58,7 @@ const FormSignup: React.FC = () => {
                 label="I agree to receive occasional emails from the Cheffy team and understand that I can change my mind at any time"
               />
             </Form.Group>
-            <Button className="button2" variant="primary" type="submit">
+            <Button className="button2" type="submit">
               Create account
             </Button>
           </Form>

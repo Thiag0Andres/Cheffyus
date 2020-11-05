@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-//Bootstrap
+// Bootstrap
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -26,7 +26,9 @@ const FormTextArea: React.FC = () => {
               </Form.Label>
               <Form.Control className="textarea" as="textarea" rows={3} />
             </Form.Group>
-            <Button className="button">Log message</Button>
+            <Button className="button" type="submit">
+              Log message
+            </Button>
           </Form>
         </Col>
       </Row>

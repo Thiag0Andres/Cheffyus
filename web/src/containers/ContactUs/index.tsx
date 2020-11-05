@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-//Components
+// Components
 import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
 import FormTextArea from "../../components/FormTextArea";
 
 const ContactUs: React.FC = () => {
-  //Estado
+  // States
   const [text, setText] = useState("Contact the Cheffy team");
   return (
     <>

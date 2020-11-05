@@ -131,7 +131,7 @@ const NavBar: React.FC = () => {
                 )}
               </div>
 
-              <Button className="button2" href="/add-kitchen">
+              <Button className="button2" type="submit" href="/add-kitchen">
                 + Add Your Kitchen
               </Button>
             </>
@@ -143,11 +143,7 @@ const NavBar: React.FC = () => {
               <Nav.Link className="text2" href="/login">
                 Log in
               </Nav.Link>
-              <Button
-                className="button2"
-                href="/add-kitchen"
-                onClick={() => setShow(true)}
-              >
+              <Button className="button2" type="submit" href="/add-kitchen">
                 + Add Your Kitchen
               </Button>
             </>

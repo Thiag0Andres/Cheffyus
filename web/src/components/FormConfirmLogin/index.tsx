@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-//Bootstrap
+// Bootstrap
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Button";
 
-//Icons
-import { IoLogoFacebook } from "react-icons/io";
+// Icons
 import { FaInfoCircle } from "react-icons/fa";
 
 import "./styles.scss";
 
 const FormConfirmLogin: React.FC = () => {
-  // Estado
+  // States
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(true);
   //Your account was created successfully. Now you need to confirm your email address. --> Quando o usário fez o cadastro

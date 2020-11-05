@@ -1,6 +1,6 @@
 import React from "react";
 
-//images
+// Images
 import background from "../../images/background.jpg";
 
 import "./styles.scss";

@@ -14,7 +14,7 @@ interface Props {
 const Restaurant: React.FC<Props> = ({ match }) => {
   const restaurantName = match.params.restaurant;
 
-  // Estado
+  // States
   const [text, setText] = useState(restaurantName);
 
   const location = useLocation();

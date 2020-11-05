@@ -30,7 +30,7 @@ interface Restaurant {
 }
 
 const List: React.FC = () => {
-  // Estado
+  // States
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
   const history = useHistory();
@@ -59,15 +59,15 @@ const List: React.FC = () => {
           </Dropdown.Menu>
         </Dropdown>
         <Pagination>
-          <Pagination.Item id="pagination1" href="/" disabled={false}>
+          <Pagination.Item className="pagination1" href="/" disabled={false}>
             <BsFillGridFill />
             Grid
           </Pagination.Item>
-          <Pagination.Item id="pagination2" href="/list" active={true}>
+          <Pagination.Item className="pagination2" href="/list" active={true}>
             <GoListUnordered />
             List
           </Pagination.Item>
-          <Pagination.Item id="pagination3" href="/map" disabled={false}>
+          <Pagination.Item className="pagination3" href="/map" disabled={false}>
             <FaMapMarkedAlt />
             Map
           </Pagination.Item>

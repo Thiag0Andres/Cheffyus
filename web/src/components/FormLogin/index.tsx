@@ -73,7 +73,7 @@ const FormLogin: React.FC = () => {
 
   return (
     <>
-      <Row id="contentLogin">
+      <Row id="content-login">
         {alert && (
           <Alert className="alert" variant="secondary">
             <FaInfoCircle size={18} />
@@ -113,7 +113,7 @@ const FormLogin: React.FC = () => {
                 }
               />
             </Form.Group>
-            <Button className="button2" onClick={signIn}>
+            <Button className="button2" type="submit" onClick={signIn}>
               Log in
             </Button>
             <div>
