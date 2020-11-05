@@ -17,6 +17,7 @@ import ProfileUser from "../../containers/ProfileUser";
 import ContactChef from "../../containers/ContactChef";
 import Request from "../../containers/Request";
 import Settings from "../../containers/Settings";
+import Inbox from "../../containers/Inbox";
 
 export default function Routes() {
   return (
@@ -31,10 +32,12 @@ export default function Routes() {
       <Route path="/signup" component={SignUp} />
       <Route path="/add-kitchen" component={AddKitchen} />
       <Route path="/restaurant/:restaurant" component={Restaurant} />
-      <Route path="/profile/:profile" component={ProfileChef} />
+      <Route path="/profile-chef/:profileChef" component={ProfileChef} />
+      <Route path="/profile-user/:profileUser" component={ProfileUser} />
       <Route path="/contact-chef" component={ContactChef} />
       <Route path="/request" component={Request} />
       <Route path="/settings" component={Settings} />
+      <Route path="/inbox" component={Inbox} />
       <Redirect from="*" to="/" />
     </Switch>
   );

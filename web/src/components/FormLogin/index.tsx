@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
-//Bootstrap
+// Bootstrap
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Button";
 
-//Redux e Auth
+// Redux e Auth
 import { checkAuth } from "../../services/validation";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../store/ducks/user/actions";
 
-//Icons
+// Icons
 import { IoLogoFacebook } from "react-icons/io";
 import { FaInfoCircle } from "react-icons/fa";
 
@@ -37,13 +37,14 @@ const FormLogin: React.FC = () => {
     const user = {
       id: "1",
       email: email.trim(),
-      name: "tp",
+      name: "thiago p",
+      nickName: "tp",
       token: "tokem_valido",
     };
-    //Validação do email
+    // Validação do email
     const isEmailValid = checkAuth("email", email.trim());
 
-    //Verificando autenticação
+    // Verificando autenticação
     const isValidated = checkAuth("auth", {
       email: email.trim(),
       password,

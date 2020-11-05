@@ -7,6 +7,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
+// Icons
+import { BsChatFill } from "react-icons/bs";
+
+// Images
+import user from "../../images/user.png";
+
 import "./styles.scss";
 
 interface Props {
@@ -15,39 +21,28 @@ interface Props {
 
 const UserProfile: React.FC<Props> = ({ detail }) => {
   return (
-    <Container fluid id="page-chef-profile">
+    <Container fluid id="page-user-profile">
       <Row className="body">
         <Col className="info" xl="8">
-          <h2>1 open listing</h2>
-
-          <div className="box-image">
-            <div className="opacity"></div>
-            <img src={detail.image_url_restaurant} alt={detail.title} />
-            <Link
-              className="box1"
-              to={{
-                pathname: `/restaurant/${detail.title}`,
-                state: {
-                  detail: detail,
-                },
-              }}
-            >
-              <div className="price">
-                <span className="value">${detail.price}</span>
-                <span className="hour">/ hour</span>
-              </div>
-              <p>{detail.title}</p>
+          <Link to="/settings">
+            <BsChatFill />
+            Share something about yourself
+          </Link>
+          <h2>
+            No open listings
+            <Link className="text-link" to="/settings">
+              Manage all my listings
             </Link>
-          </div>
+          </h2>
 
           <h2>No followed people</h2>
 
           <h2>No reviews</h2>
         </Col>
         <Col className="image" xl="4">
-          <img src={detail.image_url_chef_medium} alt={detail.name} />
-          <Button className="button" type="submit" href="/contact-chef">
-            Contact {detail.name}
+          <img src={user} alt={detail.name} />
+          <Button className="button" href="/settings">
+            Edit profile
           </Button>
         </Col>
       </Row>

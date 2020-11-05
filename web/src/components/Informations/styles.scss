@@ -1,7 +1,7 @@
 @import "../../mixin.scss";
 
-.content {
-  padding: 30px 170px;
+#content-information {
+  padding: 30px 150px;
 
   .column1 {
     width: 228px;
@@ -27,35 +27,35 @@
         background-color: $gray_classic !important;
         border-color: transparent !important;
       }
+
+      .list {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        color: $red_classic;
+
+        &:hover {
+          color: $red_dark;
+        }
+
+        &:active {
+          color: $red_dark;
+          background-color: transparent;
+        }
+
+        .space-between {
+          flex: 1;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
     }
   }
 
   .column2 {
     padding: 5px 20px;
-  }
-}
-
-#list {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-  color: $red_classic;
-
-  &:hover {
-    color: $red_dark;
-  }
-
-  &:active {
-    color: $red_dark;
-    background-color: transparent;
-  }
-
-  #space-between {
-    flex: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
   }
 }

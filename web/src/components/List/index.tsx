@@ -122,7 +122,7 @@ const List: React.FC = () => {
                     <Link
                       className="chef-info"
                       to={{
-                        pathname: `/profile/${restaurant.name}`,
+                        pathname: `/profile-chef/${restaurant.name}`,
                         state: {
                           detail: restaurant,
                         },
@@ -134,7 +134,7 @@ const List: React.FC = () => {
                       />
                       <Link
                         to={{
-                          pathname: `/profile/${restaurant.name}`,
+                          pathname: `/profile-chef/${restaurant.name}`,
                           state: {
                             detail: restaurant,
                           },

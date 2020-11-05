@@ -8,11 +8,6 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Carousel from "react-bootstrap/Carousel";
 
-// Icons
-import { BsFillGridFill } from "react-icons/bs";
-import { GoListUnordered } from "react-icons/go";
-import { FaMapMarkedAlt } from "react-icons/fa";
-
 import "./styles.scss";
 
 interface Props {
@@ -44,7 +39,7 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
           <div className="box2">
             <Link
               to={{
-                pathname: `/profile/${detail.name}`,
+                pathname: `/profile-chef/${detail.name}`,
                 state: {
                   detail: detail,
                 },

@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 //Components
 import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
-import ChefProfile from "../../components/ChefProfile";
+import UserProfile from "../../components/UserProfile";
 
 interface Props {
   match: any;
@@ -12,10 +12,10 @@ interface Props {
 }
 
 const ProfileUser: React.FC<Props> = ({ match }) => {
-  const chefName = match.params.profile;
+  const userName = match.params.profileUser;
 
   //Estado
-  const [text, setText] = useState(chefName);
+  const [text, setText] = useState(userName);
 
   const location = useLocation();
 
@@ -26,7 +26,7 @@ const ProfileUser: React.FC<Props> = ({ match }) => {
     <>
       <NavBar />
       <Background2 text={text} />
-      <ChefProfile detail={detail} />
+      <UserProfile detail={detail} />
     </>
   );
 };

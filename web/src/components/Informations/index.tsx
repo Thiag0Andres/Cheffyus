@@ -31,11 +31,11 @@ const Informations: React.FC = () => {
   return (
     <>
       <Tab.Container defaultActiveKey="#about">
-        <Row className="content">
+        <Row id="content-information">
           <Col className="column1" xl={3}>
             <ListGroup>
               <ListGroup.Item
-                id="list"
+                className="list"
                 action
                 href="#about"
                 onClick={() => {
@@ -46,10 +46,12 @@ const Informations: React.FC = () => {
                 }}
               >
                 <FaInfoCircle />
-                <div id="space-between">About {show && <BsArrowRight />}</div>
+                <div className="space-between">
+                  About {show && <BsArrowRight />}
+                </div>
               </ListGroup.Item>
               <ListGroup.Item
-                id="list"
+                className="list"
                 action
                 href="#how_to_use"
                 onClick={() => {
@@ -60,12 +62,12 @@ const Informations: React.FC = () => {
                 }}
               >
                 <FaMapSigns />
-                <div id="space-between">
+                <div className="space-between">
                   How it works {show2 && <BsArrowRight />}
                 </div>
               </ListGroup.Item>
               <ListGroup.Item
-                id="list"
+                className="list"
                 action
                 href="#privacy"
                 onClick={() => {
@@ -76,12 +78,12 @@ const Informations: React.FC = () => {
                 }}
               >
                 <RiFileLockLine />
-                <div id="space-between">
+                <div className="space-between">
                   Privacy policy {show3 && <BsArrowRight />}
                 </div>
               </ListGroup.Item>
               <ListGroup.Item
-                id="list"
+                className="list"
                 action
                 href="#terms"
                 onClick={() => {
@@ -92,7 +94,7 @@ const Informations: React.FC = () => {
                 }}
               >
                 <CgFileDocument style={{ transform: "rotateX(180deg)" }} />
-                <div id="space-between">
+                <div className="space-between">
                   Terms of use {show4 && <BsArrowRight />}
                 </div>
               </ListGroup.Item>

@@ -11,6 +11,13 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 
+// Redux e Auth
+import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
+import { isAuthenticated } from "../../services/auth";
+
+// Types
+import { User } from "../../store/ducks/user/types";
+
 // Icons
 import { BsFillGridFill } from "react-icons/bs";
 import { GoListUnordered } from "react-icons/go";
@@ -32,8 +39,11 @@ interface Restaurant {
 }
 
 const Grid: React.FC = () => {
-  // Estado
+  const user: User = useSelector((state: RootStateOrAny) => state.user.user);
+
+  // States
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [isLogged, setIsLogged] = useState(false);
 
   // Chamada a api
   useEffect(() => {
@@ -43,20 +53,48 @@ const Grid: React.FC = () => {
     });
   }, []);
 
+  // Atualiza o estado de autenticação na mudança de usuário
+  useEffect(() => {
+    const response = isAuthenticated();
+    setIsLogged(response);
+  }, [user]);
+
   //Welcome, "nome"! --> Quando fez o login e confirmou o cadastro
   //You are already a member of Cheffy. Welcome back! -> Depois de confirmar o cadastro e da um F5
+  //You have now been logged out of Cheffy. See you soon! --> Após fazer logout
 
   return (
     <Container fluid id="page-home-grid">
       <Row className="content-grid">
-        {alert && (
-          <Alert className="alert" variant="secondary">
+        {isLogged && (
+          <Alert
+            className="alert"
+            variant="secondary"
+            //onMouseOut={() => setIsLogged(false)}
+          >
             <FaCheck size={18} />
             <div>
-              Welcome, <Link to="/signup">"nome"</Link>!
+              Welcome,{" "}
+              <Link
+                to={{
+                  pathname: `/profile-user/${user.name}`,
+                  state: {
+                    detail: user,
+                  },
+                }}
+              >
+                {user.name}
+              </Link>
+              !
             </div>
           </Alert>
         )}
+        {/*         {!isLogged && (
+          <Alert className="alert" variant="secondary">
+            <FaCheck size={18} />
+            You have now been logged out of Cheffy. See you soon!
+          </Alert>
+        )} */}
         <Dropdown className="dropdown">
           <Dropdown.Toggle id="dropdown-basic">
             All listing types
@@ -129,7 +167,7 @@ const Grid: React.FC = () => {
                   <Link
                     className="box2"
                     to={{
-                      pathname: `/profile/${restaurant.name}`,
+                      pathname: `/profile-chef/${restaurant.name}`,
                       state: {
                         detail: restaurant,
                       },
@@ -141,7 +179,7 @@ const Grid: React.FC = () => {
                     />
                     <Link
                       to={{
-                        pathname: `/profile/${restaurant.name}`,
+                        pathname: `/profile-chef/${restaurant.name}`,
                         state: {
                           detail: restaurant,
                         },

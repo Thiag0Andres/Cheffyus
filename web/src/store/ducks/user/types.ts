@@ -4,8 +4,8 @@
  * @REMOVE_USER remove user infos
  */
 export enum UserTypes {
-  UPDATE_USER = '@constructionCompany/HANDLE_USER',
-  REMOVE_USER = '@constructionCompany/REMOVE_USER',
+  UPDATE_USER = "@constructionCompany/HANDLE_USER",
+  REMOVE_USER = "@constructionCompany/REMOVE_USER",
 }
 
 /**
@@ -15,16 +15,17 @@ export enum UserTypes {
  */
 
 export interface User {
-  id: string
-  token: string
-  email: string
-  name: string
- }
+  id: string;
+  token: string;
+  email: string;
+  name: string;
+  nickName: string;
+}
 
 /**
  * State type
  * @data : the constructionCompany
  */
 export interface UserState {
-  user: User
+  user: User;
 }

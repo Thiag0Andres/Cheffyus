@@ -1,6 +1,6 @@
 @import "../../mixin.scss";
 
-#page-chef-profile {
+#page-user-profile {
   padding: 0 150px;
 
   .body {
@@ -14,86 +14,30 @@
       flex-direction: column;
       overflow: hidden;
       padding-right: 0;
-      padding-left: 0;
+      //padding-left: 0;
       padding-top: 15px;
       gap: 15px;
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 1.875em;
+        font-size: 1em;
+        line-height: 1.5em;
+        font-family: "Source Sans Pro", helvetica, sans-serif;
+      }
 
       h2 {
         width: 642px;
         padding-bottom: 0.375em;
-        border-bottom: 1px solid #c3c3c3;
-      }
-
-      .box-image {
         display: flex;
-        flex-direction: column;
-        overflow: hidden;
+        align-items: baseline;
+        border-bottom: 1px solid #c3c3c3;
 
-        .opacity {
-          width: 225px;
-          height: 150px;
-          border-radius: 5px;
-          background-color: $black;
-          opacity: 0.4;
-          position: absolute;
-          z-index: 99;
-        }
-
-        img {
-          max-width: 225px;
-          border-radius: 5px;
-          padding-bottom: 15px;
-        }
-
-        .box1 {
-          width: 225px;
-          height: 150px;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          align-items: flex-end;
-          position: absolute;
-          z-index: 99;
-
-          .price {
-            width: 80px;
-            height: 33px;
-            padding: 2px 5px;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: baseline;
-            gap: 3px;
-            background-color: #fbfbfb;
-            border-top-right-radius: 4px;
-            border-bottom-left-radius: 4px;
-            overflow: hidden;
-
-            .value {
-              font-size: 18px;
-              line-height: 1.5em;
-              font-weight: 600;
-              text-align: center;
-              white-space: nowrap;
-              color: $gray_light;
-            }
-
-            .hour {
-              font-size: 12px;
-              font-weight: 600;
-              line-height: 1.5em;
-              text-align: center;
-              white-space: nowrap;
-              color: $gray_light;
-            }
-          }
-
-          p {
-            width: 100%;
-            padding: 0 10px;
-            color: $white;
-            line-height: 1.2em;
-          }
+        .text-link {
+          font-size: 13px;
+          margin-left: 10px;
         }
       }
     }
@@ -105,7 +49,7 @@
       align-items: center;
       gap: 5px;
       padding-right: 0;
-      padding-left: 0;
+      padding-left: 30px;
 
       img {
         width: 316px;

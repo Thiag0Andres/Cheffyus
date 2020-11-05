@@ -16,6 +16,7 @@ const INITIAL_STATE: UserState = {
     token: "",
     email: "",
     name: "",
+    nickName: "",
   },
 };
 

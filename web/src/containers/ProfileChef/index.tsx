@@ -12,7 +12,7 @@ interface Props {
 }
 
 const ProfileChef: React.FC<Props> = ({ match }) => {
-  const chefName = match.params.profile;
+  const chefName = match.params.profileChef;
 
   //Estado
   const [text, setText] = useState(chefName);

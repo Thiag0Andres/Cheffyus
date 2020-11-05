@@ -16,6 +16,7 @@ import { FaMapMarkedAlt } from "react-icons/fa";
 
 // leaflet
 import { Map, TileLayer, Marker } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 import api from "../../services/api";
 
@@ -35,8 +36,8 @@ const Mapa: React.FC = () => {
   // Estado
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
-    -7.1215022,
-    -34.8814724,
+    36.9029234,
+    -76.1518893,
   ]);
 
   // Chamada a api
@@ -95,10 +96,10 @@ const Mapa: React.FC = () => {
           </Form>
         </Col>
         <Col className="map" xl="9">
-          <Map center={initialPosition} zoom={11}>
+          <Map center={initialPosition} zoom={7}>
+            {/* <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" /> https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}*/}
             <TileLayer
-              attribution='&amp;copy <a href="http://osm.org/copyright%22%3EOpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
             />
           </Map>
         </Col>
