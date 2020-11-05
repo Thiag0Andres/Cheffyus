@@ -56,9 +56,9 @@ const Mapa: React.FC = () => {
   // Marker do map
   const mapIcon = Leaflet.icon({
     iconUrl: markerMap,
-    iconSize: [23, 36],
-    iconAnchor: [11.5, 43],
-    //popupAnchor: [],
+    iconSize: [23, 33],
+    iconAnchor: [11.5, 33],
+    popupAnchor: [0, -32],
   });
 
   return (
@@ -120,13 +120,7 @@ const Mapa: React.FC = () => {
                 icon={mapIcon}
                 position={restaurant.location}
               >
-                <Popup
-                  className="popup"
-                  closeButton={false}
-                  minWidth={200}
-                  maxWidth={200}
-                  maxHeight={150}
-                >
+                <Popup className="popup" closeButton={false}>
                   <Row className="row1">
                     <div className="opacity"></div>
                     <img
@@ -142,7 +136,7 @@ const Mapa: React.FC = () => {
                         },
                       }}
                     >
-                      <p>{restaurant.title}</p>
+                      <span>{restaurant.title}</span>
                     </Link>
                   </Row>
                   <Row className="row2">
@@ -169,11 +163,11 @@ const Mapa: React.FC = () => {
                       >
                         {restaurant.name}
                       </Link>
-                      <div className="price">
-                        <span className="value">${restaurant.price}</span>
-                        <p className="hour">per hour</p>
-                      </div>
                     </Link>
+                    <div className="price">
+                      <p className="value">${restaurant.price}</p>
+                      <p className="hour"> per hour</p>
+                    </div>
                   </Row>
                 </Popup>
               </Marker>

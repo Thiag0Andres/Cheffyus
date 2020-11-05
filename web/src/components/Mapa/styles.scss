@@ -130,85 +130,106 @@
       margin-bottom: 24px;
 
       .popup {
-        width: 100%;
-        height: 100%;
+        .leaflet-popup-content-wrapper {
+          width: 201px;
+          height: 150px;
+          padding-left: 15px;
+          border-radius: 5px;
 
-        .row1 {
-          .opacity {
-            width: 100%;
-            height: 110px;
-            border-top-right-radius: 5px;
-            border-top-left-radius: 5px;
-            background: $black;
-            opacity: 0.4;
-            position: absolute;
-            z-index: 99;
-          }
-
-          img {
-            width: 100%;
-            height: 110px;
-            border-top-right-radius: 5px;
-            border-top-left-radius: 5px;
-          }
-
-          .box1 {
+          .leaflet-popup-content {
             width: 200px;
-            height: 110px;
-            position: absolute;
-            z-index: 99;
+            margin: 0;
 
-            //background-color: black;
-
-            p {
+            .row1 {
               width: 100%;
-              padding: 0 10px;
-              color: $white;
-              line-height: 1.2em;
-            }
-          }
-        }
-        .row2 {
-          .box2 {
-            width: 200px;
-            height: 40px;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 10px;
-            padding: 5px;
+              height: 110px;
 
-            img {
-              border-radius: 5px;
-              max-width: 30px;
+              .opacity {
+                width: 100%;
+                height: 110px;
+                border-top-right-radius: 5px;
+                border-top-left-radius: 5px;
+                background: $black;
+                opacity: 0.4;
+                position: absolute;
+                z-index: 99;
+              }
+
+              img {
+                width: 100%;
+                height: 110px;
+                border-top-right-radius: 5px;
+                border-top-left-radius: 5px;
+              }
+
+              .box1 {
+                width: 100%;
+                height: 110px;
+                position: absolute;
+                z-index: 99;
+
+                //background-color: black;
+
+                span {
+                  position: absolute;
+                  bottom: 0.35714em;
+                  left: 0.71429em;
+                  right: 0.71429em;
+                  color: white;
+                  font-size: 14px;
+                  vertical-align: bottom;
+                  line-height: 1.35em;
+                }
+              }
             }
-            .price {
-              width: 80px;
-              height: 33px;
-              padding: 2px 5px;
+            .row2 {
+              width: 100%;
+              height: 40px;
               display: flex;
               flex-direction: row;
-              justify-content: center;
-              align-items: baseline;
-              gap: 3px;
-              background-color: #fbfbfb;
-              border-top-right-radius: 5px;
-              border-bottom-left-radius: 5px;
-              overflow: hidden;
+              justify-content: space-between;
+              align-items: center;
+              padding-left: 5px;
 
-              .value {
-                font-size: 18px;
-                line-height: 1.5em;
-                text-align: center;
-                white-space: nowrap;
-                color: $gray_light;
+              .box2 {
+                height: 40px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+
+                img {
+                  max-width: 30px;
+                }
+
+                a {
+                  color: $red_classic;
+
+                  &:hover {
+                    color: $red_dark;
+                    text-decoration: none;
+                  }
+                }
               }
-              .hour {
-                font-size: 12px;
-                line-height: 1.5em;
-                text-align: center;
-                white-space: nowrap;
-                color: $gray_light;
+              .price {
+                width: 90px;
+                height: 40px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 3px;
+
+                .value {
+                  font-size: 16px;
+                  line-height: 1.5em;
+                  color: $gray_light;
+                }
+                .hour {
+                  font-size: 12px;
+                  line-height: 1.5em;
+                  color: $gray_light;
+                }
               }
             }
           }
