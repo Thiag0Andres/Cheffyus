@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 // Bootstrap
 import Container from "react-bootstrap/Container";
@@ -9,14 +10,18 @@ import Pagination from "react-bootstrap/Pagination";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+// leaflet
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import Leaflet from "leaflet";
+import "leaflet/dist/leaflet.css";
+
 // Icons
 import { BsFillGridFill } from "react-icons/bs";
 import { GoListUnordered } from "react-icons/go";
 import { FaMapMarkedAlt } from "react-icons/fa";
 
-// leaflet
-import { Map, TileLayer, Marker } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+// Images
+import markerMap from "../../images/markerMap.png";
 
 import api from "../../services/api";
 
@@ -36,8 +41,8 @@ const Mapa: React.FC = () => {
   // Estado
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
-    36.9029234,
-    -76.1518893,
+    38.8935124,
+    -77.1550051,
   ]);
 
   // Chamada a api
@@ -47,6 +52,14 @@ const Mapa: React.FC = () => {
       //console.log(response);
     });
   }, []);
+
+  // Marker do map
+  const mapIcon = Leaflet.icon({
+    iconUrl: markerMap,
+    iconSize: [23, 36],
+    iconAnchor: [11.5, 43],
+    //popupAnchor: [],
+  });
 
   return (
     <Container fluid id="page-home-map">
@@ -96,11 +109,75 @@ const Mapa: React.FC = () => {
           </Form>
         </Col>
         <Col className="map" xl="9">
-          <Map center={initialPosition} zoom={7}>
-            {/* <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" /> https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}*/}
+          <Map center={initialPosition} zoom={9}>
             <TileLayer
               url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
             />
+
+            {restaurants.map((restaurant) => (
+              <Marker
+                key={restaurant.id}
+                icon={mapIcon}
+                position={restaurant.location}
+              >
+                <Popup
+                  className="popup"
+                  closeButton={false}
+                  minWidth={200}
+                  maxWidth={200}
+                  maxHeight={150}
+                >
+                  <Row className="row1">
+                    <div className="opacity"></div>
+                    <img
+                      src={restaurant.image_url_restaurant}
+                      alt={restaurant.title}
+                    />
+                    <Link
+                      className="box1"
+                      to={{
+                        pathname: `/restaurant/${restaurant.title}`,
+                        state: {
+                          detail: restaurant,
+                        },
+                      }}
+                    >
+                      <p>{restaurant.title}</p>
+                    </Link>
+                  </Row>
+                  <Row className="row2">
+                    <Link
+                      className="box2"
+                      to={{
+                        pathname: `/profile-chef/${restaurant.name}`,
+                        state: {
+                          detail: restaurant,
+                        },
+                      }}
+                    >
+                      <img
+                        src={restaurant.image_url_chef}
+                        alt={restaurant.name}
+                      />
+                      <Link
+                        to={{
+                          pathname: `/profile-chef/${restaurant.name}`,
+                          state: {
+                            detail: restaurant,
+                          },
+                        }}
+                      >
+                        {restaurant.name}
+                      </Link>
+                      <div className="price">
+                        <span className="value">${restaurant.price}</span>
+                        <p className="hour">per hour</p>
+                      </div>
+                    </Link>
+                  </Row>
+                </Popup>
+              </Marker>
+            ))}
           </Map>
         </Col>
       </Row>
