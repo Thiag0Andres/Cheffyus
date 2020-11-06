@@ -7,6 +7,7 @@ import Background2 from "../../components/Background2";
 const Inbox: React.FC = () => {
   // States
   const [text, setText] = useState("Inbox");
+
   return (
     <>
       <NavBar />

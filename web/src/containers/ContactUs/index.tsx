@@ -8,6 +8,7 @@ import FormTextArea from "../../components/FormTextArea";
 const ContactUs: React.FC = () => {
   // States
   const [text, setText] = useState("Contact the Cheffy team");
+
   return (
     <>
       <NavBar />

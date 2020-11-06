@@ -8,6 +8,7 @@ import FormLogin from "../../components/FormLogin";
 const LogIn: React.FC = () => {
   // States
   const [text, setText] = useState("Log in to Cheffy");
+
   return (
     <>
       <NavBar />

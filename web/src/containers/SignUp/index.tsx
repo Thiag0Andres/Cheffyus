@@ -8,6 +8,7 @@ import FormSignup from "../../components/FormSignup";
 const SignUp: React.FC = () => {
   // States
   const [text, setText] = useState("Create a new Cheffy account");
+
   return (
     <>
       <NavBar />

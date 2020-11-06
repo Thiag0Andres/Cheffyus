@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 // Bootstrap
 import Form from "react-bootstrap/Form";
@@ -9,18 +10,28 @@ import Button from "react-bootstrap/Button";
 import "./styles.scss";
 
 interface Props {
-  match: any;
+  detail: any;
 }
 
-const FormContact: React.FC<Props> = ({ match }) => {
-  const nameChef = match.params.contactChef;
-
+const FormContact: React.FC<Props> = ({ detail }) => {
   return (
     <>
       <Row id="content-contact">
         <Col className="body">
           <Form className="form">
-            <h2> Send message to {nameChef}</h2>
+            <h2>
+              Send message to{" "}
+              <Link
+                to={{
+                  pathname: `/profile-chef/${detail.name}`,
+                  state: {
+                    detail: detail,
+                  },
+                }}
+              >
+                {detail.name}
+              </Link>
+            </h2>
             <Form.Group controlId="exampleForm.ControlTextarea1">
               <Form.Label className="text">Message</Form.Label>
               <Form.Control className="textarea" as="textarea" rows={3} />

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // Bootstrap
 import Container from "react-bootstrap/Container";
@@ -15,6 +15,30 @@ interface Props {
 }
 
 const RestaurantInfo: React.FC<Props> = ({ detail }) => {
+  const history = useHistory();
+
+  const handleNextPageContactChef = () => {
+    {
+      history.push({
+        pathname: `/contact-chef/${detail.name}`,
+        state: {
+          detail: detail,
+        },
+      });
+    }
+  };
+
+  const handleNextPageRequest = () => {
+    {
+      history.push({
+        pathname: `/request/${detail.title}`,
+        state: {
+          detail: detail,
+        },
+      });
+    }
+  };
+
   return (
     <Container fluid id="page-restaurant-info">
       <Row className="body">
@@ -49,11 +73,23 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
               {detail.name}
             </Link>
 
-            <Button className="button" type="submit" href="/contact-chef">
+            <Button
+              className="button"
+              type="submit"
+              onClick={handleNextPageContactChef}
+            >
               Contact
             </Button>
           </div>
-          <div className="box3"></div>
+          <div className="box3">
+            <Button
+              className="button"
+              type="submit"
+              onClick={handleNextPageRequest}
+            >
+              Request
+            </Button>
+          </div>
         </Col>
       </Row>
     </Container>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 // Components
 import NavBar from "../../components/NavBar";
@@ -6,18 +7,22 @@ import Background2 from "../../components/Background2";
 import FormContact from "../../components/FormContact";
 
 interface Props {
-  match: any;
+  detail: any;
 }
 
-const ContactChef: React.FC<Props> = ({ match }) => {
+const ContactChef: React.FC<Props> = () => {
   // States
   const [text, setText] = useState("");
+
+  const location = useLocation();
+
+  const detail = (location.state as Props).detail;
 
   return (
     <>
       <NavBar />
       <Background2 text={text} />
-      <FormContact match={match} />
+      <FormContact detail={detail} />
     </>
   );
 };

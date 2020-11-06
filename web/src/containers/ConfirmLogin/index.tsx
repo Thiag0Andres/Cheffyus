@@ -8,6 +8,7 @@ import FormConfirmLogin from "../../components/FormConfirmLogin";
 const ConfirmLogin: React.FC = () => {
   // States
   const [text, setText] = useState("Please confirm your email address");
+
   return (
     <>
       <NavBar />

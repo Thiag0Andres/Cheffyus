@@ -7,20 +7,16 @@ import Background2 from "../../components/Background2";
 import RestaurantInfo from "../../components/RestaurantInfo";
 
 interface Props {
-  match: any;
   detail: any;
 }
 
-const Restaurant: React.FC<Props> = ({ match }) => {
-  const restaurantName = match.params.restaurant;
-
-  // States
-  const [text, setText] = useState(restaurantName);
-
+const Restaurant: React.FC<Props> = () => {
   const location = useLocation();
 
   const detail = (location.state as Props).detail;
-  console.log(detail.name);
+
+  // States
+  const [text, setText] = useState(detail.title);
 
   return (
     <>

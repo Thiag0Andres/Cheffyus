@@ -18,7 +18,12 @@ const ChefProfile: React.FC<Props> = ({ detail }) => {
 
   const handleNextPage = () => {
     {
-      history.push(`/contact-chef/${detail.name}`);
+      history.push({
+        pathname: `/contact-chef/${detail.name}`,
+        state: {
+          detail: detail,
+        },
+      });
     }
   };
 

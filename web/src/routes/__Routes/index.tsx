@@ -35,7 +35,7 @@ export default function Routes() {
       <Route path="/restaurant/:restaurant" component={Restaurant} />
       <Route path="/profile-chef/:profileChef" component={ProfileChef} />
       <Route path="/profile-user/:profileUser" component={ProfileUser} />
-      <Route path="/request" component={Request} />
+      <Route path="/request/:request" component={Request} />
       <Route path="/settings" component={Settings} />
       <Route path="/inbox" component={Inbox} />
       <Redirect from="*" to="/" />

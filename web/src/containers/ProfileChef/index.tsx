@@ -7,19 +7,16 @@ import Background2 from "../../components/Background2";
 import ChefProfile from "../../components/ChefProfile";
 
 interface Props {
-  match: any;
   detail: any;
 }
 
-const ProfileChef: React.FC<Props> = ({ match }) => {
-  const chefName = match.params.profileChef;
-
-  // States
-  const [text, setText] = useState(chefName);
-
+const ProfileChef: React.FC<Props> = () => {
   const location = useLocation();
 
   const detail = (location.state as Props).detail;
+
+  // States
+  const [text, setText] = useState(detail.name);
 
   return (
     <>
