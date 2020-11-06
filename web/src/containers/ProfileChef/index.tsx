@@ -20,7 +20,6 @@ const ProfileChef: React.FC<Props> = ({ match }) => {
   const location = useLocation();
 
   const detail = (location.state as Props).detail;
-  console.log(detail.name);
 
   return (
     <>

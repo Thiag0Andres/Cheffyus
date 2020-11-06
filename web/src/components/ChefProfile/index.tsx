@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // Bootstrap
 import Container from "react-bootstrap/Container";
@@ -14,6 +14,14 @@ interface Props {
 }
 
 const ChefProfile: React.FC<Props> = ({ detail }) => {
+  const history = useHistory();
+
+  const handleNextPage = () => {
+    {
+      history.push(`/contact-chef/${detail.name}`);
+    }
+  };
+
   return (
     <Container fluid id="page-chef-profile">
       <Row className="body">
@@ -46,7 +54,7 @@ const ChefProfile: React.FC<Props> = ({ detail }) => {
         </Col>
         <Col className="image" xl="4">
           <img src={detail.image_url_chef_medium} alt={detail.name} />
-          <Button className="button" type="submit" href="/contact-chef">
+          <Button className="button" type="submit" onClick={handleNextPage}>
             Contact {detail.name}
           </Button>
         </Col>

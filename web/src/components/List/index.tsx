@@ -59,15 +59,15 @@ const List: React.FC = () => {
           </Dropdown.Menu>
         </Dropdown>
         <Pagination>
-          <Pagination.Item className="pagination1" href="/" disabled={false}>
+          <Pagination.Item id="pagination1" href="/" disabled={false}>
             <BsFillGridFill />
             Grid
           </Pagination.Item>
-          <Pagination.Item className="pagination2" href="/list" active={true}>
+          <Pagination.Item id="pagination2" href="/list" active={true}>
             <GoListUnordered />
             List
           </Pagination.Item>
-          <Pagination.Item className="pagination3" href="/map" disabled={false}>
+          <Pagination.Item id="pagination3" href="/map" disabled={false}>
             <FaMapMarkedAlt />
             Map
           </Pagination.Item>

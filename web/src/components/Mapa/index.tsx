@@ -77,19 +77,15 @@ const Mapa: React.FC = () => {
           </Dropdown.Menu>
         </Dropdown>
         <Pagination>
-          <Pagination.Item className="pagination1" href="/" disabled={false}>
+          <Pagination.Item id="pagination1" href="/" disabled={false}>
             <BsFillGridFill />
             Grid
           </Pagination.Item>
-          <Pagination.Item
-            className="pagination2"
-            href="/list"
-            disabled={false}
-          >
+          <Pagination.Item id="pagination2" href="/list" disabled={false}>
             <GoListUnordered />
             List
           </Pagination.Item>
-          <Pagination.Item className="pagination3" href="/map" active={true}>
+          <Pagination.Item id="pagination3" href="/map" active={true}>
             <FaMapMarkedAlt />
             Map
           </Pagination.Item>

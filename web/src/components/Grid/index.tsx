@@ -108,19 +108,15 @@ const Grid: React.FC = () => {
           </Dropdown.Menu>
         </Dropdown>
         <Pagination>
-          <Pagination.Item className="pagination1" href="/" active={true}>
+          <Pagination.Item id="pagination1" href="/" active={true}>
             <BsFillGridFill />
             Grid
           </Pagination.Item>
-          <Pagination.Item
-            className="pagination2"
-            href="/list"
-            disabled={false}
-          >
+          <Pagination.Item id="pagination2" href="/list" disabled={false}>
             <GoListUnordered />
             List
           </Pagination.Item>
-          <Pagination.Item className="pagination3" href="/map" disabled={false}>
+          <Pagination.Item id="pagination3" href="/map" disabled={false}>
             <FaMapMarkedAlt />
             Map
           </Pagination.Item>

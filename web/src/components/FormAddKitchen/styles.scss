@@ -1,0 +1,140 @@
+@import "../../mixin.scss";
+
+#content-add-kitchen {
+  padding-right: 0;
+  padding-left: 0;
+  padding: 40px 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .body {
+    width: 456px;
+    height: 130.5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    .button1 {
+      width: 432px;
+      height: 42px;
+      text-align: start;
+      box-shadow: none;
+      border-radius: 0.3125em;
+      border: 2px solid #c3c3c3;
+      min-height: 42px;
+      margin-bottom: 0.375em;
+      background-color: transparent;
+      color: $red_classic;
+
+      &:hover {
+        background-color: $gray_classic;
+        color: $red_dark;
+      }
+    }
+
+    .container-form {
+      width: 456px;
+      height: 1175px;
+      display: flex;
+      flex-direction: column;
+
+      .button2 {
+        width: 432px;
+        height: 42px;
+        text-align: start;
+        box-shadow: none;
+        border-radius: 0.3125em;
+        border: 2px solid #c3c3c3;
+        min-height: 42px;
+        margin-bottom: 0.375em;
+        background-color: $gray_classic;
+        color: $red_classic;
+
+        &:hover {
+          color: $red_dark;
+        }
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+
+        .text {
+          width: 100%;
+          display: block;
+          margin-top: 12px;
+          margin-bottom: 3px;
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 24px;
+          color: $gray_light;
+        }
+
+        .input {
+          border-radius: 5px;
+          border: 2px solid #c3c3c3;
+          box-shadow: none;
+          min-height: 42px;
+          width: 100%;
+        }
+
+        .price {
+          display: flex;
+          gap: 5px;
+
+          .input-price {
+            width: 120px;
+            min-height: 42px;
+            border-radius: 5px;
+            border: 2px solid #c3c3c3;
+            box-shadow: none;
+          }
+
+          .select {
+            width: 90px;
+            min-height: 42px;
+            border-radius: 5px;
+            border: 2px solid #c3c3c3;
+            box-shadow: none;
+          }
+        }
+
+        .date {
+          display: flex;
+          gap: 5px;
+
+          .select-year {
+            width: 76px;
+            min-height: 42px;
+            border-radius: 5px;
+            border: 2px solid #c3c3c3;
+            box-shadow: none;
+          }
+          .select-month {
+            width: 118px;
+            min-height: 42px;
+            border-radius: 5px;
+            border: 2px solid #c3c3c3;
+            box-shadow: none;
+          }
+          .select-day {
+            width: 60px;
+            min-height: 42px;
+            border-radius: 5px;
+            border: 2px solid #c3c3c3;
+            box-shadow: none;
+          }
+        }
+
+        .textarea {
+          border-radius: 5px;
+          border: 2px solid #c3c3c3;
+          box-shadow: none;
+          min-height: 120px;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

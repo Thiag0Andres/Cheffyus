@@ -27,6 +27,7 @@ export default function Routes() {
       <Route path="/map" component={HomeMap} />
       <Route path="/about" component={About} />
       <Route path="/contact-us" component={ContactUs} />
+      <Route path="/contact-chef/:contactChef" component={ContactChef} />
       <Route path="/login" component={LogIn} />
       <Route path="/confirm-login" component={ConfirmLogin} />
       <Route path="/signup" component={SignUp} />
@@ -34,7 +35,6 @@ export default function Routes() {
       <Route path="/restaurant/:restaurant" component={Restaurant} />
       <Route path="/profile-chef/:profileChef" component={ProfileChef} />
       <Route path="/profile-user/:profileUser" component={ProfileUser} />
-      <Route path="/contact-chef" component={ContactChef} />
       <Route path="/request" component={Request} />
       <Route path="/settings" component={Settings} />
       <Route path="/inbox" component={Inbox} />
