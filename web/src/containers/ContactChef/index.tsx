@@ -13,6 +13,7 @@ interface Props {
 const ContactChef: React.FC<Props> = () => {
   // States
   const [text, setText] = useState("");
+  const [message, setMessage] = useState(true);
 
   const location = useLocation();
 
@@ -22,7 +23,7 @@ const ContactChef: React.FC<Props> = () => {
     <>
       <NavBar />
       <Background2 text={text} />
-      <FormContact detail={detail} />
+      <FormContact detail={detail} message={message} />
     </>
   );
 };

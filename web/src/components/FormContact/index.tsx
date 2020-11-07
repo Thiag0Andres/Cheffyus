@@ -11,9 +11,10 @@ import "./styles.scss";
 
 interface Props {
   detail: any;
+  message: boolean;
 }
 
-const FormContact: React.FC<Props> = ({ detail }) => {
+const FormContact: React.FC<Props> = ({ detail, message }) => {
   return (
     <>
       <Row id="content-contact">
@@ -33,12 +34,10 @@ const FormContact: React.FC<Props> = ({ detail }) => {
               </Link>
             </h2>
             <Form.Group controlId="exampleForm.ControlTextarea1">
-              <Form.Label className="text">Message</Form.Label>
+              {message && <Form.Label className="text">Message</Form.Label>}
               <Form.Control className="textarea" as="textarea" rows={3} />
             </Form.Group>
-            <Button className="button" type="submit">
-              Send message
-            </Button>
+            <Button className="button">Send message</Button>
           </Form>
         </Col>
       </Row>
