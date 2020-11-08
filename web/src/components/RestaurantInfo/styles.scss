@@ -2,14 +2,17 @@
 
 #page-restaurant-info {
   padding: 0 150px;
+  width: 100%;
+  height: 100vh;
+  padding-top: 20px;
 
   .body {
-    width: 100%;
-    height: 100vh;
-    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
 
     .image {
-      flex: 1;
+      max-width: 640px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -18,72 +21,153 @@
       padding-left: 0;
 
       img {
-        width: 647px;
+        width: 100%;
         height: 431px;
         overflow: hidden;
       }
 
       p {
-        width: 647px;
+        width: 100%;
         display: flex;
         justify-content: flex-start;
+        padding-top: 10px;
+      }
+
+      .spans {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+
+        .like {
+          width: 80pxpx;
+          height: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 5px;
+          border-radius: 3px;
+          font-size: 11px;
+          font-weight: bold;
+          font-family: Helvetica, Arial, sans-serif;
+          background-color: #1877f2;
+
+          &:hover {
+            background-color: #365899;
+          }
+        }
+
+        .share {
+          width: 49px;
+          height: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 3px;
+          font-size: 11px;
+          font-weight: bold;
+          font-family: Helvetica, Arial, sans-serif;
+          background-color: #1877f2;
+
+          &:hover {
+            background-color: #365899;
+          }
+        }
+
+        .tweet {
+          width: 70px;
+          height: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 5px;
+          margin-left: 20px;
+          border-radius: 3px;
+          font-size: 11px;
+          font-family: Helvetica, Arial, sans-serif;
+          background-color: #1b95e0;
+
+          &:hover {
+            background-color: #0c7abf;
+          }
+        }
       }
     }
 
     .info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      padding-right: 0;
-      padding-left: 0;
-      padding-top: 15px;
-      gap: 15px;
+      max-width: 316px;
 
       .box1 {
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        padding-bottom: 0.375em;
+        flex-direction: column;
+        gap: 15px;
+        padding-bottom: 10px;
         border-bottom: 1px solid #c3c3c3;
 
         .price {
-          width: 80px;
-          height: 33px;
-          padding: 2px 5px;
           display: flex;
           flex-direction: row;
-          justify-content: center;
-          align-items: baseline;
-          gap: 3px;
-          background-color: #fbfbfb;
-          border-top-right-radius: 4px;
-          border-bottom-left-radius: 4px;
-          overflow: hidden;
+          align-items: flex-start;
+          gap: 10px;
 
           .value {
-            font-size: 18px;
-            line-height: 1.5em;
-            font-weight: 600;
-            text-align: center;
-            white-space: nowrap;
+            font-size: 2.625em;
+            line-height: 1.14286em;
+            font-weight: 700;
+            color: #474747;
+          }
+
+          p {
+            margin-top: 5px;
+            color: gray;
+          }
+        }
+
+        .input-price {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+
+          .text {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 24px;
             color: $gray_light;
           }
 
-          .hour {
-            font-size: 12px;
-            font-weight: 600;
-            line-height: 1.5em;
-            text-align: center;
-            white-space: nowrap;
-            color: $gray_light;
+          .input {
+            width: 100px;
+            min-height: 42px;
+            border-radius: 5px;
+            border: 2px solid #c3c3c3;
+            box-shadow: none;
+          }
+        }
+
+        .button {
+          width: 100%;
+          height: 60px;
+          font-size: 22px;
+          line-height: 24px;
+          border-radius: 0.3125em;
+          box-shadow: none;
+          margin-bottom: 10px;
+          background-color: $red_classic;
+          border-color: $red_classic;
+          color: $white;
+
+          &:hover {
+            background-color: $red_light;
           }
         }
       }
+
       .box2 {
         display: flex;
         flex-direction: row;
-        padding-bottom: 0.375em;
+        gap: 15px;
+        padding: 20px 0;
         border-bottom: 1px solid #c3c3c3;
 
         a {
@@ -102,10 +186,7 @@
 
         .button {
           text-align: center;
-          margin: 0.75em 0;
-          padding-bottom: 0px;
-          padding-bottom: 4px;
-          width: 100%;
+          width: 190px;
           height: 2.625em;
           font-size: 1em;
           line-height: 1.5em;
@@ -120,6 +201,15 @@
             background-color: #dbdbdb;
             border-color: #dbdbdb;
           }
+        }
+      }
+      .box3 {
+        padding: 10px 0;
+        overflow: hidden;
+
+        .leaflet-container {
+          width: 316px;
+          height: 237px;
         }
       }
     }
