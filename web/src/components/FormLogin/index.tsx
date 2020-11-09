@@ -52,17 +52,13 @@ const FormLogin: React.FC = () => {
 
     if (email === "" && password === "") {
       setError(true);
-      console.log(error);
     } else if (email === "" || password === "") {
       setError(true);
-      console.log(error);
     } else if (!isEmailValid) {
       setError(true);
-      console.log(error);
     } else if (isValidated) {
       dispatch(updateUser({ user }));
       history.push("/");
-      console.log("Deu certo");
       //enqueueSnackbar("Usuário logado com sucesso!", { variant: "success" });
     } else {
       setEmail("");

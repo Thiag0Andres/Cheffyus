@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // Bootstrap
 import Navbar from "react-bootstrap/Navbar";
@@ -33,6 +33,7 @@ import "./styles.scss";
 const NavBar: React.FC = () => {
   const dispatch = useDispatch();
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
+  const history = useHistory();
 
   // States
   const [show, setShow] = useState(false);
@@ -48,6 +49,15 @@ const NavBar: React.FC = () => {
   const logout = () => {
     //enqueueSnackbar("Usuário deslogado com sucesso!", { variant: "info" });
     dispatch(removeUser());
+    history.push("/");
+  };
+
+  const handlePage = () => {
+    if (isLogged) {
+      history.push("/add-kitchen");
+    } else {
+      history.push("/login");
+    }
   };
 
   return (
@@ -143,7 +153,7 @@ const NavBar: React.FC = () => {
               <Nav.Link className="text2" href="/login">
                 Log in
               </Nav.Link>
-              <Button className="button2" type="submit" href="/add-kitchen">
+              <Button className="button2" type="submit" onClick={handlePage}>
                 + Add Your Kitchen
               </Button>
             </>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 // Bootstrap
@@ -7,6 +7,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
+// Redux e Auth
+import { useSelector, RootStateOrAny } from "react-redux";
+import { isAuthenticated } from "../../services/auth";
+
+// Types
+import { User } from "../../store/ducks/user/types";
+
 import "./styles.scss";
 
 interface Props {
@@ -14,16 +21,28 @@ interface Props {
 }
 
 const ChefProfile: React.FC<Props> = ({ detail }) => {
+  const user: User = useSelector((state: RootStateOrAny) => state.user.user);
   const history = useHistory();
 
+  //States
+  const [isLogged, setIsLogged] = useState(false);
+
+  // Atualiza o estado de autenticação na mudança de usuário
+  useEffect(() => {
+    const response = isAuthenticated();
+    setIsLogged(response);
+  }, [user]);
+
   const handleNextPage = () => {
-    {
+    if (isLogged) {
       history.push({
         pathname: `/contact-chef/${detail.name}`,
         state: {
           detail: detail,
         },
       });
+    } else {
+      history.push("/login");
     }
   };
 

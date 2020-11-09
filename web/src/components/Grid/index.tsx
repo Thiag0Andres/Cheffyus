@@ -12,7 +12,7 @@ import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 
 // Redux e Auth
-import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
+import { useSelector, RootStateOrAny } from "react-redux";
 import { isAuthenticated } from "../../services/auth";
 
 // Types
@@ -43,6 +43,7 @@ const Grid: React.FC = () => {
 
   // States
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [alert, setAlert] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
 
   // Chamada a api
@@ -57,7 +58,7 @@ const Grid: React.FC = () => {
   useEffect(() => {
     const response = isAuthenticated();
     setIsLogged(response);
-  }, [user]);
+  }, []);
 
   //Welcome, "nome"! --> Quando fez o login e confirmou o cadastro
   //You are already a member of Cheffy. Welcome back! -> Depois de confirmar o cadastro e da um F5
@@ -66,11 +67,11 @@ const Grid: React.FC = () => {
   return (
     <Container fluid id="page-home-grid">
       <Row className="content-grid">
-        {isLogged && (
+        {alert && (
           <Alert
             className="alert"
             variant="secondary"
-            //onMouseOut={() => setIsLogged(false)}
+            onClick={() => setIsLogged(false)}
           >
             <FaCheck size={18} />
             <div>

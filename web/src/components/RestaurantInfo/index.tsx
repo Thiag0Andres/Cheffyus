@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 // Bootstrap
@@ -8,6 +8,13 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Carousel from "react-bootstrap/Carousel";
 import Form from "react-bootstrap/Form";
+
+// Redux e Auth
+import { useSelector, RootStateOrAny } from "react-redux";
+import { isAuthenticated } from "../../services/auth";
+
+// Types
+import { User } from "../../store/ducks/user/types";
 
 // leaflet
 import { Map, TileLayer, Marker } from "react-leaflet";
@@ -28,27 +35,47 @@ interface Props {
 }
 
 const RestaurantInfo: React.FC<Props> = ({ detail }) => {
+  const user: User = useSelector((state: RootStateOrAny) => state.user.user);
   const history = useHistory();
 
+  //States
+  const [isLogged, setIsLogged] = useState(false);
+
+  // Atualiza o estado de autenticação na mudança de usuário
+  useEffect(() => {
+    const response = isAuthenticated();
+    setIsLogged(response);
+  }, [user]);
+
   const handleNextPageContactChef = () => {
-    {
+    if (isLogged) {
       history.push({
         pathname: `/contact-chef/${detail.name}`,
         state: {
           detail: detail,
         },
       });
+    } else {
+      history.push({
+        pathname: "/login",
+        state: {
+          message:
+            "You must log in to Cheffy to create a new listing. If you don't have an account you can",
+        },
+      });
     }
   };
 
   const handleNextPageRequest = () => {
-    {
+    if (isLogged) {
       history.push({
         pathname: `/request/${detail.title}`,
         state: {
           detail: detail,
         },
       });
+    } else {
+      history.push("/login");
     }
   };
 
