@@ -45,36 +45,40 @@ const List: React.FC = () => {
 
   return (
     <Container fluid id="page-home-list">
-      <Row className="header">
-        <Dropdown className="dropdown">
-          <Dropdown.Toggle id="dropdown-basic">
-            All listing types
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item href="">All listing types</Dropdown.Item>
-            <Dropdown.Item href="">
-              Offering without online payment
-            </Dropdown.Item>
-            <Dropdown.Item href="">Offering with online payment</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-        <Pagination>
-          <Pagination.Item id="pagination1" href="/" disabled={false}>
-            <BsFillGridFill />
-            Grid
-          </Pagination.Item>
-          <Pagination.Item id="pagination2" href="/list" active={true}>
-            <GoListUnordered />
-            List
-          </Pagination.Item>
-          <Pagination.Item id="pagination3" href="/map" disabled={false}>
-            <FaMapMarkedAlt />
-            Map
-          </Pagination.Item>
-        </Pagination>
+      <Row className="content-header">
+        <Col className="header" xl="12" lg="12" md="12" xs="12" sm="12">
+          <Dropdown className="dropdown">
+            <Dropdown.Toggle id="dropdown-basic">
+              All listing types
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="">All listing types</Dropdown.Item>
+              <Dropdown.Item href="">
+                Offering without online payment
+              </Dropdown.Item>
+              <Dropdown.Item href="">
+                Offering with online payment
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Pagination>
+            <Pagination.Item id="pagination1" href="/" disabled={false}>
+              <BsFillGridFill />
+              Grid
+            </Pagination.Item>
+            <Pagination.Item id="pagination2" href="/list" active={true}>
+              <GoListUnordered />
+              List
+            </Pagination.Item>
+            <Pagination.Item id="pagination3" href="/map" disabled={false}>
+              <FaMapMarkedAlt />
+              Map
+            </Pagination.Item>
+          </Pagination>
+        </Col>
       </Row>
-      <Row>
-        <Col className="slider" xl="3">
+      <Row className="content-list">
+        <Col className="slider" xl="3" lg="3" md="3" xs="3" sm="3">
           <Form className="range">
             <Form.Group controlId="formBasicRangeCustom">
               <Form.Label className="text">Price</Form.Label>
@@ -90,7 +94,7 @@ const List: React.FC = () => {
             </Form.Group>
           </Form>
         </Col>
-        <Col className="list" xl="9">
+        <Col className="list" xl="9" lg="9" md="9" xs="9" sm="9">
           <ul>
             {restaurants.map((restaurant) => (
               <li key={restaurant.id}>

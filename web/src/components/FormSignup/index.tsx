@@ -104,7 +104,7 @@ const FormSignup: React.FC = () => {
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
               <Form.Label className="text">Confirm Password</Form.Label>
-              <Form.Control className="input" type="text" />
+              <Form.Control className="input" type="password" />
             </Form.Group>
             <Form.Group controlId="formBasicCheckbox">
               <Form.Check

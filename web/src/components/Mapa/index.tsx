@@ -63,36 +63,40 @@ const Mapa: React.FC = () => {
 
   return (
     <Container fluid id="page-home-map">
-      <Row className="header">
-        <Dropdown className="dropdown">
-          <Dropdown.Toggle id="dropdown-basic">
-            All listing types
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item href="">All listing types</Dropdown.Item>
-            <Dropdown.Item href="">
-              Offering without online payment
-            </Dropdown.Item>
-            <Dropdown.Item href="">Offering with online payment</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-        <Pagination>
-          <Pagination.Item id="pagination1" href="/" disabled={false}>
-            <BsFillGridFill />
-            Grid
-          </Pagination.Item>
-          <Pagination.Item id="pagination2" href="/list" disabled={false}>
-            <GoListUnordered />
-            List
-          </Pagination.Item>
-          <Pagination.Item id="pagination3" href="/map" active={true}>
-            <FaMapMarkedAlt />
-            Map
-          </Pagination.Item>
-        </Pagination>
+      <Row className="content-header">
+        <Col className="header" xl="12" lg="12" md="12" xs="12" sm="12">
+          <Dropdown className="dropdown">
+            <Dropdown.Toggle id="dropdown-basic">
+              All listing types
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="">All listing types</Dropdown.Item>
+              <Dropdown.Item href="">
+                Offering without online payment
+              </Dropdown.Item>
+              <Dropdown.Item href="">
+                Offering with online payment
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <Pagination>
+            <Pagination.Item id="pagination1" href="/" disabled={false}>
+              <BsFillGridFill />
+              Grid
+            </Pagination.Item>
+            <Pagination.Item id="pagination2" href="/list" disabled={false}>
+              <GoListUnordered />
+              List
+            </Pagination.Item>
+            <Pagination.Item id="pagination3" href="/map" active={true}>
+              <FaMapMarkedAlt />
+              Map
+            </Pagination.Item>
+          </Pagination>
+        </Col>
       </Row>
-      <Row>
-        <Col className="slider" xl="3">
+      <Row className="content-map">
+        <Col className="slider" xl="3" lg="3" md="3" xs="3" sm="3">
           <Form className="range">
             <Form.Group controlId="formBasicRangeCustom">
               <Form.Label className="text">Price</Form.Label>
@@ -108,12 +112,11 @@ const Mapa: React.FC = () => {
             </Form.Group>
           </Form>
         </Col>
-        <Col className="map" xl="9">
+        <Col className="map" xl="9" lg="9" md="9" xs="9" sm="9">
           <Map center={initialPosition} zoom={9}>
             <TileLayer
               url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
             />
-
             {restaurants.map((restaurant) => (
               <Marker
                 key={restaurant.id}

@@ -1,6 +1,12 @@
 @import "../../mixin.scss";
 
 #page-home-background2 {
+  width: 100%;
+  height: 15vh;
+  background-image: url("../../images/background2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+
   .opacity {
     width: 100%;
     height: 15vh;
@@ -10,21 +16,31 @@
     z-index: 50;
   }
 
-  img {
-    width: 100%;
-    height: 15vh;
-  }
-
   .text {
     position: absolute;
     top: 110px;
-    left: 150px;
+    padding-left: 150px;
     z-index: 50;
 
     h1 {
       font-size: 26px;
       font-weight: 600;
       color: #474747;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #page-home-background2 {
+    height: 9vh;
+
+    .opacity {
+      height: 9vh;
+    }
+
+    .text {
+      top: 100px;
+      padding-left: 10px;
     }
   }
 }
