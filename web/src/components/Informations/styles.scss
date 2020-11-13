@@ -6,7 +6,6 @@
   .column1 {
     width: 228px;
     height: 152px;
-    overflow: hidden;
     .list-group {
       border-color: transparent !important;
       .list-group-item {
@@ -57,5 +56,17 @@
 
   .column2 {
     padding: 5px 20px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  #content-information {
+    padding: 20px 10px !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #content-information {
+    padding: 20px 10px !important;
   }
 }

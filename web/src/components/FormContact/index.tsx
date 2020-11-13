@@ -18,7 +18,7 @@ const FormContact: React.FC<Props> = ({ detail, message }) => {
   return (
     <>
       <Row id="content-contact">
-        <Col className="body">
+        <Col className="body" xl="12" lg="12" md="12" xs="12" sm="12">
           <Form className="form">
             <h2>
               Send message to{" "}

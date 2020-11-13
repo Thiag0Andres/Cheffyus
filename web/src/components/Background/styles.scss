@@ -35,6 +35,24 @@
   }
 }
 
+@media screen and (max-width: 1024px) {
+  #page-home-background {
+    height: 30vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    .text {
+      top: 150px;
+      left: 230px;
+
+      h6 {
+        font-size: 2.625em;
+        line-height: 0.8125em;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
   #page-home-background {
     height: 30vh;

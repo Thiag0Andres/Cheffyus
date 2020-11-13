@@ -1,7 +1,7 @@
 @import "../../mixin.scss";
 
 #page-home-list {
-  padding: 20px 170px;
+  padding: 20px 150px;
 
   .content-header {
     .header {
@@ -196,8 +196,16 @@
   }
 }
 
+@media screen and (max-width: 1024px) {
+  #page-home-list {
+    padding: 30px !important;
+  }
+}
+
 @media screen and (max-width: 768px) {
   #page-home-list {
+    padding: 20px !important;
+
     .content-list {
       .slider {
         .text {
@@ -218,6 +226,10 @@
               span {
                 font-size: 1.5em !important;
                 line-height: 1.5em !important;
+                margin-right: 10px;
+              }
+              p {
+                margin-right: 10px;
               }
             }
           }

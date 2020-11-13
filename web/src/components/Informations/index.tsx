@@ -32,7 +32,7 @@ const Informations: React.FC = () => {
     <>
       <Tab.Container defaultActiveKey="#about">
         <Row id="content-information">
-          <Col className="column1" xl={3}>
+          <Col className="column1" xl="3" lg="3" md="3" xs="3" sm="3">
             <ListGroup>
               <ListGroup.Item
                 className="list"
@@ -100,7 +100,8 @@ const Informations: React.FC = () => {
               </ListGroup.Item>
             </ListGroup>
           </Col>
-          <Col className="column2" xl={9}>
+          <Col xl="1" lg="1" md="1" xs="1" sm="1"></Col>
+          <Col className="column2" xl="8" lg="8" md="8" xs="8" sm="8">
             <Tab.Content>
               <Tab.Pane eventKey="#about">
                 <About />

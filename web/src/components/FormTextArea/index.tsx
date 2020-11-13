@@ -30,7 +30,7 @@ const FormTextArea: React.FC = () => {
   return (
     <>
       <Row id="content">
-        <Col className="body">
+        <Col className="body" xl="12" lg="12" md="12" xs="12" sm="12">
           <Form className="form">
             {!isLogged && (
               <Form.Group controlId="exampleForm.ControlInput1">

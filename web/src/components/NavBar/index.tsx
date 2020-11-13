@@ -11,6 +11,25 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+// Material UI
+import AppBar from "@material-ui/core/AppBar";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
+import Hidden from "@material-ui/core/Hidden";
+import IconButton from "@material-ui/core/IconButton";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import {
+  makeStyles,
+  useTheme,
+  Theme,
+  createStyles,
+} from "@material-ui/core/styles";
+
 // Redux e Auth
 import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { removeUser } from "../../store/ducks/user/actions";
@@ -30,14 +49,63 @@ import logo from "../../images/logo.jpg";
 
 import "./styles.scss";
 
-const NavBar: React.FC = () => {
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: "flex",
+    },
+    drawer: {
+      [theme.breakpoints.up("sm")]: {
+        width: drawerWidth,
+        flexShrink: 0,
+      },
+    },
+    appBar: {
+      [theme.breakpoints.up("sm")]: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth,
+      },
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+      [theme.breakpoints.up("sm")]: {
+        display: "none",
+      },
+    },
+    // necessary for content to be below app bar
+    toolbar: theme.mixins.toolbar,
+    drawerPaper: {
+      width: drawerWidth,
+    },
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing(3),
+    },
+  })
+);
+
+interface Props {
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window?: () => Window;
+}
+
+const NavBar: React.FC<Props> = (props: Props) => {
+  const { window } = props;
   const dispatch = useDispatch();
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
   const history = useHistory();
+  const theme = useTheme();
+  const classes = useStyles();
 
   // States
   const [show, setShow] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
 
   // Atualiza o estado de autenticação na mudança de usuário
   useEffect(() => {
@@ -59,6 +127,35 @@ const NavBar: React.FC = () => {
       history.push("/login");
     }
   };
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const drawer = (
+    <div>
+      <div className={classes.toolbar} />
+      <Divider />
+      <List>
+        {["Sign up", "Log in"].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {["Home", "About", "Contact us"].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <>
@@ -99,19 +196,19 @@ const NavBar: React.FC = () => {
                     onMouseOver={() => setShow(true)}
                   >
                     <Row className="row1">
-                      <Col className="col" xl="3">
+                      <Col className="col" xl="3" lg="3" md="3" xs="3" sm="3">
                         <Link className="item" to="/inbox">
                           <FiInbox size={32} />
                           Inbox
                         </Link>
                       </Col>
-                      <Col className="col" xl="3">
+                      <Col className="col" xl="3" lg="3" md="3" xs="3" sm="3">
                         <Link className="item" to="/settings">
                           <ImAddressBook size={32} />
                           My listings
                         </Link>
                       </Col>
-                      <Col className="col" xl="3">
+                      <Col className="col" xl="3" lg="3" md="3" xs="3" sm="3">
                         <Link
                           className="item"
                           to={{
@@ -125,7 +222,7 @@ const NavBar: React.FC = () => {
                           Profile
                         </Link>
                       </Col>
-                      <Col className="col" xl="3">
+                      <Col className="col" xl="3" lg="3" md="3" xs="3" sm="3">
                         <Link className="item" to="/settings">
                           <GiSettingsKnobs size={32} />
                           Settings
@@ -160,6 +257,37 @@ const NavBar: React.FC = () => {
           )}
         </Nav>
       </Navbar>
+      <nav className={classes.drawer} aria-label="mailbox folders">
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        <Hidden smUp implementation="css">
+          <Drawer
+            container={container}
+            variant="temporary"
+            anchor={theme.direction === "rtl" ? "right" : "left"}
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden xsDown implementation="css">
+          <Drawer
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            variant="permanent"
+            open
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+      </nav>
     </>
   );
 };

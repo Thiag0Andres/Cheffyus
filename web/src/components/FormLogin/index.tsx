@@ -80,7 +80,7 @@ const FormLogin: React.FC = () => {
             </div>
           </Alert>
         )}
-        <Col className="body">
+        <Col className="body" xl="12" lg="12" md="12" xs="12" sm="12">
           <Form className="form1">
             <Button className="button1" variant="primary" size="lg" block>
               <IoLogoFacebook size={25} />

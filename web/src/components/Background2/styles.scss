@@ -30,6 +30,21 @@
   }
 }
 
+@media screen and (max-width: 1024px) {
+  #page-home-background2 {
+    height: 12.5vh;
+
+    .opacity {
+      height: 12.5vh;
+    }
+
+    .text {
+      top: 105px;
+      padding-left: 15px;
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
   #page-home-background2 {
     height: 9vh;
@@ -40,7 +55,7 @@
 
     .text {
       top: 100px;
-      padding-left: 10px;
+      padding-left: 15px;
     }
   }
 }

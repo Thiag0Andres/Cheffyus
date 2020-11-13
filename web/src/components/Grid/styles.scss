@@ -236,6 +236,12 @@
   }
 }
 
+@media screen and (max-width: 1024px) {
+  #page-home-grid {
+    padding: 30px !important;
+  }
+}
+
 @media screen and (max-width: 768px) {
   #page-home-grid {
     padding: 20px !important;

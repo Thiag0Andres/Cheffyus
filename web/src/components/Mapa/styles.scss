@@ -1,7 +1,7 @@
 @import "../../mixin.scss";
 
 #page-home-map {
-  padding: 20px 170px;
+  padding: 20px 150px;
   .content-header {
     .header {
       padding-right: 0;
@@ -237,9 +237,10 @@
     }
   }
 }
-
 @media screen and (max-width: 768px) {
   #page-home-map {
+    padding: 20px !important;
+
     .content-map {
       .slider {
         .text {
@@ -254,6 +255,43 @@
       }
 
       .map {
+        .leaflet-container {
+          width: 546px;
+          height: 480px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  #page-home-map {
+    padding: 30px !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #page-home-map {
+    padding: 20px !important;
+
+    .content-map {
+      .slider {
+        .text {
+          & {
+            width: 174px !important;
+          }
+        }
+
+        .range-slider {
+          width: 174px !important;
+        }
+      }
+
+      .map {
+        .leaflet-container {
+          width: 546px;
+          height: 480px;
+        }
       }
     }
   }
