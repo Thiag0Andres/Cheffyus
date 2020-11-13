@@ -9,6 +9,12 @@
   border-bottom: 1px solid rgba(0, 0, 50, 0.1);
   //font-family: "Proxima Soft", Helvetica, sans;
 
+  .drawer-login {
+    display: flex;
+    flex-direction: row;
+    background-color: #525961;
+  }
+
   .content1 {
     width: 75%;
     height: 100%;

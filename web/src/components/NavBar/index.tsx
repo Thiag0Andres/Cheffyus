@@ -43,6 +43,7 @@ import { FaRegUser } from "react-icons/fa";
 import { FiInbox } from "react-icons/fi";
 import { ImAddressBook } from "react-icons/im";
 import { GiSettingsKnobs } from "react-icons/gi";
+import { BiMenu } from "react-icons/bi";
 
 // Images
 import logo from "../../images/logo.jpg";
@@ -136,21 +137,25 @@ const NavBar: React.FC<Props> = (props: Props) => {
     <div>
       <div className={classes.toolbar} />
       <Divider />
-      <List>
-        {["Sign up", "Log in"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+      <div className="drawer-login">
+        <Nav.Link className="text2" href="/signup">
+          Sign up
+        </Nav.Link>
+        <Nav.Link className="text2" href="/login">
+          Log in
+        </Nav.Link>
+      </div>
       <Divider />
-      <List>
-        {["Home", "About", "Contact us"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+
+      <Nav.Link className="text1" href="/">
+        Home
+      </Nav.Link>
+      <Nav.Link className="text1" href="/about">
+        About
+      </Nav.Link>
+      <Nav.Link className="text1" href="/contact-us">
+        Contact us
+      </Nav.Link>
     </div>
   );
 
@@ -158,27 +163,57 @@ const NavBar: React.FC<Props> = (props: Props) => {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <>
-      <Navbar id="navbar" expand="xl">
-        <Nav className="content1" onMouseOut={() => setShow(false)}>
-          <Navbar.Brand className="logo" href="/">
-            <img src={logo} alt="Cheffy" />
-          </Navbar.Brand>
-          <Form inline>
-            <FormControl
-              className="search"
-              type="text"
-              placeholder="Search Kitchen here..."
-            />
-          </Form>
-          <Nav.Link className="text1" href="/about">
-            About
-          </Nav.Link>
-          <Nav.Link className="text1" href="/contact-us">
-            Contact us
-          </Nav.Link>
-        </Nav>
-        <Nav className="content2">
+    <Navbar id="navbar" expand="xl">
+      <Hidden mdUp implementation="css">
+        <Drawer
+          container={container}
+          variant="temporary"
+          anchor={theme.direction === "rtl" ? "right" : "left"}
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </Hidden>
+      <Nav className="content1" onMouseOut={() => setShow(false)}>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+          className={classes.menuButton}
+        >
+          <BiMenu />
+        </IconButton>
+        <Navbar.Brand className="logo" href="/">
+          <img src={logo} alt="Cheffy" />
+        </Navbar.Brand>
+        <Form inline>
+          <FormControl
+            className="search"
+            type="text"
+            placeholder="Search Kitchen here..."
+          />
+        </Form>
+        <Hidden mdDown implementation="css">
+          <Nav>
+            <Nav.Link className="text1" href="/about">
+              About
+            </Nav.Link>
+            <Nav.Link className="text1" href="/contact-us">
+              Contact us
+            </Nav.Link>
+          </Nav>
+        </Hidden>
+      </Nav>
+      <Nav className="content2">
+        <Hidden mdDown implementation="css">
           {isLogged ? (
             <>
               <div className="content-profile">
@@ -243,7 +278,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
               </Button>
             </>
           ) : (
-            <>
+            <Nav>
               <Nav.Link className="text2" href="/signup">
                 Sign up
               </Nav.Link>
@@ -253,42 +288,11 @@ const NavBar: React.FC<Props> = (props: Props) => {
               <Button className="button2" type="submit" onClick={handlePage}>
                 + Add Your Kitchen
               </Button>
-            </>
+            </Nav>
           )}
-        </Nav>
-      </Navbar>
-      <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden smUp implementation="css">
-          <Drawer
-            container={container}
-            variant="temporary"
-            anchor={theme.direction === "rtl" ? "right" : "left"}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant="permanent"
-            open
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-      </nav>
-    </>
+      </Nav>
+    </Navbar>
   );
 };
 
