@@ -9,6 +9,9 @@ import Button from "react-bootstrap/Button";
 import Carousel from "react-bootstrap/Carousel";
 import Form from "react-bootstrap/Form";
 
+// Material UI
+import Hidden from "@material-ui/core/Hidden";
+
 // Redux e Auth
 import { useSelector, RootStateOrAny } from "react-redux";
 import { isAuthenticated } from "../../services/auth";
@@ -88,55 +91,65 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
 
   return (
     <Container fluid id="page-restaurant-info">
-      <Row className="body">
-        <Col className="image" xl="8">
-          <Carousel>
-            <Carousel.Item>
-              <img src={detail.image_url_restaurant} alt={detail.title} />
-            </Carousel.Item>
-            <Carousel.Item>
-              <img src={detail.image_url_restaurant} alt={detail.title} />
-            </Carousel.Item>
-          </Carousel>
-          <p>{detail.description}</p>
-          <div className="spans">
-            <Button className="like" type="submit">
-              <AiFillLike size={16} />
-              Like 0
-            </Button>
-            <Button className="share" type="submit">
-              Share
-            </Button>
-            <Button className="tweet" type="submit">
-              <ImTwitter />
-              Tweet
-            </Button>
+      <Col className="image" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
+        <Carousel>
+          <Carousel.Item>
+            <img src={detail.image_url_restaurant} alt={detail.title} />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img src={detail.image_url_restaurant} alt={detail.title} />
+          </Carousel.Item>
+        </Carousel>
+        <p>{detail.description}</p>
+        <div className="spans">
+          <Button className="like" type="submit">
+            <AiFillLike size={16} />
+            Like 0
+          </Button>
+          <Button className="share" type="submit">
+            Share
+          </Button>
+          <Button className="tweet" type="submit">
+            <ImTwitter />
+            Tweet
+          </Button>
+        </div>
+      </Col>
+      <Col className="info" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
+        <Row className="box1">
+          <div className="price">
+            <span className="value">${detail.price}</span>
+            <p>per hour</p>
           </div>
-        </Col>
-        <Col className="info" xl="4">
-          <Row className="box1">
-            <div className="price">
-              <span className="value">${detail.price}</span>
-              <p>per hour</p>
-            </div>
-            <div className="input-price">
-              <Form.Label className="text">Number of hours:</Form.Label>
-              <Form.Control
-                className="input"
-                type="number"
-                min={1}
-                placeholder="Quantity"
-              />
-            </div>
-            <Button
-              className="button"
-              type="submit"
-              onClick={handleNextPageRequest}
-            >
-              Request
-            </Button>
-          </Row>
-          <Row className="box2">
+          <div className="input-price">
+            <Form.Label className="text">Number of hours:</Form.Label>
+            <Form.Control
+              className="input"
+              type="number"
+              min={1}
+              placeholder="Quantity"
+            />
+          </div>
+          <Button
+            className="button"
+            type="submit"
+            onClick={handleNextPageRequest}
+          >
+            Request
+          </Button>
+        </Row>
+        <Row className="box2">
+          <Link
+            to={{
+              pathname: `/profile-chef/${detail.name}`,
+              state: {
+                detail: detail,
+              },
+            }}
+          >
+            <img src={detail.image_url_chef_medium} alt={detail.name} />
+          </Link>
+          <div>
             <Link
               to={{
                 pathname: `/profile-chef/${detail.name}`,
@@ -145,38 +158,27 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
                 },
               }}
             >
-              <img src={detail.image_url_chef_medium} alt={detail.name} />
+              {detail.name}
             </Link>
-            <div>
-              <Link
-                to={{
-                  pathname: `/profile-chef/${detail.name}`,
-                  state: {
-                    detail: detail,
-                  },
-                }}
-              >
-                {detail.name}
-              </Link>
-              <Button
-                className="button"
-                type="submit"
-                onClick={handleNextPageContactChef}
-              >
-                Contact
-              </Button>
-            </div>
-          </Row>
-          <Row className="box3">
-            <Map center={detail.location} zoom={12}>
-              <TileLayer
-                url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
-              />
-              <Marker icon={mapIcon} position={detail.location} />
-            </Map>
-          </Row>
-        </Col>
-      </Row>
+            <Button
+              className="button"
+              type="submit"
+              onClick={handleNextPageContactChef}
+            >
+              Contact
+            </Button>
+          </div>
+        </Row>
+
+        <Row className="box3">
+          <Map center={detail.location} zoom={12}>
+            <TileLayer
+              url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+            />
+            <Marker icon={mapIcon} position={detail.location} />
+          </Map>
+        </Row>
+      </Col>
     </Container>
   );
 };

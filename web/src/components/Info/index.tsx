@@ -17,46 +17,48 @@ interface Props {
 const Info: React.FC<Props> = ({ detail }) => {
   return (
     <Container id="content-info">
-      <Row className="row">
-        <h2>Details</h2>
-      </Row>
-      <Row className="row">
-        <p>
-          <Link
-            to={{
-              pathname: `/restaurant/${detail.title}`,
-              state: {
-                detail: detail,
-              },
-            }}
-          >
-            {detail.title}
-          </Link>{" "}
-          by{" "}
-          <Link
-            to={{
-              pathname: `/profile-chef/${detail.name}`,
-              state: {
-                detail: detail,
-              },
-            }}
-          >
-            {detail.name}
-          </Link>
-        </p>
-      </Row>
-      <Row className="row">
-        <div className="box1">
-          <div className="price">
-            <p>Price per hour:</p>
-            <p>${detail.price}</p>
+      <Col className="body" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
+        <Row className="row">
+          <h2>Details</h2>
+        </Row>
+        <Row className="row">
+          <p>
+            <Link
+              to={{
+                pathname: `/restaurant/${detail.title}`,
+                state: {
+                  detail: detail,
+                },
+              }}
+            >
+              {detail.title}
+            </Link>{" "}
+            by{" "}
+            <Link
+              to={{
+                pathname: `/profile-chef/${detail.name}`,
+                state: {
+                  detail: detail,
+                },
+              }}
+            >
+              {detail.name}
+            </Link>
+          </p>
+        </Row>
+        <Row className="row">
+          <div className="box1">
+            <div className="price">
+              <p>Price per hour:</p>
+              <p>${detail.price}</p>
+            </div>
+            <div className="price">
+              <p className="text">Price:</p>
+              <p className="text">${detail.price}</p>
+            </div>
           </div>
-          <div className="price">
-            <p className="text">Price:</p>
-            <p className="text">${detail.price}</p>
-          </div>
-        </div>
-      </Row>
+        </Row>
+      </Col>
     </Container>
   );
 };

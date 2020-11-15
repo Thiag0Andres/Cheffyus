@@ -10,6 +10,9 @@ import Pagination from "react-bootstrap/Pagination";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+// Material UI
+import Hidden from "@material-ui/core/Hidden";
+
 // Icons
 import { BsFillGridFill } from "react-icons/bs";
 import { GoListUnordered } from "react-icons/go";
@@ -62,18 +65,26 @@ const List: React.FC = () => {
             </Dropdown.Menu>
           </Dropdown>
           <Pagination>
-            <Pagination.Item id="pagination1" href="/" disabled={false}>
-              <BsFillGridFill />
-              Grid
-            </Pagination.Item>
-            <Pagination.Item id="pagination2" href="/list" active={true}>
-              <GoListUnordered />
-              List
-            </Pagination.Item>
-            <Pagination.Item id="pagination3" href="/map" disabled={false}>
-              <FaMapMarkedAlt />
-              Map
-            </Pagination.Item>
+            <Pagination>
+              <Pagination.Item id="pagination1" href="/" disabled={false}>
+                <BsFillGridFill />
+                <Hidden only="xs" smDown implementation="css">
+                  Grid
+                </Hidden>
+              </Pagination.Item>
+              <Pagination.Item id="pagination2" href="/list" active={true}>
+                <GoListUnordered />
+                <Hidden only="xs" implementation="css">
+                  List
+                </Hidden>
+              </Pagination.Item>
+              <Pagination.Item id="pagination3" href="/map" disabled={false}>
+                <FaMapMarkedAlt />
+                <Hidden only="xs" implementation="css">
+                  Map
+                </Hidden>
+              </Pagination.Item>
+            </Pagination>
           </Pagination>
         </Col>
       </Row>

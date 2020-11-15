@@ -1,217 +1,268 @@
 @import "../../mixin.scss";
 
 #page-restaurant-info {
-  padding: 0 150px;
+  padding: 30px 150px;
   width: 100%;
-  height: 100vh;
-  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
 
-  .body {
+  .image {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: 640px;
     display: flex;
-    flex-direction: row;
-    gap: 30px;
+    flex-direction: column;
+    gap: 5px;
 
-    .image {
-      max-width: 640px;
+    img {
+      width: 100%;
+      height: 431px;
+      overflow: hidden;
+    }
+
+    p {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      padding-top: 10px;
+    }
+
+    .spans {
+      width: 100%;
+      display: flex;
+      gap: 5px;
+
+      .like {
+        width: 80pxpx;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        border-radius: 3px;
+        font-size: 11px;
+        font-weight: bold;
+        font-family: Helvetica, Arial, sans-serif;
+        background-color: #1877f2;
+
+        &:hover {
+          background-color: #365899;
+        }
+      }
+
+      .share {
+        width: 49px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 3px;
+        font-size: 11px;
+        font-weight: bold;
+        font-family: Helvetica, Arial, sans-serif;
+        background-color: #1877f2;
+
+        &:hover {
+          background-color: #365899;
+        }
+      }
+
+      .tweet {
+        width: 70px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        margin-left: 20px;
+        border-radius: 3px;
+        font-size: 11px;
+        font-family: Helvetica, Arial, sans-serif;
+        background-color: #1b95e0;
+
+        &:hover {
+          background-color: #0c7abf;
+        }
+      }
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+
+    .box1 {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 5px;
-      padding-right: 0;
-      padding-left: 0;
+      gap: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #c3c3c3;
 
-      img {
-        width: 100%;
-        height: 431px;
-        overflow: hidden;
-      }
-
-      p {
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-        padding-top: 10px;
-      }
-
-      .spans {
-        width: 100%;
+      .price {
         display: flex;
         flex-direction: row;
-        gap: 5px;
+        align-items: flex-start;
+        gap: 10px;
 
-        .like {
-          width: 80pxpx;
-          height: 20px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 5px;
-          border-radius: 3px;
-          font-size: 11px;
-          font-weight: bold;
-          font-family: Helvetica, Arial, sans-serif;
-          background-color: #1877f2;
-
-          &:hover {
-            background-color: #365899;
-          }
+        .value {
+          font-size: 2.625em;
+          line-height: 1.14286em;
+          font-weight: 700;
+          color: #474747;
         }
 
-        .share {
-          width: 49px;
-          height: 20px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-radius: 3px;
-          font-size: 11px;
-          font-weight: bold;
-          font-family: Helvetica, Arial, sans-serif;
-          background-color: #1877f2;
+        p {
+          margin-top: 5px;
+          color: gray;
+        }
+      }
 
-          &:hover {
-            background-color: #365899;
-          }
+      .input-price {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .text {
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 24px;
+          color: $gray_light;
         }
 
-        .tweet {
-          width: 70px;
-          height: 20px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 5px;
-          margin-left: 20px;
-          border-radius: 3px;
-          font-size: 11px;
-          font-family: Helvetica, Arial, sans-serif;
-          background-color: #1b95e0;
+        .input {
+          width: 100px;
+          min-height: 42px;
+          border-radius: 5px;
+          border: 2px solid #c3c3c3;
+          box-shadow: none;
+        }
+      }
 
-          &:hover {
-            background-color: #0c7abf;
-          }
+      .button {
+        width: 100%;
+        height: 60px;
+        font-size: 22px;
+        line-height: 24px;
+        border-radius: 0.3125em;
+        box-shadow: none;
+        margin-bottom: 10px;
+        background-color: $red_classic;
+        border-color: $red_classic;
+        color: $white;
+
+        &:hover {
+          background-color: $red_light;
         }
       }
     }
 
-    .info {
-      max-width: 316px;
+    .box2 {
+      display: flex;
+      gap: 15px;
+      padding: 20px 0;
+      border-bottom: 1px solid #c3c3c3;
 
-      .box1 {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #c3c3c3;
-
-        .price {
-          display: flex;
-          flex-direction: row;
-          align-items: flex-start;
-          gap: 10px;
-
-          .value {
-            font-size: 2.625em;
-            line-height: 1.14286em;
-            font-weight: 700;
-            color: #474747;
-          }
-
-          p {
-            margin-top: 5px;
-            color: gray;
-          }
-        }
-
-        .input-price {
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: center;
-
-          .text {
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 24px;
-            color: $gray_light;
-          }
-
-          .input {
-            width: 100px;
-            min-height: 42px;
-            border-radius: 5px;
-            border: 2px solid #c3c3c3;
-            box-shadow: none;
-          }
-        }
-
-        .button {
-          width: 100%;
-          height: 60px;
-          font-size: 22px;
-          line-height: 24px;
-          border-radius: 0.3125em;
-          box-shadow: none;
-          margin-bottom: 10px;
-          background-color: $red_classic;
-          border-color: $red_classic;
-          color: $white;
-
-          &:hover {
-            background-color: $red_light;
-          }
-        }
-      }
-
-      .box2 {
+      a {
         display: flex;
         flex-direction: row;
-        gap: 15px;
-        padding: 20px 0;
-        border-bottom: 1px solid #c3c3c3;
+        font-size: 1.375em;
+        font-weight: 600;
+        line-height: 3em;
 
-        a {
-          display: flex;
-          flex-direction: row;
-          font-size: 1.375em;
-          font-weight: 600;
-          line-height: 3em;
-
-          img {
-            max-width: 108px;
-            max-height: 108px;
-            border-radius: 5px;
-          }
-        }
-
-        .button {
-          text-align: center;
-          width: 190px;
-          height: 2.625em;
-          font-size: 1em;
-          line-height: 1.5em;
-          color: #474747;
-          border: 0;
-          border-radius: 0.3125em;
-          box-shadow: none;
-          background-color: $gray_classic;
-          border-color: $gray_classic;
-
-          &:hover {
-            background-color: #dbdbdb;
-            border-color: #dbdbdb;
-          }
+        img {
+          max-width: 108px;
+          max-height: 108px;
+          border-radius: 5px;
         }
       }
+
+      .button {
+        text-align: center;
+        width: 190px;
+        height: 2.625em;
+        font-size: 1em;
+        line-height: 1.5em;
+        color: #474747;
+        border: 0;
+        border-radius: 0.3125em;
+        box-shadow: none;
+        background-color: $gray_classic;
+        border-color: $gray_classic;
+
+        &:hover {
+          background-color: #dbdbdb;
+          border-color: #dbdbdb;
+        }
+      }
+    }
+    .box3 {
+      padding: 10px 0;
+      overflow: hidden;
+
+      .leaflet-container {
+        width: 316px;
+        height: 237px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1275px) {
+  #page-restaurant-info {
+    padding: 30px !important;
+  }
+}
+@media screen and (max-width: 1000px) {
+  #page-restaurant-info {
+    padding: 30px !important;
+    flex-direction: column !important;
+
+    .info {
+      width: 400px !important;
+    }
+  }
+}
+@media screen and (max-width: 414px) {
+  #page-restaurant-info {
+    padding: 30px 5px !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+
+    .image {
+      width: 400px;
+
+      img {
+        height: 300px;
+      }
+    }
+
+    .info {
+      width: 400px !important;
+
       .box3 {
-        padding: 10px 0;
-        overflow: hidden;
-
-        .leaflet-container {
-          width: 316px;
-          height: 237px;
-        }
+        justify-content: center;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  #page-restaurant-info {
+    padding: 30px 10px !important;
+
+    .image {
+      padding-left: 0;
+      padding-right: 0;
+      width: 300px;
+
+      img {
+        width: 300px;
+        height: 250px;
+      }
+    }
+
+    .info {
+      width: 400px !important;
     }
   }
 }

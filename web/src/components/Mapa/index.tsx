@@ -10,6 +10,9 @@ import Pagination from "react-bootstrap/Pagination";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+// Material UI
+import Hidden from "@material-ui/core/Hidden";
+
 // leaflet
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import Leaflet from "leaflet";
@@ -82,15 +85,21 @@ const Mapa: React.FC = () => {
           <Pagination>
             <Pagination.Item id="pagination1" href="/" disabled={false}>
               <BsFillGridFill />
-              Grid
+              <Hidden only="xs" smDown implementation="css">
+                Grid
+              </Hidden>
             </Pagination.Item>
             <Pagination.Item id="pagination2" href="/list" disabled={false}>
               <GoListUnordered />
-              List
+              <Hidden only="xs" implementation="css">
+                List
+              </Hidden>
             </Pagination.Item>
             <Pagination.Item id="pagination3" href="/map" active={true}>
               <FaMapMarkedAlt />
-              Map
+              <Hidden only="xs" implementation="css">
+                Map
+              </Hidden>
             </Pagination.Item>
           </Pagination>
         </Col>

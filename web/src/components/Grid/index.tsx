@@ -11,6 +11,9 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 
+// Material UI
+import Hidden from "@material-ui/core/Hidden";
+
 // Redux e Auth
 import { useSelector, RootStateOrAny } from "react-redux";
 import { isAuthenticated } from "../../services/auth";
@@ -44,6 +47,7 @@ const Grid: React.FC = () => {
   // States
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [alert, setAlert] = useState(false);
+  const [show, setShow] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
 
   // Chamada a api
@@ -97,52 +101,105 @@ const Grid: React.FC = () => {
           </Alert>
         )} */}
         <Col className="header" xl="12" lg="12" md="12" xs="12" sm="12">
-          <Dropdown className="dropdown">
-            <Dropdown.Toggle id="dropdown-basic">
-              All listing types
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="">All listing types</Dropdown.Item>
-              <Dropdown.Item href="">
-                Offering without online payment
-              </Dropdown.Item>
-              <Dropdown.Item href="">
-                Offering with online payment
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+          <Hidden smUp implementation="css">
+            <Button className="button2" onClick={() => setShow(true)}>
+              Filter
+            </Button>
+          </Hidden>
+          <Hidden smDown implementation="css">
+            <Dropdown className="dropdown">
+              <Dropdown.Toggle id="dropdown-basic">
+                All listing types
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="">All listing types</Dropdown.Item>
+                <Dropdown.Item href="">
+                  Offering without online payment
+                </Dropdown.Item>
+                <Dropdown.Item href="">
+                  Offering with online payment
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Hidden>
           <Pagination>
             <Pagination.Item id="pagination1" href="/" active={true}>
               <BsFillGridFill />
-              Grid
+              <Hidden smDown implementation="css">
+                Grid
+              </Hidden>
             </Pagination.Item>
             <Pagination.Item id="pagination2" href="/list" disabled={false}>
               <GoListUnordered />
-              List
+              <Hidden smDown implementation="css">
+                List
+              </Hidden>
             </Pagination.Item>
             <Pagination.Item id="pagination3" href="/map" disabled={false}>
               <FaMapMarkedAlt />
-              Map
+              <Hidden smDown implementation="css">
+                Map
+              </Hidden>
             </Pagination.Item>
           </Pagination>
         </Col>
+
+        {show && (
+          <Row className="content-filter">
+            <Col className="filter" xl="12" lg="12" md="12" xs="12" sm="12">
+              <Dropdown className="dropdown">
+                <Dropdown.Toggle id="dropdown-basic">
+                  All listing types
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="">All listing types</Dropdown.Item>
+                  <Dropdown.Item href="">
+                    Offering without online payment
+                  </Dropdown.Item>
+                  <Dropdown.Item href="">
+                    Offering with online payment
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              <Form className="range">
+                <Form.Group controlId="formBasicRangeCustom">
+                  <Form.Label className="text">Price</Form.Label>
+                  <Form.Control
+                    className="range-slider"
+                    type="range"
+                    custom
+                    size="lg"
+                  />
+                  <Button className="button" type="submit">
+                    Update view
+                  </Button>
+                </Form.Group>
+              </Form>
+            </Col>
+          </Row>
+        )}
       </Row>
       <Row className="content-grid">
         <Col className="slider" xl="3" lg="3" md="3" xs="3" sm="3">
-          <Form className="range">
-            <Form.Group controlId="formBasicRangeCustom">
-              <Form.Label className="text">Price</Form.Label>
-              <Form.Control
-                className="range-slider"
-                type="range"
-                custom
-                size="lg"
-              />
-              <Button className="button" type="submit">
-                Update view
-              </Button>
-            </Form.Group>
-          </Form>
+          <Hidden smDown implementation="css">
+            <Form className="range">
+              <Form.Group
+                className="range-form"
+                controlId="formBasicRangeCustom"
+              >
+                <Form.Label className="text">Price</Form.Label>
+                <Form.Control
+                  className="range-slider"
+                  type="range"
+                  custom
+                  size="lg"
+                />
+                <Button className="button" type="submit">
+                  Update view
+                </Button>
+              </Form.Group>
+            </Form>
+          </Hidden>
         </Col>
         <Col className="grid" xl="9" lg="9" md="9" xs="9" sm="9">
           <ul>
