@@ -17,6 +17,8 @@ import { updateUser } from "../../store/ducks/user/actions";
 import { IoLogoFacebook } from "react-icons/io";
 import { FaInfoCircle } from "react-icons/fa";
 
+import api from "../../services/api";
+
 import "./styles.scss";
 
 const FormLogin: React.FC = () => {
@@ -33,14 +35,38 @@ const FormLogin: React.FC = () => {
   //const scrollToNextPage = () => window.scrollTo(0, 1000);
 
   const signIn = () => {
-    // Cria um usuário padrão
-    const user = {
-      id: "1",
-      email: email.trim(),
-      name: "thiago p",
-      nickName: "tp",
-      token: "tokem_valido",
-    };
+    let token =
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzEsImlhdCI6MTYwNTUwMTk5OSwiZXhwIjoxNjA1NTg4Mzk5fQ.6da_zK0bymedrDqUnm7fAwpM5m9G6ClQzTX7X7mwmeE";
+
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url = "https://cheffyus-api.herokuapp.com/";
+
+    api
+      .post(url + "users/authenticate", {
+        email: email.trim(),
+        password: password,
+      })
+      .then((response) => {
+        const data = response.data;
+
+        token = data.token;
+        console.log(token);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    api
+      .get(url + "users", { headers: { Authorization: token } })
+      .then((response) => {
+        const data = response.data;
+
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     // Validação do email
     const isEmailValid = checkAuth("email", email.trim());
 
@@ -50,7 +76,7 @@ const FormLogin: React.FC = () => {
       password,
     });
 
-    if (email === "" && password === "") {
+    /* if (email === "" && password === "") {
       setError(true);
     } else if (email === "" || password === "") {
       setError(true);
@@ -64,7 +90,7 @@ const FormLogin: React.FC = () => {
       setEmail("");
       setPassword("");
       //enqueueSnackbar("Falha ao autenticar.", { variant: "error" });
-    }
+    } */
   };
 
   return (
@@ -81,7 +107,7 @@ const FormLogin: React.FC = () => {
           </Alert>
         )}
         <Col className="body" xl="12" lg="12" md="12" xs="12" sm="12">
-          <Form className="form1">
+          <Form className="form1" onSubmit={(event) => event.preventDefault()}>
             <Button className="button1" variant="primary" size="lg" block>
               <IoLogoFacebook size={25} />
               Log in with Facebook
