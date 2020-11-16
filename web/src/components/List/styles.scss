@@ -138,7 +138,6 @@
         display: flex;
         flex-direction: column;
         list-style: none;
-        overflow: hidden;
 
         li {
           display: flex;
@@ -154,12 +153,12 @@
             max-width: 180px;
             max-height: 120px;
             border-radius: 4px;
+            margin-top: auto;
           }
 
           .info {
             flex: 1;
             display: flex;
-            flex-direction: row;
             justify-content: space-between;
 
             .box1 {
@@ -240,10 +239,10 @@
               span {
                 font-size: 1.5em !important;
                 line-height: 1.5em !important;
-                margin-right: 10px;
+                margin-right: 10px !important;
               }
               p {
-                margin-right: 10px;
+                margin-right: 10px !important;
               }
             }
           }
@@ -338,9 +337,6 @@
         height: 42px !important;
       }
     }
-
-    .content-list {
-    }
   }
 }
 
@@ -365,11 +361,87 @@
         height: 42px !important;
       }
     }
+  }
+}
 
+@media screen and (max-width: 550px) {
+  #page-home-list {
     .content-list {
+      .list {
+        ul {
+          li {
+            gap: 15px !important;
+
+            img {
+              max-width: 150px !important;
+              max-height: 90px !important;
+            }
+
+            .info {
+              .box1 {
+                .chef-info {
+                  img {
+                    border-radius: 4px;
+                    max-width: 36px !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
+
+@media screen and (max-width: 440px) {
+  #page-home-list {
+    .content-list {
+      .list {
+        padding: 0 10px !important;
+        ul {
+          li {
+            gap: 10px !important;
+
+            img {
+              max-width: 130px !important;
+              max-height: 70px !important;
+            }
+
+            .info {
+              .box1 {
+                strong {
+                  font-size: 18px !important;
+                }
+
+                .chef-info {
+                  gap: 8px !important;
+
+                  img {
+                    max-width: 34px !important;
+                  }
+                }
+              }
+
+              .price {
+                span {
+                  font-size: 1.25em !important;
+                  line-height: 1.25em !important;
+                  margin-right: 10px !important;
+                }
+                p {
+                  font-size: 0.875em !important;
+                  margin-right: 10px !important;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 420px) {
   #page-home-list {
     .header {
@@ -391,14 +463,13 @@
         height: 42px !important;
       }
     }
-
-    .content-list {
-    }
   }
 }
 
 @media screen and (max-width: 374px) {
   #page-home-list {
+    padding: 20px 10px !important;
+
     .header {
       .button2 {
         width: 138px !important;
@@ -420,6 +491,19 @@
     }
 
     .content-list {
+      .list {
+        ul {
+          li {
+            .info {
+              .box1 {
+                strong {
+                  font-size: 16px !important;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

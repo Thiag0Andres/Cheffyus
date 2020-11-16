@@ -211,7 +211,12 @@ const List: React.FC = () => {
                   </div>
                   <div className="price">
                     <span>${restaurant.price}</span>
-                    <p>per hour</p>
+                    <Hidden xsDown implementation="css">
+                      <p>per hour</p>
+                    </Hidden>
+                    <Hidden smUp implementation="css">
+                      <p>/hour</p>
+                    </Hidden>
                   </div>
                 </div>
               </li>

@@ -2,7 +2,7 @@
 
 #page-home-background {
   width: auto;
-  height: 45vh;
+  height: 324px;
   background-image: url("../../images/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
@@ -36,7 +36,7 @@
 
 @media screen and (max-width: 800px) {
   #page-home-background {
-    height: 30vh !important;
+    height: 216px !important;
 
     .text {
       h6 {
@@ -52,7 +52,7 @@
 
 @media screen and (max-width: 500px) {
   #page-home-background {
-    height: 25vh !important;
+    height: 180px !important;
 
     .text {
       h6 {
