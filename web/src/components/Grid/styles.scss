@@ -26,13 +26,11 @@
       padding-left: 0;
       padding-right: 0;
       display: flex;
-      align-items: center;
       justify-content: space-between;
 
       .button2 {
         width: 360px;
         height: 42px;
-        margin-top: 20px;
         box-shadow: none;
         background-color: #e8e8e8;
         border-color: #e8e8e8;
@@ -260,9 +258,21 @@
   }
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1250px) {
   #page-home-grid {
-    padding: 30px !important;
+    padding: 30px 120px !important;
+  }
+}
+
+@media screen and (max-width: 1180px) {
+  #page-home-grid {
+    padding: 30px 80px !important;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  #page-home-grid {
+    padding: 30px 45px !important;
   }
 }
 
@@ -274,7 +284,7 @@
 
 @media screen and (max-width: 985px) {
   #page-home-grid {
-    padding: 20px !important;
+    padding: 30px 100px !important;
 
     .content-grid {
       .slider {
@@ -309,22 +319,41 @@
   }
 }
 
-@media screen and (max-width: 846px) {
+@media screen and (max-width: 959px) {
   #page-home-grid {
     padding: 20px !important;
 
     .content-grid {
-      .slider {
-        .text {
-          & {
-            width: 174px !important;
+      flex-direction: column;
+      align-items: center !important;
+
+      .grid {
+        ul {
+          li {
+            width: 225px !important;
+            height: 200px !important;
+            .opacity {
+              width: 225px !important;
+              height: 150px !important;
+            }
+            .box1 {
+              width: 225px !important;
+              height: 150px !important;
+            }
           }
         }
-
-        .range-slider {
-          width: 174px !important;
-        }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 870px) {
+  #page-home-grid {
+    padding: 20px 0 !important;
+
+    .content-grid {
+      flex-direction: column;
+      align-items: center !important;
 
       .grid {
         ul {
@@ -348,38 +377,32 @@
 
 @media screen and (max-width: 768px) {
   #page-home-grid {
-    padding: 20px !important;
+    padding: 20px 0 !important;
 
     .header {
+      justify-content: space-around !important;
+
+      .button2 {
+        width: 279px !important;
+      }
+
       #pagination1 {
-        width: 63px;
-        height: 42px;
+        width: 93px !important;
+        height: 42px !important;
       }
 
       #pagination2 {
-        width: 63px;
-        height: 42px;
+        width: 93px !important;
+        height: 42px !important;
       }
 
       #pagination3 {
-        width: 63px;
-        height: 42px;
+        width: 93px !important;
+        height: 42px !important;
       }
     }
 
     .content-grid {
-      .slider {
-        .text {
-          & {
-            width: 174px !important;
-          }
-        }
-
-        .range-slider {
-          width: 174px !important;
-        }
-      }
-
       .grid {
         ul {
           li {
@@ -400,11 +423,16 @@
   }
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 639px) {
   #page-home-grid {
-    padding: 20px !important;
+    padding: 20px 0 !important;
 
     .header {
+      justify-content: space-around !important;
+
+      .button2 {
+        width: 189px !important;
+      }
       #pagination1 {
         width: 63px !important;
         height: 42px !important;
@@ -422,36 +450,124 @@
     }
 
     .content-grid {
-      flex-direction: column !important;
-      .slider {
-        .text {
-          & {
-            width: 174px !important;
+      .grid {
+        ul {
+          grid-template-columns: 1fr 1fr !important;
+          li {
+            width: 166px !important;
+            height: 160px !important;
+            .opacity {
+              width: 166px !important;
+              height: 110px !important;
+            }
+            .box1 {
+              width: 166px !important;
+              height: 110px !important;
+            }
           }
         }
+      }
+    }
+  }
+}
+@media screen and (max-width: 420px) {
+  #page-home-grid {
+    padding: 20px 0 !important;
 
-        .range-slider {
-          width: 174px !important;
-        }
+    .header {
+      justify-content: space-around !important;
+
+      .button2 {
+        width: 159px !important;
+      }
+      #pagination1 {
+        width: 53px !important;
+        height: 42px !important;
       }
 
+      #pagination2 {
+        width: 53px !important;
+        height: 42px !important;
+      }
+
+      #pagination3 {
+        width: 53px !important;
+        height: 42px !important;
+      }
+    }
+
+    .content-grid {
       .grid {
         ul {
           grid-template-columns: 1fr !important;
           li {
-            width: 380px !important;
-            height: 300px !important;
+            width: 300px !important;
+            height: 250px !important;
+
             .opacity {
-              width: 380px !important;
-              height: 253px !important;
+              width: 300px !important;
+              height: 200px !important;
             }
             .box1 {
-              width: 380px !important;
-              height: 253px !important;
+              width: 300px !important;
+              height: 200px !important;
             }
 
             .box2 {
               padding: 6px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 374px) {
+  #page-home-grid {
+    padding: 20px 0 !important;
+
+    .header {
+      justify-content: space-around !important;
+
+      .button2 {
+        width: 138px !important;
+      }
+      #pagination1 {
+        width: 46px !important;
+        height: 42px !important;
+      }
+
+      #pagination2 {
+        width: 46px !important;
+        height: 42px !important;
+      }
+
+      #pagination3 {
+        width: 46px !important;
+        height: 42px !important;
+      }
+    }
+
+    .content-grid {
+      .grid {
+        ul {
+          grid-template-columns: 1fr !important;
+          li {
+            width: 280px !important;
+            height: 230px !important;
+
+            .opacity {
+              width: 280px !important;
+              height: 186px !important;
+            }
+            .box1 {
+              width: 280px !important;
+              height: 186px !important;
+            }
+
+            .box2 {
+              padding: 3px 4px !important;
             }
           }
         }

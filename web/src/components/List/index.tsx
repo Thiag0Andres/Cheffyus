@@ -35,6 +35,7 @@ interface Restaurant {
 const List: React.FC = () => {
   // States
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [show, setShow] = useState(false);
 
   const history = useHistory();
 
@@ -50,60 +51,109 @@ const List: React.FC = () => {
     <Container fluid id="page-home-list">
       <Row className="content-header">
         <Col className="header" xl="12" lg="12" md="12" xs="12" sm="12">
-          <Dropdown className="dropdown">
-            <Dropdown.Toggle id="dropdown-basic">
-              All listing types
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="">All listing types</Dropdown.Item>
-              <Dropdown.Item href="">
-                Offering without online payment
-              </Dropdown.Item>
-              <Dropdown.Item href="">
-                Offering with online payment
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+          <Hidden smDown implementation="css">
+            <Dropdown className="dropdown">
+              <Dropdown.Toggle id="dropdown-basic">
+                All listing types
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="">All listing types</Dropdown.Item>
+                <Dropdown.Item href="">
+                  Offering without online payment
+                </Dropdown.Item>
+                <Dropdown.Item href="">
+                  Offering with online payment
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Hidden>
+          <Hidden mdUp implementation="css">
+            <Button className="button2" onClick={() => setShow(true)}>
+              Filter
+            </Button>
+          </Hidden>
           <Pagination>
-            <Pagination>
-              <Pagination.Item id="pagination1" href="/" disabled={false}>
-                <BsFillGridFill />
-                <Hidden only="xs" smDown implementation="css">
-                  Grid
-                </Hidden>
-              </Pagination.Item>
-              <Pagination.Item id="pagination2" href="/list" active={true}>
-                <GoListUnordered />
-                <Hidden only="xs" implementation="css">
-                  List
-                </Hidden>
-              </Pagination.Item>
-              <Pagination.Item id="pagination3" href="/map" disabled={false}>
-                <FaMapMarkedAlt />
-                <Hidden only="xs" implementation="css">
-                  Map
-                </Hidden>
-              </Pagination.Item>
-            </Pagination>
+            <Pagination.Item id="pagination1" href="/" disabled={false}>
+              <BsFillGridFill />
+              <Hidden smDown implementation="css">
+                Grid
+              </Hidden>
+            </Pagination.Item>
+            <Pagination.Item id="pagination2" href="/list" active={true}>
+              <GoListUnordered />
+              <Hidden smDown implementation="css">
+                List
+              </Hidden>
+            </Pagination.Item>
+            <Pagination.Item id="pagination3" href="/map" disabled={false}>
+              <FaMapMarkedAlt />
+              <Hidden smDown implementation="css">
+                Map
+              </Hidden>
+            </Pagination.Item>
           </Pagination>
         </Col>
+
+        {show && (
+          <Row className="content-filter">
+            <Col
+              className="filter"
+              xl="auto"
+              lg="auto"
+              md="auto"
+              xs="auto"
+              sm="auto"
+            >
+              <Dropdown className="dropdown">
+                <Dropdown.Toggle id="dropdown-basic">
+                  All listing types
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="">All listing types</Dropdown.Item>
+                  <Dropdown.Item href="">
+                    Offering without online payment
+                  </Dropdown.Item>
+                  <Dropdown.Item href="">
+                    Offering with online payment
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              <Form className="range">
+                <Form.Group controlId="formBasicRangeCustom">
+                  <Form.Label className="text">Price</Form.Label>
+                  <Form.Control
+                    className="range-slider"
+                    type="range"
+                    custom
+                    size="lg"
+                  />
+                  <Button className="button" type="submit">
+                    Update view
+                  </Button>
+                </Form.Group>
+              </Form>
+            </Col>
+          </Row>
+        )}
       </Row>
       <Row className="content-list">
         <Col className="slider" xl="3" lg="3" md="3" xs="3" sm="3">
-          <Form className="range">
-            <Form.Group controlId="formBasicRangeCustom">
-              <Form.Label className="text">Price</Form.Label>
-              <Form.Control
-                className="range-slider"
-                type="range"
-                custom
-                size="lg"
-              />
-              <Button className="button" type="submit">
-                Update view
-              </Button>
-            </Form.Group>
-          </Form>
+          <Hidden smDown implementation="css">
+            <Form className="range">
+              <Form.Group controlId="formBasicRangeCustom">
+                <Form.Label className="text">Price</Form.Label>
+                <Form.Control
+                  className="range-slider"
+                  type="range"
+                  custom
+                  size="lg"
+                />
+                <Button className="button" type="submit">
+                  Update view
+                </Button>
+              </Form.Group>
+            </Form>
+          </Hidden>
         </Col>
         <Col className="list" xl="9" lg="9" md="9" xs="9" sm="9">
           <ul>

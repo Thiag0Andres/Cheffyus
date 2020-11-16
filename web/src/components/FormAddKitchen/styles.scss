@@ -3,7 +3,7 @@
 #content-add-kitchen {
   padding-right: 0;
   padding-left: 0;
-  padding: 40px 150px;
+  padding: 30px 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -241,7 +241,6 @@
           border-radius: 10px;
           border: #e1e1e1 dashed 0.1875em;
           color: #9a9a9a;
-          display: table;
 
           &:hover {
             border-color: #bbbbbb;
@@ -262,6 +261,62 @@
         &:hover {
           background-color: $red_light;
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 414px) {
+  #content-add-kitchen {
+    padding: 30px !important;
+
+    .body {
+      width: 400px !important;
+
+      .button1 {
+        width: 354px !important;
+      }
+
+      .button2 {
+        width: 354px !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 375px) {
+  #content-add-kitchen {
+    padding: 30px 0 !important;
+
+    .body {
+      width: 350px !important;
+
+      .button1 {
+        width: 320px !important;
+      }
+
+      .button2 {
+        width: 320px !important;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  #content-add-kitchen {
+    padding: 30px 0 !important;
+
+    .body {
+      width: 300px !important;
+
+      .button1 {
+        width: 270px !important;
+      }
+
+      .button2 {
+        width: 270px !important;
+        font-size: 12px;
       }
     }
   }

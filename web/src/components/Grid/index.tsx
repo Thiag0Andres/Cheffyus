@@ -101,11 +101,6 @@ const Grid: React.FC = () => {
           </Alert>
         )} */}
         <Col className="header" xl="12" lg="12" md="12" xs="12" sm="12">
-          <Hidden smUp implementation="css">
-            <Button className="button2" onClick={() => setShow(true)}>
-              Filter
-            </Button>
-          </Hidden>
           <Hidden smDown implementation="css">
             <Dropdown className="dropdown">
               <Dropdown.Toggle id="dropdown-basic">
@@ -121,6 +116,11 @@ const Grid: React.FC = () => {
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+          </Hidden>
+          <Hidden mdUp implementation="css">
+            <Button className="button2" onClick={() => setShow(true)}>
+              Filter
+            </Button>
           </Hidden>
           <Pagination>
             <Pagination.Item id="pagination1" href="/" active={true}>
@@ -146,7 +146,14 @@ const Grid: React.FC = () => {
 
         {show && (
           <Row className="content-filter">
-            <Col className="filter" xl="12" lg="12" md="12" xs="12" sm="12">
+            <Col
+              className="filter"
+              xl="auto"
+              lg="auto"
+              md="auto"
+              xs="auto"
+              sm="auto"
+            >
               <Dropdown className="dropdown">
                 <Dropdown.Toggle id="dropdown-basic">
                   All listing types

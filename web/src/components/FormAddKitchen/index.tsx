@@ -47,7 +47,7 @@ const FormAddKitchen: React.FC = () => {
   return (
     <>
       <Row id="content-add-kitchen">
-        <Col className="body" xl="12" lg="12" md="12" xs="12" sm="12">
+        <Col className="body" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
           {show2 && (
             <Button
               className="button2"

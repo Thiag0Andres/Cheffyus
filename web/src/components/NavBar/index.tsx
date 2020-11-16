@@ -44,48 +44,12 @@ import { FiInbox } from "react-icons/fi";
 import { ImAddressBook } from "react-icons/im";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { BiMenu } from "react-icons/bi";
+import { GoSearch } from "react-icons/go";
 
 // Images
 import logo from "../../images/logo.jpg";
 
 import "./styles.scss";
-
-const drawerWidth = 240;
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-    },
-    drawer: {
-      [theme.breakpoints.up("sm")]: {
-        width: drawerWidth,
-        flexShrink: 0,
-      },
-    },
-    appBar: {
-      [theme.breakpoints.up("sm")]: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-      },
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up("sm")]: {
-        display: "none",
-      },
-    },
-    // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
-    drawerPaper: {
-      width: drawerWidth,
-    },
-    content: {
-      flexGrow: 1,
-      padding: theme.spacing(3),
-    },
-  })
-);
 
 interface Props {
   /**
@@ -101,7 +65,6 @@ const NavBar: React.FC<Props> = (props: Props) => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
   const history = useHistory();
   const theme = useTheme();
-  const classes = useStyles();
 
   // States
   const [show, setShow] = useState(false);
@@ -134,28 +97,43 @@ const NavBar: React.FC<Props> = (props: Props) => {
   };
 
   const drawer = (
-    <div>
-      <div className={classes.toolbar} />
-      <Divider />
+    <div id="drawer">
       <div className="drawer-login">
-        <Nav.Link className="text2" href="/signup">
-          Sign up
-        </Nav.Link>
-        <Nav.Link className="text2" href="/login">
-          Log in
-        </Nav.Link>
+        <Nav.Link href="/signup">Sign up</Nav.Link>
+        <Nav.Link href="/login">Log in</Nav.Link>
       </div>
       <Divider />
-
-      <Nav.Link className="text1" href="/">
-        Home
-      </Nav.Link>
-      <Nav.Link className="text1" href="/about">
-        About
-      </Nav.Link>
-      <Nav.Link className="text1" href="/contact-us">
-        Contact us
-      </Nav.Link>
+      <div className="drawer-menu">
+        <p>Menu</p>
+        <Nav.Link href="/">Home</Nav.Link>
+        <Nav.Link href="/about">About</Nav.Link>
+        <Nav.Link href="/contact-us">Contact us</Nav.Link>
+      </div>
+      <Divider />
+      {isLogged && (
+        <div className="drawer-user">
+          <Hidden mdUp implementation="css">
+            <p>User</p>
+            <Nav.Link href="/inbox">Inbox</Nav.Link>
+            <Nav.Link href="/settings">My listings</Nav.Link>
+            <Link
+              className="text3"
+              to={{
+                pathname: `/profile-user/${user.name}`,
+                state: {
+                  detail: user,
+                },
+              }}
+            >
+              Profile
+            </Link>
+            <Nav.Link href="/settings">Settings</Nav.Link>
+            <Button className="button1" onClick={logout}>
+              Log out
+            </Button>
+          </Hidden>
+        </div>
+      )}
     </div>
   );
 
@@ -164,58 +142,56 @@ const NavBar: React.FC<Props> = (props: Props) => {
 
   return (
     <Navbar id="navbar" expand="xl">
-      <Hidden mdUp implementation="css">
-        <Drawer
-          container={container}
-          variant="temporary"
-          anchor={theme.direction === "rtl" ? "right" : "left"}
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-        >
-          {drawer}
-        </Drawer>
-      </Hidden>
+      <Drawer
+        container={container}
+        variant="temporary"
+        anchor={theme.direction === "rtl" ? "right" : "left"}
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
+      >
+        {drawer}
+      </Drawer>
       <Nav className="content1" onMouseOut={() => setShow(false)}>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
-          className={classes.menuButton}
-        >
-          <BiMenu />
-        </IconButton>
+        <Hidden mdUp implementation="css">
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+          >
+            <BiMenu />
+          </IconButton>
+        </Hidden>
         <Navbar.Brand className="logo" href="/">
           <img src={logo} alt="Cheffy" />
         </Navbar.Brand>
-        <Form inline>
-          <FormControl
-            className="search"
-            type="text"
-            placeholder="Search Kitchen here..."
-          />
-        </Form>
-        <Hidden mdDown implementation="css">
-          <Nav>
+        <Hidden smDown implementation="css">
+          <Form inline>
+            <FormControl
+              className="search"
+              type="text"
+              placeholder="Search Kitchen here..."
+            />
+          </Form>
+        </Hidden>
+        <Hidden smDown implementation="css">
+          <div className="texts">
             <Nav.Link className="text1" href="/about">
               About
             </Nav.Link>
             <Nav.Link className="text1" href="/contact-us">
               Contact us
             </Nav.Link>
-          </Nav>
+          </div>
         </Hidden>
       </Nav>
       <Nav className="content2">
-        <Hidden mdDown implementation="css">
+        <Hidden smDown implementation="css">
           {isLogged ? (
-            <>
+            <div className="box1">
               <div className="content-profile">
                 <div
                   className="avatar"
@@ -276,9 +252,9 @@ const NavBar: React.FC<Props> = (props: Props) => {
               <Button className="button2" type="submit" href="/add-kitchen">
                 + Add Your Kitchen
               </Button>
-            </>
+            </div>
           ) : (
-            <Nav>
+            <div className="box2">
               <Nav.Link className="text2" href="/signup">
                 Sign up
               </Nav.Link>
@@ -288,8 +264,20 @@ const NavBar: React.FC<Props> = (props: Props) => {
               <Button className="button2" type="submit" onClick={handlePage}>
                 + Add Your Kitchen
               </Button>
-            </Nav>
+            </div>
           )}
+        </Hidden>
+        <Hidden mdUp implementation="css">
+          <div className="box3">
+            <IconButton color="inherit" aria-label="open drawer" edge="start">
+              <GoSearch />
+            </IconButton>
+            <Hidden xsDown implementation="css">
+              <Button className="button2" type="submit" onClick={handlePage}>
+                + Add Your Kitchen
+              </Button>
+            </Hidden>
+          </div>
         </Hidden>
       </Nav>
     </Navbar>
