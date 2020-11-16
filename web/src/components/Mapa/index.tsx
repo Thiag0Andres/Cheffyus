@@ -43,6 +43,7 @@ interface Restaurant {
 const Mapa: React.FC = () => {
   // States
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [show, setShow] = useState(false);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
     38.8935124,
     -77.1550051,
@@ -68,60 +69,111 @@ const Mapa: React.FC = () => {
     <Container fluid id="page-home-map">
       <Row className="content-header">
         <Col className="header" xl="12" lg="12" md="12" xs="12" sm="12">
-          <Dropdown className="dropdown">
-            <Dropdown.Toggle id="dropdown-basic">
-              All listing types
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="">All listing types</Dropdown.Item>
-              <Dropdown.Item href="">
-                Offering without online payment
-              </Dropdown.Item>
-              <Dropdown.Item href="">
-                Offering with online payment
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+          <Hidden smDown implementation="css">
+            <Dropdown className="dropdown">
+              <Dropdown.Toggle id="dropdown-basic">
+                All listing types
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="">All listing types</Dropdown.Item>
+                <Dropdown.Item href="">
+                  Offering without online payment
+                </Dropdown.Item>
+                <Dropdown.Item href="">
+                  Offering with online payment
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Hidden>
+          <Hidden mdUp implementation="css">
+            <Button className="button2" onClick={() => setShow(true)}>
+              Filter
+            </Button>
+          </Hidden>
           <Pagination>
             <Pagination.Item id="pagination1" href="/" disabled={false}>
               <BsFillGridFill />
-              <Hidden only="xs" smDown implementation="css">
+              <Hidden smDown implementation="css">
                 Grid
               </Hidden>
             </Pagination.Item>
             <Pagination.Item id="pagination2" href="/list" disabled={false}>
               <GoListUnordered />
-              <Hidden only="xs" implementation="css">
+              <Hidden smDown implementation="css">
                 List
               </Hidden>
             </Pagination.Item>
             <Pagination.Item id="pagination3" href="/map" active={true}>
               <FaMapMarkedAlt />
-              <Hidden only="xs" implementation="css">
+              <Hidden smDown implementation="css">
                 Map
               </Hidden>
             </Pagination.Item>
           </Pagination>
         </Col>
+
+        {show && (
+          <Row className="content-filter">
+            <Col
+              className="filter"
+              xl="auto"
+              lg="auto"
+              md="auto"
+              xs="auto"
+              sm="auto"
+            >
+              <Dropdown className="dropdown">
+                <Dropdown.Toggle id="dropdown-basic">
+                  All listing types
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="">All listing types</Dropdown.Item>
+                  <Dropdown.Item href="">
+                    Offering without online payment
+                  </Dropdown.Item>
+                  <Dropdown.Item href="">
+                    Offering with online payment
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              <Form className="range">
+                <Form.Group controlId="formBasicRangeCustom">
+                  <Form.Label className="text">Price</Form.Label>
+                  <Form.Control
+                    className="range-slider"
+                    type="range"
+                    custom
+                    size="lg"
+                  />
+                  <Button className="button" type="submit">
+                    Update view
+                  </Button>
+                </Form.Group>
+              </Form>
+            </Col>
+          </Row>
+        )}
       </Row>
       <Row className="content-map">
         <Col className="slider" xl="3" lg="3" md="3" xs="3" sm="3">
-          <Form className="range">
-            <Form.Group controlId="formBasicRangeCustom">
-              <Form.Label className="text">Price</Form.Label>
-              <Form.Control
-                className="range-slider"
-                type="range"
-                custom
-                size="lg"
-              />
-              <Button className="button" type="submit">
-                Update view
-              </Button>
-            </Form.Group>
-          </Form>
+          <Hidden smDown implementation="css">
+            <Form className="range">
+              <Form.Group controlId="formBasicRangeCustom">
+                <Form.Label className="text">Price</Form.Label>
+                <Form.Control
+                  className="range-slider"
+                  type="range"
+                  custom
+                  size="lg"
+                />
+                <Button className="button" type="submit">
+                  Update view
+                </Button>
+              </Form.Group>
+            </Form>
+          </Hidden>
         </Col>
-        <Col className="map" xl="9" lg="9" md="9" xs="9" sm="9">
+        <Col className="map" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
           <Map center={initialPosition} zoom={9}>
             <TileLayer
               url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}

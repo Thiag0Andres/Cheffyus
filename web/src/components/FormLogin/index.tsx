@@ -35,7 +35,7 @@ const FormLogin: React.FC = () => {
   //const scrollToNextPage = () => window.scrollTo(0, 1000);
 
   const signIn = () => {
-    let token =
+    /*     let token =
       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzEsImlhdCI6MTYwNTUwMTk5OSwiZXhwIjoxNjA1NTg4Mzk5fQ.6da_zK0bymedrDqUnm7fAwpM5m9G6ClQzTX7X7mwmeE";
 
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
@@ -65,7 +65,16 @@ const FormLogin: React.FC = () => {
       })
       .catch((error) => {
         console.log(error);
-      });
+      }); */
+
+    // Cria um usuário padrão
+    const user = {
+      id: "1",
+      email: email.trim(),
+      name: "thiago p",
+      nickName: "tp",
+      token: "tokem_valido",
+    };
 
     // Validação do email
     const isEmailValid = checkAuth("email", email.trim());
@@ -76,7 +85,7 @@ const FormLogin: React.FC = () => {
       password,
     });
 
-    /* if (email === "" && password === "") {
+    if (email === "" && password === "") {
       setError(true);
     } else if (email === "" || password === "") {
       setError(true);
@@ -90,7 +99,7 @@ const FormLogin: React.FC = () => {
       setEmail("");
       setPassword("");
       //enqueueSnackbar("Falha ao autenticar.", { variant: "error" });
-    } */
+    }
   };
 
   return (

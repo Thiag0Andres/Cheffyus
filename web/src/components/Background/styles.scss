@@ -1,19 +1,18 @@
 @import "../../mixin.scss";
 
 #page-home-background {
-  width: 100%;
+  width: auto;
   height: 45vh;
   background-image: url("../../images/background.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
 
   .text {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: absolute;
-    top: 160px;
-    left: 445px;
-    width: 400px;
+    justify-content: center;
 
     h6 {
       margin-bottom: 0;
@@ -35,37 +34,33 @@
   }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 800px) {
   #page-home-background {
-    height: 30vh;
-    background-size: cover;
-    background-repeat: no-repeat;
+    height: 30vh !important;
 
     .text {
-      top: 150px;
-      left: 230px;
-
       h6 {
-        font-size: 2.625em;
-        line-height: 0.8125em;
+        font-size: 3.75em !important;
+      }
+
+      p {
+        font-size: 1.4375em !important;
       }
     }
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 500px) {
   #page-home-background {
-    height: 30vh;
-    background-size: cover;
-    background-repeat: no-repeat;
+    height: 25vh !important;
 
     .text {
-      top: 150px;
-      left: 230px;
-
       h6 {
-        font-size: 2.625em;
-        line-height: 0.8125em;
+        font-size: 3.125em !important;
+      }
+
+      p {
+        font-size: 1.25em !important;
       }
     }
   }

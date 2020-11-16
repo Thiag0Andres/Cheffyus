@@ -1,18 +1,19 @@
 import React from "react";
 
-// Images
-import background from "../../images/background.jpg";
+// Bootstrap
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 import "./styles.scss";
 
 const Background: React.FC = () => {
   return (
-    <div id="page-home-background">
-      <div className="text">
+    <Row id="page-home-background">
+      <Col className="text" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
         <h6> Cheffy</h6>
         <p>Rent Kitchen. Lease Kitchen.</p>
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 };
 export default Background;

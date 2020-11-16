@@ -208,7 +208,7 @@ const Grid: React.FC = () => {
             </Form>
           </Hidden>
         </Col>
-        <Col className="grid" xl="9" lg="9" md="9" xs="9" sm="9">
+        <Col className="grid" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
           <ul>
             {restaurants.map((restaurant) => (
               <li key={restaurant.id}>

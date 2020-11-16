@@ -155,7 +155,7 @@ const List: React.FC = () => {
             </Form>
           </Hidden>
         </Col>
-        <Col className="list" xl="9" lg="9" md="9" xs="9" sm="9">
+        <Col className="list" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
           <ul>
             {restaurants.map((restaurant) => (
               <li key={restaurant.id}>

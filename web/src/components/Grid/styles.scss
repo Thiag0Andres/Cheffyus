@@ -352,9 +352,6 @@
     padding: 20px 0 !important;
 
     .content-grid {
-      flex-direction: column;
-      align-items: center !important;
-
       .grid {
         ul {
           li {
@@ -377,8 +374,6 @@
 
 @media screen and (max-width: 768px) {
   #page-home-grid {
-    padding: 20px 0 !important;
-
     .header {
       justify-content: space-around !important;
 
@@ -425,11 +420,7 @@
 
 @media screen and (max-width: 639px) {
   #page-home-grid {
-    padding: 20px 0 !important;
-
     .header {
-      justify-content: space-around !important;
-
       .button2 {
         width: 189px !important;
       }
@@ -472,11 +463,7 @@
 }
 @media screen and (max-width: 420px) {
   #page-home-grid {
-    padding: 20px 0 !important;
-
     .header {
-      justify-content: space-around !important;
-
       .button2 {
         width: 159px !important;
       }
@@ -525,11 +512,7 @@
 
 @media screen and (max-width: 374px) {
   #page-home-grid {
-    padding: 20px 0 !important;
-
     .header {
-      justify-content: space-around !important;
-
       .button2 {
         width: 138px !important;
       }
