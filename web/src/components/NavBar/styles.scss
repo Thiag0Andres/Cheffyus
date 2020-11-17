@@ -111,6 +111,7 @@
 
     .box1 {
       display: flex;
+      margin-top: 7px;
 
       .content-profile {
         .avatar {
@@ -207,6 +208,7 @@
 
     .box2 {
       display: flex;
+      margin-top: 7px;
       gap: 10px;
 
       .text2 {
@@ -222,6 +224,7 @@
 
     .box3 {
       display: flex;
+      margin-top: 7px;
     }
 
     .button2 {
@@ -230,7 +233,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-left: 20px;
+      margin-left: 10px;
       font-size: 14px;
       font-weight: 600;
       letter-spacing: 0.35px;
@@ -242,6 +245,16 @@
 
       &:hover {
         background-color: $red_dark;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  #navbar {
+    .content1 {
+      .search {
+        width: 300px !important;
       }
     }
   }

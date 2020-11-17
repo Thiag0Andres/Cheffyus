@@ -50,7 +50,6 @@ const ChefProfile: React.FC<Props> = ({ detail }) => {
     <Container fluid id="page-chef-profile">
       <Col className="info" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
         <h2>1 open listing</h2>
-
         <div className="box-image">
           <div className="opacity"></div>
           <img src={detail.image_url_restaurant} alt={detail.title} />
