@@ -18,33 +18,34 @@ import { BsFillGridFill } from "react-icons/bs";
 import { GoListUnordered } from "react-icons/go";
 import { FaMapMarkedAlt } from "react-icons/fa";
 
+// Images
+import userNotfound from "../../images/user.png";
+
 import api from "../../services/api";
 
 import "./styles.scss";
 
-interface Restaurant {
-  id: number;
-  title: string;
-  image_url_restaurant: string;
-  price: number;
-  location: [number, number];
-  name: string;
-  image_url_chef: string;
-}
-
 const List: React.FC = () => {
   // States
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [restaurants, setRestaurants] = useState([]);
   const [show, setShow] = useState(false);
 
   const history = useHistory();
 
   // Chamada a api
   useEffect(() => {
-    api.get("restaurants").then((response) => {
-      setRestaurants(response.data);
-      //console.log(response);
-    });
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url = "https://cheffyus-api.herokuapp.com/";
+
+    api
+      .get(proxyurl + url + "kitchens")
+      .then((response) => {
+        setRestaurants(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
@@ -155,72 +156,77 @@ const List: React.FC = () => {
             </Form>
           </Hidden>
         </Col>
-        <Col className="list" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
+        <Col className="list" xl="9" lg="9" md="9" xs="9" sm="9">
           <ul>
-            {restaurants.map((restaurant) => (
-              <li key={restaurant.id}>
-                <Link
-                  to={{
-                    pathname: `/restaurant/${restaurant.title}`,
-                    state: {
-                      detail: restaurant,
-                    },
-                  }}
-                >
-                  <img
-                    src={restaurant.image_url_restaurant}
-                    alt={restaurant.name}
-                  />
-                </Link>
-                <div className="info">
-                  <div className="box1">
-                    <Link
-                      to={{
-                        pathname: `/restaurant/${restaurant.title}`,
-                        state: {
-                          detail: restaurant,
-                        },
-                      }}
-                    >
-                      <strong>{restaurant.title}</strong>
-                    </Link>
-                    <Link
-                      className="chef-info"
-                      to={{
-                        pathname: `/profile-chef/${restaurant.name}`,
-                        state: {
-                          detail: restaurant,
-                        },
-                      }}
-                    >
-                      <img
-                        src={restaurant.image_url_chef}
-                        alt={restaurant.name}
-                      />
+            {restaurants.length > 0 &&
+              restaurants.map((restaurant: any) => (
+                <li key={restaurant.user.id}>
+                  <Link
+                    to={{
+                      pathname: `/restaurant/${restaurant.kitchens[0].name}`,
+                      state: {
+                        detail: restaurant,
+                      },
+                    }}
+                  >
+                    <img
+                      src={restaurant.kitchens[0].image_urls[0]}
+                      alt={restaurant.kitchens[0].name}
+                    />
+                  </Link>
+                  <div className="info">
+                    <div className="box1">
                       <Link
                         to={{
-                          pathname: `/profile-chef/${restaurant.name}`,
+                          pathname: `/restaurant/${restaurant.kitchens[0].name}`,
                           state: {
                             detail: restaurant,
                           },
                         }}
                       >
-                        {restaurant.name}
+                        <strong>{restaurant.kitchens[0].name}</strong>
                       </Link>
-                    </Link>
+                      <Link
+                        className="chef-info"
+                        to={{
+                          pathname: `/profile-chef/${restaurant.user.first_name}`,
+                          state: {
+                            detail: restaurant,
+                          },
+                        }}
+                      >
+                        <img
+                          src={
+                            restaurant.user.image_url === null
+                              ? userNotfound
+                              : restaurant.user.image_url
+                          }
+                          alt={restaurant.user.first_name}
+                        />
+                        <Link
+                          to={{
+                            pathname: `/profile-chef/${restaurant.user.first_name}`,
+                            state: {
+                              detail: restaurant,
+                            },
+                          }}
+                        >
+                          {restaurant.user.first_name}
+                        </Link>
+                      </Link>
+                    </div>
+                    <div className="price">
+                      <span>${restaurant.kitchens[0].price_per_time}</span>
+                      <Hidden xsDown implementation="css">
+                        <p>per {restaurant.kitchens[0].time_type}</p>
+                      </Hidden>
+                      <Hidden smUp implementation="css">
+                        <p>/ {restaurant.kitchens[0].time_type}</p>
+                      </Hidden>
+                    </div>
                   </div>
-                  <div className="price">
-                    <span>${restaurant.price}</span>
-                    <Hidden xsDown implementation="css">
-                      <p>per hour</p>
-                    </Hidden>
-                    <Hidden smUp implementation="css">
-                      <p>/hour</p>
-                    </Hidden>
-                  </div>
-                </div>
-              </li>
-            ))}
+                </li>
+              ))}
           </ul>
         </Col>
       </Row>

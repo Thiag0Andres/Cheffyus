@@ -30,6 +30,7 @@ import { ImTwitter } from "react-icons/im";
 
 // Images
 import markerMap from "../../images/markerMap.png";
+import userNotfound from "../../images/user.png";
 
 import "./styles.scss";
 
@@ -53,7 +54,7 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
   const handleNextPageContactChef = () => {
     if (isLogged) {
       history.push({
-        pathname: `/contact-chef/${detail.name}`,
+        pathname: `/contact-chef/${detail.user.name}`,
         state: {
           detail: detail,
         },
@@ -72,7 +73,7 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
   const handleNextPageRequest = () => {
     if (isLogged) {
       history.push({
-        pathname: `/request/${detail.title}`,
+        pathname: `/request/${detail.kitchens[0].name}`,
         state: {
           detail: detail,
         },
@@ -94,17 +95,17 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
       <Col className="image" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
         <Carousel>
           <Carousel.Item>
-            <img src={detail.image_url_restaurant} alt={detail.title} />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img src={detail.image_url_restaurant} alt={detail.title} />
+            <img
+              src={detail.kitchens[0].image_urls[0]}
+              alt={detail.kitchens[0].name}
+            />
           </Carousel.Item>
         </Carousel>
-        <p>{detail.description}</p>
+        <p>{detail.kitchens[0].description}</p>
         <div className="spans">
           <Button className="like" type="submit">
             <AiFillLike size={16} />
-            Like 0
+            Like {detail.kitchens[0].likes}
           </Button>
           <Button className="share" type="submit">
             Share
@@ -118,8 +119,8 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
       <Col className="info" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
         <Row className="box1">
           <div className="price">
-            <span className="value">${detail.price}</span>
-            <p>per hour</p>
+            <span className="value">${detail.kitchens[0].price_per_time}</span>
+            <p>per {detail.kitchens[0].time_type}</p>
           </div>
           <div className="input-price">
             <Form.Label className="text">Number of hours:</Form.Label>
@@ -141,24 +142,31 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
         <Row className="box2">
           <Link
             to={{
-              pathname: `/profile-chef/${detail.name}`,
+              pathname: `/profile-chef/${detail.user.first_name}`,
               state: {
                 detail: detail,
               },
             }}
           >
-            <img src={detail.image_url_chef_medium} alt={detail.name} />
+            <img
+              src={
+                detail.user.image_url === null
+                  ? userNotfound
+                  : detail.user.image_url
+              }
+              alt={detail.user.first_name}
+            />
           </Link>
           <div>
             <Link
               to={{
-                pathname: `/profile-chef/${detail.name}`,
+                pathname: `/profile-chef/${detail.user.first_name}`,
                 state: {
                   detail: detail,
                 },
               }}
             >
-              {detail.name}
+              {detail.user.first_name}
             </Link>
             <Button
               className="button"
@@ -171,7 +179,12 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
         </Row>
 
         <Row className="box3">
-          <Map center={detail.location} zoom={12}>
+          <Map
+            center={
+              (detail.kitchens[0].location_lat, detail.kitchens[0].location_lon)
+            }
+            zoom={12}
+          >
             <TileLayer
               url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
             />

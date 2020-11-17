@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 import { BsChatFill } from "react-icons/bs";
 
 // Images
-import user from "../../images/user.png";
+import userNotfound from "../../images/user.png";
 
 import "./styles.scss";
 
@@ -38,7 +38,7 @@ const UserProfile: React.FC<Props> = ({ detail }) => {
         <h2>No reviews</h2>
       </Col>
       <Col className="image" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
-        <img src={user} alt={detail.name} />
+        <img src={userNotfound} alt={detail.name} />
         <Button className="button" href="/settings">
           Edit profile
         </Button>

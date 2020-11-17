@@ -25,24 +25,15 @@ import { FaMapMarkedAlt } from "react-icons/fa";
 
 // Images
 import markerMap from "../../images/markerMap.png";
+import userNotfound from "../../images/user.png";
 
 import api from "../../services/api";
 
 import "./styles.scss";
 
-interface Restaurant {
-  id: number;
-  title: string;
-  image_url_restaurant: string;
-  price: number;
-  location: [number, number];
-  name: string;
-  image_url_chef: string;
-}
-
 const Mapa: React.FC = () => {
   // States
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [restaurants, setRestaurants] = useState([]);
   const [show, setShow] = useState(false);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
     38.8935124,
@@ -51,10 +42,18 @@ const Mapa: React.FC = () => {
 
   // Chamada a api
   useEffect(() => {
-    api.get("restaurants").then((response) => {
-      setRestaurants(response.data);
-      //console.log(response);
-    });
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url = "https://cheffyus-api.herokuapp.com/";
+
+    api
+      .get(proxyurl + url + "kitchens")
+      .then((response) => {
+        setRestaurants(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   // Marker do map
@@ -178,64 +177,76 @@ const Mapa: React.FC = () => {
             <TileLayer
               url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
             />
-            {restaurants.map((restaurant) => (
-              <Marker
-                key={restaurant.id}
-                icon={mapIcon}
-                position={restaurant.location}
-              >
-                <Popup className="popup" closeButton={false}>
-                  <Row className="row1">
-                    <div className="opacity"></div>
-                    <img
-                      src={restaurant.image_url_restaurant}
-                      alt={restaurant.title}
-                    />
-                    <Link
-                      className="box1"
-                      to={{
-                        pathname: `/restaurant/${restaurant.title}`,
-                        state: {
-                          detail: restaurant,
-                        },
-                      }}
-                    >
-                      <span>{restaurant.title}</span>
-                    </Link>
-                  </Row>
-                  <Row className="row2">
-                    <Link
-                      className="box2"
-                      to={{
-                        pathname: `/profile-chef/${restaurant.name}`,
-                        state: {
-                          detail: restaurant,
-                        },
-                      }}
-                    >
+            {restaurants.length > 0 &&
+              restaurants.map((restaurant: any) => (
+                <Marker
+                  key={restaurant.user.id}
+                  icon={mapIcon}
+                  position={
+                    (restaurant.kitchens[0].location_lat,
+                    restaurant.kitchens[0].location_lon)
+                  }
+                >
+                  <Popup className="popup" closeButton={false}>
+                    <Row className="row1">
+                      <div className="opacity"></div>
                       <img
-                        src={restaurant.image_url_chef}
-                        alt={restaurant.name}
+                        src={restaurant.kitchens[0].image_urls[0]}
+                        alt={restaurant.kitchens[0].name}
                       />
                       <Link
+                        className="box1"
                         to={{
-                          pathname: `/profile-chef/${restaurant.name}`,
+                          pathname: `/restaurant/${restaurant.kitchens[0].name}`,
                           state: {
                             detail: restaurant,
                           },
                         }}
                       >
-                        {restaurant.name}
+                        <span>{restaurant.kitchens[0].name}</span>
                       </Link>
-                    </Link>
-                    <div className="price">
-                      <p className="value">${restaurant.price}</p>
-                      <p className="hour"> per hour</p>
-                    </div>
-                  </Row>
-                </Popup>
-              </Marker>
-            ))}
+                    </Row>
+                    <Row className="row2">
+                      <Link
+                        className="box2"
+                        to={{
+                          pathname: `/profile-chef/${restaurant.user.first_name}`,
+                          state: {
+                            detail: restaurant,
+                          },
+                        }}
+                      >
+                        <img
+                          src={
+                            restaurant.user.image_url === null
+                              ? userNotfound
+                              : restaurant.user.image_url
+                          }
+                          alt={restaurant.user.first_name}
+                        />
+                        <Link
+                          to={{
+                            pathname: `/profile-chef/${restaurant.user.first_name}`,
+                            state: {
+                              detail: restaurant,
+                            },
+                          }}
+                        >
+                          {restaurant.user.first_name}
+                        </Link>
+                      </Link>
+                      <div className="price">
+                        <p className="value">
+                          ${restaurant.kitchens[0].price_per_time}
+                        </p>
+                        <p className="hour">
+                          per {restaurant.kitchens[0].time_type}
+                        </p>
+                      </div>
+                    </Row>
+                  </Popup>
+                </Marker>
+              ))}
           </Map>
         </Col>
       </Row>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 // Components
@@ -16,7 +16,7 @@ const Restaurant: React.FC<Props> = () => {
   const detail = (location.state as Props).detail;
 
   // States
-  const [text, setText] = useState(detail.title);
+  const [text, setText] = useState(detail.kitchens[0].name);
 
   return (
     <>

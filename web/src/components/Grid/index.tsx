@@ -27,35 +27,36 @@ import { GoListUnordered } from "react-icons/go";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 
+// Images
+import userNotfound from "../../images/user.png";
+
 import api from "../../services/api";
 
 import "./styles.scss";
-
-interface Restaurant {
-  id: number;
-  title: string;
-  image_url_restaurant: string;
-  price: number;
-  location: [number, number];
-  name: string;
-  image_url_chef: string;
-}
 
 const Grid: React.FC = () => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
 
   // States
-  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+  const [restaurants, setRestaurants] = useState([]);
   const [alert, setAlert] = useState(false);
   const [show, setShow] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
 
   // Chamada a api
   useEffect(() => {
-    api.get("restaurants").then((response) => {
-      setRestaurants(response.data);
-      //console.log(response);
-    });
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url = "https://cheffyus-api.herokuapp.com/";
+
+    api
+      .get(proxyurl + url + "kitchens")
+      .then((response) => {
+        setRestaurants(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   // Atualiza o estado de autenticação na mudança de usuário
@@ -210,51 +211,63 @@ const Grid: React.FC = () => {
         </Col>
         <Col className="grid" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
           <ul>
-            {restaurants.map((restaurant) => (
-              <li key={restaurant.id}>
-                <div className="opacity"></div>
-                <img
-                  src={restaurant.image_url_restaurant}
-                  alt={restaurant.title}
-                />
-                <Link
-                  className="box1"
-                  to={{
-                    pathname: `/restaurant/${restaurant.title}`,
-                    state: {
-                      detail: restaurant,
-                    },
-                  }}
-                >
-                  <div className="price">
-                    <span className="value">${restaurant.price}</span>
-                    <span className="hour">/ hour</span>
-                  </div>
-                  <p>{restaurant.title}</p>
-                </Link>
-                <Link
-                  className="box2"
-                  to={{
-                    pathname: `/profile-chef/${restaurant.name}`,
-                    state: {
-                      detail: restaurant,
-                    },
-                  }}
-                >
-                  <img src={restaurant.image_url_chef} alt={restaurant.name} />
+            {restaurants.length > 0 &&
+              restaurants.map((restaurant: any) => (
+                <li key={restaurant.user.id}>
+                  <div className="opacity"></div>
+                  <img
+                    src={restaurant.kitchens[0].image_urls[0]}
+                    alt={restaurant.kitchens[0].name}
+                  />
                   <Link
+                    className="box1"
                     to={{
-                      pathname: `/profile-chef/${restaurant.name}`,
+                      pathname: `/restaurant/${restaurant.kitchens[0].name}`,
                       state: {
                         detail: restaurant,
                       },
                     }}
                   >
-                    {restaurant.name}
+                    <div className="price">
+                      <span className="value">
+                        ${restaurant.kitchens[0].price_per_time}
+                      </span>
+                      <span className="hour">
+                        / {restaurant.kitchens[0].time_type}
+                      </span>
+                    </div>
+                    <p>{restaurant.kitchens[0].name}</p>
                   </Link>
-                </Link>
-              </li>
-            ))}
+                  <Link
+                    className="box2"
+                    to={{
+                      pathname: `/profile-chef/${restaurant.user.first_name}`,
+                      state: {
+                        detail: restaurant,
+                      },
+                    }}
+                  >
+                    <img
+                      src={
+                        restaurant.user.image_url === null
+                          ? userNotfound
+                          : restaurant.user.image_url
+                      }
+                      alt={restaurant.user.first_name}
+                    />
+                    <Link
+                      to={{
+                        pathname: `/profile-chef/${restaurant.user.first_name}`,
+                        state: {
+                          detail: restaurant,
+                        },
+                      }}
+                    >
+                      {restaurant.user.first_name}
+                    </Link>
+                  </Link>
+                </li>
+              ))}
           </ul>
         </Col>
       </Row>

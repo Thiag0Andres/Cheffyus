@@ -16,7 +16,9 @@ const ProfileChef: React.FC<Props> = () => {
   const detail = (location.state as Props).detail;
 
   // States
-  const [text, setText] = useState(detail.name);
+  const [text, setText] = useState(
+    detail.user.first_name + " " + detail.user.last_name
+  );
 
   return (
     <>

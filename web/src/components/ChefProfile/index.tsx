@@ -14,6 +14,9 @@ import { isAuthenticated } from "../../services/auth";
 // Types
 import { User } from "../../store/ducks/user/types";
 
+// Images
+import userNotfound from "../../images/user.png";
+
 import "./styles.scss";
 
 interface Props {
@@ -52,21 +55,26 @@ const ChefProfile: React.FC<Props> = ({ detail }) => {
         <h2>1 open listing</h2>
         <div className="box-image">
           <div className="opacity"></div>
-          <img src={detail.image_url_restaurant} alt={detail.title} />
+          <img
+            src={detail.kitchens[0].image_urls[0]}
+            alt={detail.kitchens[0].name}
+          />
           <Link
             className="box1"
             to={{
-              pathname: `/restaurant/${detail.title}`,
+              pathname: `/restaurant/${detail.kitchens[0].name}`,
               state: {
                 detail: detail,
               },
             }}
           >
             <div className="price">
-              <span className="value">${detail.price}</span>
-              <span className="hour">/ hour</span>
+              <span className="value">
+                ${detail.kitchens[0].price_per_time}
+              </span>
+              <span className="hour">/ {detail.kitchens[0].time_type}</span>
             </div>
-            <p>{detail.title}</p>
+            <p>{detail.kitchens[0].name}</p>
           </Link>
         </div>
 
@@ -75,9 +83,16 @@ const ChefProfile: React.FC<Props> = ({ detail }) => {
         <h2>No reviews</h2>
       </Col>
       <Col className="image" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
-        <img src={detail.image_url_chef_medium} alt={detail.name} />
+        <img
+          src={
+            detail.user.image_url === null
+              ? userNotfound
+              : detail.user.image_url
+          }
+          alt={detail.user.first_name}
+        />
         <Button className="button" type="submit" onClick={handleNextPage}>
-          Contact {detail.name}
+          Contact {detail.user.first_name}
         </Button>
       </Col>
     </Container>
