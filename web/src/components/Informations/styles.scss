@@ -2,10 +2,14 @@
 
 #content-information {
   padding: 30px 150px;
+  display: flex;
+  flex-direction: row;
 
   .column1 {
+    padding: 0;
     width: 228px;
     height: 152px;
+
     .list-group {
       border-color: transparent !important;
       .list-group-item {
@@ -55,18 +59,105 @@
   }
 
   .column2 {
-    padding: 5px 20px;
+    padding: 0 20px;
+    text-align: justify;
+  }
+}
+
+@media screen and (max-width: 1250px) {
+  #content-information {
+    padding: 30px 120px !important;
+  }
+}
+
+@media screen and (max-width: 1180px) {
+  #content-information {
+    padding: 30px 60px !important;
   }
 }
 
 @media screen and (max-width: 1024px) {
   #content-information {
-    padding: 20px 10px !important;
+    padding: 30px !important;
+
+    .column1 {
+      .list-group {
+        .list-group-item {
+          width: 12.25em !important;
+        }
+      }
+    }
+    .column2 {
+      padding: 5px 15px;
+    }
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
   #content-information {
-    padding: 20px 10px !important;
+    .column1 {
+      padding: 0 !important;
+
+      .list-group {
+        .list-group-item {
+          width: 10.25em !important;
+        }
+      }
+    }
+
+    .column2 {
+      padding: 0 30px !important;
+    }
+  }
+}
+
+@media screen and (max-width: 669px) {
+  #content-information {
+    .column2 {
+      padding: 0 40px !important;
+    }
+  }
+}
+
+@media screen and (max-width: 583px) {
+  #content-information {
+    .column2 {
+      padding: 0 55px !important;
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  #content-information {
+    .column2 {
+      padding: 0 65px !important;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #content-information {
+    padding: 20px 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;
+
+    .column1 {
+      padding-left: 40px !important;
+      display: flex !important;
+      align-self: flex-start !important;
+
+      .list-group {
+        .list-group-item {
+          width: 16.5em !important;
+        }
+      }
+    }
+
+    .column2 {
+      padding: 0 !important;
+      width: 100% !important;
+    }
   }
 }

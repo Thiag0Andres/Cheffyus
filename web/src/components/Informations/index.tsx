@@ -100,8 +100,8 @@ const Informations: React.FC = () => {
               </ListGroup.Item>
             </ListGroup>
           </Col>
-          <Col xl="1" lg="1" md="1" xs="1" sm="1"></Col>
-          <Col className="column2" xl="8" lg="8" md="8" xs="8" sm="8">
+
+          <Col className="column2" xl="9" lg="9" md="9" xs="9" sm="9">
             <Tab.Content>
               <Tab.Pane eventKey="#about">
                 <About />

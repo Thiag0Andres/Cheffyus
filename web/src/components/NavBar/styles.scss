@@ -58,7 +58,7 @@
 }
 
 #navbar {
-  height: 90px;
+  height: 80px;
   display: flex;
   justify-content: space-between;
   background-color: $white;
@@ -233,14 +233,12 @@
       margin-left: 20px;
       font-size: 14px;
       font-weight: 600;
-      line-height: 43px;
       letter-spacing: 0.35px;
       border-radius: 50px;
       box-shadow: none;
       background-color: $red_classic;
       border-color: $red_classic;
       color: $white;
-      transition: background-color 0.2s;
 
       &:hover {
         background-color: $red_dark;
@@ -264,11 +262,10 @@
 @media screen and (max-width: 414px) {
   #navbar {
     .content1 {
-      width: 70% !important;
-      justify-content: space-between !important;
+      width: 75% !important;
     }
     .content2 {
-      width: 30% !important;
+      width: 25% !important;
     }
   }
 }
@@ -276,11 +273,10 @@
 @media screen and (max-width: 375px) {
   #navbar {
     .content1 {
-      width: 75% !important;
-      justify-content: space-between !important;
+      width: 77% !important;
     }
     .content2 {
-      width: 25% !important;
+      width: 23% !important;
     }
   }
 }
@@ -289,10 +285,20 @@
   #navbar {
     .content1 {
       width: 80% !important;
-      justify-content: space-between !important;
     }
     .content2 {
       width: 20% !important;
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  #navbar {
+    .content1 {
+      width: 85% !important;
+    }
+    .content2 {
+      width: 15% !important;
     }
   }
 }

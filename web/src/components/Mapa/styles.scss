@@ -2,6 +2,7 @@
 
 #page-home-map {
   padding: 20px 150px;
+
   .content-header {
     .header {
       padding-right: 0;
@@ -130,6 +131,9 @@
     }
 
     .map {
+      padding-right: 0;
+      padding-left: 0;
+
       .leaflet-container {
         width: 726px;
         height: 480px;
@@ -250,32 +254,18 @@
 
 @media screen and (max-width: 1250px) {
   #page-home-map {
-    padding: 30px 120px !important;
+    padding: 20px 120px !important;
   }
 }
 
 @media screen and (max-width: 1180px) {
   #page-home-map {
-    padding: 30px 80px !important;
-  }
-}
-
-@media screen and (max-width: 1100px) {
-  #page-home-map {
-    padding: 30px 45px !important;
+    padding: 20px 70px !important;
   }
 }
 
 @media screen and (max-width: 1024px) {
   #page-home-map {
-    padding: 30px !important;
-  }
-}
-
-@media screen and (max-width: 985px) {
-  #page-home-map {
-    padding: 30px 100px !important;
-
     .content-map {
       .slider {
         .text {
@@ -288,29 +278,45 @@
           width: 174px !important;
         }
       }
+
+      .map {
+        .leaflet-container {
+          width: 626px !important;
+          height: 480px !important;
+        }
+      }
     }
   }
 }
 
 @media screen and (max-width: 959px) {
   #page-home-map {
-    padding: 20px !important;
+    padding: 20px 30px !important;
 
     .content-map {
+      padding: 0 !important;
+      background-color: #3c3c3c;
       flex-direction: column !important;
       align-items: center !important;
-    }
-  }
-}
 
-@media screen and (max-width: 870px) {
-  #page-home-map {
-    padding: 20px 0 !important;
+      .map {
+        padding: 0 !important;
+        .leaflet-container {
+          margin-top: 0 !important;
+          margin-bottom: 0 !important;
+          border-radius: 0 !important;
+          max-width: 100% !important;
+          max-height: 100% !important;
+        }
+      }
+    }
   }
 }
 
 @media screen and (max-width: 768px) {
   #page-home-map {
+    padding: 20px 0 !important;
+
     .header {
       justify-content: space-around !important;
 
@@ -332,9 +338,6 @@
         width: 93px !important;
         height: 42px !important;
       }
-    }
-
-    .content-map {
     }
   }
 }
@@ -360,9 +363,6 @@
         height: 42px !important;
       }
     }
-
-    .content-map {
-    }
   }
 }
 @media screen and (max-width: 420px) {
@@ -385,9 +385,6 @@
         width: 53px !important;
         height: 42px !important;
       }
-    }
-
-    .content-map {
     }
   }
 }
@@ -412,9 +409,6 @@
         width: 46px !important;
         height: 42px !important;
       }
-    }
-
-    .content-map {
     }
   }
 }
