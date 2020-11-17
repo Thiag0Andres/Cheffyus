@@ -49,10 +49,10 @@ const Mapa: React.FC = () => {
       .get(proxyurl + url + "kitchens")
       .then((response) => {
         setRestaurants(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   }, []);
 
@@ -182,10 +182,7 @@ const Mapa: React.FC = () => {
                 <Marker
                   key={restaurant.user.id}
                   icon={mapIcon}
-                  position={
-                    (restaurant.kitchens[0].location_lat,
-                    restaurant.kitchens[0].location_lon)
-                  }
+                  position={initialPosition}
                 >
                   <Popup className="popup" closeButton={false}>
                     <Row className="row1">

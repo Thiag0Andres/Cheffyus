@@ -41,10 +41,10 @@ const List: React.FC = () => {
       .get(proxyurl + url + "kitchens")
       .then((response) => {
         setRestaurants(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   }, []);
 

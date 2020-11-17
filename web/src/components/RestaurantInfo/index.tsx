@@ -44,6 +44,10 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
 
   //States
   const [isLogged, setIsLogged] = useState(false);
+  const [initialPosition, setInitialPosition] = useState<[number, number]>([
+    0,
+    0,
+  ]);
 
   // Atualiza o estado de autenticação na mudança de usuário
   useEffect(() => {
@@ -179,16 +183,11 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
         </Row>
 
         <Row className="box3">
-          <Map
-            center={
-              (detail.kitchens[0].location_lat, detail.kitchens[0].location_lon)
-            }
-            zoom={12}
-          >
+          <Map center={initialPosition} zoom={12}>
             <TileLayer
               url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
             />
-            <Marker icon={mapIcon} position={detail.location} />
+            <Marker icon={mapIcon} position={initialPosition} />
           </Map>
         </Row>
       </Col>
