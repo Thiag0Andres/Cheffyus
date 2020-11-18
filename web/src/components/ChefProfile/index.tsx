@@ -55,26 +55,21 @@ const ChefProfile: React.FC<Props> = ({ detail }) => {
         <h2>1 open listing</h2>
         <div className="box-image">
           <div className="opacity"></div>
-          <img
-            src={detail.kitchens[0].image_urls[0]}
-            alt={detail.kitchens[0].name}
-          />
+          <img src={detail.kitchen.image_urls[0]} alt={detail.kitchen.name} />
           <Link
             className="box1"
             to={{
-              pathname: `/restaurant/${detail.kitchens[0].name}`,
+              pathname: `/restaurant/${detail.kitchen.name}`,
               state: {
                 detail: detail,
               },
             }}
           >
             <div className="price">
-              <span className="value">
-                ${detail.kitchens[0].price_per_time}
-              </span>
-              <span className="hour">/ {detail.kitchens[0].time_type}</span>
+              <span className="value">${detail.kitchen.price_per_time}</span>
+              <span className="hour">/ {detail.kitchen.time_type}</span>
             </div>
-            <p>{detail.kitchens[0].name}</p>
+            <p>{detail.kitchen.name}</p>
           </Link>
         </div>
 

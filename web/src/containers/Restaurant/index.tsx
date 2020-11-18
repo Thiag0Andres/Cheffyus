@@ -16,7 +16,7 @@ const Restaurant: React.FC<Props> = () => {
   const detail = (location.state as Props).detail;
 
   // States
-  const [text, setText] = useState(detail.kitchens[0].name);
+  const [text, setText] = useState(detail.kitchen.name);
 
   return (
     <>

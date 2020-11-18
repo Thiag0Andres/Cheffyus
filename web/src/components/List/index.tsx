@@ -69,7 +69,7 @@ const List: React.FC = () => {
             </Dropdown>
           </Hidden>
           <Hidden mdUp implementation="css">
-            <Button className="button2" onClick={() => setShow(true)}>
+            <Button className="button2" onClick={() => setShow(false)}>
               Filter
             </Button>
           </Hidden>
@@ -163,28 +163,28 @@ const List: React.FC = () => {
                 <li key={restaurant.user.id}>
                   <Link
                     to={{
-                      pathname: `/restaurant/${restaurant.kitchens[0].name}`,
+                      pathname: `/restaurant/${restaurant.kitchen.name}`,
                       state: {
                         detail: restaurant,
                       },
                     }}
                   >
                     <img
-                      src={restaurant.kitchens[0].image_urls[0]}
-                      alt={restaurant.kitchens[0].name}
+                      src={restaurant.kitchen.image_urls[0]}
+                      alt={restaurant.kitchen.name}
                     />
                   </Link>
                   <div className="info">
                     <div className="box1">
                       <Link
                         to={{
-                          pathname: `/restaurant/${restaurant.kitchens[0].name}`,
+                          pathname: `/restaurant/${restaurant.kitchen.name}`,
                           state: {
                             detail: restaurant,
                           },
                         }}
                       >
-                        <strong>{restaurant.kitchens[0].name}</strong>
+                        <strong>{restaurant.kitchen.name}</strong>
                       </Link>
                       <Link
                         className="chef-info"
@@ -216,12 +216,12 @@ const List: React.FC = () => {
                       </Link>
                     </div>
                     <div className="price">
-                      <span>${restaurant.kitchens[0].price_per_time}</span>
+                      <span>${restaurant.kitchen.price_per_time}</span>
                       <Hidden xsDown implementation="css">
-                        <p>per {restaurant.kitchens[0].time_type}</p>
+                        <p>per {restaurant.kitchen.time_type}</p>
                       </Hidden>
                       <Hidden smUp implementation="css">
-                        <p>/ {restaurant.kitchens[0].time_type}</p>
+                        <p>/ {restaurant.kitchen.time_type}</p>
                       </Hidden>
                     </div>
                   </div>

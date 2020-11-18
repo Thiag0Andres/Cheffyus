@@ -44,10 +44,6 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
 
   //States
   const [isLogged, setIsLogged] = useState(false);
-  const [initialPosition, setInitialPosition] = useState<[number, number]>([
-    0,
-    0,
-  ]);
 
   // Atualiza o estado de autenticação na mudança de usuário
   useEffect(() => {
@@ -77,7 +73,7 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
   const handleNextPageRequest = () => {
     if (isLogged) {
       history.push({
-        pathname: `/request/${detail.kitchens[0].name}`,
+        pathname: `/request/${detail.kitchen.name}`,
         state: {
           detail: detail,
         },
@@ -99,17 +95,14 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
       <Col className="image" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
         <Carousel>
           <Carousel.Item>
-            <img
-              src={detail.kitchens[0].image_urls[0]}
-              alt={detail.kitchens[0].name}
-            />
+            <img src={detail.kitchen.image_urls[0]} alt={detail.kitchen.name} />
           </Carousel.Item>
         </Carousel>
-        <p>{detail.kitchens[0].description}</p>
+        <p>{detail.kitchen.description}</p>
         <div className="spans">
           <Button className="like" type="submit">
             <AiFillLike size={16} />
-            Like {detail.kitchens[0].likes}
+            Like {detail.kitchen.likes}
           </Button>
           <Button className="share" type="submit">
             Share
@@ -123,8 +116,8 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
       <Col className="info" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
         <Row className="box1">
           <div className="price">
-            <span className="value">${detail.kitchens[0].price_per_time}</span>
-            <p>per {detail.kitchens[0].time_type}</p>
+            <span className="value">${detail.kitchen.price_per_time}</span>
+            <p>per {detail.kitchen.time_type}</p>
           </div>
           <div className="input-price">
             <Form.Label className="text">Number of hours:</Form.Label>
@@ -183,11 +176,20 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
         </Row>
 
         <Row className="box3">
-          <Map center={initialPosition} zoom={12}>
+          <Map
+            center={[detail.kitchen.location_lat, detail.kitchen.location_lon]}
+            zoom={12}
+          >
             <TileLayer
               url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
             />
-            <Marker icon={mapIcon} position={initialPosition} />
+            <Marker
+              icon={mapIcon}
+              position={[
+                detail.kitchen.location_lat,
+                detail.kitchen.location_lon,
+              ]}
+            />
           </Map>
         </Row>
       </Col>

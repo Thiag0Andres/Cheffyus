@@ -85,7 +85,7 @@ const Mapa: React.FC = () => {
             </Dropdown>
           </Hidden>
           <Hidden mdUp implementation="css">
-            <Button className="button2" onClick={() => setShow(true)}>
+            <Button className="button2" onClick={() => setShow(false)}>
               Filter
             </Button>
           </Hidden>
@@ -182,25 +182,28 @@ const Mapa: React.FC = () => {
                 <Marker
                   key={restaurant.user.id}
                   icon={mapIcon}
-                  position={initialPosition}
+                  position={[
+                    restaurant.kitchen.location_lat,
+                    restaurant.kitchen.location_lon,
+                  ]}
                 >
                   <Popup className="popup" closeButton={false}>
                     <Row className="row1">
                       <div className="opacity"></div>
                       <img
-                        src={restaurant.kitchens[0].image_urls[0]}
-                        alt={restaurant.kitchens[0].name}
+                        src={restaurant.kitchen.image_urls[0]}
+                        alt={restaurant.kitchen.name}
                       />
                       <Link
                         className="box1"
                         to={{
-                          pathname: `/restaurant/${restaurant.kitchens[0].name}`,
+                          pathname: `/restaurant/${restaurant.kitchen.name}`,
                           state: {
                             detail: restaurant,
                           },
                         }}
                       >
-                        <span>{restaurant.kitchens[0].name}</span>
+                        <span>{restaurant.kitchen.name}</span>
                       </Link>
                     </Row>
                     <Row className="row2">
@@ -234,10 +237,10 @@ const Mapa: React.FC = () => {
                       </Link>
                       <div className="price">
                         <p className="value">
-                          ${restaurant.kitchens[0].price_per_time}
+                          ${restaurant.kitchen.price_per_time}
                         </p>
                         <p className="hour">
-                          per {restaurant.kitchens[0].time_type}
+                          per {restaurant.kitchen.time_type}
                         </p>
                       </div>
                     </Row>
