@@ -3,6 +3,7 @@ import React, { useState } from "react";
 // Components
 import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
+import InformationsSettings from "../../components/InformationsSettings";
 
 const Settings: React.FC = () => {
   // States
@@ -12,6 +13,7 @@ const Settings: React.FC = () => {
     <>
       <NavBar />
       <Background2 text={text} />
+      <InformationsSettings />
     </>
   );
 };

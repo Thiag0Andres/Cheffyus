@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // Components
 import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
-import Informations from "../../components/Informations";
+import InformationsAbout from "../../components/InformationsAbout";
 
 const About: React.FC = () => {
   // States
@@ -13,7 +13,7 @@ const About: React.FC = () => {
     <>
       <NavBar />
       <Background2 text={text} />
-      <Informations />
+      <InformationsAbout />
     </>
   );
 };

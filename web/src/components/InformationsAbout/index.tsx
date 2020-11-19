@@ -21,7 +21,7 @@ import Terms from "../../components/Terms";
 
 import "./styles.scss";
 
-const Informations: React.FC = () => {
+const InformationsAbout: React.FC = () => {
   // States
   const [show, setShow] = useState(true);
   const [show2, setShow2] = useState(false);
@@ -123,4 +123,4 @@ const Informations: React.FC = () => {
   );
 };
 
-export default Informations;
+export default InformationsAbout;

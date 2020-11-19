@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Privacy: React.FC = () => {
   return (
     <>
-      <h3>Registrar</h3>
+      <h3>Register</h3>
       <p>
         Cheffy service: Sharetribe Ltd
         <br />
