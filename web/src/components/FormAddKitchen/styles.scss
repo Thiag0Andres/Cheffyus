@@ -132,11 +132,6 @@
       }
 
       .description {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 10px;
-
         p {
           width: 413px;
           display: flex;
@@ -211,19 +206,6 @@
         .leaflet-container {
           width: 432px;
           height: 192px;
-        }
-      }
-
-      .description-image {
-        width: 100%;
-        display: flex;
-        align-items: flex-start;
-        gap: 5px;
-
-        p {
-          color: gray;
-          font-size: 0.8125em;
-          line-height: 1.38462em;
         }
       }
 

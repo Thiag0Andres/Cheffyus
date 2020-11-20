@@ -48,6 +48,7 @@ const InformationsSettings: React.FC = () => {
                 }}
               >
                 <RiFileUserLine />
+                &nbsp;&nbsp;
                 <div className="space-between">
                   Profile info {show && <BsArrowRight />}
                 </div>
@@ -65,6 +66,7 @@ const InformationsSettings: React.FC = () => {
                 }}
               >
                 <BsFillGridFill />
+                &nbsp;&nbsp;
                 <div className="space-between">
                   Listings {show2 && <BsArrowRight />}
                 </div>
@@ -83,7 +85,7 @@ const InformationsSettings: React.FC = () => {
               >
                 <FaDatabase />
                 <div className="space-between">
-                  Transactions {show3 && <BsArrowRight />}
+                  &nbsp;&nbsp; Transactions {show3 && <BsArrowRight />}
                 </div>
               </ListGroup.Item>
               <ListGroup.Item
@@ -100,7 +102,7 @@ const InformationsSettings: React.FC = () => {
               >
                 <RiFileLockLine />
                 <div className="space-between">
-                  Account {show4 && <BsArrowRight />}
+                  &nbsp;&nbsp; Account {show4 && <BsArrowRight />}
                 </div>
               </ListGroup.Item>
               <ListGroup.Item
@@ -117,7 +119,7 @@ const InformationsSettings: React.FC = () => {
               >
                 <FaConciergeBell />
                 <div className="space-between">
-                  Notifications {show5 && <BsArrowRight />}
+                  &nbsp;&nbsp; Notifications {show5 && <BsArrowRight />}
                 </div>
               </ListGroup.Item>
             </ListGroup>

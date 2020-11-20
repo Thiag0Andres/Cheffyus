@@ -29,10 +29,15 @@
         width: 183px;
         min-height: 42px;
         border-radius: 5px;
-        background-color: transparent;
-        border-color: transparent;
+        color: $gray_light;
+        background-color: #fff;
+        border-color: #fff;
         border: 2px solid #c3c3c3;
         box-shadow: none;
+
+        .input-item {
+          border-bottom: 2px solid #c3c3c3;
+        }
       }
 
       .buttons {

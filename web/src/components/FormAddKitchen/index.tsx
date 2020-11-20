@@ -106,9 +106,9 @@ const FormAddKitchen: React.FC = () => {
 
                 <Form.Label className="text">Detailed description</Form.Label>
                 <div className="description">
-                  <FaInfoCircle color="gray" />
                   <p>
-                    You can{" "}
+                    <FaInfoCircle color="gray" />
+                    &nbsp;&nbsp; You can
                     <Button className="button3">
                       format your description using Markdown.
                     </Button>
@@ -157,11 +157,11 @@ const FormAddKitchen: React.FC = () => {
                 </div>
 
                 <Form.Label className="text">Image</Form.Label>
-                <div className="description-image">
-                  <FaInfoCircle color="gray" />
+                <div className="description">
                   <p>
-                    For best results, use JPG, GIF or PNG images that are
-                    660x440 pixels
+                    <FaInfoCircle color="gray" />
+                    &nbsp;&nbsp; For best results, use JPG, GIF or PNG images
+                    that are 660x440 pixels
                   </p>
                 </div>
                 <Container className="images">

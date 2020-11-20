@@ -21,9 +21,8 @@ const FormTransactions: React.FC = () => {
       >
         <Row className="body">
           <Form className="form">
-            <Form.Group>
+            <Form.Group className="group">
               <h2>Newsletters</h2>
-
               <Form.Check
                 type="radio"
                 label="Send me a daily newsletter if there are new listings"
@@ -42,17 +41,19 @@ const FormTransactions: React.FC = () => {
                 name="formHorizontalRadios"
                 id="formHorizontalRadios3"
               />
+            </Form.Group>
+            <p></p>
 
-              <br />
-
+            <Form.Group className="group">
               <h2>Emails from administrators</h2>
               <Form.Check
                 type="checkbox"
                 label="I agree to receive occasional emails from the Cheffy Test team"
               />
+            </Form.Group>
+            <p></p>
 
-              <br />
-
+            <Form.Group className="group">
               <h2>I want to get an email notification when...</h2>
               <Form.Check
                 type="checkbox"
@@ -92,6 +93,7 @@ const FormTransactions: React.FC = () => {
                 label="...someone I follow posts a new listing"
               />
             </Form.Group>
+
             <Button className="button" type="submit">
               Save information
             </Button>

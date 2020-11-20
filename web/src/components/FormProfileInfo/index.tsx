@@ -47,7 +47,8 @@ const FormProfileInfo: React.FC = () => {
 
             <Form.Group>
               <Form.Label className="text">
-                Last name <p>(only first letter shown to other users)</p>
+                Last name &nbsp;&nbsp;
+                <p>(only first letter shown to other users)</p>
               </Form.Label>
               <Form.Control className="input" type="text" />
             </Form.Group>
@@ -55,10 +56,10 @@ const FormProfileInfo: React.FC = () => {
             <Form.Group>
               <Form.Label className="text">Display name</Form.Label>
               <p>
-                <FaInfoCircle size={16} color="#3c3c3c" /> If you represent an
-                organization, you can use its name as your display name. Display
-                name is shown to other users instead of your first and last
-                name.
+                <FaInfoCircle color="#3c3c3c" />
+                &nbsp; If you represent an organization, you can use its name as
+                your display name. Display name is shown to other users instead
+                of your first and last name.
               </p>
               <Form.Control className="input" type="text" />
             </Form.Group>
@@ -66,11 +67,11 @@ const FormProfileInfo: React.FC = () => {
             <Form.Group>
               <Form.Label className="text">Username</Form.Label>
               <p>
-                <FaInfoCircle size={16} color="#3c3c3c" />
-                Your username is used as part of the unique URL of your profile
-                page. You can only use letters and numbers for your username,
-                without spaces. When you change your username, your URL will
-                automatically change and your previous URL will not be
+                <FaInfoCircle color="#3c3c3c" />
+                &nbsp; Your username is used as part of the unique URL of your
+                profile page. You can only use letters and numbers for your
+                username, without spaces. When you change your username, your
+                URL will automatically change and your previous URL will not be
                 redirected. The old username will become available for other
                 users.
               </p>
@@ -79,15 +80,15 @@ const FormProfileInfo: React.FC = () => {
 
             <Form.Group>
               <Form.Label className="text">
-                Location
+                Location &nbsp;&nbsp;
                 <p> (used only as a default when creating a new listing) </p>
               </Form.Label>
               <p>
                 <FaInfoCircle color="#3c3c3c" />
-                You can provide either your street address or only a city or
-                zip/postal code. It’s good to also add your country when adding
-                your location. Examples: "10117 Berlin, Germany" or "2000 Sand
-                Hill Road, CA, USA".
+                &nbsp; You can provide either your street address or only a city
+                or zip/postal code. It’s good to also add your country when
+                adding your location. Examples: "10117 Berlin, Germany" or "2000
+                Sand Hill Road, CA, USA".
               </p>
               <Form.Control className="input" type="text" />
               <div className="map">
@@ -106,10 +107,10 @@ const FormProfileInfo: React.FC = () => {
             <Form.Group>
               <Form.Label className="text"> Profile picture </Form.Label>
               <p>
-                <FaInfoCircle size={16} color="#3c3c3c" />
-                The profile picture should be in a square format (1:1 ratio),
-                for example, 800x800 pixels. Otherwise, it will be cropped to
-                fit.
+                <FaInfoCircle color="#3c3c3c" />
+                &nbsp; The profile picture should be in a square format (1:1
+                ratio), for example, 800x800 pixels. Otherwise, it will be
+                cropped to fit.
               </p>
               <Container className="images">
                 <Row>
@@ -123,7 +124,8 @@ const FormProfileInfo: React.FC = () => {
             <Form.Group>
               <Form.Label className="text"> About you </Form.Label>
               <p style={{ display: "flex", alignItems: "center" }}>
-                <FaInfoCircle size={16} color="#3c3c3c" /> You can
+                <FaInfoCircle size={16} color="#3c3c3c" />
+                &nbsp; You can
                 <Button className="button1">
                   format your description using Markdown.
                 </Button>

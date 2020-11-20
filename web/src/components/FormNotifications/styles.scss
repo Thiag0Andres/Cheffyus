@@ -11,6 +11,17 @@
     .form {
       display: flex;
       flex-direction: column;
+
+      .group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        h2 {
+          margin: 0;
+        }
+      }
+
       .button {
         width: 163px;
         height: 42px;

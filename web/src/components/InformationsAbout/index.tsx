@@ -46,6 +46,7 @@ const InformationsAbout: React.FC = () => {
                 }}
               >
                 <FaInfoCircle />
+                &nbsp;&nbsp;
                 <div className="space-between">
                   About {show && <BsArrowRight />}
                 </div>
@@ -62,6 +63,7 @@ const InformationsAbout: React.FC = () => {
                 }}
               >
                 <FaMapSigns />
+                &nbsp;&nbsp;
                 <div className="space-between">
                   How it works {show2 && <BsArrowRight />}
                 </div>
@@ -78,6 +80,7 @@ const InformationsAbout: React.FC = () => {
                 }}
               >
                 <RiFileLockLine />
+                &nbsp;&nbsp;
                 <div className="space-between">
                   Privacy policy {show3 && <BsArrowRight />}
                 </div>
@@ -94,6 +97,7 @@ const InformationsAbout: React.FC = () => {
                 }}
               >
                 <CgFileDocument style={{ transform: "rotateX(180deg)" }} />
+                &nbsp;&nbsp;
                 <div className="space-between">
                   Terms of use {show4 && <BsArrowRight />}
                 </div>

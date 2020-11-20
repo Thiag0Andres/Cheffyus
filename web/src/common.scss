@@ -132,6 +132,24 @@ body {
     background-color: $red_classic !important;
   }
 
+  .table thead th {
+    border-bottom: none !important;
+  }
+
+  .table-bordered {
+    border: none !important;
+  }
+
+  .table-bordered td,
+  .table-bordered th {
+    border: none !important;
+  }
+  .table td,
+  .table th {
+    padding: 0.272rem;
+    border-top: none !important;
+  }
+
   body,
   input,
   button {
