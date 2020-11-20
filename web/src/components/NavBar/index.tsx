@@ -31,6 +31,9 @@ import { isAuthenticated } from "../../services/auth";
 import { User } from "../../store/ducks/user/types";
 import { Token } from "../../store/ducks/token/types";
 
+//Message
+import { useSnackbar } from "notistack";
+
 //Icons
 import { FaRegUser } from "react-icons/fa";
 import { FiInbox } from "react-icons/fi";
@@ -61,6 +64,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
   );
   const history = useHistory();
   const theme = useTheme();
+  const { enqueueSnackbar } = useSnackbar();
 
   // States
   const [show, setShow] = useState(false);
@@ -71,15 +75,14 @@ const NavBar: React.FC<Props> = (props: Props) => {
   useEffect(() => {
     const response = isAuthenticated();
     setIsLogged(response);
-    console.log(response);
   }, [user]);
 
   // Logout do usuário
   const logout = () => {
-    //enqueueSnackbar("Usuário deslogado com sucesso!", { variant: "info" });
     dispatch(removeUser());
     dispatch(removeToken());
     history.push("/");
+    enqueueSnackbar("User successfully logged out!", { variant: "info" });
   };
 
   const handlePage = () => {
@@ -90,30 +93,66 @@ const NavBar: React.FC<Props> = (props: Props) => {
     }
   };
 
+  const handlePageProfile = () => {
+    history.push({
+      pathname: `/profile-user/${user.username}`,
+      state: {
+        detail: user,
+      },
+    });
+  };
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   const drawer = (
     <div id="drawer">
-      <div className="drawer-login">
-        <Nav.Link href="/signup">Sign up</Nav.Link>
-        <Nav.Link href="/login">Log in</Nav.Link>
-      </div>
-      <Divider />
+      {isLogged ? (
+        <div className="drawer-login1">
+          <div className="avatar" onClick={handlePageProfile}>
+            {user.display_name}
+          </div>
+          <Button className="button" type="submit" href="/add-kitchen">
+            + Add Your Kitchen
+          </Button>
+        </div>
+      ) : (
+        <div className="drawer-login2">
+          <Link className="text3" to="/signup">
+            Sign up
+          </Link>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <Link className="text3" to="/login">
+            Log in
+          </Link>
+        </div>
+      )}
+
       <div className="drawer-menu">
         <p>Menu</p>
-        <Nav.Link href="/">Home</Nav.Link>
-        <Nav.Link href="/about">About</Nav.Link>
-        <Nav.Link href="/contact-us">Contact us</Nav.Link>
+        <Link className="text3" to="/">
+          Home
+        </Link>
+        <Link className="text3" to="/about">
+          About
+        </Link>
+        <Link className="text3" to="/contact-us">
+          Contact us
+        </Link>
       </div>
-      <Divider />
+
       {isLogged && (
-        <div className="drawer-user">
-          <Hidden mdUp implementation="css">
+        <Hidden mdUp implementation="css">
+          <div className="drawer-user">
             <p>User</p>
-            <Nav.Link href="/inbox">Inbox</Nav.Link>
-            <Nav.Link href="/settings">My listings</Nav.Link>
+
+            <Link className="text3" to="/inbox">
+              Inbox
+            </Link>
+            <Link className="text3" to="/settings">
+              My listings
+            </Link>
             <Link
               className="text3"
               to={{
@@ -125,12 +164,17 @@ const NavBar: React.FC<Props> = (props: Props) => {
             >
               Profile
             </Link>
-            <Nav.Link href="/settings">Settings</Nav.Link>
-            <Button className="button1" onClick={logout}>
-              Log out
-            </Button>
-          </Hidden>
-        </div>
+            <Link className="text3" to="/settings">
+              Settings
+            </Link>
+
+            <div className="logout-adm">
+              <Button className="button1" onClick={logout}>
+                Log out
+              </Button>
+            </div>
+          </div>
+        </Hidden>
       )}
     </div>
   );

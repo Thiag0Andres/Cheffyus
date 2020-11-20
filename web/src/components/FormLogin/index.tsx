@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 // Bootstrap
@@ -13,6 +13,9 @@ import { checkAuth } from "../../services/validation";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../store/ducks/user/actions";
 import { environment } from "../../environment/environment";
+
+//Message
+import { useSnackbar } from "notistack";
 
 // Icons
 import { IoLogoFacebook } from "react-icons/io";
@@ -31,22 +34,37 @@ const {
 const FormLogin: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
 
   // States
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+
+  const [formData, setFormData] = useState({
+    defaultEmail: "",
+    password: "",
+  });
 
   //const scrollToNextPage = () => window.scrollTo(0, 1000);
 
-  const signIn = () => {
+  const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    //console.log(event.target);
+
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const signIn = (event: FormEvent) => {
+    event.preventDefault();
+
+    const { defaultEmail, password } = formData;
+
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
     const url = "https://cheffyus-api.herokuapp.com/";
 
     api
       .post(proxyurl + url + "users/authenticate", {
-        email: email.trim(),
+        email: defaultEmail.trim(),
         password: password,
       })
       .then((response) => {
@@ -63,9 +81,11 @@ const FormLogin: React.FC = () => {
         dispatch(updateToken(data.token));
 
         history.push("/");
+        enqueueSnackbar("User successfully logged in!", { variant: "success" });
       })
       .catch((error) => {
         console.log(error);
+        enqueueSnackbar("Failed to authenticate.", { variant: "error" });
       });
 
     /* 
@@ -110,7 +130,7 @@ const FormLogin: React.FC = () => {
           </Alert>
         )}
         <Col className="body" xl="12" lg="12" md="12" xs="12" sm="12">
-          <Form className="form1" onSubmit={(event) => event.preventDefault()}>
+          <Form className="form1" onSubmit={signIn}>
             <Button className="button1" variant="primary" size="lg" block>
               <IoLogoFacebook size={25} />
               Log in with Facebook
@@ -120,11 +140,9 @@ const FormLogin: React.FC = () => {
               <Form.Label className="text">Email:</Form.Label>
               <Form.Control
                 className="input"
-                type="email"
-                value={email}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setEmail(event.target.value)
-                }
+                type="text"
+                name="defaultEmail"
+                onChange={handleInputChange}
               />
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
@@ -132,10 +150,8 @@ const FormLogin: React.FC = () => {
               <Form.Control
                 className="input"
                 type="password"
-                value={password}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                  setPassword(event.target.value)
-                }
+                name="password"
+                onChange={handleInputChange}
               />
             </Form.Group>
             <Button className="button2" type="submit" onClick={signIn}>

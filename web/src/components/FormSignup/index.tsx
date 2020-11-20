@@ -14,6 +14,9 @@ import { updateUser } from "../../store/ducks/user/actions";
 import { updateToken } from "../../store/ducks/token/actions";
 import { environment } from "../../environment/environment";
 
+//Message
+import { useSnackbar } from "notistack";
+
 // Icons
 import { IoLogoFacebook } from "react-icons/io";
 
@@ -29,12 +32,10 @@ const {
 const FormSignup: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
 
   // State
   const [showModal, setShowModal] = useState(false);
-  const [error, setError] = useState(false);
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
 
   const [formData, setFormData] = useState({
     defaultEmail: "",
@@ -96,7 +97,7 @@ const FormSignup: React.FC = () => {
       first_name,
       last_name,
       username: first_name.toLowerCase() + last_name[0].toLowerCase(),
-      display_name: first_name[0].toLowerCase() + last_name[0].toLowerCase(),
+      display_name: first_name[0].toUpperCase() + last_name[0].toUpperCase(),
       password,
       user_type: "chef",
     };
@@ -119,11 +120,16 @@ const FormSignup: React.FC = () => {
         dispatch(updateUser(data.user));
         dispatch(updateToken(data.token));
 
-        history.push("/confirm-login");
+        history.push("/");
+
+        enqueueSnackbar("User successfully registered!", {
+          variant: "success",
+        });
 
         //console.log(data);
       })
       .catch((error) => {
+        enqueueSnackbar("Failed to register.", { variant: "error" });
         console.log(error);
       });
   };

@@ -55,7 +55,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 5px;
         box-shadow: none;
         background-color: $red_classic;
         border-color: $red_classic;
@@ -68,7 +67,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 5px;
         box-shadow: none;
         background-color: #e8e8e8;
         border-color: #e8e8e8;
@@ -86,7 +84,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 5px;
         box-shadow: none;
         background-color: #e8e8e8;
         border-color: #e8e8e8;
@@ -209,7 +206,6 @@
               display: flex;
               justify-content: center;
               align-items: baseline;
-              gap: 3px;
               background-color: #fbfbfb;
               border-top-right-radius: 5px;
               border-bottom-left-radius: 5px;
@@ -244,7 +240,6 @@
           .box2 {
             display: flex;
             align-items: center;
-            gap: 10px;
             padding: 8px;
 
             img {

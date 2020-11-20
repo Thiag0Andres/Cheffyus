@@ -126,12 +126,14 @@ const Grid: React.FC = () => {
           <Pagination>
             <Pagination.Item id="pagination1" href="/" active={true}>
               <BsFillGridFill />
+              &nbsp;&nbsp;
               <Hidden smDown implementation="css">
                 Grid
               </Hidden>
             </Pagination.Item>
             <Pagination.Item id="pagination2" href="/list" disabled={false}>
               <GoListUnordered />
+              &nbsp;&nbsp;
               <Hidden smDown implementation="css">
                 List
               </Hidden>
@@ -139,7 +141,7 @@ const Grid: React.FC = () => {
             <Pagination.Item id="pagination3" href="/map" disabled={false}>
               <FaMapMarkedAlt />
               <Hidden smDown implementation="css">
-                Map
+                &nbsp;&nbsp; Map
               </Hidden>
             </Pagination.Item>
           </Pagination>
@@ -231,6 +233,7 @@ const Grid: React.FC = () => {
                     <span className="value">
                       ${restaurant.kitchen.price_per_time}
                     </span>
+                    &nbsp;
                     <span className="hour">
                       / {restaurant.kitchen.time_type}
                     </span>
@@ -254,6 +257,7 @@ const Grid: React.FC = () => {
                     }
                     alt={restaurant.user.first_name}
                   />
+                  &nbsp;&nbsp;&nbsp;
                   <Link
                     to={{
                       pathname: `/profile-chef/${restaurant.user.first_name}`,

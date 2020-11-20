@@ -3,55 +3,126 @@
 #drawer {
   width: 240px;
 
-  .drawer-login {
+  .drawer-login1 {
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: center;
     padding: 20px 0;
 
-    a {
-      font-size: 18px;
+    .avatar {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      background-color: #bec7d0;
+      font-size: 14px;
+      font-family: "Proxima Soft", Helvetica, sans;
+      color: $white;
+      cursor: pointer;
+    }
+
+    .button {
+      width: 164px;
+      height: 21px;
+      display: flex;
+      align-items: center;
+      font-size: 17px;
+      font-weight: bold;
+      line-height: 1.38462em;
+      box-shadow: none;
+      border: none;
+      background-color: transparent;
+      border-color: transparent;
+      color: $red_classic;
+
+      &:hover {
+        color: $red_dark;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .drawer-login2 {
+    display: flex;
+    align-items: center;
+
+    padding: 20px 2rem;
+
+    .text3 {
+      font-size: 17px;
     }
   }
 
   .drawer-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 0.8333333333333334em 2em;
+
     p {
-      display: flex;
-      justify-content: center;
-      padding-top: 20px;
-      color: #525961;
+      font-size: 12px;
+      min-width: 144px;
+      color: rgba(153, 153, 153, 0.5);
+      width: 100%;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      line-height: 1.5em;
+      font-family: "Proxima Soft", Helvetica, sans;
+    }
+
+    .text3 {
+      font-size: 17px;
+      padding: 0.8333333333333334em 0;
     }
   }
 
   .drawer-user {
+    display: flex;
+    flex-direction: column;
+    padding: 0.8333333333333334em 2em;
+
     p {
-      display: flex;
-      justify-content: center;
-      padding-top: 20px;
-      color: #525961;
+      font-size: 12px;
+      min-width: 144px;
+      color: rgba(153, 153, 153, 0.5);
+      width: 100%;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      line-height: 1.5em;
+      font-family: "Proxima Soft", Helvetica, sans;
     }
 
     .text3 {
-      font-size: 16px;
-      margin-left: 15px;
+      font-size: 17px;
+      padding: 0.8333333333333334em 0;
     }
 
-    .button1 {
-      width: 60px;
-      height: 26px;
-      margin-left: 15px;
-      padding: 0;
+    .logout-adm {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: right;
-      box-shadow: none;
-      background-color: $white;
-      border-color: $white;
-      color: #525961;
+      justify-content: flex-end;
 
-      &:hover {
-        color: $black;
-        text-decoration: none;
+      .button1 {
+        width: 60px;
+        height: 26px;
+        margin-left: 15px;
+        font-size: 17px;
+        padding: 0;
+        display: flex;
+        justify-self: center;
+        align-items: center;
+        text-align: right;
+        box-shadow: none;
+        background-color: $white;
+        border-color: $white;
+        color: #525961;
+
+        &:hover {
+          color: $black;
+          text-decoration: none;
+        }
       }
     }
   }
@@ -125,6 +196,7 @@
           font-size: 14px;
           font-family: "Proxima Soft", Helvetica, sans;
           color: $white;
+          cursor: pointer;
         }
 
         .box-profile {
