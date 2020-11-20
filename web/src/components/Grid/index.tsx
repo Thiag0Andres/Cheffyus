@@ -83,13 +83,13 @@ const Grid: React.FC = () => {
               Welcome,{" "}
               <Link
                 to={{
-                  pathname: `/profile-user/${user.name}`,
+                  pathname: `/profile-user/${user.username}`,
                   state: {
                     detail: user,
                   },
                 }}
               >
-                {user.name}
+                {user.first_name + user.last_name[0].toUpperCase()}
               </Link>
               !
             </div>

@@ -12,31 +12,24 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 // Material UI
-import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
+
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import {
-  makeStyles,
-  useTheme,
-  Theme,
-  createStyles,
-} from "@material-ui/core/styles";
+
+import { useTheme } from "@material-ui/core/styles";
 
 // Redux e Auth
-import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { ApplicationState } from "../../store";
 import { removeUser } from "../../store/ducks/user/actions";
+import { removeToken } from "../../store/ducks/token/actions";
 import { isAuthenticated } from "../../services/auth";
 
 // Types
 import { User } from "../../store/ducks/user/types";
+import { Token } from "../../store/ducks/token/types";
 
 //Icons
 import { FaRegUser } from "react-icons/fa";
@@ -62,7 +55,10 @@ interface Props {
 const NavBar: React.FC<Props> = (props: Props) => {
   const { window } = props;
   const dispatch = useDispatch();
-  const user: User = useSelector((state: RootStateOrAny) => state.user.user);
+  const user: User = useSelector((state: ApplicationState) => state.user.user);
+  const token: Token = useSelector(
+    (state: ApplicationState) => state.token.token
+  );
   const history = useHistory();
   const theme = useTheme();
 
@@ -75,12 +71,14 @@ const NavBar: React.FC<Props> = (props: Props) => {
   useEffect(() => {
     const response = isAuthenticated();
     setIsLogged(response);
+    console.log(response);
   }, [user]);
 
   // Logout do usuário
   const logout = () => {
     //enqueueSnackbar("Usuário deslogado com sucesso!", { variant: "info" });
     dispatch(removeUser());
+    dispatch(removeToken());
     history.push("/");
   };
 
@@ -119,7 +117,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
             <Link
               className="text3"
               to={{
-                pathname: `/profile-user/${user.name}`,
+                pathname: `/profile-user/${user.username}`,
                 state: {
                   detail: user,
                 },
@@ -199,7 +197,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
                   onClick={() => setShow(true)}
                   onMouseOver={() => setShow(true)}
                 >
-                  {user.nickName}
+                  {user.display_name}
                 </div>
                 {show && (
                   <Container
@@ -223,7 +221,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
                         <Link
                           className="item"
                           to={{
-                            pathname: `/profile-user/${user.name}`,
+                            pathname: `/profile-user/${user.username}`,
                             state: {
                               detail: user,
                             },

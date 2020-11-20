@@ -14,12 +14,37 @@ export enum UserTypes {
  * @name : name of user
  */
 
-export interface User {
+/* export interface User {
   id: string;
   token: string;
   email: string;
   name: string;
   nickName: string;
+} */
+
+export interface User {
+  id: number;
+  first_name: string;
+  last_name: string;
+  display_name: string;
+  username: string;
+  emails: Array<string>;
+  defaultEmail: string;
+  bio: string;
+  image_url: string;
+  phone_number: string;
+  user_type: string;
+  location_lat: number;
+  location_lon: number;
+  preferences_id: Array<number>;
+  kitchen_ids: Array<number>;
+  followers_ids: Array<number>;
+  following_ids: Array<number>;
+  reviews_ids: Array<number>;
+  is_email_verified: boolean;
+  verification_email_token: number;
+  created_at: string;
+  updated_at: string;
 }
 
 /**

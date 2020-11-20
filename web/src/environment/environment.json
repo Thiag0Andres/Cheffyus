@@ -1,6 +1,7 @@
 {
   "name": "dev",
-  "REACT_APP_LOCAL_STORAGE_USER": "atdTest/User",
+  "REACT_APP_LOCAL_STORAGE_USER": "@cheffy/user",
+  "REACT_APP_LOCAL_STORAGE_TOKEN": "@cheffy/token",
   "headers": {
     "Content-type": "application/json"
   }

@@ -12,6 +12,7 @@ import Alert from "react-bootstrap/Button";
 import { checkAuth } from "../../services/validation";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../store/ducks/user/actions";
+import { environment } from "../../environment/environment";
 
 // Icons
 import { IoLogoFacebook } from "react-icons/io";
@@ -20,6 +21,12 @@ import { FaInfoCircle } from "react-icons/fa";
 import api from "../../services/api";
 
 import "./styles.scss";
+import { updateToken } from "../../store/ducks/token/actions";
+
+const {
+  REACT_APP_LOCAL_STORAGE_USER,
+  REACT_APP_LOCAL_STORAGE_TOKEN,
+} = environment;
 
 const FormLogin: React.FC = () => {
   const dispatch = useDispatch();
@@ -28,54 +35,40 @@ const FormLogin: React.FC = () => {
   // States
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);
-  const [error, setError] = useState(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   //const scrollToNextPage = () => window.scrollTo(0, 1000);
 
   const signIn = () => {
-    /*     let token =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzEsImlhdCI6MTYwNTUwMTk5OSwiZXhwIjoxNjA1NTg4Mzk5fQ.6da_zK0bymedrDqUnm7fAwpM5m9G6ClQzTX7X7mwmeE";
-
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
     const url = "https://cheffyus-api.herokuapp.com/";
 
     api
-      .post(url + "users/authenticate", {
+      .post(proxyurl + url + "users/authenticate", {
         email: email.trim(),
         password: password,
       })
       .then((response) => {
         const data = response.data;
 
-        token = data.token;
-        console.log(token);
+        localStorage.setItem(
+          REACT_APP_LOCAL_STORAGE_USER,
+          JSON.stringify(data.user)
+        );
+
+        localStorage.setItem(REACT_APP_LOCAL_STORAGE_TOKEN, data.token);
+
+        dispatch(updateUser(data.user));
+        dispatch(updateToken(data.token));
+
+        history.push("/");
       })
       .catch((error) => {
         console.log(error);
       });
 
-    api
-      .get(url + "users", { headers: { Authorization: token } })
-      .then((response) => {
-        const data = response.data;
-
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      }); */
-
-    // Cria um usuário padrão
-    const user = {
-      id: "1",
-      email: email.trim(),
-      name: "thiago p",
-      nickName: "tp",
-      token: "tokem_valido",
-    };
-
+    /* 
     // Validação do email
     const isEmailValid = checkAuth("email", email.trim());
 
@@ -100,6 +93,7 @@ const FormLogin: React.FC = () => {
       setPassword("");
       //enqueueSnackbar("Falha ao autenticar.", { variant: "error" });
     }
+     */
   };
 
   return (

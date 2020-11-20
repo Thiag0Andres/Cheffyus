@@ -54,7 +54,7 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
   const handleNextPageContactChef = () => {
     if (isLogged) {
       history.push({
-        pathname: `/contact-chef/${detail.user.name}`,
+        pathname: `/contact-chef/${detail.user.username}`,
         state: {
           detail: detail,
         },
