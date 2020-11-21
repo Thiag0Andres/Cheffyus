@@ -110,13 +110,6 @@ const FormSignup: React.FC = () => {
       .then((response) => {
         const data = response.data.result;
 
-        localStorage.setItem(
-          REACT_APP_LOCAL_STORAGE_USER,
-          JSON.stringify(data)
-        );
-
-        localStorage.setItem(REACT_APP_LOCAL_STORAGE_TOKEN, data.auth_token);
-
         dispatch(updateUser(data.user));
         dispatch(updateToken(data.token));
 

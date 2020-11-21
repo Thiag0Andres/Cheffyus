@@ -25,7 +25,7 @@ const reducer: Reducer<TokenState> = (
 
   switch (action.type) {
     case TokenTypes.UPDATE_TOKEN:
-      updatedTokenState.token = action.data;
+      updatedTokenState.token.token = action.data;
       localStorage.setItem(address, updatedTokenState.token.token);
       //updatedTokenState.token = action.data.token;
       // localStorage.setItem(

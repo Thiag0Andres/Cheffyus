@@ -12,6 +12,7 @@ import Alert from "react-bootstrap/Button";
 import { checkAuth } from "../../services/validation";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../store/ducks/user/actions";
+import { updateToken } from "../../store/ducks/token/actions";
 import { environment } from "../../environment/environment";
 
 //Message
@@ -24,7 +25,6 @@ import { FaInfoCircle } from "react-icons/fa";
 import api from "../../services/api";
 
 import "./styles.scss";
-import { updateToken } from "../../store/ducks/token/actions";
 
 const {
   REACT_APP_LOCAL_STORAGE_USER,
@@ -69,13 +69,6 @@ const FormLogin: React.FC = () => {
       })
       .then((response) => {
         const data = response.data;
-
-        localStorage.setItem(
-          REACT_APP_LOCAL_STORAGE_USER,
-          JSON.stringify(data.user)
-        );
-
-        localStorage.setItem(REACT_APP_LOCAL_STORAGE_TOKEN, data.token);
 
         dispatch(updateUser(data.user));
         dispatch(updateToken(data.token));

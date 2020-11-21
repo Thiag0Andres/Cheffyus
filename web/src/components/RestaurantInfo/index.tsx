@@ -100,16 +100,14 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
         </Carousel>
         <p>{detail.kitchen.description}</p>
         <div className="spans">
-          <Button className="like" type="submit">
+          <Button className="like">
             <AiFillLike size={16} />
-            Like {detail.kitchen.likes}
+            &nbsp; Like {detail.kitchen.likes}
           </Button>
-          <Button className="share" type="submit">
-            Share
-          </Button>
-          <Button className="tweet" type="submit">
+          <Button className="share">Share</Button>
+          <Button className="tweet">
             <ImTwitter />
-            Tweet
+            &nbsp;Tweet
           </Button>
         </div>
       </Col>
@@ -117,6 +115,7 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
         <Row className="box1">
           <div className="price">
             <span className="value">${detail.kitchen.price_per_time}</span>
+            &nbsp;&nbsp;
             <p>per {detail.kitchen.time_type}</p>
           </div>
           <div className="input-price">
@@ -154,6 +153,7 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
               alt={detail.user.first_name}
             />
           </Link>
+          &nbsp;&nbsp;&nbsp;&nbsp;
           <div>
             <Link
               to={{

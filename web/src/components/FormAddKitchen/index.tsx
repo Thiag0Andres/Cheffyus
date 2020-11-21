@@ -1,4 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useHistory } from "react-router-dom";
+
+// Redux e Auth
+import { useSelector, RootStateOrAny } from "react-redux";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../store/ducks/user/actions";
+import { updateToken } from "../../store/ducks/token/actions";
+import { environment } from "../../environment/environment";
+
+// Types
+import { User } from "../../store/ducks/user/types";
+import { Token } from "../../store/ducks/token/types";
 
 // Bootstrap
 import Container from "react-bootstrap/Container";
@@ -7,6 +19,9 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
+
+//Message
+import { useSnackbar } from "notistack";
 
 // leaflet
 import { Map, TileLayer, Marker } from "react-leaflet";
@@ -19,9 +34,19 @@ import { FaInfoCircle } from "react-icons/fa";
 // Images
 import markerMap from "../../images/markerMap.png";
 
+import api from "../../services/api";
+
 import "./styles.scss";
 
 const FormAddKitchen: React.FC = () => {
+  const user: User = useSelector((state: RootStateOrAny) => state.user.user);
+  const token: Token = useSelector(
+    (state: RootStateOrAny) => state.token.token.token
+  );
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
+
   // States
   const [show1, setShow1] = useState(true);
   const [show2, setShow2] = useState(false);
@@ -31,6 +56,20 @@ const FormAddKitchen: React.FC = () => {
     0,
     0,
   ]);
+  const [formData, setFormData] = useState({
+    user_id: user.id,
+    name: "",
+    price_per_time: 0,
+    time_type: "",
+    description: "",
+    image_urls: [],
+    category_id: 1,
+    expireDate: " ",
+    status: "opened",
+    likes: 0,
+    location_lat: 0,
+    location_lon: 0,
+  });
 
   const text = [
     "Offering without online payment",
@@ -43,6 +82,77 @@ const FormAddKitchen: React.FC = () => {
     iconSize: [23, 33],
     iconAnchor: [11.5, 33],
   });
+
+  const {
+    REACT_APP_LOCAL_STORAGE_USER,
+    REACT_APP_LOCAL_STORAGE_TOKEN,
+  } = environment;
+
+  const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    console.log(event.target);
+
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const AddKitchen = (event: FormEvent) => {
+    event.preventDefault();
+
+    const {
+      user_id,
+      name,
+      price_per_time,
+      time_type,
+      description,
+      image_urls,
+      category_id,
+      expireDate,
+      status,
+      likes,
+      location_lat,
+      location_lon,
+    } = formData;
+
+    const body = {
+      user_id: user_id,
+      name: name,
+      description: description,
+      image_urls: [image_urls],
+      price_per_time: price_per_time,
+      time_type: time_type,
+      category_id: category_id,
+      expireDate: expireDate,
+      status: status,
+      likes: likes,
+      location_lat: location_lat,
+      location_lon: location_lon,
+    };
+
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url = "https://cheffyus-api.herokuapp.com/";
+
+    console.log(token);
+
+    api
+      .post(proxyurl + url + "kitchens", body, {
+        headers: { Authorization: token },
+      })
+
+      .then((response) => {
+        const data = response.data;
+
+        console.log(data);
+
+        history.push("/");
+        enqueueSnackbar("Kitchen successfully registered!", {
+          variant: "success",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        enqueueSnackbar("Failed to register.", { variant: "error" });
+      });
+  };
 
   return (
     <>
@@ -74,16 +184,23 @@ const FormAddKitchen: React.FC = () => {
               >
                 Listing type: {textSelect}
               </Button>
-              <Form className="form">
+              <Form className="form" onSubmit={AddKitchen}>
                 <Form.Label className="text">Listing title*</Form.Label>
-                <Form.Control className="input" type="title" />
+                <Form.Control
+                  className="input"
+                  type="text"
+                  name="name"
+                  onChange={handleInputChange}
+                />
 
                 <Form.Label className="text">Price</Form.Label>
                 <Form.Group className="price">
                   <Form.Control
                     className="input-price"
-                    type="price"
+                    type="text"
                     placeholder="0"
+                    name="price_per_time"
+                    onChange={handleInputChange}
                   />
                   <div className="per">
                     <span>$</span>
@@ -94,6 +211,8 @@ const FormAddKitchen: React.FC = () => {
                     className="select"
                     as="select"
                     placeholder="hour"
+                    name="time_type"
+                    onChange={handleInputChange}
                   >
                     <option>hour</option>
                     <option>day</option>
@@ -116,19 +235,35 @@ const FormAddKitchen: React.FC = () => {
                     be shown below the description.
                   </p>
                 </div>
-                <Form.Control className="textarea" as="textarea" rows={3} />
+                <Form.Control
+                  className="textarea"
+                  as="textarea"
+                  rows={3}
+                  name="description"
+                  onChange={handleInputChange}
+                />
 
                 <Form.Label className="text">
-                  Expiration date*{" "}
+                  Expiration date*
                   <Button className="button4">What's this?</Button>
                 </Form.Label>
                 <Form.Group className="date">
-                  <Form.Control className="select-year" as="select">
+                  <Form.Control
+                    className="select-year"
+                    as="select"
+                    name="expireDate"
+                    onChange={handleInputChange}
+                  >
                     <option>2020</option>
                     <option>2021</option>
                   </Form.Control>
 
-                  <Form.Control className="select-month" as="select">
+                  <Form.Control
+                    className="select-month"
+                    as="select"
+                    name="expireDate"
+                    onChange={handleInputChange}
+                  >
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -136,7 +271,12 @@ const FormAddKitchen: React.FC = () => {
                     <option>5</option>
                   </Form.Control>
 
-                  <Form.Control className="select-day" as="select">
+                  <Form.Control
+                    className="select-day"
+                    as="select"
+                    name="expireDate"
+                    onChange={handleInputChange}
+                  >
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -146,7 +286,12 @@ const FormAddKitchen: React.FC = () => {
                 </Form.Group>
 
                 <Form.Label className="text">Location*</Form.Label>
-                <Form.Control className="input" type="loaction" />
+                <Form.Control
+                  className="input"
+                  type="loaction"
+                  name="location"
+                  onChange={handleInputChange}
+                />
 
                 <div className="map">
                   <Map center={initialPosition} zoom={12}>
@@ -167,18 +312,33 @@ const FormAddKitchen: React.FC = () => {
                 <Container className="images">
                   <Row>
                     <Col xs={6} md={4}>
-                      <Form.Control className="image" type="file" />
+                      <Form.Control
+                        className="image"
+                        type="file"
+                        name="image_urls"
+                        onChange={handleInputChange}
+                      />
                     </Col>
                     <Col xs={6} md={4}>
-                      <Form.Control className="image" type="file" />
+                      <Form.Control
+                        className="image"
+                        type="file"
+                        name="image_urls"
+                        onChange={handleInputChange}
+                      />
                     </Col>
                     <Col xs={6} md={4}>
-                      <Form.Control className="image" type="file" />
+                      <Form.Control
+                        className="image"
+                        type="file"
+                        name="image_urls"
+                        onChange={handleInputChange}
+                      />
                     </Col>
                   </Row>
                 </Container>
 
-                <Button className="button5" type="submit">
+                <Button className="button5" type="submit" onClick={AddKitchen}>
                   Post listing
                 </Button>
               </Form>

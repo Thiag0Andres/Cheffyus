@@ -29,6 +29,7 @@ import { FaCheck } from "react-icons/fa";
 
 // Images
 import userNotfound from "../../images/user.png";
+import kitchenNotFound from "../../images/kitchen.jpg";
 
 import api from "../../services/api";
 
@@ -216,8 +217,13 @@ const Grid: React.FC = () => {
             {restaurants.map((restaurant: any) => (
               <li key={restaurant.user.id}>
                 <div className="opacity"></div>
+
                 <img
-                  src={restaurant.kitchen.image_urls[0]}
+                  src={
+                    restaurant.kitchen.image_urls[0] === null
+                      ? kitchenNotFound
+                      : restaurant.kitchen.image_urls[0]
+                  }
                   alt={restaurant.kitchen.name}
                 />
                 <Link
