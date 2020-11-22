@@ -37,7 +37,7 @@ export interface User {
   location_lat: number;
   location_lon: number;
   preferences_id: Array<number>;
-  kitchen_ids: Array<number>;
+  kitchen_ids: any;
   followers_ids: Array<number>;
   following_ids: Array<number>;
   reviews_ids: Array<number>;

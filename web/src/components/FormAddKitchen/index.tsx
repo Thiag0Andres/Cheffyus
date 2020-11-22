@@ -4,9 +4,6 @@ import { useHistory } from "react-router-dom";
 // Redux e Auth
 import { useSelector, RootStateOrAny } from "react-redux";
 import { useDispatch } from "react-redux";
-import { updateUser } from "../../store/ducks/user/actions";
-import { updateToken } from "../../store/ducks/token/actions";
-import { environment } from "../../environment/environment";
 
 // Types
 import { User } from "../../store/ducks/user/types";
@@ -83,11 +80,6 @@ const FormAddKitchen: React.FC = () => {
     iconAnchor: [11.5, 33],
   });
 
-  const {
-    REACT_APP_LOCAL_STORAGE_USER,
-    REACT_APP_LOCAL_STORAGE_TOKEN,
-  } = environment;
-
   const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
     console.log(event.target);
@@ -131,8 +123,6 @@ const FormAddKitchen: React.FC = () => {
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
     const url = "https://cheffyus-api.herokuapp.com/";
 
-    console.log(token);
-
     api
       .post(proxyurl + url + "kitchens", body, {
         headers: { Authorization: token },
@@ -140,8 +130,6 @@ const FormAddKitchen: React.FC = () => {
 
       .then((response) => {
         const data = response.data;
-
-        console.log(data);
 
         history.push("/");
         enqueueSnackbar("Kitchen successfully registered!", {

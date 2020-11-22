@@ -21,6 +21,11 @@
       font-family: "Proxima Soft", Helvetica, sans;
       color: $white;
       cursor: pointer;
+
+      img {
+        width: 100%;
+        border-radius: 50%;
+      }
     }
 
     .button {
@@ -197,6 +202,11 @@
           font-family: "Proxima Soft", Helvetica, sans;
           color: $white;
           cursor: pointer;
+
+          img {
+            width: 100%;
+            border-radius: 50%;
+          }
         }
 
         .box-profile {

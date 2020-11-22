@@ -44,6 +44,7 @@ import { GoSearch } from "react-icons/go";
 
 // Images
 import logo from "../../images/logo.jpg";
+import userNotFound from "../../images/user.jpg";
 
 import "./styles.scss";
 
@@ -111,7 +112,11 @@ const NavBar: React.FC<Props> = (props: Props) => {
       {isLogged ? (
         <div className="drawer-login1">
           <div className="avatar" onClick={handlePageProfile}>
-            {user.display_name}
+            {user.image_url === null ? (
+              user.display_name
+            ) : (
+              <img src={user.image_url} />
+            )}
           </div>
           <Button className="button" type="submit" href="/add-kitchen">
             + Add Your Kitchen
@@ -237,11 +242,14 @@ const NavBar: React.FC<Props> = (props: Props) => {
               <div className="content-profile">
                 <div
                   className="avatar"
-                  /* onMouseOver={() => setShow(true)} */
                   onClick={() => setShow(true)}
                   onMouseOver={() => setShow(true)}
                 >
-                  {user.display_name}
+                  {user.image_url === null ? (
+                    user.display_name
+                  ) : (
+                    <img src={user.image_url} />
+                  )}
                 </div>
                 {show && (
                   <Container

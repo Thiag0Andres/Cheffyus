@@ -1,4 +1,14 @@
-import React from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useHistory } from "react-router-dom";
+
+// Redux e Auth
+import { useSelector, RootStateOrAny } from "react-redux";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../store/ducks/user/actions";
+
+// Types
+import { User } from "../../store/ducks/user/types";
+import { Token } from "../../store/ducks/token/types";
 
 // Bootstrap
 import Row from "react-bootstrap/Row";
@@ -8,14 +18,105 @@ import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+//Message
+import { useSnackbar } from "notistack";
+
 // Icons
 import { IoIosMail } from "react-icons/io";
 import { ImLock } from "react-icons/im";
 import { FaUserTimes } from "react-icons/fa";
 
+import api from "../../services/api";
+
 import "./styles.scss";
 
 const FormAccount: React.FC = () => {
+  const user: User = useSelector((state: RootStateOrAny) => state.user.user);
+  const token: Token = useSelector(
+    (state: RootStateOrAny) => state.token.token.token
+  );
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
+
+  // States
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    console.log(event.target);
+
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const AddEmail = (event: FormEvent) => {
+    event.preventDefault();
+
+    const { email } = formData;
+
+    const body = {
+      email: email,
+    };
+
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url = "https://cheffyus-api.herokuapp.com/";
+
+    api
+      .put(proxyurl + url + `/add_email/${user.id}`, body, {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+
+        dispatch(updateUser(data.user));
+
+        enqueueSnackbar("Email added successfully!", {
+          variant: "success",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        enqueueSnackbar("Failed to add email.", { variant: "error" });
+      });
+  };
+
+  const ChangePassword = (event: FormEvent) => {
+    event.preventDefault();
+
+    const { password } = formData;
+
+    const body = {
+      password: password,
+    };
+
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url = "https://cheffyus-api.herokuapp.com/";
+
+    api
+      .put(proxyurl + url + `/users/${user.id}`, body, {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+
+        //dispatch(updateUser(data.user));
+
+        enqueueSnackbar("Password updated successfully!", {
+          variant: "success",
+        });
+        //setFormData({ password: " " });
+      })
+      .catch((error) => {
+        console.log(error);
+        enqueueSnackbar("Failed to update.", { variant: "error" });
+      });
+  };
+
   return (
     <Col
       id="content-form-account"
