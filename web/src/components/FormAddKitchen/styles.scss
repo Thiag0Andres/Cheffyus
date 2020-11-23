@@ -134,33 +134,10 @@
       .description {
         p {
           width: 413px;
-          display: flex;
-          align-items: center;
           flex-wrap: wrap;
           color: gray;
           font-size: 0.8125em;
           line-height: 1.38462em;
-
-          .button3 {
-            max-width: 250px;
-            max-height: 0.8125em;
-            display: flex;
-            align-items: center;
-            text-align: left;
-            font-size: 1em;
-            line-height: 1.38462em;
-            font-family: "Source Sans Pro", helvetica, sans-serif;
-            box-shadow: none;
-            border: none;
-            background-color: transparent;
-            border-color: transparent;
-            color: $red_classic;
-
-            &:hover {
-              color: $red_dark;
-              text-decoration: none;
-            }
-          }
         }
       }
 
@@ -209,32 +186,12 @@
         }
       }
 
-      .images {
-        width: 100%;
-        padding-top: 15px;
-        padding-bottom: 30px;
-
-        .image {
-          width: 130px;
-          height: 130px;
-          padding: 40px;
-          padding-left: 0.3125em;
-          padding-right: 0.3125em;
-          border-radius: 10px;
-          border: #e1e1e1 dashed 0.1875em;
-          color: #9a9a9a;
-
-          &:hover {
-            border-color: #bbbbbb;
-          }
-        }
-      }
-
       .button5 {
         width: 120px;
         height: 42px;
         box-shadow: none;
-        margin-bottom: 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
         background-color: $red_classic;
         border-color: $red_classic;
         color: $white;

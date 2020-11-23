@@ -19,6 +19,9 @@ import { isAuthenticated } from "../../services/auth";
 // Types
 import { User } from "../../store/ducks/user/types";
 
+//Message
+import { useSnackbar } from "notistack";
+
 // leaflet
 import { Map, TileLayer, Marker } from "react-leaflet";
 import Leaflet from "leaflet";
@@ -41,6 +44,7 @@ interface Props {
 const RestaurantInfo: React.FC<Props> = ({ detail }) => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
   const history = useHistory();
+  const { enqueueSnackbar } = useSnackbar();
 
   //States
   const [isLogged, setIsLogged] = useState(false);
@@ -60,12 +64,9 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
         },
       });
     } else {
-      history.push({
-        pathname: "/login",
-        state: {
-          message:
-            "You must log in to Cheffy to create a new listing. If you don't have an account you can",
-        },
+      history.push("/login");
+      enqueueSnackbar("You must log in to Cheffy to contact a chef", {
+        variant: "error",
       });
     }
   };
@@ -80,6 +81,9 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
       });
     } else {
       history.push("/login");
+      enqueueSnackbar("You must log in to Cheffy to make a request", {
+        variant: "error",
+      });
     }
   };
 

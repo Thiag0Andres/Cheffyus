@@ -304,18 +304,6 @@ const FormProfileInfo: React.FC = () => {
                 ratio), for example, 800x800 pixels. Otherwise, it will be
                 cropped to fit.
               </p>
-              {/*          <Container className="images">
-                <Row>
-                  <Col xs={6} md={4}>
-                    <Form.Control
-                      className="image"
-                      type="file"
-                      name="image_url"
-                      onChange={handleInputChange}
-                    />
-                  </Col>
-                </Row>
-              </Container> */}
               <UploadFile onUpload={handleUpload} />
               {!!uploadedFiles.length && <FileList file={uploadedFiles[0]} />}
             </Form.Group>

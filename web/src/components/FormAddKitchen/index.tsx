@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { useHistory } from "react-router-dom";
 
 // Redux e Auth
@@ -25,6 +25,11 @@ import { Map, TileLayer, Marker } from "react-leaflet";
 import Leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 
+//Upload Images
+import filesize from "filesize";
+import UploadFile from "../../components/UploadFile";
+import FileList from "../../components/FileList";
+
 // Icons
 import { FaInfoCircle } from "react-icons/fa";
 
@@ -34,6 +39,31 @@ import markerMap from "../../images/markerMap.png";
 import api from "../../services/api";
 
 import "./styles.scss";
+
+interface UploadFile {
+  file: any;
+  name: string;
+  readableSize: string;
+  preview: string;
+  progress: number;
+  uploaded: boolean;
+  error: boolean;
+  url: string;
+}
+
+interface File {
+  name: string;
+  path: string;
+  size: number;
+}
+
+interface CategoriesItems {
+  id: number;
+  description: string;
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 const FormAddKitchen: React.FC = () => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
@@ -48,7 +78,10 @@ const FormAddKitchen: React.FC = () => {
   const [show1, setShow1] = useState(true);
   const [show2, setShow2] = useState(false);
   const [show3, setShow3] = useState(false);
-  const [textSelect, setTextSelect] = useState("");
+  const [categorySelect, setCategorySelect] = useState("");
+  const [category_id, setCategoryId] = useState(Number());
+  const [categories, setCategories] = useState<CategoriesItems[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<UploadFile[]>([]);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
     0,
     0,
@@ -59,21 +92,16 @@ const FormAddKitchen: React.FC = () => {
     price_per_time: 0,
     time_type: "",
     description: "",
-    image_urls: [],
-    category_id: 1,
-    date_month: "",
-    date_day: "",
-    date_year: "",
+    date_month: "00",
+    date_day: "00",
+    date_year: "0000",
     status: "opened",
     likes: 0,
-    location_lat: 0,
-    location_lon: 0,
+    location_lat: 38.85,
+    location_lon: -77.34,
   });
 
-  const text = [
-    "Offering without online payment",
-    "Offering with online payment",
-  ];
+  console.log(category_id);
 
   // Marker do map
   const mapIcon = Leaflet.icon({
@@ -82,24 +110,42 @@ const FormAddKitchen: React.FC = () => {
     iconAnchor: [11.5, 33],
   });
 
+  const handleUpload = (files: []) => {
+    if (files.length <= 1) {
+      const upload: any = files.map((file: File) => ({
+        file,
+        name: file.name,
+        readableSize: filesize(file.size),
+        preview: URL.createObjectURL(file),
+        progress: 0,
+        uploaded: false,
+        error: false,
+        url: null,
+      }));
+      setUploadedFiles(upload);
+
+      //processUpload(upload[0]);
+    } else {
+      enqueueSnackbar("You can only select one photo!", {
+        variant: "warning",
+      });
+    }
+  };
+
   const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
-    console.log(event.target);
+    console.log(event.target.value);
 
     setFormData({ ...formData, [name]: value });
   };
 
-  const AddKitchen = (event: FormEvent) => {
-    event.preventDefault();
-
+  const AddKitchen = (url_image: any) => {
     const {
       user_id,
       name,
       price_per_time,
       time_type,
       description,
-      image_urls,
-      category_id,
       date_month,
       date_day,
       date_year,
@@ -113,7 +159,7 @@ const FormAddKitchen: React.FC = () => {
       user_id: user_id,
       name: name,
       description: description,
-      image_urls: [image_urls],
+      image_urls: [url_image],
       price_per_time: price_per_time,
       time_type: time_type,
       category_id: category_id,
@@ -143,6 +189,52 @@ const FormAddKitchen: React.FC = () => {
       });
   };
 
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    const body = new FormData();
+
+    body.append("file", uploadedFiles[0].file);
+
+    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    const url = "https://cheffyus-api.herokuapp.com/";
+
+    api
+      .post(proxyurl + url + `/images/`, body, {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        //console.log(response.data);
+
+        const url_image = response.data.url;
+
+        AddKitchen(url_image);
+      })
+      .catch((error) => {
+        console.log(error);
+        enqueueSnackbar("Failed to load image.", { variant: "error" });
+      });
+  };
+
+  useEffect(() => {
+    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    const url = "https://cheffyus-api.herokuapp.com/";
+
+    api
+      .get(proxyurl + url + "/categories/", {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        const data = response.data;
+
+        setCategories(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        enqueueSnackbar("Failed to get categories.", { variant: "error" });
+      });
+  }, []);
+
   return (
     <>
       <Row id="content-add-kitchen">
@@ -171,10 +263,10 @@ const FormAddKitchen: React.FC = () => {
                   setShow1(true);
                 }}
               >
-                Listing type: {textSelect}
+                Listing type: {categorySelect}
               </Button>
-              <Form className="form" onSubmit={AddKitchen}>
-                <Form.Label className="text">Listing title*</Form.Label>
+              <Form className="form" onSubmit={handleSubmit}>
+                <Form.Label className="text">Kitchen title*</Form.Label>
                 <Form.Control
                   className="input"
                   type="text"
@@ -216,12 +308,8 @@ const FormAddKitchen: React.FC = () => {
                 <div className="description">
                   <p>
                     <FaInfoCircle color="gray" />
-                    &nbsp;&nbsp; You can
-                    <Button className="button3">
-                      format your description using Markdown.
-                    </Button>
-                    If your description contains YouTube links, the videos will
-                    be shown below the description.
+                    &nbsp;&nbsp;If your description contains YouTube links, the
+                    videos will be shown below the description.
                   </p>
                 </div>
                 <Form.Control
@@ -268,6 +356,16 @@ const FormAddKitchen: React.FC = () => {
                     <option>03</option>
                     <option>04</option>
                     <option>05</option>
+                    <option>06</option>
+                    <option>07</option>
+                    <option>08</option>
+                    <option>09</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
                   </Form.Control>
 
                   <Form.Control
@@ -305,36 +403,13 @@ const FormAddKitchen: React.FC = () => {
                     that are 660x440 pixels
                   </p>
                 </div>
-                <Container className="images">
-                  <Row>
-                    <Col xs={6} md={4}>
-                      <Form.Control
-                        className="image"
-                        type="file"
-                        name="image_urls"
-                        onChange={handleInputChange}
-                      />
-                    </Col>
-                    <Col xs={6} md={4}>
-                      <Form.Control
-                        className="image"
-                        type="file"
-                        name="image_urls"
-                        onChange={handleInputChange}
-                      />
-                    </Col>
-                    <Col xs={6} md={4}>
-                      <Form.Control
-                        className="image"
-                        type="file"
-                        name="image_urls"
-                        onChange={handleInputChange}
-                      />
-                    </Col>
-                  </Row>
-                </Container>
-
-                <Button className="button5" type="submit" onClick={AddKitchen}>
+                <UploadFile onUpload={handleUpload} />
+                {!!uploadedFiles.length && <FileList file={uploadedFiles[0]} />}
+                <Button
+                  className="button5"
+                  type="submit"
+                  onClick={handleSubmit}
+                >
                   Post listing
                 </Button>
               </Form>
@@ -343,30 +418,22 @@ const FormAddKitchen: React.FC = () => {
           {show1 && (
             <>
               <h2>Select listing type</h2>
-              <Button
-                className="button1"
-                type="submit"
-                onClick={() => {
-                  setShow1(false);
-                  setShow2(true);
-                  setShow3(true);
-                  setTextSelect(text[0]);
-                }}
-              >
-                {text[0]}
-              </Button>
-              <Button
-                className="button1"
-                type="submit"
-                onClick={() => {
-                  setShow1(false);
-                  setShow2(true);
-                  setShow3(true);
-                  setTextSelect(text[1]);
-                }}
-              >
-                {text[1]}
-              </Button>
+              {categories.map((category) => (
+                <Button
+                  key={category.id}
+                  className="button1"
+                  type="submit"
+                  onClick={() => {
+                    setShow1(false);
+                    setShow2(true);
+                    setShow3(true);
+                    setCategorySelect(category.title);
+                    setCategoryId(category.id);
+                  }}
+                >
+                  {category.title}
+                </Button>
+              ))}
             </>
           )}
         </Col>

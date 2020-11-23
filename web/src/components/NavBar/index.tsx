@@ -89,6 +89,9 @@ const NavBar: React.FC<Props> = (props: Props) => {
       history.push("/add-kitchen");
     } else {
       history.push("/login");
+      enqueueSnackbar("You must log in to Cheffy to add a new listing.", {
+        variant: "error",
+      });
     }
   };
 
