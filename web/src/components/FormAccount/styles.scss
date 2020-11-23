@@ -12,6 +12,20 @@
     justify-content: center;
     gap: 25px;
 
+    .button2 {
+      width: 80px;
+      height: 42px;
+      margin-bottom: 20px;
+      box-shadow: none;
+      background-color: $red_classic;
+      border-color: $red_classic;
+      color: $white;
+
+      &:hover {
+        background-color: $red_light;
+      }
+    }
+
     .card1 {
       border-radius: 5px;
       border: 2px solid #c3c3c3;
@@ -38,49 +52,64 @@
             text-decoration: none;
           }
         }
-
-        .button2 {
-          width: 80px;
-          height: 42px;
-          margin-bottom: 20px;
-          box-shadow: none;
-          background-color: $red_classic;
-          border-color: $red_classic;
-          color: $white;
-
-          &:hover {
-            background-color: $red_light;
-          }
-        }
       }
     }
 
     .card2 {
-      max-height: 39px;
       border-radius: 5px;
       border: 2px solid #c3c3c3;
 
       .card-body2 {
         padding: 0 20px;
         display: flex;
-        align-items: baseline;
+        flex-direction: column;
+        justify-content: center;
 
-        .button3 {
-          width: 81px;
-          height: 21px;
+        .box1 {
           display: flex;
           align-items: center;
-          font-size: 1em;
-          line-height: 1.38462em;
-          box-shadow: none;
-          border: none;
-          background-color: transparent;
-          border-color: transparent;
-          color: $red_classic;
 
-          &:hover {
-            color: $red_dark;
-            text-decoration: none;
+          .title {
+            display: flex;
+            align-items: center;
+            color: #3c3c3c;
+
+            h3 {
+              margin-top: 10px;
+              color: #3c3c3c;
+              padding: 0;
+            }
+          }
+
+          .button3 {
+            width: 81px;
+            height: 21px;
+            display: flex;
+            align-items: center;
+            font-size: 1em;
+            line-height: 1.38462em;
+            box-shadow: none;
+            border: none;
+            background-color: transparent;
+            border-color: transparent;
+            color: $red_classic;
+
+            &:hover {
+              color: $red_dark;
+              text-decoration: none;
+            }
+          }
+        }
+
+        .form {
+          .input {
+            border-radius: 5px;
+            border: 2px solid #c3c3c3;
+            box-shadow: none;
+            min-height: 42px;
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 10px;
           }
         }
       }
@@ -94,6 +123,15 @@
         padding: 0 20px;
 
         .button4 {
+          width: 260px;
+          height: 42px;
+          box-shadow: none;
+          background-color: #c3c3c3;
+          border-color: #c3c3c3;
+          color: $white;
+        }
+
+        .button5 {
           width: 260px;
           height: 42px;
           box-shadow: none;

@@ -120,7 +120,7 @@ const FormAddKitchen: React.FC = () => {
       location_lon: location_lon,
     };
 
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = "https://cheffyus-api.herokuapp.com/";
 
     api

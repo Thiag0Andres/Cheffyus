@@ -57,9 +57,9 @@ const FormProfileInfo: React.FC = () => {
       user.first_name[0].toUpperCase() + user.last_name[0].toUpperCase(),
     username: user.first_name.toLowerCase() + user.last_name[0].toLowerCase(),
     location: [user.location_lat, user.location_lon],
-    phone_number: " ",
+    phone_number: user.phone_number,
     image_url: user.image_url,
-    bio: " ",
+    bio: user.bio,
   });
 
   // Marker do map
@@ -102,7 +102,7 @@ const FormProfileInfo: React.FC = () => {
       location_lon: 0,
     };
 
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = "https://cheffyus-api.herokuapp.com/";
 
     api
@@ -113,7 +113,7 @@ const FormProfileInfo: React.FC = () => {
         const data = response.data;
         console.log(data);
 
-        //dispatch(updateUser(data.user));
+        dispatch(updateUser(data));
 
         history.push("/settings");
         enqueueSnackbar("User updated successfully!", {
@@ -137,6 +137,7 @@ const FormProfileInfo: React.FC = () => {
                 className="input"
                 name="first_name"
                 type="text"
+                value={formData.first_name}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -150,6 +151,7 @@ const FormProfileInfo: React.FC = () => {
                 className="input"
                 name="last_name"
                 type="text"
+                value={formData.last_name}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -166,6 +168,7 @@ const FormProfileInfo: React.FC = () => {
                 className="input"
                 name="display_name"
                 type="text"
+                value={formData.display_name}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -185,6 +188,7 @@ const FormProfileInfo: React.FC = () => {
                 className="input"
                 name="username"
                 type="text"
+                value={formData.username}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -222,6 +226,7 @@ const FormProfileInfo: React.FC = () => {
                 className="input"
                 name="phone_number"
                 type="text"
+                value={formData.phone_number}
                 onChange={handleInputChange}
               />
             </Form.Group>
@@ -262,6 +267,7 @@ const FormProfileInfo: React.FC = () => {
                 rows={3}
                 name="bio"
                 type="text"
+                value={formData.bio}
                 onChange={handleInputChange}
               />
             </Form.Group>

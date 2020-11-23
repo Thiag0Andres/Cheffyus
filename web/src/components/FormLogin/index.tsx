@@ -59,7 +59,7 @@ const FormLogin: React.FC = () => {
 
     const { defaultEmail, password } = formData;
 
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = "https://cheffyus-api.herokuapp.com/";
 
     api
