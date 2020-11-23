@@ -133,6 +133,7 @@
     .map {
       padding-right: 0;
       padding-left: 0;
+      z-index: 50;
 
       .leaflet-container {
         width: 726px;
