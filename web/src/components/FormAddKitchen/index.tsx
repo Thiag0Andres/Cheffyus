@@ -61,7 +61,9 @@ const FormAddKitchen: React.FC = () => {
     description: "",
     image_urls: [],
     category_id: 1,
-    expireDate: " ",
+    date_month: "",
+    date_day: "",
+    date_year: "",
     status: "opened",
     likes: 0,
     location_lat: 0,
@@ -98,7 +100,9 @@ const FormAddKitchen: React.FC = () => {
       description,
       image_urls,
       category_id,
-      expireDate,
+      date_month,
+      date_day,
+      date_year,
       status,
       likes,
       location_lat,
@@ -113,7 +117,7 @@ const FormAddKitchen: React.FC = () => {
       price_per_time: price_per_time,
       time_type: time_type,
       category_id: category_id,
-      expireDate: expireDate,
+      expireDate: date_month + "/" + date_day + "/" + date_year,
       status: status,
       likes: likes,
       location_lat: location_lat,
@@ -127,10 +131,7 @@ const FormAddKitchen: React.FC = () => {
       .post(proxyurl + url + "kitchens", body, {
         headers: { Authorization: token },
       })
-
-      .then((response) => {
-        const data = response.data;
-
+      .then(() => {
         history.push("/");
         enqueueSnackbar("Kitchen successfully registered!", {
           variant: "success",
@@ -237,39 +238,46 @@ const FormAddKitchen: React.FC = () => {
                 </Form.Label>
                 <Form.Group className="date">
                   <Form.Control
-                    className="select-year"
-                    as="select"
-                    name="expireDate"
-                    onChange={handleInputChange}
-                  >
-                    <option>2020</option>
-                    <option>2021</option>
-                  </Form.Control>
-
-                  <Form.Control
                     className="select-month"
                     as="select"
-                    name="expireDate"
+                    name="date_month"
                     onChange={handleInputChange}
                   >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <option>01</option>
+                    <option>02</option>
+                    <option>03</option>
+                    <option>04</option>
+                    <option>05</option>
+                    <option>06</option>
+                    <option>07</option>
+                    <option>08</option>
+                    <option>09</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
                   </Form.Control>
 
                   <Form.Control
                     className="select-day"
                     as="select"
-                    name="expireDate"
+                    name="date_day"
                     onChange={handleInputChange}
                   >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <option>01</option>
+                    <option>02</option>
+                    <option>03</option>
+                    <option>04</option>
+                    <option>05</option>
+                  </Form.Control>
+
+                  <Form.Control
+                    className="select-year"
+                    as="select"
+                    name="date_year"
+                    onChange={handleInputChange}
+                  >
+                    <option>2020</option>
+                    <option>2021</option>
                   </Form.Control>
                 </Form.Group>
 

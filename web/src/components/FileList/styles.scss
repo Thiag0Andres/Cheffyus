@@ -1,0 +1,45 @@
+.container-fileList {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  color: #444;
+}
+
+.fileInfo {
+  display: flex;
+  align-items: center;
+}
+
+.fileInfo .container-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.fileInfo .container-info span {
+  font-size: 12px;
+  color: #999;
+  margin-top: 5px;
+}
+
+.fileInfo .container-info span button {
+  border: 0;
+  background: transparent;
+  color: #e57878;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.preview {
+  width: 36px;
+  height: 36px;
+  border-radius: 5px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.container-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

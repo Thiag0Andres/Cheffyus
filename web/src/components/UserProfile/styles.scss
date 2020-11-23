@@ -50,7 +50,7 @@
     img {
       width: 316px;
       height: 316px;
-      overflow: hidden;
+      object-fit: cover;
       border-radius: 5px;
     }
     .button {

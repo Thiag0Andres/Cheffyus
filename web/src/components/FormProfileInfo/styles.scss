@@ -27,31 +27,6 @@
         width: 100%;
       }
 
-      p {
-        font-size: 0.8125em;
-        line-height: 1.38462em;
-
-        .button1 {
-          width: 250px;
-          height: 0.8125em;
-          display: flex;
-          align-items: center;
-          margin-left: -8px;
-          font-size: 1em;
-          line-height: 1.38462em;
-          box-shadow: none;
-          border: none;
-          background-color: transparent;
-          border-color: transparent;
-          color: $red_classic;
-
-          &:hover {
-            color: $red_dark;
-            text-decoration: none;
-          }
-        }
-      }
-
       .textarea {
         border-radius: 5px;
         border: 2px solid #c3c3c3;
@@ -79,26 +54,6 @@
           color: gray;
           font-size: 0.8125em;
           line-height: 1.38462em;
-        }
-      }
-
-      .images {
-        width: 100%;
-        padding-top: 15px;
-
-        .image {
-          width: 130px;
-          height: 130px;
-          padding: 40px;
-          padding-left: 0.3125em;
-          padding-right: 0.3125em;
-          border-radius: 10px;
-          border: #e1e1e1 dashed 0.1875em;
-          color: #9a9a9a;
-
-          &:hover {
-            border-color: #bbbbbb;
-          }
         }
       }
 

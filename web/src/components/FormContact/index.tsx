@@ -24,13 +24,13 @@ const FormContact: React.FC<Props> = ({ detail, message }) => {
               Send message to{" "}
               <Link
                 to={{
-                  pathname: `/profile-chef/${detail.name}`,
+                  pathname: `/profile-chef/${detail.user.first_name}`,
                   state: {
                     detail: detail,
                   },
                 }}
               >
-                {detail.name}
+                {detail.user.first_name}
               </Link>
             </h2>
             <Form.Group controlId="exampleForm.ControlTextarea1">

@@ -38,7 +38,10 @@ const UserProfile: React.FC<Props> = ({ detail }) => {
         <h2>No reviews</h2>
       </Col>
       <Col className="image" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
-        <img src={userNotfound} alt={detail.name} />
+        <img
+          src={detail.image_url === null ? userNotfound : detail.image_url}
+          alt={detail.first_name}
+        />
         <Button className="button" href="/settings">
           Edit profile
         </Button>

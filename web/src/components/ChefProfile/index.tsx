@@ -39,7 +39,7 @@ const ChefProfile: React.FC<Props> = ({ detail }) => {
   const handleNextPage = () => {
     if (isLogged) {
       history.push({
-        pathname: `/contact-chef/${detail.name}`,
+        pathname: `/contact-chef/${detail.user.first_name}`,
         state: {
           detail: detail,
         },

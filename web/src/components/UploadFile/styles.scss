@@ -1,0 +1,39 @@
+.dropContainer {
+  border-radius: 5px;
+  border: #e1e1e1 dashed 0.1875em;
+  color: #9a9a9a;
+  /* padding: 10px; */
+  cursor: pointer;
+  transition: height 0.2s ease;
+
+  &:hover {
+    border-color: #bbbbbb;
+  }
+}
+
+.dropContainer.active {
+  border-color: #78e5d5;
+}
+
+.dropContainer.reject {
+  border-color: #e57878;
+}
+
+.dropMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.dropMessage.default {
+  color: #999;
+}
+
+.dropMessage.error {
+  color: #e57878;
+}
+
+.dropMessage.success {
+  color: #78e5d5;
+}

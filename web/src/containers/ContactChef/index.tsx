@@ -11,18 +11,20 @@ interface Props {
 }
 
 const ContactChef: React.FC<Props> = () => {
-  // States
-  const [text, setText] = useState("");
-  const [message, setMessage] = useState(true);
-
   const location = useLocation();
 
   const detail = (location.state as Props).detail;
 
+  // States
+  const [text, setText] = useState(
+    detail.user.first_name + " " + detail.user.last_name
+  );
+  const [message, setMessage] = useState(true);
+
   return (
     <>
       <NavBar />
-      <Background2 text={text} />
+      <Background2 text={`Message to ${text}`} />
       <FormContact detail={detail} message={message} />
     </>
   );

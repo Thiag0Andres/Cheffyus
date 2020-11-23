@@ -16,7 +16,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Image from "react-bootstrap/Image";
 
 //Message
 import { useSnackbar } from "notistack";
@@ -25,6 +24,11 @@ import { useSnackbar } from "notistack";
 import { Map, TileLayer, Marker } from "react-leaflet";
 import Leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
+
+//Upload Images
+import filesize from "filesize";
+import UploadFile from "../../components/UploadFile";
+import FileList from "../../components/FileList";
 
 // Icons
 import { FaInfoCircle } from "react-icons/fa";
@@ -36,6 +40,23 @@ import api from "../../services/api";
 
 import "./styles.scss";
 
+interface UploadFile {
+  file: any;
+  name: string;
+  readableSize: string;
+  preview: string;
+  progress: number;
+  uploaded: boolean;
+  error: boolean;
+  url: string;
+}
+
+interface File {
+  name: string;
+  path: string;
+  size: number;
+}
+
 const FormProfileInfo: React.FC = () => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
   const token: Token = useSelector(
@@ -46,6 +67,7 @@ const FormProfileInfo: React.FC = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   // States
+  const [uploadedFiles, setUploadedFiles] = useState<UploadFile[]>([]);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
     0,
     0,
@@ -58,7 +80,6 @@ const FormProfileInfo: React.FC = () => {
     username: user.first_name.toLowerCase() + user.last_name[0].toLowerCase(),
     location: [user.location_lat, user.location_lon],
     phone_number: user.phone_number,
-    image_url: user.image_url,
     bio: user.bio,
   });
 
@@ -69,6 +90,28 @@ const FormProfileInfo: React.FC = () => {
     iconAnchor: [11.5, 33],
   });
 
+  const handleUpload = (files: []) => {
+    if (files.length <= 1) {
+      const upload: any = files.map((file: File) => ({
+        file,
+        name: file.name,
+        readableSize: filesize(file.size),
+        preview: URL.createObjectURL(file),
+        progress: 0,
+        uploaded: false,
+        error: false,
+        url: null,
+      }));
+      setUploadedFiles(upload);
+
+      //processUpload(upload[0]);
+    } else {
+      enqueueSnackbar("You can only select one photo!", {
+        variant: "warning",
+      });
+    }
+  };
+
   const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
     console.log(event.target);
@@ -76,9 +119,7 @@ const FormProfileInfo: React.FC = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const UpdateUser = (event: FormEvent) => {
-    event.preventDefault();
-
+  const UpdateUser = (url_image: any) => {
     const {
       first_name,
       last_name,
@@ -86,7 +127,6 @@ const FormProfileInfo: React.FC = () => {
       username,
       location,
       phone_number,
-      image_url,
       bio,
     } = formData;
 
@@ -96,8 +136,8 @@ const FormProfileInfo: React.FC = () => {
       display_name: display_name,
       username: username,
       bio: bio,
-      image_url: image_url,
-      phone_number: phone_number,
+      image_url: url_image,
+      phone_number: String(phone_number),
       location_lat: 0,
       location_lon: 0,
     };
@@ -111,11 +151,10 @@ const FormProfileInfo: React.FC = () => {
       })
       .then((response) => {
         const data = response.data;
-        console.log(data);
+        //console.log(data);
 
         dispatch(updateUser(data));
 
-        history.push("/settings");
         enqueueSnackbar("User updated successfully!", {
           variant: "success",
         });
@@ -126,11 +165,38 @@ const FormProfileInfo: React.FC = () => {
       });
   };
 
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    const body = new FormData();
+
+    body.append("file", uploadedFiles[0].file);
+
+    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    const url = "https://cheffyus-api.herokuapp.com/";
+
+    api
+      .post(proxyurl + url + `/images/`, body, {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        //console.log(response.data);
+
+        const url_image = response.data.url;
+
+        UpdateUser(url_image);
+      })
+      .catch((error) => {
+        console.log(error);
+        enqueueSnackbar("Failed to load image.", { variant: "error" });
+      });
+  };
+
   return (
     <>
       <Row id="content-profile-info">
         <Col className="body" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
-          <Form className="form" onSubmit={UpdateUser}>
+          <Form className="form" onSubmit={handleSubmit}>
             <Form.Group>
               <Form.Label className="text">First name</Form.Label>
               <Form.Control
@@ -238,7 +304,7 @@ const FormProfileInfo: React.FC = () => {
                 ratio), for example, 800x800 pixels. Otherwise, it will be
                 cropped to fit.
               </p>
-              <Container className="images">
+              {/*          <Container className="images">
                 <Row>
                   <Col xs={6} md={4}>
                     <Form.Control
@@ -249,18 +315,13 @@ const FormProfileInfo: React.FC = () => {
                     />
                   </Col>
                 </Row>
-              </Container>
+              </Container> */}
+              <UploadFile onUpload={handleUpload} />
+              {!!uploadedFiles.length && <FileList file={uploadedFiles[0]} />}
             </Form.Group>
 
             <Form.Group>
               <Form.Label className="text"> About you </Form.Label>
-              <p style={{ display: "flex", alignItems: "center" }}>
-                <FaInfoCircle size={16} color="#3c3c3c" />
-                &nbsp; You can
-                <Button className="button1">
-                  format your description using Markdown.
-                </Button>
-              </p>
               <Form.Control
                 className="textarea"
                 as="textarea"
@@ -272,7 +333,7 @@ const FormProfileInfo: React.FC = () => {
               />
             </Form.Group>
 
-            <Button className="button2" type="submit" onClick={UpdateUser}>
+            <Button className="button2" type="submit" onClick={handleSubmit}>
               Save information
             </Button>
           </Form>
