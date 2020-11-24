@@ -119,6 +119,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
               <img src={user.image_url} />
             )}
           </div>
+
           <Button className="button" type="submit" href="/add-kitchen">
             + Add Your Kitchen
           </Button>

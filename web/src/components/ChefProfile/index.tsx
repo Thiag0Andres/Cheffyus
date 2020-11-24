@@ -74,6 +74,7 @@ const ChefProfile: React.FC<Props> = ({ detail }) => {
           >
             <div className="price">
               <span className="value">${detail.kitchen.price_per_time}</span>
+              &nbsp;
               <span className="hour">/ {detail.kitchen.time_type}</span>
             </div>
             <p>{detail.kitchen.name}</p>

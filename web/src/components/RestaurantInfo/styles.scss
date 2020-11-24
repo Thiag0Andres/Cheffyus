@@ -16,7 +16,7 @@
     img {
       width: 100%;
       height: 431px;
-      overflow: hidden;
+      object-fit: cover;
     }
 
     p {
@@ -166,9 +166,10 @@
         line-height: 3em;
 
         img {
-          max-width: 108px;
-          max-height: 108px;
+          width: 108px;
+          height: 108px;
           border-radius: 5px;
+          object-fit: cover;
         }
       }
 

@@ -76,18 +76,21 @@ const List: React.FC = () => {
           <Pagination>
             <Pagination.Item id="pagination1" href="/" disabled={false}>
               <BsFillGridFill />
+              &nbsp;&nbsp;
               <Hidden smDown implementation="css">
                 Grid
               </Hidden>
             </Pagination.Item>
             <Pagination.Item id="pagination2" href="/list" active={true}>
               <GoListUnordered />
+              &nbsp;&nbsp;
               <Hidden smDown implementation="css">
                 List
               </Hidden>
             </Pagination.Item>
             <Pagination.Item id="pagination3" href="/map" disabled={false}>
               <FaMapMarkedAlt />
+              &nbsp;&nbsp;
               <Hidden smDown implementation="css">
                 Map
               </Hidden>
@@ -162,6 +165,7 @@ const List: React.FC = () => {
               restaurants.map((restaurant: any) => (
                 <li key={restaurant.user.id}>
                   <Link
+                    className="restaurant_image"
                     to={{
                       pathname: `/restaurant/${restaurant.kitchen.name}`,
                       state: {
@@ -203,6 +207,7 @@ const List: React.FC = () => {
                           }
                           alt={restaurant.user.first_name}
                         />
+                        &nbsp;&nbsp;
                         <Link
                           to={{
                             pathname: `/profile-chef/${restaurant.user.first_name}`,
@@ -221,7 +226,7 @@ const List: React.FC = () => {
                         <p>per {restaurant.kitchen.time_type}</p>
                       </Hidden>
                       <Hidden smUp implementation="css">
-                        <p>/ {restaurant.kitchen.time_type}</p>
+                        <p>/{restaurant.kitchen.time_type}</p>
                       </Hidden>
                     </div>
                   </div>

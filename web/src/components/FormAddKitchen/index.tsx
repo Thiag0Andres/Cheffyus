@@ -4,13 +4,13 @@ import { useHistory } from "react-router-dom";
 // Redux e Auth
 import { useSelector, RootStateOrAny } from "react-redux";
 import { useDispatch } from "react-redux";
+import { updateUser } from "../../store/ducks/user/actions";
 
 // Types
 import { User } from "../../store/ducks/user/types";
 import { Token } from "../../store/ducks/token/types";
 
 // Bootstrap
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -97,11 +97,9 @@ const FormAddKitchen: React.FC = () => {
     date_year: "0000",
     status: "opened",
     likes: 0,
-    location_lat: 38.85,
-    location_lon: -77.34,
+    location_lat: -7.1106194,
+    location_lon: -34.8291438,
   });
-
-  console.log(category_id);
 
   // Marker do map
   const mapIcon = Leaflet.icon({
@@ -134,7 +132,7 @@ const FormAddKitchen: React.FC = () => {
 
   const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
-    console.log(event.target.value);
+    //console.log(event.target.value);
 
     setFormData({ ...formData, [name]: value });
   };
@@ -283,11 +281,13 @@ const FormAddKitchen: React.FC = () => {
                     name="price_per_time"
                     onChange={handleInputChange}
                   />
+                  &nbsp;&nbsp;&nbsp;
                   <div className="per">
                     <span>$</span>
+                    &nbsp;&nbsp;&nbsp;
                     <p>per</p>
                   </div>
-
+                  &nbsp;&nbsp;&nbsp;
                   <Form.Control
                     className="select"
                     as="select"
@@ -297,7 +297,6 @@ const FormAddKitchen: React.FC = () => {
                   >
                     <option>hour</option>
                     <option>day</option>
-                    <option>night</option>
                     <option>week</option>
                     <option>month</option>
                     <option>Year</option>

@@ -26,6 +26,8 @@ import { useSnackbar } from "notistack";
 import { IoIosMail } from "react-icons/io";
 import { ImLock } from "react-icons/im";
 import { FaUserTimes } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
+import { RiCloseLine } from "react-icons/ri";
 
 import api from "../../services/api";
 
@@ -42,6 +44,7 @@ const FormAccount: React.FC = () => {
 
   // States
   const [show, setShow] = useState(false);
+  const [show1, setShow1] = useState(true);
   const [show2, setShow2] = useState(true);
   const [show3, setShow3] = useState(false);
   const [formData, setFormData] = useState({
@@ -76,7 +79,10 @@ const FormAccount: React.FC = () => {
       .then((response) => {
         const data = response.data;
 
-        dispatch(updateUser(data.user));
+        dispatch(updateUser(data));
+
+        setShow(false);
+        setShow1(true);
 
         enqueueSnackbar("Email added successfully!", {
           variant: "success",
@@ -186,25 +192,49 @@ const FormAccount: React.FC = () => {
                   color: "#3c3c3c",
                 }}
               >
-                <tr>
-                  <td>email</td>
-                  <td>Mark</td>
-                  <td>
-                    <Form.Check type="checkbox" />
-                  </td>
-                  <td></td>
-                </tr>
+                {user.emails.map((email) => (
+                  <tr>
+                    <td>{email}</td>
+                    <td>
+                      <FaCheck />
+                    </td>
+                    <td>
+                      <Form.Check type="checkbox" />
+                    </td>
+                    <td>
+                      <RiCloseLine />
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
-            <Button
-              className="button1"
-              onClick={() => {
-                setShow(false);
-              }}
-            >
-              + Add new email address
-            </Button>
-            <Button className="button2" type="submit">
+            {show && (
+              <Form className="form" onSubmit={AddEmail}>
+                <Form.Group>
+                  <Form.Control
+                    className="input"
+                    placeholder="New email address"
+                    name="email"
+                    type="text"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
+              </Form>
+            )}
+            {show1 && (
+              <Button
+                className="button1"
+                onClick={() => {
+                  setShow(true);
+                  setShow1(false);
+                }}
+              >
+                + Add new email address
+              </Button>
+            )}
+
+            <Button className="button2" type="submit" onClick={AddEmail}>
               Save
             </Button>
           </Card.Body>

@@ -185,6 +185,8 @@
 
           img {
             width: 100%;
+            max-height: 150px;
+            object-fit: cover;
             border-top-right-radius: 5px;
             border-top-left-radius: 5px;
           }
@@ -200,7 +202,6 @@
             z-index: 60;
 
             .price {
-              width: 80px;
               height: 33px;
               padding: 2px 5px;
               display: flex;
@@ -244,7 +245,9 @@
 
             img {
               border-radius: 5px;
-              max-width: 36px;
+              width: 36px;
+              height: 36px;
+              object-fit: cover;
             }
           }
         }
@@ -303,6 +306,9 @@
               width: 166px !important;
               height: 110px !important;
             }
+            img {
+              max-height: 110px !important;
+            }
             .box1 {
               width: 166px !important;
               height: 110px !important;
@@ -331,6 +337,9 @@
               width: 225px !important;
               height: 150px !important;
             }
+            img {
+              max-height: 150px !important;
+            }
             .box1 {
               width: 225px !important;
               height: 150px !important;
@@ -355,6 +364,9 @@
             .opacity {
               width: 166px !important;
               height: 110px !important;
+            }
+            img {
+              max-height: 110px !important;
             }
             .box1 {
               width: 166px !important;
@@ -490,6 +502,9 @@
               width: 300px !important;
               height: 200px !important;
             }
+            img {
+              max-height: 200px !important;
+            }
             .box1 {
               width: 300px !important;
               height: 200px !important;
@@ -540,6 +555,9 @@
             .opacity {
               width: 280px !important;
               height: 186px !important;
+            }
+            img {
+              max-height: 186px !important;
             }
             .box1 {
               width: 280px !important;
