@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 // Redux e Auth
@@ -17,13 +17,18 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+import AsyncSelect from "react-select/async";
+
 //Message
 import { useSnackbar } from "notistack";
 
 // leaflet
 import { Map, TileLayer, Marker } from "react-leaflet";
-import Leaflet from "leaflet";
+import Leaflet, { LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
+
+// Leaflet GeoSearch
+import { OpenStreetMapProvider } from "leaflet-geosearch";
 
 //Upload Images
 import filesize from "filesize";
@@ -56,6 +61,16 @@ interface File {
   path: string;
   size: number;
 }
+interface result {
+  x: number; // lon
+  y: number; // lat
+  label: string; // formatted address
+  bounds: [
+    [number, number], // south, west - lat, lon
+    [number, number] // north, east - lat, lon
+  ];
+  raw: any; // raw provider result
+}
 
 const FormProfileInfo: React.FC = () => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
@@ -65,10 +80,15 @@ const FormProfileInfo: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
+  const provider = new OpenStreetMapProvider();
 
   // States
   const [uploadedFiles, setUploadedFiles] = useState<UploadFile[]>([]);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
+    0,
+    0,
+  ]);
+  const [selectedPosition, setSelectedPosition] = useState<[number, number]>([
     0,
     0,
   ]);
@@ -78,10 +98,17 @@ const FormProfileInfo: React.FC = () => {
     display_name:
       user.first_name[0].toUpperCase() + user.last_name[0].toUpperCase(),
     username: user.first_name.toLowerCase() + user.last_name[0].toLowerCase(),
-    location: [user.location_lat, user.location_lon],
-    phone_number: user.phone_number,
-    bio: user.bio,
+    phone_number: user.phone_number ? user.phone_number : undefined,
+    bio: user.bio ? user.bio : undefined,
   });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+
+      setInitialPosition([latitude, longitude]);
+    });
+  }, []);
 
   // Marker do map
   const mapIcon = Leaflet.icon({
@@ -89,6 +116,41 @@ const FormProfileInfo: React.FC = () => {
     iconSize: [23, 33],
     iconAnchor: [11.5, 33],
   });
+
+  const handleMapClick = (event: LeafletMouseEvent) => {
+    setSelectedPosition([event.latlng.lat, event.latlng.lng]);
+  };
+
+  const loadOptions = async (inputValue: string, callback: any) => {
+    const results = await provider.search({ query: inputValue });
+
+    callback(
+      results.map((event) => {
+        return {
+          value: [event.y, event.x],
+          label: event.label,
+        };
+      })
+    );
+  };
+
+  const handleInputSelectChange = (event: any) => {
+    //console.log(event);
+    //setSelectedOption(event);
+  };
+
+  const handleInputChange = async (event: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSelectedOption = (e: any) => {
+    if (e && e.value) {
+      setSelectedPosition(e.value);
+      setInitialPosition(e.value);
+    }
+  };
 
   const handleUpload = (files: []) => {
     if (files.length <= 1) {
@@ -112,20 +174,12 @@ const FormProfileInfo: React.FC = () => {
     }
   };
 
-  const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = event.target;
-    console.log(event.target);
-
-    setFormData({ ...formData, [name]: value });
-  };
-
   const UpdateUser = (url_image: any) => {
     const {
       first_name,
       last_name,
       display_name,
       username,
-      location,
       phone_number,
       bio,
     } = formData;
@@ -135,11 +189,11 @@ const FormProfileInfo: React.FC = () => {
       last_name: last_name,
       display_name: display_name,
       username: username,
-      bio: bio,
-      image_url: url_image,
+      bio: bio ? bio : undefined,
+      image_url: url_image ? url_image : undefined,
       phone_number: String(phone_number),
-      location_lat: 0,
-      location_lon: 0,
+      location_lat: selectedPosition[0],
+      location_lon: selectedPosition[1],
     };
 
     const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
@@ -168,28 +222,32 @@ const FormProfileInfo: React.FC = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    const body = new FormData();
+    if (uploadedFiles[0]) {
+      const body = new FormData();
 
-    body.append("file", uploadedFiles[0].file);
+      body.append("file", uploadedFiles[0].file);
 
-    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = "https://cheffyus-api.herokuapp.com/";
+      const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+      const url = "https://cheffyus-api.herokuapp.com/";
 
-    api
-      .post(proxyurl + url + `/images/`, body, {
-        headers: { Authorization: token },
-      })
-      .then((response) => {
-        //console.log(response.data);
+      api
+        .post(proxyurl + url + `/images/`, body, {
+          headers: { Authorization: token },
+        })
+        .then((response) => {
+          //console.log(response.data);
 
-        const url_image = response.data.url;
+          const url_image = response.data.url;
 
-        UpdateUser(url_image);
-      })
-      .catch((error) => {
-        console.log(error);
-        enqueueSnackbar("Failed to load image.", { variant: "error" });
-      });
+          UpdateUser(url_image);
+        })
+        .catch((error) => {
+          console.log(error);
+          enqueueSnackbar("Failed to load image.", { variant: "error" });
+        });
+    } else {
+      UpdateUser(null);
+    }
   };
 
   return (
@@ -271,17 +329,27 @@ const FormProfileInfo: React.FC = () => {
                 adding your location. Examples: "10117 Berlin, Germany" or "2000
                 Sand Hill Road, CA, USA".
               </p>
-              <Form.Control
-                className="input"
-                name="loacation"
-                type="text"
-                onChange={handleInputChange}
+
+              <AsyncSelect
+                name="selectedOption"
+                cacheOptions
+                loadOptions={loadOptions}
+                onChange={(e) => handleSelectedOption(e)}
+                defaultOptions
+                placeholder=" "
+                onInputChange={handleInputSelectChange}
               />
+
               <div className="map">
-                <Map center={initialPosition} zoom={12}>
+                <Map
+                  center={initialPosition}
+                  zoom={13}
+                  onClick={handleMapClick}
+                >
                   <TileLayer
                     url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
                   />
+                  <Marker icon={mapIcon} position={selectedPosition}></Marker>
                 </Map>
               </div>
             </Form.Group>

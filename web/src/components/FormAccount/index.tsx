@@ -63,17 +63,11 @@ const FormAccount: React.FC = () => {
   const AddEmail = (event: FormEvent) => {
     event.preventDefault();
 
-    const { email } = formData;
-
-    const body = {
-      email: email,
-    };
-
     const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = "https://cheffyus-api.herokuapp.com/";
 
     api
-      .post(proxyurl + url + `/users/add_email/${user.id}`, body, {
+      .post(proxyurl + url + `/users/add_email/${user.id}`, {
         headers: { Authorization: token },
       })
       .then((response) => {
@@ -91,6 +85,36 @@ const FormAccount: React.FC = () => {
       .catch((error) => {
         console.log(error);
         enqueueSnackbar("Failed to add email.", { variant: "error" });
+      });
+  };
+
+  const DeleteEmail = () => {
+    const newEmails = user.emails;
+    newEmails.pop();
+
+    const body = {
+      emails: newEmails,
+    };
+
+    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    const url = "https://cheffyus-api.herokuapp.com/";
+
+    api
+      .put(proxyurl + url + `/users/${user.id}`, body, {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        const data = response.data;
+
+        dispatch(updateUser(data));
+
+        enqueueSnackbar("Email deleted successfully!", {
+          variant: "success",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        enqueueSnackbar("Failed to delete email.", { variant: "error" });
       });
   };
 
@@ -202,7 +226,9 @@ const FormAccount: React.FC = () => {
                       <Form.Check type="checkbox" />
                     </td>
                     <td>
-                      <RiCloseLine />
+                      {email !== user.defaultEmail && (
+                        <RiCloseLine onClick={DeleteEmail} />
+                      )}
                     </td>
                   </tr>
                 ))}

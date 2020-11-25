@@ -15,15 +15,19 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Image from "react-bootstrap/Image";
+
+import AsyncSelect from "react-select/async";
 
 //Message
 import { useSnackbar } from "notistack";
 
 // leaflet
 import { Map, TileLayer, Marker } from "react-leaflet";
-import Leaflet from "leaflet";
+import Leaflet, { LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
+
+// Leaflet GeoSearch
+import { OpenStreetMapProvider } from "leaflet-geosearch";
 
 //Upload Images
 import filesize from "filesize";
@@ -65,6 +69,17 @@ interface CategoriesItems {
   updatedAt: string;
 }
 
+interface result {
+  x: number; // lon
+  y: number; // lat
+  label: string; // formatted address
+  bounds: [
+    [number, number], // south, west - lat, lon
+    [number, number] // north, east - lat, lon
+  ];
+  raw: any; // raw provider result
+}
+
 const FormAddKitchen: React.FC = () => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
   const token: Token = useSelector(
@@ -73,6 +88,7 @@ const FormAddKitchen: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
+  const provider = new OpenStreetMapProvider();
 
   // States
   const [show1, setShow1] = useState(true);
@@ -81,8 +97,13 @@ const FormAddKitchen: React.FC = () => {
   const [categorySelect, setCategorySelect] = useState("");
   const [category_id, setCategoryId] = useState(Number());
   const [categories, setCategories] = useState<CategoriesItems[]>([]);
+  const [searchOptions, setSearchOptions] = useState<Array<any>>([]);
   const [uploadedFiles, setUploadedFiles] = useState<UploadFile[]>([]);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
+    0,
+    0,
+  ]);
+  const [selectedPosition, setSelectedPosition] = useState<[number, number]>([
     0,
     0,
   ]);
@@ -97,9 +118,15 @@ const FormAddKitchen: React.FC = () => {
     date_year: "0000",
     status: "opened",
     likes: 0,
-    location_lat: -7.1106194,
-    location_lon: -34.8291438,
   });
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+
+      setInitialPosition([latitude, longitude]);
+    });
+  }, []);
 
   // Marker do map
   const mapIcon = Leaflet.icon({
@@ -107,6 +134,42 @@ const FormAddKitchen: React.FC = () => {
     iconSize: [23, 33],
     iconAnchor: [11.5, 33],
   });
+
+  const handleMapClick = (event: LeafletMouseEvent) => {
+    setSelectedPosition([event.latlng.lat, event.latlng.lng]);
+  };
+
+  const loadOptions = async (inputValue: string, callback: any) => {
+    const results = await provider.search({ query: inputValue });
+
+    callback(
+      results.map((event) => {
+        return {
+          value: [event.y, event.x],
+          label: event.label,
+        };
+      })
+    );
+  };
+
+  const handleInputSelectChange = (event: any) => {
+    //console.log(event);
+    //setSelectedOption(event);
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    //console.log(event.target.value);
+
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSelectedOption = (e: any) => {
+    if (e && e.value) {
+      setSelectedPosition(e.value);
+      setInitialPosition(e.value);
+    }
+  };
 
   const handleUpload = (files: []) => {
     if (files.length <= 1) {
@@ -130,13 +193,6 @@ const FormAddKitchen: React.FC = () => {
     }
   };
 
-  const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = event.target;
-    //console.log(event.target.value);
-
-    setFormData({ ...formData, [name]: value });
-  };
-
   const AddKitchen = (url_image: any) => {
     const {
       user_id,
@@ -149,8 +205,6 @@ const FormAddKitchen: React.FC = () => {
       date_year,
       status,
       likes,
-      location_lat,
-      location_lon,
     } = formData;
 
     const body = {
@@ -164,8 +218,8 @@ const FormAddKitchen: React.FC = () => {
       expireDate: date_month + "/" + date_day + "/" + date_year,
       status: status,
       likes: likes,
-      location_lat: location_lat,
-      location_lon: location_lon,
+      location_lat: selectedPosition[0],
+      location_lon: selectedPosition[1],
     };
 
     const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
@@ -330,6 +384,7 @@ const FormAddKitchen: React.FC = () => {
                     name="date_month"
                     onChange={handleInputChange}
                   >
+                    <option>Select a month</option>
                     <option>01</option>
                     <option>02</option>
                     <option>03</option>
@@ -350,6 +405,7 @@ const FormAddKitchen: React.FC = () => {
                     name="date_day"
                     onChange={handleInputChange}
                   >
+                    <option>Select a dey</option>
                     <option>01</option>
                     <option>02</option>
                     <option>03</option>
@@ -365,6 +421,22 @@ const FormAddKitchen: React.FC = () => {
                     <option>13</option>
                     <option>14</option>
                     <option>15</option>
+                    <option>16</option>
+                    <option>17</option>
+                    <option>18</option>
+                    <option>19</option>
+                    <option>20</option>
+                    <option>21</option>
+                    <option>22</option>
+                    <option>23</option>
+                    <option>24</option>
+                    <option>25</option>
+                    <option>26</option>
+                    <option>27</option>
+                    <option>28</option>
+                    <option>29</option>
+                    <option>30</option>
+                    <option>31</option>
                   </Form.Control>
 
                   <Form.Control
@@ -373,26 +445,41 @@ const FormAddKitchen: React.FC = () => {
                     name="date_year"
                     onChange={handleInputChange}
                   >
+                    <option>Select a year</option>
                     <option>2020</option>
                     <option>2021</option>
                   </Form.Control>
                 </Form.Group>
 
-                <Form.Label className="text">Location*</Form.Label>
-                <Form.Control
-                  className="input"
-                  type="loaction"
-                  name="location"
-                  onChange={handleInputChange}
-                />
+                <Form.Group>
+                  <Form.Label className="text">Location*</Form.Label>
 
-                <div className="map">
-                  <Map center={initialPosition} zoom={12}>
-                    <TileLayer
-                      url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
-                    />
-                  </Map>
-                </div>
+                  <AsyncSelect
+                    name="selectedOption"
+                    cacheOptions
+                    loadOptions={loadOptions}
+                    onChange={(e) => handleSelectedOption(e)}
+                    defaultOptions
+                    placeholder=" "
+                    onInputChange={handleInputSelectChange}
+                  />
+
+                  <div className="map">
+                    <Map
+                      center={initialPosition}
+                      zoom={13}
+                      onClick={handleMapClick}
+                    >
+                      <TileLayer
+                        url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                      />
+                      <Marker
+                        icon={mapIcon}
+                        position={selectedPosition}
+                      ></Marker>
+                    </Map>
+                  </div>
+                </Form.Group>
 
                 <Form.Label className="text">Image</Form.Label>
                 <div className="description">
