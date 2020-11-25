@@ -161,6 +161,40 @@ body {
     background-color: transparent;
   }
 
+  .css-1pahdxg-control:hover {
+    border-color: #c3c3c3;
+  }
+
+  .css-1pahdxg-control {
+    border-radius: 5px;
+    border: 2px solid #c3c3c3;
+    box-shadow: none;
+    min-height: 42px;
+  }
+
+  /*   .css-11unzgr {
+    position: relative !important;
+    z-index: -1 !important;
+  }
+
+  .css-yt9ioa-option {
+    position: relative !important;
+    z-index: -1 !important;
+  }
+ */
+  .leaflet-pane {
+    z-index: 0;
+  }
+
+  .leaflet-bottom,
+  .leaflet-top {
+    z-index: 0;
+  }
+
+  .leaflet-control {
+    z-index: 0;
+  }
+
   body,
   input,
   button {
