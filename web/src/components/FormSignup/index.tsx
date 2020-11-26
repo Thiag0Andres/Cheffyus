@@ -1,12 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useHistory } from "react-router-dom";
 
-// Bootstrap
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-
 // Redux e Auth
 import { checkAuth } from "../../services/validation";
 import { useDispatch } from "react-redux";
@@ -17,17 +11,18 @@ import { environment } from "../../environment/environment";
 //Message
 import { useSnackbar } from "notistack";
 
+// Bootstrap
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
 // Icons
 import { IoLogoFacebook } from "react-icons/io";
 
 import api from "../../services/api";
 
 import "./styles.scss";
-
-const {
-  REACT_APP_LOCAL_STORAGE_USER,
-  REACT_APP_LOCAL_STORAGE_TOKEN,
-} = environment;
 
 const FormSignup: React.FC = () => {
   const dispatch = useDispatch();
@@ -110,16 +105,18 @@ const FormSignup: React.FC = () => {
       .then((response) => {
         const data = response.data.result;
 
-        dispatch(updateUser(data.user));
-        dispatch(updateToken(data.token));
+        dispatch(updateUser(data));
+        dispatch(
+          updateToken({
+            token: { token: `Bearer ${response.data.result.auth_token}` },
+          })
+        );
 
-        history.push("/");
+        history.push("/confirm-login");
 
         enqueueSnackbar("User successfully registered!", {
           variant: "success",
         });
-
-        //console.log(data);
       })
       .catch((error) => {
         enqueueSnackbar("Failed to register.", { variant: "error" });

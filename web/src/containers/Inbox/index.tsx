@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // Components
 import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
-import FormInbox from "../../components/FormInbox";
+import InboxMessage from "../../components/InboxMessage";
 
 const Inbox: React.FC = () => {
   // States
@@ -13,7 +13,7 @@ const Inbox: React.FC = () => {
     <>
       <NavBar />
       <Background2 text={text} />
-      <FormInbox />
+      <InboxMessage />
     </>
   );
 };

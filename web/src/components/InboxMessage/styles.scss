@@ -1,0 +1,57 @@
+@import "../../mixin.scss";
+
+#content-inbox-message {
+  padding-right: 0;
+  padding-left: 0;
+  padding: 30px 150px;
+
+  .body {
+    display: flex;
+    justify-content: center;
+
+    .alert {
+      width: 984px;
+      height: 44px;
+      gap: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      border-radius: 0.3125em;
+      font-size: 1em;
+      line-height: 1.5em;
+      color: #3c3c3c;
+      background-color: #3c3c3c;
+      cursor: default;
+      box-shadow: none;
+      border-color: $gray_classic;
+      background-color: $gray_classic;
+    }
+  }
+}
+
+@media screen and (max-width: 470px) {
+  #content-contact {
+    padding: 30px 25px;
+  }
+}
+@media screen and (max-width: 424px) {
+  #content-contact {
+    padding: 30px 50px;
+  }
+}
+@media screen and (max-width: 414px) {
+  #content-contact {
+    padding: 30px;
+  }
+}
+@media screen and (max-width: 375px) {
+  #content-contact {
+    padding: 30px;
+  }
+}
+@media screen and (max-width: 320px) {
+  #content-contact {
+    padding: 30px;
+  }
+}

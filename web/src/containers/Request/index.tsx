@@ -18,14 +18,14 @@ const Request: React.FC<Props> = () => {
 
   // States
   const [text, setText] = useState(`Request ${detail.title}`);
-  const [message, setMessage] = useState(false);
+  const [verification, setVerification] = useState(false);
 
   return (
     <>
       <NavBar />
       <Background2 text={text} />
       <Info detail={detail} />
-      <FormContact detail={detail} message={message} />
+      <FormContact detail={detail} verification={verification} />
     </>
   );
 };

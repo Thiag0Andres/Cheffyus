@@ -13,7 +13,6 @@ import { checkAuth } from "../../services/validation";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../store/ducks/user/actions";
 import { updateToken } from "../../store/ducks/token/actions";
-import { environment } from "../../environment/environment";
 
 //Message
 import { useSnackbar } from "notistack";
@@ -25,11 +24,6 @@ import { FaInfoCircle } from "react-icons/fa";
 import api from "../../services/api";
 
 import "./styles.scss";
-
-const {
-  REACT_APP_LOCAL_STORAGE_USER,
-  REACT_APP_LOCAL_STORAGE_TOKEN,
-} = environment;
 
 const FormLogin: React.FC = () => {
   const dispatch = useDispatch();

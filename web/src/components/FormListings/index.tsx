@@ -33,7 +33,6 @@ const FormListings: React.FC = () => {
   // States
   const [restaurants, setRestaurants] = useState([]);
   const [kitchensIds, setKitchensIds] = useState(user.kitchen_ids);
-  const [showModal, setShowModal] = useState(false);
 
   // Chamada a api
   useEffect(() => {
@@ -80,9 +79,7 @@ const FormListings: React.FC = () => {
               </Dropdown.Menu>
             </Dropdown>
             <div className="buttons">
-              <Button className="button1" onClick={() => setShowModal(true)}>
-                Search
-              </Button>
+              <Button className="button1">Search</Button>
               <Button className="button2">Show all</Button>
             </div>
           </Form>
@@ -105,34 +102,36 @@ const FormListings: React.FC = () => {
                 color: "#3c3c3c",
               }}
             >
-              {restaurants.map((restaurant: any) =>
-                kitchensIds.map(
-                  (KitchenId: any) =>
-                    restaurant.kitchen.id == KitchenId && (
-                      <tr>
-                        <td>
-                          <Link
-                            to={{
-                              pathname: `/restaurant/${restaurant.kitchen.name}`,
-                              state: {
-                                detail: restaurant,
-                              },
-                            }}
-                          >
-                            {restaurant.kitchen.name}
-                          </Link>
-                        </td>
-                        <td>{restaurant.kitchen.createdAt}</td>
-                        <td>{restaurant.kitchen.updatedAt}</td>
-                        <td>{restaurant.kitchen.category_id}</td>
-                        <td>{restaurant.kitchen.status}</td>
-                        <td>
-                          <TiPencil className="icon" />
-                        </td>
-                      </tr>
-                    )
-                )
-              )}
+              {user.kitchen_ids != null &&
+                user.kitchen_ids.length > 0 &&
+                restaurants.map((restaurant: any) =>
+                  kitchensIds.map(
+                    (KitchenId: any) =>
+                      restaurant.kitchen.id == KitchenId && (
+                        <tr>
+                          <td>
+                            <Link
+                              to={{
+                                pathname: `/restaurant/${restaurant.kitchen.name}`,
+                                state: {
+                                  detail: restaurant,
+                                },
+                              }}
+                            >
+                              {restaurant.kitchen.name}
+                            </Link>
+                          </td>
+                          <td>{restaurant.kitchen.createdAt}</td>
+                          <td>{restaurant.kitchen.updatedAt}</td>
+                          <td>{restaurant.kitchen.category_id}</td>
+                          <td>{restaurant.kitchen.status}</td>
+                          <td>
+                            <TiPencil className="icon" />
+                          </td>
+                        </tr>
+                      )
+                  )
+                )}
             </tbody>
           </Table>
         </Row>
@@ -142,5 +141,3 @@ const FormListings: React.FC = () => {
 };
 
 export default FormListings;
-
-/* console.log(restaurant.kitchen.id, kitchen) */

@@ -19,13 +19,13 @@ const ContactChef: React.FC<Props> = () => {
   const [text, setText] = useState(
     detail.user.first_name + " " + detail.user.last_name
   );
-  const [message, setMessage] = useState(true);
+  const [verification, setVerification] = useState(true);
 
   return (
     <>
       <NavBar />
       <Background2 text={`Message to ${text}`} />
-      <FormContact detail={detail} message={message} />
+      <FormContact detail={detail} verification={verification} />
     </>
   );
 };

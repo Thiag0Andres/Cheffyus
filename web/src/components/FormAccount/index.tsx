@@ -217,7 +217,7 @@ const FormAccount: React.FC = () => {
                 }}
               >
                 {user.emails.map((email) => (
-                  <tr>
+                  <tr key={user.id}>
                     <td>{email}</td>
                     <td>
                       <FaCheck />
