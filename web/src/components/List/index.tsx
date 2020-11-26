@@ -144,7 +144,10 @@ const List: React.FC = () => {
         <Col className="slider" xl="3" lg="3" md="3" xs="3" sm="3">
           <Hidden smDown implementation="css">
             <Form className="range">
-              <Form.Group controlId="formBasicRangeCustom">
+              <Form.Group
+                className="range-form"
+                controlId="formBasicRangeCustom"
+              >
                 <Form.Label className="text">Price</Form.Label>
                 <Form.Control
                   className="range-slider"
@@ -152,6 +155,11 @@ const List: React.FC = () => {
                   custom
                   size="lg"
                 />
+                <Form.Group className="Min-Max">
+                  <Form.Label className="text2">Min: 0</Form.Label>
+                  <Form.Label className="text2">1000 :Max</Form.Label>
+                </Form.Group>
+
                 <Button className="button" type="submit">
                   Update view
                 </Button>

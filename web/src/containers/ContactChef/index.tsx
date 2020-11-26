@@ -6,14 +6,10 @@ import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
 import FormContact from "../../components/FormContact";
 
-interface Props {
-  detail: any;
-}
-
-const ContactChef: React.FC<Props> = () => {
+const ContactChef: React.FC = () => {
   const location = useLocation();
 
-  const detail = (location.state as Props).detail;
+  const detail = (location.state as any).detail;
 
   // States
   const [text, setText] = useState(

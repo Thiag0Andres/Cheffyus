@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import PrivateRute from "../_PrivateRoute";
+import PrivateRoute from "../_PrivateRoute";
 
 //Containers
 import HomeGrid from "../../containers/HomeGrid";
@@ -35,12 +35,16 @@ export default function Routes() {
       <Route path="/profile-chef/:profileChef" component={ProfileChef} />
       <Route path="/profile-user/:profileUser" component={ProfileUser} />
 
-      <Route path="/confirm-login" component={ConfirmLogin} />
-      <Route path="/add-kitchen" component={AddKitchen} />
-      <Route path="/request/:request" component={Request} />
-      <Route path="/contact-chef/:contactChef" component={ContactChef} />
-      <Route path="/settings" component={Settings} />
-      <Route path="/inbox" component={Inbox} />
+      <PrivateRoute exact path="/confirm-login" component={ConfirmLogin} />
+      <PrivateRoute exact path="/add-kitchen" component={AddKitchen} />
+      <PrivateRoute exact path="/request/:request" component={Request} />
+      <PrivateRoute
+        exact
+        path="/contact-chef/:contactChef"
+        component={ContactChef}
+      />
+      <PrivateRoute exact path="/settings" component={Settings} />
+      <PrivateRoute exact path="/inbox" component={Inbox} />
 
       <Redirect from="*" to="/" />
     </Switch>

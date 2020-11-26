@@ -7,17 +7,13 @@ import Background2 from "../../components/Background2";
 import Info from "../../components/Info";
 import FormContact from "../../components/FormContact";
 
-interface Props {
-  detail: any;
-}
-
-const Request: React.FC<Props> = () => {
+const Request: React.FC = () => {
   const location = useLocation();
 
-  const detail = (location.state as Props).detail;
+  const detail = (location.state as any).detail;
 
   // States
-  const [text, setText] = useState(`Request ${detail.title}`);
+  const [text, setText] = useState(`Request ${detail.kitchen.name}`);
   const [verification, setVerification] = useState(false);
 
   return (

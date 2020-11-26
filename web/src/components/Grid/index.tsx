@@ -9,7 +9,6 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Pagination from "react-bootstrap/Pagination";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Alert from "react-bootstrap/Alert";
 
 // Material UI
 import Hidden from "@material-ui/core/Hidden";
@@ -43,6 +42,7 @@ const Grid: React.FC = () => {
   const [alert, setAlert] = useState(false);
   const [show, setShow] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
+  const [value, setValue] = React.useState<number[]>([0, 10000]);
 
   // Chamada a api
   useEffect(() => {
@@ -73,35 +73,6 @@ const Grid: React.FC = () => {
   return (
     <Container fluid id="page-home-grid">
       <Row className="content-header">
-        {alert && (
-          <Alert
-            className="alert"
-            variant="secondary"
-            onClick={() => setIsLogged(false)}
-          >
-            <FaCheck size={18} />
-            <div>
-              Welcome,{" "}
-              <Link
-                to={{
-                  pathname: `/profile-user/${user.username}`,
-                  state: {
-                    detail: user,
-                  },
-                }}
-              >
-                {user.first_name + user.last_name[0].toUpperCase()}
-              </Link>
-              !
-            </div>
-          </Alert>
-        )}
-        {/*         {!isLogged && (
-          <Alert className="alert" variant="secondary">
-            <FaCheck size={18} />
-            You have now been logged out of Cheffy. See you soon!
-          </Alert>
-        )} */}
         <Col className="header" xl="12" lg="12" md="12" xs="12" sm="12">
           <Hidden smDown implementation="css">
             <Dropdown className="dropdown">
@@ -205,6 +176,11 @@ const Grid: React.FC = () => {
                   custom
                   size="lg"
                 />
+                <Form.Group className="Min-Max">
+                  <Form.Label className="text2">Min: 0</Form.Label>
+                  <Form.Label className="text2">1000 :Max</Form.Label>
+                </Form.Group>
+
                 <Button className="button" type="submit">
                   Update view
                 </Button>

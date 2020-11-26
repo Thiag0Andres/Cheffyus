@@ -89,6 +89,7 @@
     .slider {
       padding-right: 0;
       padding-left: 0;
+      max-width: 300px;
       display: flex;
       flex-direction: column;
 
@@ -114,10 +115,23 @@
         border-radius: 2px;
       }
 
+      .Min-Max {
+        width: 212px;
+        display: flex;
+        justify-content: space-between;
+
+        .text2 {
+          margin-top: 5px;
+          font-size: 18px;
+          font-weight: bold;
+          line-height: 24px;
+          color: $gray_light;
+        }
+      }
+
       .button {
         width: 131.131px;
         height: 42px;
-        margin-top: 20px;
         box-shadow: none;
         background-color: $red_classic;
         border-color: $red_classic;
