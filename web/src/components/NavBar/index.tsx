@@ -95,6 +95,10 @@ const NavBar: React.FC<Props> = (props: Props) => {
     }
   };
 
+  const handlePageAdmin = () => {
+    history.push("/administrator");
+  };
+
   const handlePageProfile = () => {
     history.push({
       pathname: `/profile-user/${user.username}`,
@@ -174,12 +178,20 @@ const NavBar: React.FC<Props> = (props: Props) => {
             <Link className="text3" to="/settings">
               Settings
             </Link>
-
-            <div className="logout-adm">
-              <Button className="button1" onClick={logout}>
-                Log out
+          </div>
+          <div className="logout-adm">
+            {user.user_type == "admin" && (
+              <Button className="button1" onClick={handlePageAdmin}>
+                Admin panel
               </Button>
-            </div>
+            )}
+            <Button
+              className="button1"
+              style={{ justifyContent: "flex-end" }}
+              onClick={logout}
+            >
+              Log out
+            </Button>
           </div>
         </Hidden>
       )}
@@ -293,7 +305,18 @@ const NavBar: React.FC<Props> = (props: Props) => {
                       </Col>
                     </Row>
                     <Row className="row2">
-                      <Button className="button1" onClick={logout}>
+                      <Button
+                        className="button1"
+                        style={{ justifyContent: "flex-start" }}
+                        onClick={handlePageAdmin}
+                      >
+                        Admin panel
+                      </Button>
+                      <Button
+                        className="button1"
+                        style={{ justifyContent: "flex-end" }}
+                        onClick={logout}
+                      >
                         Log out
                       </Button>
                     </Row>

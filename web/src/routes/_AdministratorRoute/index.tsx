@@ -5,6 +5,7 @@ import { Route, Redirect } from "react-router-dom";
 import { useSelector, RootStateOrAny } from "react-redux";
 
 // Types
+import { User } from "../../store/ducks/user/types";
 import { Token } from "../../store/ducks/token/types";
 
 export interface PrivateRouteType {
@@ -13,19 +14,20 @@ export interface PrivateRouteType {
   exact: boolean;
 }
 
-export const PrivateRoute: React.FC<PrivateRouteType> = (
+export const AdministratorRoute: React.FC<PrivateRouteType> = (
   props: PrivateRouteType
 ) => {
+  const user: User = useSelector((state: RootStateOrAny) => state.user.user);
   const condition: Token = useSelector(
     (state: RootStateOrAny) => state.token.token.token
   );
   const { component, path, exact } = props;
 
-  return condition ? (
+  return condition && user.user_type == "admin" ? (
     <Route exact path={path} component={component} />
   ) : (
-    <Redirect to="/login" />
+    <Redirect to="/" />
   );
 };
 
-export default PrivateRoute;
+export default AdministratorRoute;

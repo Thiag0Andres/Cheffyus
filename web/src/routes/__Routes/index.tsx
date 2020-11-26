@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
+import AdministratorRoute from "../_AdministratorRoute";
 import PrivateRoute from "../_PrivateRoute";
 
 //Containers
@@ -20,6 +21,7 @@ import ContactChef from "../../containers/ContactChef";
 import Request from "../../containers/Request";
 import Settings from "../../containers/Settings";
 import Inbox from "../../containers/Inbox";
+import Administrator from "../../containers/Administrator";
 
 export default function Routes() {
   return (
@@ -45,6 +47,12 @@ export default function Routes() {
       />
       <PrivateRoute exact path="/settings" component={Settings} />
       <PrivateRoute exact path="/inbox" component={Inbox} />
+
+      <AdministratorRoute
+        exact
+        path="/administrator"
+        component={Administrator}
+      />
 
       <Redirect from="*" to="/" />
     </Switch>
