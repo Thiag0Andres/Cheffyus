@@ -1,6 +1,7 @@
 @import "../../mixin.scss";
 
 #page-home-grid {
+  max-width: 1280px;
   padding: 20px 150px;
 
   .content-header {
@@ -141,9 +142,7 @@
           justify-content: space-between;
 
           .text2 {
-            margin-top: 5px;
             font-size: 18px;
-            font-weight: bold;
             line-height: 24px;
             color: $gray_light;
           }

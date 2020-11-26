@@ -219,6 +219,44 @@ body {
     border-radius: 0;
   }
 
+  .MuiSlider-root {
+    color: $red_classic;
+    width: 200px;
+    cursor: pointer;
+    height: 2px;
+  }
+
+  .MuiSlider-rail {
+    width: 100%;
+    height: 0.4rem;
+  }
+
+  .MuiSlider-track {
+    width: 100%;
+    height: 0.4rem;
+    display: block;
+    position: absolute;
+    border-radius: 1px;
+    background-color: currentColor;
+  }
+
+  .MuiSlider-thumb {
+    color: #bec7d0;
+    width: 16px;
+    height: 18px;
+    margin-top: -5px;
+    margin-left: -2px;
+    border-radius: 4px;
+
+    &:hover {
+      box-shadow: none;
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
   body,
   input,
   button {

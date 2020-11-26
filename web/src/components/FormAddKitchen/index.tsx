@@ -244,28 +244,32 @@ const FormAddKitchen: React.FC = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    const body = new FormData();
+    if (uploadedFiles[0]) {
+      const body = new FormData();
 
-    body.append("file", uploadedFiles[0].file);
+      body.append("file", uploadedFiles[0].file);
 
-    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = "https://cheffyus-api.herokuapp.com/";
+      const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+      const url = "https://cheffyus-api.herokuapp.com/";
 
-    api
-      .post(proxyurl + url + `/images/`, body, {
-        headers: { Authorization: token },
-      })
-      .then((response) => {
-        //console.log(response.data);
+      api
+        .post(proxyurl + url + `/images/`, body, {
+          headers: { Authorization: token },
+        })
+        .then((response) => {
+          //console.log(response.data);
 
-        const url_image = response.data.url;
+          const url_image = response.data.url;
 
-        AddKitchen(url_image);
-      })
-      .catch((error) => {
-        console.log(error);
-        enqueueSnackbar("Failed to load image.", { variant: "error" });
-      });
+          AddKitchen(url_image);
+        })
+        .catch((error) => {
+          console.log(error);
+          enqueueSnackbar("Failed to load image.", { variant: "error" });
+        });
+    } else {
+      AddKitchen(null);
+    }
   };
 
   useEffect(() => {

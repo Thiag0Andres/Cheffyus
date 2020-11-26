@@ -12,6 +12,7 @@ import Button from "react-bootstrap/Button";
 
 // Material UI
 import Hidden from "@material-ui/core/Hidden";
+import Slider from "@material-ui/core/Slider";
 
 // Redux e Auth
 import { useSelector, RootStateOrAny } from "react-redux";
@@ -34,6 +35,10 @@ import api from "../../services/api";
 
 import "./styles.scss";
 
+function valuetext(value: number) {
+  return `$ ${value}`;
+}
+
 const Grid: React.FC = () => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
 
@@ -42,7 +47,11 @@ const Grid: React.FC = () => {
   const [alert, setAlert] = useState(false);
   const [show, setShow] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
-  const [value, setValue] = React.useState<number[]>([0, 10000]);
+  const [value, setValue] = useState<number[]>([0, 10000]);
+
+  const handleChange = (event: any, newValue: number | number[]) => {
+    setValue(newValue as number[]);
+  };
 
   // Chamada a api
   useEffect(() => {
@@ -170,17 +179,20 @@ const Grid: React.FC = () => {
                 controlId="formBasicRangeCustom"
               >
                 <Form.Label className="text">Price</Form.Label>
-                <Form.Control
-                  className="range-slider"
-                  type="range"
-                  custom
-                  size="lg"
+                <Slider
+                  value={value}
+                  onChange={handleChange}
+                  //valueLabelDisplay="auto"
+                  aria-labelledby="range-slider"
+                  getAriaValueText={valuetext}
+                  max={10000}
+                  min={0}
                 />
-                <Form.Group className="Min-Max">
-                  <Form.Label className="text2">Min: 0</Form.Label>
-                  <Form.Label className="text2">1000 :Max</Form.Label>
-                </Form.Group>
 
+                <Form.Group className="Min-Max">
+                  <Form.Label className="text2">Min: {value[0]}</Form.Label>
+                  <Form.Label className="text2">Max: {value[1]}</Form.Label>
+                </Form.Group>
                 <Button className="button" type="submit">
                   Update view
                 </Button>
