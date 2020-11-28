@@ -12,6 +12,9 @@ import { Token } from "../../store/ducks/token/types";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+// Images
+import userNotfound from "../../images/user.png";
+
 import api from "../../services/api";
 
 import "./styles.scss";
@@ -24,25 +27,8 @@ const InboxMessage: React.FC = () => {
 
   // States
   const [messageList, setMessageList] = useState([]);
-  const [messageUserId, setMessageUserId] = useState([]);
+  const [userMessage, setUserMessage] = useState<Array<any>>([]);
   const [userList, setUserList] = useState([]);
-
-  // Chamada a api
-  useEffect(() => {
-    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = "http://cheffyus-api.herokuapp.com/";
-
-    api
-      .get(proxyurl + url + "inbox", {
-        headers: { Authorization: token },
-      })
-      .then((response) => {
-        setMessageList(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
   // Chamada a api
   useEffect(() => {
@@ -59,21 +45,46 @@ const InboxMessage: React.FC = () => {
       .catch((error) => {
         console.log(error);
       });
+
+    api
+      .get(proxyurl + url + "inbox", {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        setMessageList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
-  /*   messageList.map((messageL: any) => {
-    if (messageL.sender_id == user.id) {
-      setMessageUserId(messageL);
-    }
-  }); */
+  useEffect(() => {
+    handle();
+  }, [messageList, userList]);
+
+  const handle = () => {
+    messageList.map((messageL: any) => {
+      (messageL.user_id == user.id || messageL.sender_id == user.id) &&
+        userList.map((userL: any) => {
+          (userL.id == messageL.user_id || userL.id == messageL.sender_id) &&
+            userL.id != user.id &&
+            setUserMessage(userL);
+        });
+    });
+  };
+
+  console.log(userMessage);
 
   return (
     <Row id="content-inbox-message">
       <Col className="body" xl="12" lg="12" md="12" xs="12" sm="12">
         <div className="alert">
-          {/* <img src={} alt={} /> */}
-          Your account was created successfully. Now you need to confirm your
-          email address.
+          {userMessage.map((userM) => (
+            <img
+              src={userM.image_url === null ? userNotfound : userM.image_url}
+              alt={userM.first_name}
+            />
+          ))}
         </div>
       </Col>
     </Row>
@@ -81,9 +92,3 @@ const InboxMessage: React.FC = () => {
 };
 
 export default InboxMessage;
-
-/*               d.user.image_url === null
-                ? userNotfound
-                : restaurant.user.image_url 
-                
-                restaurant.user.first_name*/

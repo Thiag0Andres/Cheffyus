@@ -13,7 +13,7 @@ import { FaDatabase } from "react-icons/fa";
 import { BsChatFill } from "react-icons/bs";
 import { AiFillLike } from "react-icons/ai";
 import { FaPaperPlane } from "react-icons/fa";
-import { RiMoneyDollarCircleFill } from "react-icons/ri";
+import { AiFillDollarCircle } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
 import { BsArrowRight } from "react-icons/bs";
 
@@ -178,7 +178,7 @@ const InformationsSettings: React.FC = () => {
                   setShow8(false);
                 }}
               >
-                <RiMoneyDollarCircleFill />
+                <AiFillDollarCircle />
                 <div className="space-between">
                   &nbsp;&nbsp; Payment system {show7 && <BsArrowRight />}
                 </div>

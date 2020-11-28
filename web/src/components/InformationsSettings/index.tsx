@@ -12,6 +12,7 @@ import { BsFillGridFill } from "react-icons/bs";
 import { FaDatabase } from "react-icons/fa";
 import { RiFileLockLine } from "react-icons/ri";
 import { FaConciergeBell } from "react-icons/fa";
+import { AiFillDollarCircle } from "react-icons/ai";
 import { BsArrowRight } from "react-icons/bs";
 
 // Components
@@ -20,6 +21,7 @@ import FormListings from "../../components/FormListings";
 import FormTransactions from "../../components/FormTransactions";
 import FormAccount from "../../components/FormAccount";
 import FormNotifications from "../../components/FormNotifications";
+import FormPayments from "../../components/FormPayments";
 
 const InformationsSettings: React.FC = () => {
   // States
@@ -28,6 +30,7 @@ const InformationsSettings: React.FC = () => {
   const [show3, setShow3] = useState(false);
   const [show4, setShow4] = useState(false);
   const [show5, setShow5] = useState(false);
+  const [show6, setShow6] = useState(false);
 
   return (
     <>
@@ -115,11 +118,30 @@ const InformationsSettings: React.FC = () => {
                   setShow3(false);
                   setShow4(false);
                   setShow5(true);
+                  setShow6(false);
                 }}
               >
                 <FaConciergeBell />
                 <div className="space-between">
                   &nbsp;&nbsp; Notifications {show5 && <BsArrowRight />}
+                </div>
+              </ListGroup.Item>
+              <ListGroup.Item
+                className="list"
+                action
+                href="#payments"
+                onClick={() => {
+                  setShow(false);
+                  setShow2(false);
+                  setShow3(false);
+                  setShow4(false);
+                  setShow5(false);
+                  setShow6(true);
+                }}
+              >
+                <AiFillDollarCircle />
+                <div className="space-between">
+                  &nbsp;&nbsp; Payments {show6 && <BsArrowRight />}
                 </div>
               </ListGroup.Item>
             </ListGroup>
@@ -141,6 +163,9 @@ const InformationsSettings: React.FC = () => {
               </Tab.Pane>
               <Tab.Pane eventKey="#notifications">
                 <FormNotifications />
+              </Tab.Pane>
+              <Tab.Pane eventKey="#payments">
+                <FormPayments />
               </Tab.Pane>
             </Tab.Content>
           </Col>

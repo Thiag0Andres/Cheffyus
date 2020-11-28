@@ -1,0 +1,100 @@
+@import "../../mixin.scss";
+
+#content-form-payments {
+  padding-right: 0;
+  padding-left: 0;
+
+  .body {
+    width: 732px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .card1 {
+      border-radius: 5px;
+      border: 2px solid #c3c3c3;
+
+      .card-body1 {
+        //padding: 30px;
+
+        .form {
+          .text {
+            width: 100%;
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 3px;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 24px;
+            color: $gray_light;
+          }
+
+          .input {
+            border-radius: 5px;
+            border: 2px solid #c3c3c3;
+            box-shadow: none;
+            min-height: 42px;
+          }
+
+          .group1 {
+            display: flex;
+
+            .box1 {
+              width: 100%;
+            }
+            .box2 {
+              width: 100%;
+            }
+          }
+
+          .date {
+            display: flex;
+            justify-content: space-between;
+
+            .select-year {
+              min-height: 42px;
+              border-radius: 5px;
+              border: 2px solid #c3c3c3;
+              box-shadow: none;
+            }
+            .select-month {
+              min-height: 42px;
+              border-radius: 5px;
+              border: 2px solid #c3c3c3;
+              box-shadow: none;
+            }
+            .select-day {
+              min-height: 42px;
+              border-radius: 5px;
+              border: 2px solid #c3c3c3;
+              box-shadow: none;
+            }
+          }
+          .country {
+            .select-country {
+              width: 32%;
+              border-radius: 5px;
+              border: 2px solid #c3c3c3;
+              box-shadow: none;
+              min-height: 42px;
+            }
+          }
+
+          .button {
+            width: 120px;
+            height: 42px;
+            box-shadow: none;
+            background-color: $red_classic;
+            border-color: $red_classic;
+            color: $white;
+
+            &:hover {
+              background-color: $red_light;
+            }
+          }
+        }
+      }
+    }
+  }
+}

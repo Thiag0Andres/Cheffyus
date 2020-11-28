@@ -62,7 +62,7 @@ const FormTransactions: React.FC = () => {
   };
 
   const handleSelectedOption3 = (e: any) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
   };
 
   const handleSubmit = (event: FormEvent) => {
@@ -100,9 +100,9 @@ const FormTransactions: React.FC = () => {
       });
   };
 
-  console.log(action_id);
-  console.log(frequence);
-  console.log(admin_email);
+  //console.log(action_id);
+  //console.log(frequence);
+  //console.log(admin_email);
 
   return (
     <>

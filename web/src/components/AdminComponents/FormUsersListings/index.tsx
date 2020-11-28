@@ -20,6 +20,8 @@ import Table from "react-bootstrap/Table";
 
 // Icons
 import { TiPencil } from "react-icons/ti";
+import { MdDelete } from "react-icons/md";
+import { TiPlus } from "react-icons/ti";
 
 import api from "../../../services/api";
 
@@ -109,7 +111,7 @@ const FormUsersListings: React.FC = () => {
                   <td>
                     <Link
                       to={{
-                        pathname: `/chef-profile/${userL.first_name}`,
+                        pathname: `/profile-chef/${userL.first_name}`,
                         state: {
                           detail: userL,
                         },
@@ -123,7 +125,9 @@ const FormUsersListings: React.FC = () => {
                   <td>{userL.user_type}</td>
                   <td></td>
                   <td>
-                    <TiPencil className="icon" />
+                    <TiPencil className="icon" size={20} /> &nbsp; &nbsp;
+                    <TiPlus className="icon" size={20} /> &nbsp; &nbsp;
+                    <MdDelete className="icon" size={20} />
                   </td>
                 </tr>
               ))}
