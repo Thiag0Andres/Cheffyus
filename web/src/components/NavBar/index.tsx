@@ -157,12 +157,8 @@ const NavBar: React.FC<Props> = (props: Props) => {
         <Hidden mdUp implementation="css">
           <div className="drawer-user">
             <p>User</p>
-
             <Link className="text3" to="/inbox">
               Inbox
-            </Link>
-            <Link className="text3" to="/settings">
-              My listings
             </Link>
             <Link
               className="text3"
@@ -271,19 +267,13 @@ const NavBar: React.FC<Props> = (props: Props) => {
                     onMouseOver={() => setShow(true)}
                   >
                     <Row className="row1">
-                      <Col className="col" xl="3" lg="3" md="3" xs="3" sm="3">
+                      <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
                         <Link className="item" to="/inbox">
                           <FiInbox size={32} />
                           Inbox
                         </Link>
                       </Col>
-                      <Col className="col" xl="3" lg="3" md="3" xs="3" sm="3">
-                        <Link className="item" to="/settings">
-                          <ImAddressBook size={32} />
-                          My listings
-                        </Link>
-                      </Col>
-                      <Col className="col" xl="3" lg="3" md="3" xs="3" sm="3">
+                      <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
                         <Link
                           className="item"
                           to={{
@@ -297,7 +287,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
                           Profile
                         </Link>
                       </Col>
-                      <Col className="col" xl="3" lg="3" md="3" xs="3" sm="3">
+                      <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
                         <Link className="item" to="/settings">
                           <GiSettingsKnobs size={32} />
                           Settings

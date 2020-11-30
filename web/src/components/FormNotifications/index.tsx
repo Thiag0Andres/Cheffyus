@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 
 // Redux e Auth
 import { RootStateOrAny, useSelector } from "react-redux";
@@ -32,9 +32,10 @@ const FormTransactions: React.FC = () => {
 
   // States
   const [notifications, setNotifications] = useState([]);
+  const [newsletter, setNewsletter] = useState();
   const [frequence, setFrequence] = useState("none");
   const [admin_email, setAdmin_email] = useState(false);
-  const [action_id, setAction_id] = useState([]);
+  const [action_ids, setAction_ids] = useState<Array<any>>([]);
 
   // Chamada a api
   useEffect(() => {
@@ -51,7 +52,22 @@ const FormTransactions: React.FC = () => {
       .catch((error) => {
         console.log(error);
       });
+
+    api
+      .get(proxyurl + url + "newsletter", {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        response.data.map((rd: any) => {
+          rd.user_id == user.id && setNewsletter(rd);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
+
+  //console.log(newsletter);
 
   const handleSelectedOption1 = (e: any) => {
     setFrequence(e.target.value);
@@ -62,7 +78,19 @@ const FormTransactions: React.FC = () => {
   };
 
   const handleSelectedOption3 = (e: any) => {
-    //console.log(e.target.value);
+    const action = e.target.value;
+    //console.log(event.target);
+
+    var i = action_ids.includes(action);
+
+    if (i) {
+      var pos = action_ids.indexOf(action);
+      action_ids.splice(pos, 1);
+    } else {
+      action_ids.push(action);
+    }
+
+    //console.log(action_id);
   };
 
   const handleSubmit = (event: FormEvent) => {
@@ -72,22 +100,17 @@ const FormTransactions: React.FC = () => {
       user_id: user.id,
       frequence: frequence,
       admin: admin_email,
-      actions_ids: action_id,
+      actions_ids: action_ids,
     };
 
     const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = "https://cheffyus-api.herokuapp.com/";
 
     api
-      .put(proxyurl + url + "newsletter", body, {
+      .post(proxyurl + url + "newsletter", body, {
         headers: { Authorization: token },
       })
-      .then((response) => {
-        const data = response.data;
-        //console.log(data);
-
-        //dispatch(updateUser(data));
-
+      .then(() => {
         enqueueSnackbar("Notifications updated successfully!", {
           variant: "success",
         });
@@ -100,7 +123,6 @@ const FormTransactions: React.FC = () => {
       });
   };
 
-  //console.log(action_id);
   //console.log(frequence);
   //console.log(admin_email);
 

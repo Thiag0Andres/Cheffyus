@@ -77,17 +77,17 @@ const FormPayments: React.FC = () => {
   ]);
 
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
+    first_name: user.first_name,
+    last_name: user.last_name,
     date_day: "00",
     date_month: "00",
     date_year: "0000",
     address_country: "",
     address_zipcode: "",
-    address_state: "",
+    //address_state: "",
     address_city: "",
     address_street: "",
-    phone_number: "",
+    phone_number: user.phone_number ? user.phone_number : undefined,
     bank_code: "",
     branch_code: "",
     account_number: "",
@@ -100,7 +100,7 @@ const FormPayments: React.FC = () => {
     axios
       .get(url + "all")
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         setCountries(response.data);
       })
       .catch((error) => {
@@ -134,7 +134,7 @@ const FormPayments: React.FC = () => {
       date_year,
       address_country,
       address_zipcode,
-      address_state,
+      //address_state,
       address_city,
       address_street,
       phone_number,
@@ -144,12 +144,13 @@ const FormPayments: React.FC = () => {
     } = formData;
 
     const body = {
+      user_id: user.id,
       first_name: first_name,
       last_name: last_name,
       birth_date: date_month + "/" + date_day + "/" + date_year,
       address_country: address_country,
       address_zipcode: address_zipcode,
-      address_state: address_state,
+      //address_state: address_state,
       address_city: address_city,
       address_street: address_street,
       phone_number: phone_number,
@@ -170,15 +171,15 @@ const FormPayments: React.FC = () => {
           user: { ...user, preferences_id: data.id },
         };
 
-        dispatch(updateUser(updatedUser));
+        //dispatch(updateUser(updatedUser));
 
-        enqueueSnackbar("Email added successfully!", {
+        enqueueSnackbar("Payment method added successfully!", {
           variant: "success",
         });
       })
       .catch((error) => {
         console.log(error);
-        enqueueSnackbar("Failed to add email.", { variant: "error" });
+        enqueueSnackbar("Failed to add payment method.", { variant: "error" });
       });
   };
 
@@ -205,7 +206,7 @@ const FormPayments: React.FC = () => {
         <p>We need some information about you to be able to send you money.</p>
         <Card className="card1">
           <Card.Body className="card-body1">
-            <Form className="form">
+            <Form className="form" onSubmit={Preferences}>
               <Form.Group className="group1">
                 <div className="box1">
                   <Form.Label className="text">First name*</Form.Label>
@@ -306,15 +307,15 @@ const FormPayments: React.FC = () => {
                       value={formData.address_zipcode}
                       onChange={handleInputChange}
                     />
-                    <p></p>
+                    {/*                     <p></p>
                     <Form.Label className="text">State*</Form.Label>
                     <Form.Control
                       className="input"
-                      name="first_name"
+                      name="address_state"
                       type="text"
                       value={formData.address_state}
                       onChange={handleInputChange}
-                    />
+                    /> */}
                     <p></p>
                     <Form.Label className="text">City*</Form.Label>
                     <Form.Control
@@ -388,7 +389,7 @@ const FormPayments: React.FC = () => {
                   <Button
                     className="button"
                     type="submit"
-                    //onClick={handleSubmit}
+                    onClick={Preferences}
                   >
                     Save details
                   </Button>

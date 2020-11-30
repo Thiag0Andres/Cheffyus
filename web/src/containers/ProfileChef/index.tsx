@@ -6,14 +6,10 @@ import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
 import ChefProfile from "../../components/ChefProfile";
 
-interface Props {
-  detail: any;
-}
-
-const ProfileChef: React.FC<Props> = () => {
+const ProfileChef: React.FC = () => {
   const location = useLocation();
 
-  const detail = (location.state as Props).detail;
+  const detail = (location.state as any).detail;
 
   // States
   const [text, setText] = useState(

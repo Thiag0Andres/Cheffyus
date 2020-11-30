@@ -7,25 +7,49 @@
 
   .body {
     display: flex;
-    justify-content: center;
 
-    .alert {
-      width: 984px;
-      height: 44px;
-      gap: 10px;
-      margin-bottom: 20px;
+    .messages {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
-      border-radius: 0.3125em;
-      font-size: 1em;
-      line-height: 1.5em;
-      color: #3c3c3c;
-      background-color: #3c3c3c;
-      cursor: default;
-      box-shadow: none;
-      border-color: $gray_classic;
-      background-color: $gray_classic;
+
+      .message {
+        width: 948px;
+        height: 60px;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        img {
+          border-radius: 4px;
+          width: 48px;
+          height: 48px;
+          object-fit: cover;
+        }
+
+        .box1 {
+          width: 25%;
+          display: flex;
+          //background-color: aqua;
+        }
+        .box2 {
+          width: 55%;
+          display: flex;
+          align-items: center;
+          //background-color: blue;
+        }
+        .box3 {
+          width: 20%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          //background-color: black;
+        }
+
+        & {
+          border-bottom: 1px solid #c3c3c3;
+        }
+      }
     }
   }
 }
