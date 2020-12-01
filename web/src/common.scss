@@ -125,6 +125,11 @@ body {
     }
   }
 
+  .form-control:focus {
+    border-color: #bec7d0;
+    box-shadow: none;
+  }
+
   .MuiBackdrop-root {
     opacity: 0.8 !important;
     backdrop-filter: blur(4px) !important;

@@ -12,9 +12,38 @@ import "./styles.scss";
 
 interface Props {
   detail: any;
+  formData: any;
 }
 
-const Info: React.FC<Props> = ({ detail }) => {
+const Info: React.FC<Props> = ({ detail, formData }) => {
+  const typeTime = () => {
+    if (detail.kitchen.time_type == "hour") {
+      return <p>Hours:</p>;
+    } else if (detail.kitchen.time_type == "day") {
+      return <p>Days:</p>;
+    } else if (detail.kitchen.time_type == "week") {
+      return <p>Weeks:</p>;
+    } else if (detail.kitchen.time_type == "month") {
+      return <p>Months:</p>;
+    } else if (detail.kitchen.time_type == "year") {
+      return <p>Years:</p>;
+    }
+  };
+
+  const typeTime2 = () => {
+    if (detail.kitchen.time_type == "hour") {
+      return <p>hour</p>;
+    } else if (detail.kitchen.time_type == "day") {
+      return <p>day</p>;
+    } else if (detail.kitchen.time_type == "week") {
+      return <p>week</p>;
+    } else if (detail.kitchen.time_type == "month") {
+      return <p>month</p>;
+    } else if (detail.kitchen.time_type == "year") {
+      return <p>year</p>;
+    }
+  };
+
   return (
     <Container id="content-info">
       <Col className="body" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
@@ -25,36 +54,54 @@ const Info: React.FC<Props> = ({ detail }) => {
           <p>
             <Link
               to={{
-                pathname: `/restaurant/${detail.title}`,
+                pathname: `/restaurant/${detail.kitchen.name}`,
                 state: {
                   detail: detail,
                 },
               }}
             >
-              {detail.title}
-            </Link>{" "}
-            by{" "}
+              {detail.kitchen.name}
+            </Link>
+            &nbsp; by &nbsp;
             <Link
               to={{
-                pathname: `/profile-chef/${detail.name}`,
+                pathname: `/profile-chef/${detail.user.first_name}`,
                 state: {
                   detail: detail,
                 },
               }}
             >
-              {detail.name}
+              {detail.user.first_name}
             </Link>
           </p>
         </Row>
         <Row className="row">
           <div className="box1">
             <div className="price">
-              <p>Price per hour:</p>
-              <p>${detail.price}</p>
+              <p style={{ display: "flex" }}>Price per&nbsp;{typeTime2()}:</p>
+              <p>${detail.kitchen.price_per_time}</p>
             </div>
+            {formData.time > 1 && (
+              <div className="price">
+                {typeTime()}
+                <p>{formData.time}</p>
+              </div>
+            )}
+            {formData.time > 1 && (
+              <div className="price">
+                <p>Subtotal:</p>
+                <p>${detail.kitchen.price_per_time * formData.time}</p>
+              </div>
+            )}
             <div className="price">
               <p className="text">Price:</p>
-              <p className="text">${detail.price}</p>
+              {formData.time > 1 ? (
+                <p className="text">
+                  ${detail.kitchen.price_per_time * formData.time}
+                </p>
+              ) : (
+                <p className="text">${detail.kitchen.price_per_time}</p>
+              )}
             </div>
           </div>
         </Row>

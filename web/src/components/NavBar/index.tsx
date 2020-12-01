@@ -1,5 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+
+// Redux e Auth
+import { useSelector, useDispatch } from "react-redux";
+import { ApplicationState } from "../../store";
+import { removeUser } from "../../store/ducks/user/actions";
+import { removeToken } from "../../store/ducks/token/actions";
+import { updateFilterName } from "../../store/ducks/filterName/actions";
+import { isAuthenticated } from "../../services/auth";
+
+// Types
+import { User } from "../../store/ducks/user/types";
 
 // Bootstrap
 import Navbar from "react-bootstrap/Navbar";
@@ -15,19 +26,7 @@ import Col from "react-bootstrap/Col";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
-
 import { useTheme } from "@material-ui/core/styles";
-
-// Redux e Auth
-import { useSelector, useDispatch } from "react-redux";
-import { ApplicationState } from "../../store";
-import { removeUser } from "../../store/ducks/user/actions";
-import { removeToken } from "../../store/ducks/token/actions";
-import { isAuthenticated } from "../../services/auth";
-
-// Types
-import { User } from "../../store/ducks/user/types";
-import { Token } from "../../store/ducks/token/types";
 
 //Message
 import { useSnackbar } from "notistack";
@@ -42,7 +41,8 @@ import { GoSearch } from "react-icons/go";
 
 // Images
 import logo from "../../images/logo.jpg";
-import userNotFound from "../../images/user.jpg";
+
+import api from "../../services/api";
 
 import "./styles.scss";
 
@@ -58,9 +58,6 @@ const NavBar: React.FC<Props> = (props: Props) => {
   const { window } = props;
   const dispatch = useDispatch();
   const user: User = useSelector((state: ApplicationState) => state.user.user);
-  const token: Token = useSelector(
-    (state: ApplicationState) => state.token.token
-  );
   const history = useHistory();
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
@@ -69,6 +66,39 @@ const NavBar: React.FC<Props> = (props: Props) => {
   const [show, setShow] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [restaurants, setRestaurants] = useState([]);
+  const [formData, setFormData] = useState({
+    search: "",
+  });
+
+  // Chamada a api
+  useEffect(() => {
+    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    const url = "http://cheffyus-api.herokuapp.com/";
+
+    api
+      .get(proxyurl + url + "kitchens")
+      .then((response) => {
+        setRestaurants(response.data);
+        //console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const filteredKitchens: any = restaurants.filter((restaurant: any) => {
+    return (
+      (restaurant.kitchen.name
+        .toLowerCase()
+        .indexOf(formData.search.toLowerCase()) &&
+        restaurant.user.first_name
+          .toLowerCase()
+          .indexOf(formData.search.toLowerCase())) !== -1
+    );
+  });
+
+  dispatch(updateFilterName(filteredKitchens));
 
   // Atualiza o estado de autenticação na mudança de usuário
   useEffect(() => {
@@ -110,6 +140,13 @@ const NavBar: React.FC<Props> = (props: Props) => {
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    console.log(event.target.value);
+
+    setFormData({ ...formData, [name]: value });
   };
 
   const drawer = (
@@ -231,6 +268,8 @@ const NavBar: React.FC<Props> = (props: Props) => {
               className="search"
               type="text"
               placeholder="Search Kitchen here..."
+              name="search"
+              onChange={handleInputChange}
             />
           </Form>
         </Hidden>

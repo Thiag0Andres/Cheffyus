@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+// Redux e Auth
+import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
+import { updateFilterName } from "../../store/ducks/filterName/actions";
+
+// Types
+import { FilterName } from "../../store/ducks/filterName/types";
 
 // Bootstrap
 import Container from "react-bootstrap/Container";
@@ -13,13 +20,8 @@ import Button from "react-bootstrap/Button";
 // Material UI
 import Hidden from "@material-ui/core/Hidden";
 import Slider from "@material-ui/core/Slider";
-
-// Redux e Auth
-import { useSelector, RootStateOrAny } from "react-redux";
-import { isAuthenticated } from "../../services/auth";
-
-// Types
-import { User } from "../../store/ducks/user/types";
+import { theme } from "../../material-ui";
+import { CircularProgress, ThemeProvider } from "@material-ui/core";
 
 // Icons
 import { BsFillGridFill } from "react-icons/bs";
@@ -40,44 +42,38 @@ function valuetext(value: number) {
 }
 
 const Grid: React.FC = () => {
-  const user: User = useSelector((state: RootStateOrAny) => state.user.user);
+  const filterName: FilterName[] = useSelector(
+    (state: RootStateOrAny) => state.filterName.filterName
+  );
+  const dispatch = useDispatch();
+
+  //console.log(filterName);
 
   // States
-  const [restaurants, setRestaurants] = useState([]);
-  const [alert, setAlert] = useState(false);
   const [show, setShow] = useState(false);
-  const [isLogged, setIsLogged] = useState(false);
   const [value, setValue] = useState<number[]>([0, 10000]);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (event: any, newValue: number | number[]) => {
     setValue(newValue as number[]);
   };
 
-  // Chamada a api
-  useEffect(() => {
+  const FilterMinMax = (event: FormEvent) => {
+    event.preventDefault();
+
     const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = "http://cheffyus-api.herokuapp.com/";
+    const url = `https://cheffyus-api.herokuapp.com/kitchens/?min_price=${value[0]}&max_price=${value[1]}`;
 
     api
-      .get(proxyurl + url + "kitchens")
+      .get(proxyurl + url)
       .then((response) => {
-        setRestaurants(response.data);
-        //console.log(response.data);
+        const data = response.data;
+        dispatch(updateFilterName(data));
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-
-  // Atualiza o estado de autenticação na mudança de usuário
-  useEffect(() => {
-    const response = isAuthenticated();
-    setIsLogged(response);
-  }, []);
-
-  //Welcome, "nome"! --> Quando fez o login e confirmou o cadastro
-  //You are already a member of Cheffy. Welcome back! -> Depois de confirmar o cadastro e da um F5
-  //You have now been logged out of Cheffy. See you soon! --> Após fazer logout
+  };
 
   return (
     <Container fluid id="page-home-grid">
@@ -173,7 +169,7 @@ const Grid: React.FC = () => {
       <Row className="content-grid">
         <Col className="slider" xl="3" lg="3" md="3" xs="3" sm="3">
           <Hidden smDown implementation="css">
-            <Form className="range">
+            <Form className="range" onSubmit={FilterMinMax}>
               <Form.Group
                 className="range-form"
                 controlId="formBasicRangeCustom"
@@ -193,66 +189,67 @@ const Grid: React.FC = () => {
                   <Form.Label className="text2">Min: {value[0]}</Form.Label>
                   <Form.Label className="text2">Max: {value[1]}</Form.Label>
                 </Form.Group>
-                <Button className="button" type="submit">
+                <Button className="button" type="submit" onClick={FilterMinMax}>
                   Update view
                 </Button>
               </Form.Group>
             </Form>
           </Hidden>
         </Col>
-        <Col className="grid" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
-          <ul>
-            {restaurants.map((restaurant: any) => (
-              <li key={restaurant.user.id}>
-                <div className="opacity"></div>
 
-                <img
-                  src={
-                    restaurant.kitchen.image_urls[0] === null
-                      ? kitchenNotFound
-                      : restaurant.kitchen.image_urls[0]
-                  }
-                  alt={restaurant.kitchen.name}
-                />
-                <Link
-                  className="box1"
-                  to={{
-                    pathname: `/restaurant/${restaurant.kitchen.name}`,
-                    state: {
-                      detail: restaurant,
-                    },
-                  }}
-                >
-                  <div className="price">
-                    <span className="value">
-                      ${restaurant.kitchen.price_per_time}
-                    </span>
-                    &nbsp;
-                    <span className="hour">
-                      / {restaurant.kitchen.time_type}
-                    </span>
-                  </div>
-                  <p>{restaurant.kitchen.name}</p>
-                </Link>
-                <Link
-                  className="box2"
-                  to={{
-                    pathname: `/profile-chef/${restaurant.user.first_name}`,
-                    state: {
-                      detail: restaurant,
-                    },
-                  }}
-                >
+        <Col className="grid" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
+          {loading && (
+            <div
+              style={{
+                width: "100vh",
+                height: "100vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <ThemeProvider theme={theme}>
+                <CircularProgress />
+              </ThemeProvider>
+            </div>
+          )}
+
+          <ul>
+            {filterName.length > 0 &&
+              filterName.map((restaurant: any) => (
+                <li key={restaurant.kitchen.id}>
+                  <div className="opacity"></div>
+
                   <img
                     src={
-                      restaurant.user.image_url === null
-                        ? userNotfound
-                        : restaurant.user.image_url
+                      restaurant.kitchen.image_urls[0] === null
+                        ? kitchenNotFound
+                        : restaurant.kitchen.image_urls[0]
                     }
-                    alt={restaurant.user.first_name}
+                    alt={restaurant.kitchen.name}
                   />
-                  &nbsp;&nbsp;&nbsp;
                   <Link
+                    className="box1"
+                    to={{
+                      pathname: `/restaurant/${restaurant.kitchen.name}`,
+                      state: {
+                        detail: restaurant,
+                      },
+                    }}
+                  >
+                    <div className="price">
+                      <span className="value">
+                        ${restaurant.kitchen.price_per_time}
+                      </span>
+                      &nbsp;
+                      <span className="hour">
+                        / {restaurant.kitchen.time_type}
+                      </span>
+                    </div>
+                    <p>{restaurant.kitchen.name}</p>
+                  </Link>
+                  <Link
+                    className="box2"
                     to={{
                       pathname: `/profile-chef/${restaurant.user.first_name}`,
                       state: {
@@ -260,11 +257,28 @@ const Grid: React.FC = () => {
                       },
                     }}
                   >
-                    {restaurant.user.first_name}
+                    <img
+                      src={
+                        restaurant.user.image_url === null
+                          ? userNotfound
+                          : restaurant.user.image_url
+                      }
+                      alt={restaurant.user.first_name}
+                    />
+                    &nbsp;&nbsp;&nbsp;
+                    <Link
+                      to={{
+                        pathname: `/profile-chef/${restaurant.user.first_name}`,
+                        state: {
+                          detail: restaurant,
+                        },
+                      }}
+                    >
+                      {restaurant.user.first_name}
+                    </Link>
                   </Link>
-                </Link>
-              </li>
-            ))}
+                </li>
+              ))}
           </ul>
         </Col>
       </Row>

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // Redux e Auth
-import { useSelector, RootStateOrAny } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
+import { ApplicationState } from "../../../store";
 
 // Types
 import { User } from "../../../store/ducks/user/types";
-
-// Message
-import { useSnackbar } from "notistack";
+import { Token } from "../../../store/ducks/token/types";
 
 // Bootstrap
 import Row from "react-bootstrap/Row";
@@ -25,13 +24,16 @@ import api from "../../../services/api";
 import "./styles.scss";
 
 const FormConversationsListings: React.FC = () => {
-  const user: User = useSelector((state: RootStateOrAny) => state.user.user);
-  const history = useHistory();
-  const { enqueueSnackbar } = useSnackbar();
+  const user: User = useSelector((state: ApplicationState) => state.user.user);
+  const token: Token = useSelector(
+    (state: RootStateOrAny) => state.token.token.token
+  );
 
   // States
-  const [restaurants, setRestaurants] = useState([]);
-  const [kitchensIds, setKitchensIds] = useState(user.kitchen_ids);
+  const [messageList, setMessageList] = useState([]);
+  const [messageForUser, setMessageForUser] = useState([]);
+  const [userMessage, setUserMessage] = useState<Array<any>>([]);
+  const [userList, setUserList] = useState([]);
 
   // Chamada a api
   useEffect(() => {
@@ -39,15 +41,45 @@ const FormConversationsListings: React.FC = () => {
     const url = "http://cheffyus-api.herokuapp.com/";
 
     api
-      .get(proxyurl + url + "kitchens")
+      .get(proxyurl + url + "users", {
+        headers: { Authorization: token },
+      })
       .then((response) => {
-        setRestaurants(response.data);
-        //console.log(response.data);
+        setUserList(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    api
+      .get(proxyurl + url + "inbox", {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        setMessageList(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
+  useEffect(() => {
+    handle();
+  }, [messageList, userList]);
+
+  const handle = () => {
+    const users: any = [];
+
+    messageList.filter((messageL: any) =>
+      userList.map(
+        (userL: any) =>
+          messageL.sender_id == userL.id && users.push(userL, messageL)
+      )
+    );
+    setUserMessage(users);
+  };
+
+  console.log(userMessage);
 
   return (
     <>
@@ -93,36 +125,14 @@ const FormConversationsListings: React.FC = () => {
                 color: "#3c3c3c",
               }}
             >
-              {user.kitchen_ids != null &&
-                user.kitchen_ids.length > 0 &&
-                restaurants.map((restaurant: any) =>
-                  kitchensIds.map(
-                    (KitchenId: any) =>
-                      restaurant.kitchen.id == KitchenId && (
-                        <tr>
-                          <td>
-                            <Link
-                              to={{
-                                pathname: `/restaurant/${restaurant.kitchen.name}`,
-                                state: {
-                                  detail: restaurant,
-                                },
-                              }}
-                            >
-                              {restaurant.kitchen.name}
-                            </Link>
-                          </td>
-                          <td>{restaurant.kitchen.createdAt}</td>
-                          <td>{restaurant.kitchen.updatedAt}</td>
-                          <td>{restaurant.kitchen.category_id}</td>
-                          <td>{restaurant.kitchen.status}</td>
-                          <td>
-                            <TiPencil className="icon" />
-                          </td>
-                        </tr>
-                      )
-                  )
-                )}
+              {userMessage.map((userM: any) => (
+                <tr>
+                  <td>{userM.isReview}</td>
+                  <td>{userM.createdAt}</td>
+                  <td>{userM.updatedAt}</td>
+                  <td>{userM.first_name}</td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </Row>

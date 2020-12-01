@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { Link } from "react-router-dom";
+
+// Redux e Auth
+import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
+import { updateFilterName } from "../../store/ducks/filterName/actions";
+
+// Types
+import { FilterName } from "../../store/ducks/filterName/types";
 
 // Bootstrap
 import Container from "react-bootstrap/Container";
@@ -37,8 +44,12 @@ function valuetext(value: number) {
 }
 
 const Mapa: React.FC = () => {
+  const filterName: FilterName[] = useSelector(
+    (state: RootStateOrAny) => state.filterName.filterName
+  );
+  const dispatch = useDispatch();
+
   // States
-  const [restaurants, setRestaurants] = useState([]);
   const [show, setShow] = useState(false);
   const [value, setValue] = useState<number[]>([0, 10000]);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
@@ -50,21 +61,22 @@ const Mapa: React.FC = () => {
     setValue(newValue as number[]);
   };
 
-  // Chamada a api
-  useEffect(() => {
+  const FilterMinMax = (event: FormEvent) => {
+    event.preventDefault();
+
     const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = "https://cheffyus-api.herokuapp.com/";
+    const url = `https://cheffyus-api.herokuapp.com/kitchens/?min_price=${value[0]}&max_price=${value[1]}`;
 
     api
-      .get(proxyurl + url + "kitchens")
+      .get(proxyurl + url)
       .then((response) => {
-        setRestaurants(response.data);
-        //console.log(response.data);
+        const data = response.data;
+        dispatch(updateFilterName(data));
       })
       .catch((error) => {
-        //console.log(error);
+        console.log(error);
       });
-  }, []);
+  };
 
   // Marker do map
   const mapIcon = Leaflet.icon({
@@ -166,7 +178,7 @@ const Mapa: React.FC = () => {
       <Row className="content-map">
         <Col className="slider" xl="3" lg="3" md="3" xs="3" sm="3">
           <Hidden smDown implementation="css">
-            <Form className="range">
+            <Form className="range" onSubmit={FilterMinMax}>
               <Form.Group
                 className="range-form"
                 controlId="formBasicRangeCustom"
@@ -187,7 +199,7 @@ const Mapa: React.FC = () => {
                   <Form.Label className="text2">Max: {value[1]}</Form.Label>
                 </Form.Group>
 
-                <Button className="button" type="submit">
+                <Button className="button" type="submit" onClick={FilterMinMax}>
                   Update view
                 </Button>
               </Form.Group>
@@ -199,10 +211,10 @@ const Mapa: React.FC = () => {
             <TileLayer
               url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
             />
-            {restaurants.length > 0 &&
-              restaurants.map((restaurant: any) => (
+            {filterName.length > 0 &&
+              filterName.map((restaurant: any) => (
                 <Marker
-                  key={restaurant.user.id}
+                  key={restaurant.kitchen.id}
                   icon={mapIcon}
                   position={[
                     restaurant.kitchen.location_lat,

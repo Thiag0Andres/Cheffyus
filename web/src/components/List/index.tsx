@@ -1,5 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { FormEvent, useState } from "react";
+import { Link } from "react-router-dom";
+
+// Redux e Auth
+import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
+import { updateFilterName } from "../../store/ducks/filterName/actions";
+
+// Types
+import { FilterName } from "../../store/ducks/filterName/types";
 
 // Bootstrap
 import Container from "react-bootstrap/Container";
@@ -31,32 +38,35 @@ function valuetext(value: number) {
 }
 
 const List: React.FC = () => {
+  const filterName: FilterName[] = useSelector(
+    (state: RootStateOrAny) => state.filterName.filterName
+  );
+  const dispatch = useDispatch();
+
   // States
-  const [restaurants, setRestaurants] = useState([]);
   const [show, setShow] = useState(false);
   const [value, setValue] = useState<number[]>([0, 10000]);
-
-  const history = useHistory();
 
   const handleChange = (event: any, newValue: number | number[]) => {
     setValue(newValue as number[]);
   };
 
-  // Chamada a api
-  useEffect(() => {
+  const FilterMinMax = (event: FormEvent) => {
+    event.preventDefault();
+
     const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = "https://cheffyus-api.herokuapp.com/";
+    const url = `https://cheffyus-api.herokuapp.com/kitchens/?min_price=${value[0]}&max_price=${value[1]}`;
 
     api
-      .get(proxyurl + url + "kitchens")
+      .get(proxyurl + url)
       .then((response) => {
-        setRestaurants(response.data);
-        //console.log(response.data);
+        const data = response.data;
+        dispatch(updateFilterName(data));
       })
       .catch((error) => {
-        //console.log(error);
+        console.log(error);
       });
-  }, []);
+  };
 
   return (
     <Container fluid id="page-home-list">
@@ -153,7 +163,7 @@ const List: React.FC = () => {
       <Row className="content-list">
         <Col className="slider" xl="3" lg="3" md="3" xs="3" sm="3">
           <Hidden smDown implementation="css">
-            <Form className="range">
+            <Form className="range" onSubmit={FilterMinMax}>
               <Form.Group
                 className="range-form"
                 controlId="formBasicRangeCustom"
@@ -174,7 +184,7 @@ const List: React.FC = () => {
                   <Form.Label className="text2">Max: {value[1]}</Form.Label>
                 </Form.Group>
 
-                <Button className="button" type="submit">
+                <Button className="button" type="submit" onClick={FilterMinMax}>
                   Update view
                 </Button>
               </Form.Group>
@@ -183,9 +193,9 @@ const List: React.FC = () => {
         </Col>
         <Col className="list" xl="9" lg="9" md="9" xs="9" sm="9">
           <ul>
-            {restaurants.length > 0 &&
-              restaurants.map((restaurant: any) => (
-                <li key={restaurant.user.id}>
+            {filterName.length > 0 &&
+              filterName.map((restaurant: any) => (
+                <li key={restaurant.kitchen.id}>
                   <Link
                     className="restaurant_image"
                     to={{

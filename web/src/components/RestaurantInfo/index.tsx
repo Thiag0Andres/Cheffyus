@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 // Bootstrap
@@ -18,6 +18,7 @@ import { isAuthenticated } from "../../services/auth";
 
 // Types
 import { User } from "../../store/ducks/user/types";
+import { Token } from "../../store/ducks/token/types";
 
 //Message
 import { useSnackbar } from "notistack";
@@ -36,18 +37,27 @@ import markerMap from "../../images/markerMap.png";
 import userNotfound from "../../images/user.png";
 
 import "./styles.scss";
+import api from "../../services/api";
+import { format } from "util";
 
 interface Props {
   detail: any;
 }
 
 const RestaurantInfo: React.FC<Props> = ({ detail }) => {
+  const token: Token = useSelector(
+    (state: RootStateOrAny) => state.token.token.token
+  );
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
 
   //States
   const [isLogged, setIsLogged] = useState(false);
+  const [formData, setFormData] = useState({
+    time: 1,
+    likes: detail.kitchen.likes,
+  });
 
   // Atualiza o estado de autenticação na mudança de usuário
   useEffect(() => {
@@ -77,6 +87,7 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
         pathname: `/request/${detail.kitchen.name}`,
         state: {
           detail: detail,
+          formData: formData,
         },
       });
     } else {
@@ -87,12 +98,70 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
     }
   };
 
+  const handleInputChange = async (event: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    console.log(event.target.value);
+
+    setFormData({ ...formData, [name]: Number(value) });
+  };
+
+  const UpdateKitchen = () => {
+    if (isLogged) {
+      formData.likes = formData.likes + 1;
+      console.log(formData.likes);
+    }
+
+    const { likes } = formData;
+
+    const body = {
+      likes: likes,
+    };
+
+    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    const url = "https://cheffyus-api.herokuapp.com/";
+
+    api
+      .put(proxyurl + url + `/kitchens/${detail.kitchen.id}`, body, {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        const data = response.data;
+        //console.log(data);
+
+        //dispatch(updateUser(data));
+
+        /*         enqueueSnackbar("Kitchen updated successfully!", {
+          variant: "success",
+        }); */
+      })
+      .catch((error) => {
+        /*         console.log(error);
+        enqueueSnackbar("Failed to update.", { variant: "error" }); */
+      });
+  };
+
+  //console.log(formData);
+
   // Marker do map
   const mapIcon = Leaflet.icon({
     iconUrl: markerMap,
     iconSize: [23, 33],
     iconAnchor: [11.5, 33],
   });
+
+  const typeTime = () => {
+    if (detail.kitchen.time_type == "hour") {
+      return <p>hours:</p>;
+    } else if (detail.kitchen.time_type == "day") {
+      return <p>days:</p>;
+    } else if (detail.kitchen.time_type == "week") {
+      return <p>weeks:</p>;
+    } else if (detail.kitchen.time_type == "month") {
+      return <p>months:</p>;
+    } else if (detail.kitchen.time_type == "year") {
+      return <p>years:</p>;
+    }
+  };
 
   return (
     <Container fluid id="page-restaurant-info">
@@ -104,7 +173,7 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
         </Carousel>
         <p>{detail.kitchen.description}</p>
         <div className="spans">
-          <Button className="like">
+          <Button className="like" type="submit" onClick={UpdateKitchen}>
             <AiFillLike size={16} />
             &nbsp; Like {detail.kitchen.likes}
           </Button>
@@ -123,12 +192,16 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
             <p>per {detail.kitchen.time_type}</p>
           </div>
           <div className="input-price">
-            <Form.Label className="text">Number of hours:</Form.Label>
+            <Form.Label className="text" style={{ display: "flex" }}>
+              Number of&nbsp;{typeTime()}
+            </Form.Label>
             <Form.Control
               className="input"
               type="number"
               min={1}
               placeholder="Quantity"
+              name="time"
+              onChange={handleInputChange}
             />
           </div>
           <Button

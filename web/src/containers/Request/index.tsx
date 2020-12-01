@@ -11,6 +11,9 @@ const Request: React.FC = () => {
   const location = useLocation();
 
   const detail = (location.state as any).detail;
+  const formData = (location.state as any).formData;
+
+  //console.log(formData);
 
   // States
   const [text, setText] = useState(`Request ${detail.kitchen.name}`);
@@ -20,7 +23,7 @@ const Request: React.FC = () => {
     <>
       <NavBar />
       <Background2 text={text} />
-      <Info detail={detail} />
+      <Info detail={detail} formData={formData} />
       <FormContact detail={detail} verification={verification} />
     </>
   );
