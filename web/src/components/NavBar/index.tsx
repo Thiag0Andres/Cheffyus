@@ -34,7 +34,6 @@ import { useSnackbar } from "notistack";
 //Icons
 import { FaRegUser } from "react-icons/fa";
 import { FiInbox } from "react-icons/fi";
-import { ImAddressBook } from "react-icons/im";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { BiMenu } from "react-icons/bi";
 import { GoSearch } from "react-icons/go";
@@ -64,6 +63,8 @@ const NavBar: React.FC<Props> = (props: Props) => {
 
   // States
   const [show, setShow] = useState(false);
+  const [show1, setShow1] = useState(true);
+  const [show2, setShow2] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [restaurants, setRestaurants] = useState([]);
@@ -144,7 +145,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
 
   const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
-    console.log(event.target.value);
+    //console.log(event.target.value);
 
     setFormData({ ...formData, [name]: value });
   };
@@ -235,156 +236,191 @@ const NavBar: React.FC<Props> = (props: Props) => {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Navbar id="navbar" expand="xl">
-      <Drawer
-        container={container}
-        variant="temporary"
-        anchor={theme.direction === "rtl" ? "right" : "left"}
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
-        }}
-      >
-        {drawer}
-      </Drawer>
-      <Nav className="content1" onMouseOut={() => setShow(false)}>
+    <>
+      <Navbar id="navbar" expand="xl">
+        <Drawer
+          container={container}
+          variant="temporary"
+          anchor={theme.direction === "rtl" ? "right" : "left"}
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+        >
+          {drawer}
+        </Drawer>
+        <Nav className="content1" onMouseOut={() => setShow(false)}>
+          <Hidden mdUp implementation="css">
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+            >
+              <BiMenu />
+            </IconButton>
+          </Hidden>
+          <Navbar.Brand className="logo" href="/">
+            <img src={logo} alt="Cheffy" />
+          </Navbar.Brand>
+          <Hidden smDown implementation="css">
+            <Form inline>
+              <FormControl
+                className="search"
+                type="text"
+                placeholder="Search Kitchen here..."
+                name="search"
+                onChange={handleInputChange}
+              />
+            </Form>
+          </Hidden>
+          <Hidden smDown implementation="css">
+            <div className="texts">
+              <Nav.Link className="text1" href="/about">
+                About
+              </Nav.Link>
+              <Nav.Link className="text1" href="/contact-us">
+                Contact us
+              </Nav.Link>
+            </div>
+          </Hidden>
+        </Nav>
+        <Nav className="content2">
+          <Hidden smDown implementation="css">
+            {isLogged ? (
+              <div className="box1">
+                <div className="content-profile">
+                  <div
+                    className="avatar"
+                    onClick={() => setShow(true)}
+                    onMouseOver={() => setShow(true)}
+                  >
+                    {user.image_url === null ? (
+                      user.display_name
+                    ) : (
+                      <img src={user.image_url} />
+                    )}
+                  </div>
+                  {show && (
+                    <Container
+                      className="box-profile"
+                      onMouseOver={() => setShow(true)}
+                    >
+                      <Row className="row1">
+                        <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
+                          <Link className="item" to="/inbox">
+                            <FiInbox size={32} />
+                            Inbox
+                          </Link>
+                        </Col>
+                        <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
+                          <Link
+                            className="item"
+                            to={{
+                              pathname: `/profile-user/${user.username}`,
+                              state: {
+                                detail: user,
+                              },
+                            }}
+                          >
+                            <FaRegUser size={32} />
+                            Profile
+                          </Link>
+                        </Col>
+                        <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
+                          <Link className="item" to="/settings">
+                            <GiSettingsKnobs size={32} />
+                            Settings
+                          </Link>
+                        </Col>
+                      </Row>
+                      <Row className="row2">
+                        <Button
+                          className="button1"
+                          style={{ justifyContent: "flex-start" }}
+                          onClick={handlePageAdmin}
+                        >
+                          Admin panel
+                        </Button>
+                        <Button
+                          className="button1"
+                          style={{ justifyContent: "flex-end" }}
+                          onClick={logout}
+                        >
+                          Log out
+                        </Button>
+                      </Row>
+                    </Container>
+                  )}
+                </div>
+
+                <Button className="button2" type="submit" href="/add-kitchen">
+                  + Add Your Kitchen
+                </Button>
+              </div>
+            ) : (
+              <div className="box2">
+                <Nav.Link className="text2" href="/signup">
+                  Sign up
+                </Nav.Link>
+                <Nav.Link className="text2" href="/login">
+                  Log in
+                </Nav.Link>
+                <Button className="button2" type="submit" onClick={handlePage}>
+                  + Add Your Kitchen
+                </Button>
+              </div>
+            )}
+          </Hidden>
+          <Hidden mdUp implementation="css">
+            <div className="box3">
+              {show1 && (
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="start"
+                  onClick={() => {
+                    setShow1(false);
+                    setShow2(true);
+                  }}
+                >
+                  <GoSearch />
+                </IconButton>
+              )}
+              <Hidden xsDown implementation="css">
+                <Button className="button2" type="submit" onClick={handlePage}>
+                  + Add Your Kitchen
+                </Button>
+              </Hidden>
+            </div>
+          </Hidden>
+        </Nav>
+      </Navbar>
+      {show2 && (
         <Hidden mdUp implementation="css">
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-          >
-            <BiMenu />
-          </IconButton>
-        </Hidden>
-        <Navbar.Brand className="logo" href="/">
-          <img src={logo} alt="Cheffy" />
-        </Navbar.Brand>
-        <Hidden smDown implementation="css">
-          <Form inline>
+          <div id="search-mobile">
             <FormControl
               className="search"
               type="text"
               placeholder="Search Kitchen here..."
               name="search"
+              value={formData.search}
               onChange={handleInputChange}
             />
-          </Form>
-        </Hidden>
-        <Hidden smDown implementation="css">
-          <div className="texts">
-            <Nav.Link className="text1" href="/about">
-              About
-            </Nav.Link>
-            <Nav.Link className="text1" href="/contact-us">
-              Contact us
-            </Nav.Link>
-          </div>
-        </Hidden>
-      </Nav>
-      <Nav className="content2">
-        <Hidden smDown implementation="css">
-          {isLogged ? (
-            <div className="box1">
-              <div className="content-profile">
-                <div
-                  className="avatar"
-                  onClick={() => setShow(true)}
-                  onMouseOver={() => setShow(true)}
-                >
-                  {user.image_url === null ? (
-                    user.display_name
-                  ) : (
-                    <img src={user.image_url} />
-                  )}
-                </div>
-                {show && (
-                  <Container
-                    className="box-profile"
-                    onMouseOver={() => setShow(true)}
-                  >
-                    <Row className="row1">
-                      <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
-                        <Link className="item" to="/inbox">
-                          <FiInbox size={32} />
-                          Inbox
-                        </Link>
-                      </Col>
-                      <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
-                        <Link
-                          className="item"
-                          to={{
-                            pathname: `/profile-user/${user.username}`,
-                            state: {
-                              detail: user,
-                            },
-                          }}
-                        >
-                          <FaRegUser size={32} />
-                          Profile
-                        </Link>
-                      </Col>
-                      <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
-                        <Link className="item" to="/settings">
-                          <GiSettingsKnobs size={32} />
-                          Settings
-                        </Link>
-                      </Col>
-                    </Row>
-                    <Row className="row2">
-                      <Button
-                        className="button1"
-                        style={{ justifyContent: "flex-start" }}
-                        onClick={handlePageAdmin}
-                      >
-                        Admin panel
-                      </Button>
-                      <Button
-                        className="button1"
-                        style={{ justifyContent: "flex-end" }}
-                        onClick={logout}
-                      >
-                        Log out
-                      </Button>
-                    </Row>
-                  </Container>
-                )}
-              </div>
-
-              <Button className="button2" type="submit" href="/add-kitchen">
-                + Add Your Kitchen
-              </Button>
-            </div>
-          ) : (
-            <div className="box2">
-              <Nav.Link className="text2" href="/signup">
-                Sign up
-              </Nav.Link>
-              <Nav.Link className="text2" href="/login">
-                Log in
-              </Nav.Link>
-              <Button className="button2" type="submit" onClick={handlePage}>
-                + Add Your Kitchen
-              </Button>
-            </div>
-          )}
-        </Hidden>
-        <Hidden mdUp implementation="css">
-          <div className="box3">
-            <IconButton color="inherit" aria-label="open drawer" edge="start">
+            <IconButton
+              className="icon"
+              onClick={() => {
+                setShow1(true);
+                setShow2(false);
+              }}
+            >
               <GoSearch />
             </IconButton>
-            <Hidden xsDown implementation="css">
-              <Button className="button2" type="submit" onClick={handlePage}>
-                + Add Your Kitchen
-              </Button>
-            </Hidden>
           </div>
         </Hidden>
-      </Nav>
-    </Navbar>
+      )}
+    </>
   );
 };
 

@@ -138,7 +138,7 @@ const FormProfileInfo: React.FC = () => {
     //setSelectedOption(event);
   };
 
-  const handleInputChange = async (event: ChangeEvent<HTMLSelectElement>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
 
     setFormData({ ...formData, [name]: value });

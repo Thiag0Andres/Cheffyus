@@ -133,6 +133,35 @@
   }
 }
 
+#search-mobile {
+  padding: 0 15px;
+  height: 54px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #bec7d0;
+
+  .search {
+    width: 90%;
+    height: 44px;
+    box-shadow: none;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0;
+    background-color: #bec7d0;
+    font-weight: 500;
+    color: $white;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+  :focus {
+    border-bottom: 2px solid $white;
+    color: $white;
+  }
+}
+
 #navbar {
   height: 80px;
   display: flex;
@@ -165,6 +194,10 @@
       color: #7a7d80;
       padding-left: 1.715em;
       font-size: 14px;
+    }
+    :focus {
+      border-color: #bec7d0;
+      box-shadow: none;
     }
 
     .texts {

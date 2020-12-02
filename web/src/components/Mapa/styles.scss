@@ -5,6 +5,9 @@
   padding: 20px 150px;
 
   .content-header {
+    display: flex;
+    flex-direction: column;
+
     .header {
       padding-right: 0;
       padding-left: 0;
@@ -30,6 +33,11 @@
         background-color: #e8e8e8;
         border-color: #e8e8e8;
         color: #3c3c3c;
+      }
+
+      .dropdown-item:active {
+        color: #16181b;
+        background-color: #f8f9fa;
       }
 
       #pagination1 {
@@ -86,6 +94,96 @@
       }
     }
   }
+
+  .content-filter {
+    margin-left: 2px;
+    width: 100%;
+    //padding: 0 20px;
+    display: flex;
+    justify-content: center;
+
+    .filter {
+      padding-left: 0;
+      padding-right: 0;
+      width: 80%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      #dropdown-basic {
+        margin-top: 15px;
+        width: 100%;
+        box-shadow: none;
+        background-color: #e8e8e8;
+        border-color: #e8e8e8;
+        color: $gray_light;
+      }
+
+      .dropdown-menu {
+        width: 100%;
+      }
+
+      .dropdown-item:active {
+        color: #16181b;
+        background-color: #f8f9fa;
+      }
+
+      .range-form {
+        display: flex;
+        flex-direction: column;
+
+        .text {
+          margin-top: 15px;
+          margin-bottom: 15px;
+          font-size: 18px;
+          font-weight: bold;
+          line-height: 24px;
+          color: $gray_light;
+
+          & {
+            width: 100%;
+            font-weight: 700;
+            border-bottom: 1px solid #e8e8e8;
+          }
+        }
+
+        .MuiSlider-root {
+          margin-bottom: 10px;
+          width: 100%;
+        }
+
+        .Min-Max {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+
+          .text2 {
+            font-size: 18px;
+            line-height: 24px;
+            color: $gray_light;
+          }
+        }
+
+        .button {
+          width: 100%;
+          height: 42px;
+          box-shadow: none;
+          background-color: $red_classic;
+          border-color: $red_classic;
+          color: $white;
+
+          &:hover {
+            background-color: $red_light;
+          }
+        }
+      }
+    }
+
+    & {
+      border-bottom: 1px solid #c3c3c3;
+    }
+  }
+
   .content-map {
     .slider {
       padding-right: 0;

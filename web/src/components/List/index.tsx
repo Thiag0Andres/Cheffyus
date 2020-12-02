@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Redux e Auth
@@ -46,6 +46,7 @@ const List: React.FC = () => {
   // States
   const [show, setShow] = useState(false);
   const [value, setValue] = useState<number[]>([0, 10000]);
+  const [valueDrop, setValueDrop] = useState<number>();
 
   const handleChange = (event: any, newValue: number | number[]) => {
     setValue(newValue as number[]);
@@ -68,6 +69,21 @@ const List: React.FC = () => {
       });
   };
 
+  useEffect(() => {
+    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    const url = `https://cheffyus-api.herokuapp.com/kitchens/?category_id=${valueDrop}`;
+
+    api
+      .get(proxyurl + url)
+      .then((response) => {
+        const data = response.data;
+        dispatch(updateFilterName(data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [valueDrop]);
+
   return (
     <Container fluid id="page-home-list">
       <Row className="content-header">
@@ -75,21 +91,29 @@ const List: React.FC = () => {
           <Hidden smDown implementation="css">
             <Dropdown className="dropdown">
               <Dropdown.Toggle id="dropdown-basic">
-                All listing types
+                Select the category
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item href="">All listing types</Dropdown.Item>
-                <Dropdown.Item href="">
+                <Dropdown.Item>All listing types</Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => {
+                    setValueDrop(11);
+                  }}
+                >
                   Offering without online payment
                 </Dropdown.Item>
-                <Dropdown.Item href="">
+                <Dropdown.Item
+                  onClick={() => {
+                    setValueDrop(21);
+                  }}
+                >
                   Offering with online payment
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Hidden>
           <Hidden mdUp implementation="css">
-            <Button className="button2" onClick={() => setShow(false)}>
+            <Button className="button2" onClick={() => setShow(true)}>
               Filter
             </Button>
           </Hidden>
@@ -119,45 +143,70 @@ const List: React.FC = () => {
         </Col>
 
         {show && (
-          <Row className="content-filter">
-            <Col
-              className="filter"
-              xl="auto"
-              lg="auto"
-              md="auto"
-              xs="auto"
-              sm="auto"
-            >
-              <Dropdown className="dropdown">
-                <Dropdown.Toggle id="dropdown-basic">
-                  All listing types
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item href="">All listing types</Dropdown.Item>
-                  <Dropdown.Item href="">
-                    Offering without online payment
-                  </Dropdown.Item>
-                  <Dropdown.Item href="">
-                    Offering with online payment
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-              <Form className="range">
-                <Form.Group controlId="formBasicRangeCustom">
-                  <Form.Label className="text">Price</Form.Label>
-                  <Form.Control
-                    className="range-slider"
-                    type="range"
-                    custom
-                    size="lg"
-                  />
-                  <Button className="button" type="submit">
-                    Update view
-                  </Button>
-                </Form.Group>
-              </Form>
-            </Col>
-          </Row>
+          <Hidden mdUp implementation="css">
+            <Row className="content-filter">
+              <Col
+                className="filter"
+                xl="auto"
+                lg="auto"
+                md="auto"
+                xs="auto"
+                sm="auto"
+              >
+                <Dropdown className="dropdown">
+                  <Dropdown.Toggle id="dropdown-basic">
+                    Select the category
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item>All listing types</Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => {
+                        setValueDrop(11);
+                      }}
+                    >
+                      Offering without online payment
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => {
+                        setValueDrop(21);
+                      }}
+                    >
+                      Offering with online payment
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                <Form className="range" onSubmit={FilterMinMax}>
+                  <Form.Group
+                    className="range-form"
+                    controlId="formBasicRangeCustom"
+                  >
+                    <Form.Label className="text">Price</Form.Label>
+                    <Slider
+                      value={value}
+                      onChange={handleChange}
+                      //valueLabelDisplay="auto"
+                      aria-labelledby="range-slider"
+                      getAriaValueText={valuetext}
+                      max={10000}
+                      min={0}
+                    />
+
+                    <Form.Group className="Min-Max">
+                      <Form.Label className="text2">Min: {value[0]}</Form.Label>
+                      <Form.Label className="text2">Max: {value[1]}</Form.Label>
+                    </Form.Group>
+                    <Button
+                      className="button"
+                      type="submit"
+                      onClick={FilterMinMax}
+                    >
+                      Update view
+                    </Button>
+                  </Form.Group>
+                </Form>
+              </Col>
+            </Row>
+          </Hidden>
         )}
       </Row>
       <Row className="content-list">

@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 // Redux e Auth
-import { useSelector, RootStateOrAny } from "react-redux";
+import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
+import { updateFilterName } from "../../store/ducks/filterName/actions";
 
 // Types
 import { User } from "../../store/ducks/user/types";
-
-// Message
-import { useSnackbar } from "notistack";
+import { FilterName } from "../../store/ducks/filterName/types";
 
 // Bootstrap
 import Row from "react-bootstrap/Row";
@@ -21,34 +20,43 @@ import Table from "react-bootstrap/Table";
 // Icons
 import { TiPencil } from "react-icons/ti";
 
-import api from "../../services/api";
-
 import "./styles.scss";
 
 const FormListings: React.FC = () => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
-  const history = useHistory();
-  const { enqueueSnackbar } = useSnackbar();
+  const filterName: FilterName[] = useSelector(
+    (state: RootStateOrAny) => state.filterName.filterName
+  );
+  const dispatch = useDispatch();
 
   // States
-  const [restaurants, setRestaurants] = useState([]);
+  const [restaurants, setRestaurants] = useState<Array<any>>([]);
   const [kitchensIds, setKitchensIds] = useState(user.kitchen_ids);
+  const [formData, setFormData] = useState({
+    search: "",
+  });
 
-  // Chamada a api
   useEffect(() => {
-    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = "http://cheffyus-api.herokuapp.com/";
+    setRestaurants(filterName);
+    //console.log(restaurants);
+  }, [filterName]);
 
-    api
-      .get(proxyurl + url + "kitchens")
-      .then((response) => {
-        setRestaurants(response.data);
-        //console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  /*   const filteredKitchens: any = restaurants.filter((restaurant: any) => {
+    return (
+      restaurant.kitchen.name
+        .toLowerCase()
+        .indexOf(formData.search.toLowerCase()) !== -1
+    );
+  });
+
+  setRestaurants(filteredKitchens);
+ */
+  const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    //console.log(event.target.value);
+
+    setFormData({ ...formData, [name]: value });
+  };
 
   return (
     <>
@@ -66,7 +74,9 @@ const FormListings: React.FC = () => {
             <Form.Control
               className="input"
               type="text"
-              placeholder="Search for a listing title"
+              placeholder="Search for a kitchen name"
+              name="search"
+              onChange={handleInputChange}
             />
             <Dropdown>
               <Dropdown.Toggle className="input-dropdown">
