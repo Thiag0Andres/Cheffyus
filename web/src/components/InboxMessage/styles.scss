@@ -4,51 +4,43 @@
   padding-right: 0;
   padding-left: 0;
   padding: 30px 150px;
+  //background-color: chartreuse;
 
   .body {
-    display: flex;
+    //background-color: aqua;
+    width: 948px;
 
-    .messages {
+    .message {
+      width: 100%;
+      height: 60px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      margin-bottom: 20px;
 
-      .message {
-        width: 948px;
-        height: 60px;
+      img {
+        border-radius: 4px;
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+      }
+
+      .box1 {
         display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
+        //background-color: aqua;
+      }
+      .box2 {
+        display: flex;
+        align-items: center;
+        //background-color: blue;
+      }
+      .box3 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        //background-color: black;
+      }
 
-        img {
-          border-radius: 4px;
-          width: 48px;
-          height: 48px;
-          object-fit: cover;
-        }
-
-        .box1 {
-          width: 25%;
-          display: flex;
-          //background-color: aqua;
-        }
-        .box2 {
-          width: 55%;
-          display: flex;
-          align-items: center;
-          //background-color: blue;
-        }
-        .box3 {
-          width: 20%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          //background-color: black;
-        }
-
-        & {
-          border-bottom: 1px solid #c3c3c3;
-        }
+      & {
+        border-bottom: 1px solid #c3c3c3;
       }
     }
   }

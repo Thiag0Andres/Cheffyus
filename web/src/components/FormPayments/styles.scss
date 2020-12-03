@@ -3,9 +3,10 @@
 #content-form-payments {
   padding-right: 0;
   padding-left: 0;
+  width: 732px;
 
   .body {
-    width: 732px;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -94,6 +95,21 @@
             }
           }
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 740px) {
+  #content-form-payments {
+    .date {
+      flex-direction: column !important;
+      width: 100% !important;
+    }
+
+    .country {
+      .select-country {
+        width: 100% !important;
       }
     }
   }

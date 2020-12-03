@@ -164,7 +164,7 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
   };
 
   return (
-    <Container fluid id="page-restaurant-info">
+    <Row id="page-restaurant-info">
       <Col className="image" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
         <Carousel>
           <Carousel.Item>
@@ -270,7 +270,7 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
           </Map>
         </Row>
       </Col>
-    </Container>
+    </Row>
   );
 };
 export default RestaurantInfo;

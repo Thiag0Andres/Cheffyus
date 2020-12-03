@@ -28,25 +28,12 @@ const InboxMessage: React.FC = () => {
 
   // States
   const [messageList, setMessageList] = useState([]);
-  const [messageForUser, setMessageForUser] = useState([]);
-  const [userMessage, setUserMessage] = useState<Array<any>>([]);
-  const [userList, setUserList] = useState([]);
+  const [userMessage, setUserMessage] = useState([]);
 
   // Chamada a api
   useEffect(() => {
     const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = "http://cheffyus-api.herokuapp.com/";
-
-    api
-      .get(proxyurl + url + "users", {
-        headers: { Authorization: token },
-      })
-      .then((response) => {
-        setUserList(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
 
     api
       .get(proxyurl + url + "inbox", {
@@ -60,68 +47,78 @@ const InboxMessage: React.FC = () => {
       });
   }, []);
 
-  useEffect(() => {
-    handle();
-  }, [messageList, userList]);
-
   const handle = () => {
     const users: any = [];
 
     messageList.filter(
       (messageL: any) =>
         (messageL.user_id == user.id || messageL.sender_id == user.id) &&
-        userList.map(
-          (userL: any) =>
-            (messageL.user_id == userL.id || messageL.sender_id == userL.id) &&
-            userL.id != user.id &&
-            users.push(userL)
-        )
+        users.push(messageL)
     );
     setUserMessage(users);
   };
 
   console.log(userMessage);
 
+  useEffect(() => {
+    handle();
+  }, [messageList]);
+
   return (
-    <Row id="content-inbox-message">
-      <Col className="body" xl="12" lg="12" md="12" xs="12" sm="12">
-        <div className="messages">
-          {userMessage.map((userM: any) => (
-            <>
-              <div key={userM.id} className="message">
-                <div className="box1">
-                  <img
-                    src={
-                      userM.image_url === null ? userNotfound : userM.image_url
-                    }
-                    alt={userM.first_name}
-                  />
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <div className="name-hour">
-                    <Link to="">
-                      {userM.first_name + " " + userM.last_name}
-                    </Link>
-                    <p>time of message</p>
-                  </div>
-                </div>
-                <div className="box2">
-                  {messageList.map(
-                    (messageL: any) =>
-                      (messageL.user_id == userM.id ||
-                        messageL.sender_id == userM.id) && (
-                        <p>{messageL.message}</p>
-                      )
-                  )}
-                </div>
-                <div className="box3">
-                  <p>type of message</p>
-                </div>
+    <Col
+      id="content-inbox-message"
+      xl="auto"
+      lg="auto"
+      md="auto"
+      xs="auto"
+      sm="auto"
+    >
+      <Row className="body">
+        {userMessage.map((messageL: any) => (
+          <Link
+            key={messageL.id}
+            className="message"
+            to={{
+              pathname: `/conversation/${messageL.sender.first_name}`,
+              state: {
+                detail: messageL,
+              },
+            }}
+          >
+            <Col className="box1" xl="4" lg="4" md="4" xs="4" sm="4">
+              <img
+                src={
+                  messageL.sender.image_url === null
+                    ? userNotfound
+                    : messageL.sender.image_url
+                }
+                alt={messageL.sender.first_name}
+              />
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <div className="name-hour">
+                <Link
+                  to={{
+                    pathname: `/profile-chef/${messageL.sender.first_name}`,
+                    state: {
+                      detail: messageL.sender,
+                    },
+                  }}
+                >
+                  {messageL.sender.first_name + " " + messageL.sender.last_name}
+                </Link>
+                <p>{messageL.createdAt}</p>
               </div>
-            </>
-          ))}
-        </div>
-      </Col>
-    </Row>
+            </Col>
+            <Col className="box2" xl="6" lg="6" md="6" xs="6" sm="6">
+              <p>{messageL.message}</p>
+            </Col>
+            <Col className="box3" xl="2" lg="2" md="2" xs="2" sm="2">
+              <p>{messageL.type_message}</p>
+            </Col>
+          </Link>
+        ))}
+      </Row>
+    </Col>
   );
 };
 

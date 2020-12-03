@@ -3,10 +3,10 @@
 #content-form-account {
   padding-right: 0;
   padding-left: 0;
+  width: 732px;
 
   .body {
-    width: 732px;
-    height: 100%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -38,6 +38,7 @@
     }
 
     .card1 {
+      width: 100%;
       border-radius: 5px;
       border: 2px solid #c3c3c3;
       margin-bottom: 25px;
@@ -68,6 +69,7 @@
     }
 
     .card2 {
+      width: 100%;
       border-radius: 5px;
       border: 2px solid #c3c3c3;
       margin-bottom: 25px;
@@ -117,6 +119,7 @@
     }
 
     .card3 {
+      width: 100%;
       border-radius: 5px;
       border: 2px solid #c3c3c3;
 
@@ -143,6 +146,62 @@
           &:hover {
             background-color: $red_light;
           }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 514px) {
+  #content-form-account {
+    .card1 {
+      .card-body1 {
+        .table {
+          display: flex;
+          flex-direction: column;
+
+          thead {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+          }
+          tbody {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #content-form-account {
+    .card3 {
+      .card-body3 {
+        .button4 {
+          width: 230px !important;
+          height: 62px !important;
+        }
+        .button5 {
+          width: 230px !important;
+          height: 62px !important;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 356px) {
+  #content-form-account {
+    .card3 {
+      .card-body3 {
+        .button4 {
+          width: 200px !important;
+        }
+        .button5 {
+          width: 200px !important;
         }
       }
     }

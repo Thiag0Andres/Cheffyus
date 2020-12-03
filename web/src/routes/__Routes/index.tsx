@@ -21,6 +21,7 @@ import ContactChef from "../../containers/ContactChef";
 import Request from "../../containers/Request";
 import Settings from "../../containers/Settings";
 import Inbox from "../../containers/Inbox";
+import Conversation from "../../containers/Conversation";
 import Administrator from "../../containers/Administrator";
 
 export default function Routes() {
@@ -47,6 +48,11 @@ export default function Routes() {
       />
       <PrivateRoute exact path="/settings" component={Settings} />
       <PrivateRoute exact path="/inbox" component={Inbox} />
+      <PrivateRoute
+        exact
+        path="/conversation/:conversation"
+        component={Conversation}
+      />
 
       <AdministratorRoute
         exact

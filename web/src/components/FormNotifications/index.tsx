@@ -129,7 +129,7 @@ const FormTransactions: React.FC = () => {
   return (
     <>
       <Col
-        id="content-form-transactions"
+        id="content-form-notifications"
         xl="auto"
         lg="auto"
         md="auto"
@@ -140,6 +140,7 @@ const FormTransactions: React.FC = () => {
           <Form className="form">
             <Form.Group className="group" onSubmit={handleSubmit}>
               <h2>Newsletters</h2>
+              <p></p>
               <Form.Check
                 type="radio"
                 label="Send me a daily newsletter if there are new listings"
@@ -148,6 +149,7 @@ const FormTransactions: React.FC = () => {
                 value="daily"
                 onChange={(e) => handleSelectedOption1(e)}
               />
+              <p></p>
               <Form.Check
                 type="radio"
                 label="Send me a weekly newsletter if there are new listings"
@@ -156,6 +158,7 @@ const FormTransactions: React.FC = () => {
                 value="weekly"
                 onChange={(e) => handleSelectedOption1(e)}
               />
+              <p></p>
               <Form.Check
                 type="radio"
                 label="Don't send me newsletters"
@@ -170,6 +173,7 @@ const FormTransactions: React.FC = () => {
 
             <Form.Group className="group">
               <h2>Emails from administrators</h2>
+              <p></p>
               <Form.Check
                 type="checkbox"
                 label="I agree to receive occasional emails from the Cheffy Test team"
@@ -180,16 +184,20 @@ const FormTransactions: React.FC = () => {
 
             <Form.Group className="group">
               <h2>I want to get an email notification when...</h2>
+              <p></p>
 
               {notifications.map((notification: any) => (
-                <Form.Check
-                  key={notification.id}
-                  type="checkbox"
-                  label={notification.action}
-                  name="action_id"
-                  value={notification.id}
-                  onChange={(e) => handleSelectedOption3(e)}
-                />
+                <>
+                  <Form.Check
+                    key={notification.id}
+                    type="checkbox"
+                    label={notification.action}
+                    name="action_id"
+                    value={notification.id}
+                    onChange={(e) => handleSelectedOption3(e)}
+                  />
+                  <p></p>
+                </>
               ))}
             </Form.Group>
 

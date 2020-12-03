@@ -1,11 +1,12 @@
 @import "../../mixin.scss";
 
-#content-form-transactions {
+#content-form-notifications {
   padding-right: 0;
   padding-left: 0;
+  width: 732px;
 
   .body {
-    width: 732px;
+    width: 100%;
     height: 100%;
 
     .form {
@@ -15,7 +16,6 @@
       .group {
         display: flex;
         flex-direction: column;
-        gap: 10px;
 
         h2 {
           margin: 0;

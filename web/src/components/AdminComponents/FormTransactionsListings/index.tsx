@@ -23,7 +23,7 @@ import { TiPencil } from "react-icons/ti";
 
 import api from "../../../services/api";
 
-import "./styles.scss";
+//import "./styles.scss";
 
 const FormTransactionsListings: React.FC = () => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);

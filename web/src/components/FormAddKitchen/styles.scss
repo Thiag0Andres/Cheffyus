@@ -3,20 +3,19 @@
 #content-add-kitchen {
   padding-right: 0;
   padding-left: 0;
-  padding: 30px 150px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   .body {
-    width: 456px;
+    width: 556px;
     height: 130.5px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
 
     .button1 {
-      width: 432px;
+      width: 100%;
       height: 42px;
       text-align: start;
       box-shadow: none;
@@ -34,7 +33,7 @@
     }
 
     .button2 {
-      width: 432px;
+      width: 100%;
       height: 42px;
       text-align: start;
       box-shadow: none;
@@ -130,7 +129,7 @@
 
       .description {
         p {
-          width: 413px;
+          width: 100%;
           flex-wrap: wrap;
           color: gray;
           font-size: 0.8125em;
@@ -177,7 +176,7 @@
         padding: 15px 0;
 
         .leaflet-container {
-          width: 425px;
+          width: 100%;
           height: 192px;
         }
       }
@@ -201,57 +200,11 @@
   }
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 390px) {
   #content-add-kitchen {
-    padding: 30px !important;
-
     .body {
-      width: 400px !important;
-
-      .button1 {
-        width: 354px !important;
-      }
-
       .button2 {
-        width: 354px !important;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 375px) {
-  #content-add-kitchen {
-    padding: 30px 0 !important;
-
-    .body {
-      width: 350px !important;
-
-      .button1 {
-        width: 320px !important;
-      }
-
-      .button2 {
-        width: 320px !important;
-        font-size: 15px;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 320px) {
-  #content-add-kitchen {
-    padding: 30px 0 !important;
-
-    .body {
-      width: 300px !important;
-
-      .button1 {
-        width: 270px !important;
-      }
-
-      .button2 {
-        width: 270px !important;
-        font-size: 12px;
+        min-height: 62px !important;
       }
     }
   }

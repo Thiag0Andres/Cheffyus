@@ -39,7 +39,7 @@
         padding: 15px 0;
 
         .leaflet-container {
-          width: 732px;
+          width: 100%;
           height: 192px;
         }
       }
@@ -74,57 +74,20 @@
   }
 }
 
-@media screen and (max-width: 414px) {
-  #content-add-kitchen {
-    padding: 30px !important;
-
-    .body {
-      width: 400px !important;
-
-      .button1 {
-        width: 354px !important;
-      }
-
-      .button2 {
-        width: 354px !important;
-      }
-    }
+@media screen and (max-width: 900px) {
+  #content-profile-info {
+    padding-left: 20px !important;
   }
 }
 
-@media screen and (max-width: 375px) {
-  #content-add-kitchen {
-    padding: 30px 0 !important;
-
-    .body {
-      width: 350px !important;
-
-      .button1 {
-        width: 320px !important;
-      }
-
-      .button2 {
-        width: 320px !important;
-        font-size: 15px;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 320px) {
-  #content-add-kitchen {
-    padding: 30px 0 !important;
-
-    .body {
-      width: 300px !important;
-
-      .button1 {
-        width: 270px !important;
-      }
-
-      .button2 {
-        width: 270px !important;
-        font-size: 12px;
+@media screen and (max-width: 600px) {
+  #content-profile-info {
+    .form {
+      .text {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
       }
     }
   }

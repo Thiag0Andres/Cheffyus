@@ -59,25 +59,26 @@ const FormListings: React.FC = () => {
   };
 
   return (
-    <>
-      <Col
-        id="content-form-listings"
-        xl="auto"
-        lg="auto"
-        md="auto"
-        xs="auto"
-        sm="auto"
-      >
-        <Row className="body">
-          <h2>Kitchens</h2>
-          <Form className="form">
-            <Form.Control
-              className="input"
-              type="text"
-              placeholder="Search for a kitchen name"
-              name="search"
-              onChange={handleInputChange}
-            />
+    <Col
+      id="content-form-listings"
+      xl="auto"
+      lg="auto"
+      md="auto"
+      xs="auto"
+      sm="auto"
+    >
+      <Row className="body">
+        <h2>Kitchens</h2>
+        <Form className="form">
+          <Form.Control
+            className="input"
+            type="text"
+            placeholder="Search for a kitchen name"
+            name="search"
+            onChange={handleInputChange}
+          />
+          &nbsp;&nbsp;&nbsp;
+          <div style={{ display: "flex" }}>
             <Dropdown>
               <Dropdown.Toggle className="input-dropdown">
                 All statues
@@ -88,65 +89,66 @@ const FormListings: React.FC = () => {
                 <Dropdown.Item>Expired</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+            &nbsp;&nbsp;&nbsp;
             <div className="buttons">
               <Button className="button1">Search</Button>
               <Button className="button2">Show all</Button>
             </div>
-          </Form>
-          <Table striped bordered hover>
-            <thead
-              style={{
-                color: "#3c3c3c",
-              }}
-            >
-              <tr>
-                <th>Title</th>
-                <th>Created</th>
-                <th>Updated</th>
-                <th>Category</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody
-              style={{
-                color: "#3c3c3c",
-              }}
-            >
-              {user.kitchen_ids != null &&
-                user.kitchen_ids.length > 0 &&
-                restaurants.map((restaurant: any) =>
-                  kitchensIds.map(
-                    (KitchenId: any) =>
-                      restaurant.kitchen.id == KitchenId && (
-                        <tr>
-                          <td>
-                            <Link
-                              to={{
-                                pathname: `/restaurant/${restaurant.kitchen.name}`,
-                                state: {
-                                  detail: restaurant,
-                                },
-                              }}
-                            >
-                              {restaurant.kitchen.name}
-                            </Link>
-                          </td>
-                          <td>{restaurant.kitchen.createdAt}</td>
-                          <td>{restaurant.kitchen.updatedAt}</td>
-                          <td>{restaurant.kitchen.category_id}</td>
-                          <td>{restaurant.kitchen.status}</td>
-                          <td>
-                            <TiPencil className="icon" />
-                          </td>
-                        </tr>
-                      )
-                  )
-                )}
-            </tbody>
-          </Table>
-        </Row>
-      </Col>
-    </>
+          </div>
+        </Form>
+        <Table striped bordered hover>
+          <thead
+            style={{
+              color: "#3c3c3c",
+            }}
+          >
+            <tr>
+              <th>Title</th>
+              <th>Created</th>
+              <th>Updated</th>
+              <th>Category</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody
+            style={{
+              color: "#3c3c3c",
+            }}
+          >
+            {user.kitchen_ids != null &&
+              user.kitchen_ids.length > 0 &&
+              restaurants.map((restaurant: any) =>
+                kitchensIds.map(
+                  (KitchenId: any) =>
+                    restaurant.kitchen.id == KitchenId && (
+                      <tr>
+                        <td>
+                          <Link
+                            to={{
+                              pathname: `/restaurant/${restaurant.kitchen.name}`,
+                              state: {
+                                detail: restaurant,
+                              },
+                            }}
+                          >
+                            {restaurant.kitchen.name}
+                          </Link>
+                        </td>
+                        <td>{restaurant.kitchen.createdAt}</td>
+                        <td>{restaurant.kitchen.updatedAt}</td>
+                        <td>{restaurant.kitchen.category_id}</td>
+                        <td>{restaurant.kitchen.status}</td>
+                        <td>
+                          <TiPencil className="icon" />
+                        </td>
+                      </tr>
+                    )
+                )
+              )}
+          </tbody>
+        </Table>
+      </Row>
+    </Col>
   );
 };
 

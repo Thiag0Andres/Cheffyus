@@ -52,7 +52,7 @@ const Grid: React.FC = () => {
   // States
   const [show, setShow] = useState(false);
   const [value, setValue] = useState<number[]>([0, 10000]);
-  const [valueDrop, setValueDrop] = useState<number>();
+  const [valueDrop, setValueDrop] = useState<number>(0);
   const [loading, setLoading] = useState(false);
 
   const handleChange = (event: any, newValue: number | number[]) => {
@@ -70,6 +70,7 @@ const Grid: React.FC = () => {
       .then((response) => {
         const data = response.data;
         dispatch(updateFilterName(data));
+        setShow(false);
       })
       .catch((error) => {
         console.log(error);
@@ -77,18 +78,20 @@ const Grid: React.FC = () => {
   };
 
   useEffect(() => {
-    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = `https://cheffyus-api.herokuapp.com/kitchens/?category_id=${valueDrop}`;
+    if (valueDrop != 0) {
+      const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+      const url = `https://cheffyus-api.herokuapp.com/kitchens/?category_id=${valueDrop}`;
 
-    api
-      .get(proxyurl + url)
-      .then((response) => {
-        const data = response.data;
-        dispatch(updateFilterName(data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      api
+        .get(proxyurl + url)
+        .then((response) => {
+          const data = response.data;
+          dispatch(updateFilterName(data));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, [valueDrop]);
 
   return (

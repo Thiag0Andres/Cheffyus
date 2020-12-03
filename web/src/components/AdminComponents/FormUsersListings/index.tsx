@@ -25,7 +25,7 @@ import { TiPlus } from "react-icons/ti";
 
 import api from "../../../services/api";
 
-import "./styles.scss";
+//import "./styles.scss";
 
 const FormUsersListings: React.FC = () => {
   const token: Token = useSelector(

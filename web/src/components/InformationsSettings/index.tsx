@@ -23,6 +23,8 @@ import FormAccount from "../../components/FormAccount";
 import FormNotifications from "../../components/FormNotifications";
 import FormPayments from "../../components/FormPayments";
 
+import "./styles.scss";
+
 const InformationsSettings: React.FC = () => {
   // States
   const [show, setShow] = useState(true);
@@ -35,7 +37,7 @@ const InformationsSettings: React.FC = () => {
   return (
     <>
       <Tab.Container defaultActiveKey="#profile-info">
-        <Row id="content-information">
+        <Row id="content-information-settings">
           <Col className="column1" xl="3" lg="3" md="3" xs="3" sm="3">
             <ListGroup>
               <ListGroup.Item
@@ -48,6 +50,7 @@ const InformationsSettings: React.FC = () => {
                   setShow3(false);
                   setShow4(false);
                   setShow5(false);
+                  setShow6(false);
                 }}
               >
                 <RiFileUserLine />
@@ -66,6 +69,7 @@ const InformationsSettings: React.FC = () => {
                   setShow3(false);
                   setShow4(false);
                   setShow5(false);
+                  setShow6(false);
                 }}
               >
                 <BsFillGridFill />
@@ -84,6 +88,7 @@ const InformationsSettings: React.FC = () => {
                   setShow3(true);
                   setShow4(false);
                   setShow5(false);
+                  setShow6(false);
                 }}
               >
                 <FaDatabase />
@@ -101,6 +106,7 @@ const InformationsSettings: React.FC = () => {
                   setShow3(false);
                   setShow4(true);
                   setShow5(false);
+                  setShow6(false);
                 }}
               >
                 <RiFileLockLine />
