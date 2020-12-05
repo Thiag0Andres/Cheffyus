@@ -328,6 +328,7 @@ const FormAddKitchen: React.FC = () => {
                   type="text"
                   name="name"
                   onChange={handleInputChange}
+                  required
                 />
 
                 <Form.Label className="text">Price</Form.Label>
@@ -338,6 +339,7 @@ const FormAddKitchen: React.FC = () => {
                     placeholder="0"
                     name="price_per_time"
                     onChange={handleInputChange}
+                    required
                   />
                   &nbsp;&nbsp;&nbsp;
                   <div className="per">
@@ -352,6 +354,7 @@ const FormAddKitchen: React.FC = () => {
                     placeholder="hour"
                     name="time_type"
                     onChange={handleInputChange}
+                    required
                   >
                     <option>hour</option>
                     <option>day</option>
@@ -375,6 +378,7 @@ const FormAddKitchen: React.FC = () => {
                   rows={3}
                   name="description"
                   onChange={handleInputChange}
+                  required
                 />
 
                 <Form.Label className="text">
@@ -387,6 +391,7 @@ const FormAddKitchen: React.FC = () => {
                     as="select"
                     name="date_month"
                     onChange={handleInputChange}
+                    required
                   >
                     <option>Select a month</option>
                     <option>01</option>
@@ -408,6 +413,7 @@ const FormAddKitchen: React.FC = () => {
                     as="select"
                     name="date_day"
                     onChange={handleInputChange}
+                    required
                   >
                     <option>Select a dey</option>
                     <option>01</option>
@@ -448,6 +454,7 @@ const FormAddKitchen: React.FC = () => {
                     as="select"
                     name="date_year"
                     onChange={handleInputChange}
+                    required
                   >
                     <option>Select a year</option>
                     <option>2020</option>

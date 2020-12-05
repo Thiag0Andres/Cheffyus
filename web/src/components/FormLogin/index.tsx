@@ -72,7 +72,7 @@ const FormLogin: React.FC = () => {
       })
       .catch((error) => {
         console.log(error);
-        enqueueSnackbar("Failed to authenticate.", { variant: "error" });
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
       });
 
     /* 
@@ -130,6 +130,7 @@ const FormLogin: React.FC = () => {
                 type="text"
                 name="defaultEmail"
                 onChange={handleInputChange}
+                required
               />
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
@@ -139,6 +140,7 @@ const FormLogin: React.FC = () => {
                 type="password"
                 name="password"
                 onChange={handleInputChange}
+                required
               />
             </Form.Group>
             <Button className="button2" type="submit" onClick={signIn}>

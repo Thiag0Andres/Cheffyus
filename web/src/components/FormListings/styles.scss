@@ -38,6 +38,11 @@
         }
       }
 
+      .dropdown-item:active {
+        color: #16181b;
+        background-color: #f8f9fa;
+      }
+
       .buttons {
         display: flex;
         align-items: center;

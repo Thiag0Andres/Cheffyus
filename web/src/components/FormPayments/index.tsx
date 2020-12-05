@@ -77,8 +77,8 @@ const FormPayments: React.FC = () => {
   ]);
 
   const [formData, setFormData] = useState({
-    first_name: user.first_name,
-    last_name: user.last_name,
+    first_name: "",
+    last_name: "",
     date_day: "00",
     date_month: "00",
     date_year: "0000",
@@ -107,6 +107,59 @@ const FormPayments: React.FC = () => {
         console.log(error);
       });
   }, []);
+
+  // Chamada a api
+  useEffect(() => {
+    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    const url = "http://cheffyus-api.herokuapp.com/";
+
+    api
+      .get(proxyurl + url + "preferences", {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        PreferenceUser(response.data);
+        //setPreferences();
+        //console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const PreferenceUser = (preferences: any) => {
+    preferences.filter((preference: any) => {
+      if (preference.user_id == user.id) {
+        const month = preference.birth_date.slice(0, 6);
+        console.log(month);
+        const day = preference.birth_date.slice(7, 9);
+        console.log(day);
+        const year = preference.birth_date.slice(10, 14);
+        console.log(year);
+
+        if (preference.address_country) {
+          setShow(true);
+        }
+
+        setFormData({
+          ...formData,
+          first_name: preference.first_name,
+          last_name: preference.last_name,
+          date_month: month,
+          date_day: day,
+          date_year: year,
+          address_country: preference.address_country,
+          address_zipcode: preference.address_zipcode,
+          //address_state: preference.first_name,
+          address_city: preference.address_city,
+          address_street: preference.first_name,
+          bank_code: preference.bank_code,
+          branch_code: preference.branch_code,
+          account_number: preference.account_number,
+        });
+      }
+    });
+  };
 
   const handleInputChangeCountry = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;

@@ -174,19 +174,11 @@ const FormProfileInfo: React.FC = () => {
   };
 
   const UpdateUser = (url_image: any) => {
-    const {
-      first_name,
-      last_name,
-      display_name,
-      username,
-      phone_number,
-      bio,
-    } = formData;
+    const { first_name, last_name, username, phone_number, bio } = formData;
 
     const body = {
       first_name: first_name,
       last_name: last_name,
-      display_name: display_name,
       username: username,
       bio: bio ? bio : undefined,
       image_url: url_image ? url_image : undefined,
@@ -292,7 +284,6 @@ const FormProfileInfo: React.FC = () => {
                 name="display_name"
                 type="text"
                 value={formData.display_name}
-                onChange={handleInputChange}
               />
             </Form.Group>
 
@@ -325,8 +316,9 @@ const FormProfileInfo: React.FC = () => {
                 <FaInfoCircle color="#3c3c3c" />
                 &nbsp; You can provide either your street address or only a city
                 or zip/postal code. It’s good to also add your country when
-                adding your location. Examples: "10117 Berlin, Germany" or "2000
-                Sand Hill Road, CA, USA".
+                adding your location. For better accuracy you can click on the
+                map. Examples: "10117 Berlin, Germany" or "2000 Sand Hill Road,
+                CA, USA".
               </p>
 
               <AsyncSelect

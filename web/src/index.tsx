@@ -11,7 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(
   <Provider store={store}>
-    <SnackbarProvider maxSnack={1}>
+    <SnackbarProvider maxSnack={3}>
       <App />
     </SnackbarProvider>
   </Provider>,

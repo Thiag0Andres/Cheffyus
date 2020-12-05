@@ -119,7 +119,7 @@ const FormSignup: React.FC = () => {
         });
       })
       .catch((error) => {
-        enqueueSnackbar("Failed to register.", { variant: "error" });
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
         console.log(error);
       });
   };
@@ -141,6 +141,7 @@ const FormSignup: React.FC = () => {
                 name="defaultEmail"
                 type="text"
                 onChange={handleInputChange}
+                required
               />
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
@@ -150,6 +151,7 @@ const FormSignup: React.FC = () => {
                 name="first_name"
                 type="text"
                 onChange={handleInputChange}
+                required
               />
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
@@ -159,6 +161,7 @@ const FormSignup: React.FC = () => {
                 name="last_name"
                 type="text"
                 onChange={handleInputChange}
+                required
               />
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
@@ -168,6 +171,7 @@ const FormSignup: React.FC = () => {
                 name="password"
                 type="password"
                 onChange={handleInputChange}
+                required
               />
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
@@ -176,6 +180,7 @@ const FormSignup: React.FC = () => {
                 className="input"
                 name="confirm_password"
                 type="password"
+                required
               />
             </Form.Group>
 
@@ -183,11 +188,13 @@ const FormSignup: React.FC = () => {
               className="text2"
               type="checkbox"
               label="I accept the Terms of Use and Privacy policy"
+              required
             />
             <Form.Check
               className="text2"
               type="checkbox"
               label="I agree to receive occasional emails from the Cheffy team and understand that I can change my mind at any time"
+              required
             />
 
             <Button className="button2" type="submit" onClick={handleSubmit}>
