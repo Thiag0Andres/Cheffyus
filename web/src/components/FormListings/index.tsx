@@ -17,6 +17,8 @@ import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import Table from "react-bootstrap/Table";
 
+import api from "../../services/api";
+
 // Icons
 import { TiPencil } from "react-icons/ti";
 
@@ -32,6 +34,7 @@ const FormListings: React.FC = () => {
   // States
   const [restaurants, setRestaurants] = useState<Array<any>>([]);
   const [kitchensIds, setKitchensIds] = useState(user.kitchen_ids);
+  const [kitchensUser, setKitchensUser] = useState<Array<any>>([]);
   const [formData, setFormData] = useState({
     search: "",
   });
@@ -41,22 +44,90 @@ const FormListings: React.FC = () => {
     //console.log(restaurants);
   }, [filterName]);
 
-  /*   const filteredKitchens: any = restaurants.filter((restaurant: any) => {
-    return (
-      restaurant.kitchen.name
-        .toLowerCase()
-        .indexOf(formData.search.toLowerCase()) !== -1
-    );
-  });
+  const AllkitchensTypes = () => {
+    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    const url = `https://cheffyus-api.herokuapp.com/kitchens/?min_price=${0}&max_price=${10000}`;
 
-  setRestaurants(filteredKitchens);
- */
+    api
+      .get(proxyurl + url)
+      .then((response) => {
+        const data = response.data;
+        dispatch(updateFilterName(data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
     //console.log(event.target.value);
 
     setFormData({ ...formData, [name]: value });
   };
+
+  const filteredKitchens = () => {
+    const kitchens: any = [];
+
+    kitchensUser.filter((restaurant: any) => {
+      return (
+        restaurant.kitchen.name
+          .toLowerCase()
+          .indexOf(formData.search.toLowerCase()) !== -1 &&
+        kitchens.push(restaurant)
+      );
+    });
+    setRestaurants(kitchens);
+  };
+
+  const KitchensUser = () => {
+    const kitchens: any = [];
+
+    restaurants.filter((restaurant: any) => {
+      kitchensIds.map((kitchenId: any) => {
+        restaurant.kitchen.id == kitchenId && kitchens.push(restaurant);
+      });
+    });
+    setKitchensUser(kitchens);
+  };
+
+  const StatusOpened = () => {
+    const kitchens: any = [];
+
+    kitchensUser.filter((restaurant: any) => {
+      if (restaurant.kitchen.status === "opened") {
+        kitchens.push(restaurant);
+      }
+    });
+    setKitchensUser(kitchens);
+  };
+
+  const StatusClosed = () => {
+    const kitchens: any = [];
+
+    kitchensUser.filter((restaurant: any) => {
+      if (restaurant.kitchen.status === "closed") {
+        kitchens.push(restaurant);
+      }
+    });
+    setKitchensUser(kitchens);
+  };
+
+  const StatusExpired = () => {
+    const kitchens: any = [];
+
+    kitchensUser.filter((restaurant: any) => {
+      if (restaurant.kitchen.status === "expired") {
+        kitchens.push(restaurant);
+      }
+    });
+    setKitchensUser(kitchens);
+  };
+
+  useEffect(() => {
+    //filteredKitchens();
+    KitchensUser();
+  }, [restaurants]);
 
   return (
     <Col
@@ -84,15 +155,21 @@ const FormListings: React.FC = () => {
                 All statues
               </Dropdown.Toggle>
               <Dropdown.Menu className="input-dropdown">
-                <Dropdown.Item className="input-item">Open</Dropdown.Item>
-                <Dropdown.Item className="input-item">Closed</Dropdown.Item>
-                <Dropdown.Item>Expired</Dropdown.Item>
+                <Dropdown.Item className="input-item" onClick={StatusOpened}>
+                  Opened
+                </Dropdown.Item>
+                <Dropdown.Item className="input-item" onClick={StatusClosed}>
+                  Closed
+                </Dropdown.Item>
+                <Dropdown.Item onClick={StatusExpired}>Expired</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
             &nbsp;&nbsp;&nbsp;
             <div className="buttons">
               <Button className="button1">Search</Button>
-              <Button className="button2">Show all</Button>
+              <Button className="button2" onClick={AllkitchensTypes}>
+                Show all
+              </Button>
             </div>
           </div>
         </Form>
@@ -117,34 +194,38 @@ const FormListings: React.FC = () => {
           >
             {user.kitchen_ids != null &&
               user.kitchen_ids.length > 0 &&
-              restaurants.map((restaurant: any) =>
-                kitchensIds.map(
-                  (KitchenId: any) =>
-                    restaurant.kitchen.id == KitchenId && (
-                      <tr>
-                        <td>
-                          <Link
-                            to={{
-                              pathname: `/restaurant/${restaurant.kitchen.name}`,
-                              state: {
-                                detail: restaurant,
-                              },
-                            }}
-                          >
-                            {restaurant.kitchen.name}
-                          </Link>
-                        </td>
-                        <td>{restaurant.kitchen.createdAt}</td>
-                        <td>{restaurant.kitchen.updatedAt}</td>
-                        <td>{restaurant.kitchen.category_id}</td>
-                        <td>{restaurant.kitchen.status}</td>
-                        <td>
-                          <TiPencil className="icon" />
-                        </td>
-                      </tr>
-                    )
-                )
-              )}
+              kitchensUser.map((restaurant: any) => (
+                <tr>
+                  <td>
+                    <Link
+                      to={{
+                        pathname: `/restaurant/${restaurant.kitchen.name}`,
+                        state: {
+                          detail: restaurant,
+                        },
+                      }}
+                    >
+                      {restaurant.kitchen.name}
+                    </Link>
+                  </td>
+                  <td>{restaurant.kitchen.createdAt}</td>
+                  <td>{restaurant.kitchen.updatedAt}</td>
+                  <td>{restaurant.kitchen.category_id}</td>
+                  <td>{restaurant.kitchen.status}</td>
+                  <td>
+                    <Link
+                      to={{
+                        pathname: `/update-kitchen/${restaurant.kitchen.name}`,
+                        state: {
+                          detail: restaurant,
+                        },
+                      }}
+                    >
+                      <TiPencil className="icon" />
+                    </Link>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </Table>
       </Row>

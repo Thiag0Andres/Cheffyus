@@ -77,6 +77,21 @@ const Grid: React.FC = () => {
       });
   };
 
+  const AllkitchensTypes = () => {
+    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    const url = `https://cheffyus-api.herokuapp.com/kitchens/?min_price=${0}&max_price=${10000}`;
+
+    api
+      .get(proxyurl + url)
+      .then((response) => {
+        const data = response.data;
+        dispatch(updateFilterName(data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     if (valueDrop != 0) {
       const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
@@ -104,7 +119,9 @@ const Grid: React.FC = () => {
                 Select the category
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item>All listing types</Dropdown.Item>
+                <Dropdown.Item onClick={AllkitchensTypes}>
+                  All listing types
+                </Dropdown.Item>
                 <Dropdown.Item
                   onClick={() => {
                     setValueDrop(11);
@@ -167,7 +184,9 @@ const Grid: React.FC = () => {
                     Select the category
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item>All listing types</Dropdown.Item>
+                    <Dropdown.Item onClick={AllkitchensTypes}>
+                      All kitchens types
+                    </Dropdown.Item>
                     <Dropdown.Item
                       onClick={() => {
                         setValueDrop(11);

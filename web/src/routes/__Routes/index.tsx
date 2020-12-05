@@ -20,6 +20,7 @@ import ProfileUser from "../../containers/ProfileUser";
 import ContactChef from "../../containers/ContactChef";
 import Request from "../../containers/Request";
 import Settings from "../../containers/Settings";
+import UpdateKitchen from "../../containers/UpdateKitchen";
 import Inbox from "../../containers/Inbox";
 import Conversation from "../../containers/Conversation";
 import Administrator from "../../containers/Administrator";
@@ -36,7 +37,6 @@ export default function Routes() {
       <Route path="/signup" component={SignUp} />
       <Route path="/restaurant/:restaurant" component={Restaurant} />
       <Route path="/profile-chef/:profileChef" component={ProfileChef} />
-      <Route path="/profile-user/:profileUser" component={ProfileUser} />
 
       <PrivateRoute exact path="/confirm-login" component={ConfirmLogin} />
       <PrivateRoute exact path="/add-kitchen" component={AddKitchen} />
@@ -46,14 +46,24 @@ export default function Routes() {
         path="/contact-chef/:contactChef"
         component={ContactChef}
       />
+      <PrivateRoute
+        exact
+        path="/profile-user/:profileUser"
+        component={ProfileUser}
+      />
       <PrivateRoute exact path="/settings" component={Settings} />
+
+      <PrivateRoute
+        exact
+        path="/update-kitchen/:updateKitchen"
+        component={UpdateKitchen}
+      />
       <PrivateRoute exact path="/inbox" component={Inbox} />
       <PrivateRoute
         exact
         path="/conversation/:conversation"
         component={Conversation}
       />
-
       <AdministratorRoute
         exact
         path="/administrator"

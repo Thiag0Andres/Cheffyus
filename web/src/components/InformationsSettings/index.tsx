@@ -75,7 +75,7 @@ const InformationsSettings: React.FC = () => {
                 <BsFillGridFill />
                 &nbsp;&nbsp;
                 <div className="space-between">
-                  Listings {show2 && <BsArrowRight />}
+                  Kitchens {show2 && <BsArrowRight />}
                 </div>
               </ListGroup.Item>
               <ListGroup.Item

@@ -42,8 +42,6 @@ import markerMap from "../../images/markerMap.png";
 
 import api from "../../services/api";
 
-import "./styles.scss";
-
 interface UploadFile {
   file: any;
   name: string;
@@ -80,7 +78,11 @@ interface result {
   raw: any; // raw provider result
 }
 
-const FormAddKitchen: React.FC = () => {
+interface Props {
+  detail: any;
+}
+
+const FormUpdateKitchen: React.FC<Props> = ({ detail }) => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
   const token: Token = useSelector(
     (state: RootStateOrAny) => state.token.token.token
@@ -97,36 +99,67 @@ const FormAddKitchen: React.FC = () => {
   const [categorySelect, setCategorySelect] = useState("");
   const [category_id, setCategoryId] = useState(Number());
   const [categories, setCategories] = useState<CategoriesItems[]>([]);
-  const [searchOptions, setSearchOptions] = useState<Array<any>>([]);
   const [uploadedFiles, setUploadedFiles] = useState<UploadFile[]>([]);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
-    0,
-    0,
+    Number(detail.kitchen.location_lat),
+    Number(detail.kitchen.location_lon),
   ]);
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([
-    0,
-    0,
+    Number(detail.kitchen.location_lat),
+    Number(detail.kitchen.location_lon),
   ]);
   const [formData, setFormData] = useState({
     user_id: user.id,
-    name: "",
-    price_per_time: 0,
-    time_type: "",
-    description: "",
+    name: detail.kitchen.name,
+    price_per_time: detail.kitchen.price_per_time,
+    time_type: detail.kitchen.time_type,
+    description: detail.kitchen.description,
+    image_urls: [String(detail.kitchen.image_urls)],
     date_month: "00",
     date_day: "00",
     date_year: "0000",
-    status: "opened",
-    likes: 0,
+    status: detail.kitchen.status,
+    likes: detail.kitchen.likes,
   });
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
+    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    const url = "https://cheffyus-api.herokuapp.com/";
 
-      setInitialPosition([latitude, longitude]);
-    });
+    api
+      .get(proxyurl + url + "/categories/", {
+        headers: { Authorization: token },
+      })
+      .then((response) => {
+        const data = response.data;
+
+        setCategories(data);
+      })
+      .catch((error) => {
+        console.log(error);
+        enqueueSnackbar("Failed to get categories.", { variant: "error" });
+      });
   }, []);
+
+  useEffect(() => {
+    sliceDate();
+  }, []);
+
+  const sliceDate = () => {
+    const month = detail.kitchen.expireDate.slice(0, 2);
+    //console.log(month);
+    const day = detail.kitchen.expireDate.slice(3, 5);
+    //console.log(day);
+    const year = detail.kitchen.expireDate.slice(6, 10);
+    //console.log(year);
+
+    setFormData({
+      ...formData,
+      date_month: month,
+      date_day: day,
+      date_year: year,
+    });
+  };
 
   // Marker do map
   const mapIcon = Leaflet.icon({
@@ -193,13 +226,14 @@ const FormAddKitchen: React.FC = () => {
     }
   };
 
-  const AddKitchen = (url_image: any) => {
+  const AddKitchen = () => {
     const {
       user_id,
       name,
       price_per_time,
       time_type,
       description,
+      image_urls,
       date_month,
       date_day,
       date_year,
@@ -211,7 +245,7 @@ const FormAddKitchen: React.FC = () => {
       user_id: user_id,
       name: name,
       description: description,
-      image_urls: [url_image],
+      image_urls: image_urls,
       price_per_time: price_per_time,
       time_type: time_type,
       category_id: category_id,
@@ -226,18 +260,18 @@ const FormAddKitchen: React.FC = () => {
     const url = "https://cheffyus-api.herokuapp.com/";
 
     api
-      .post(proxyurl + url + "kitchens", body, {
+      .put(proxyurl + url + `kitchens/${detail.kitchen.id}`, body, {
         headers: { Authorization: token },
       })
       .then(() => {
-        history.push("/");
-        enqueueSnackbar("Kitchen successfully registered!", {
+        history.push("/settings");
+        enqueueSnackbar("Kitchen successfully updated!", {
           variant: "success",
         });
       })
       .catch((error) => {
         console.log(error);
-        enqueueSnackbar("Failed to register.", { variant: "error" });
+        enqueueSnackbar("Failed to updated.", { variant: "error" });
       });
   };
 
@@ -259,37 +293,23 @@ const FormAddKitchen: React.FC = () => {
         .then((response) => {
           //console.log(response.data);
 
-          const url_image = response.data.url;
+          const url_image = String(response.data.url);
 
-          AddKitchen(url_image);
+          setFormData({
+            ...formData,
+            image_urls: [url_image],
+          });
+
+          AddKitchen();
         })
         .catch((error) => {
           console.log(error);
           enqueueSnackbar("Failed to load image.", { variant: "error" });
         });
     } else {
-      AddKitchen(null);
+      AddKitchen();
     }
   };
-
-  useEffect(() => {
-    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = "https://cheffyus-api.herokuapp.com/";
-
-    api
-      .get(proxyurl + url + "/categories/", {
-        headers: { Authorization: token },
-      })
-      .then((response) => {
-        const data = response.data;
-
-        setCategories(data);
-      })
-      .catch((error) => {
-        console.log(error);
-        enqueueSnackbar("Failed to get categories.", { variant: "error" });
-      });
-  }, []);
 
   return (
     <>
@@ -327,6 +347,7 @@ const FormAddKitchen: React.FC = () => {
                   className="input"
                   type="text"
                   name="name"
+                  value={formData.name}
                   onChange={handleInputChange}
                 />
 
@@ -337,6 +358,7 @@ const FormAddKitchen: React.FC = () => {
                     type="text"
                     placeholder="0"
                     name="price_per_time"
+                    value={formData.price_per_time}
                     onChange={handleInputChange}
                   />
                   &nbsp;&nbsp;&nbsp;
@@ -351,6 +373,7 @@ const FormAddKitchen: React.FC = () => {
                     as="select"
                     placeholder="hour"
                     name="time_type"
+                    value={formData.time_type}
                     onChange={handleInputChange}
                   >
                     <option>hour</option>
@@ -374,6 +397,7 @@ const FormAddKitchen: React.FC = () => {
                   as="textarea"
                   rows={3}
                   name="description"
+                  value={formData.description}
                   onChange={handleInputChange}
                 />
 
@@ -386,6 +410,7 @@ const FormAddKitchen: React.FC = () => {
                     className="select-month"
                     as="select"
                     name="date_month"
+                    value={formData.date_month}
                     onChange={handleInputChange}
                   >
                     <option>Select a month</option>
@@ -407,9 +432,10 @@ const FormAddKitchen: React.FC = () => {
                     className="select-day"
                     as="select"
                     name="date_day"
+                    value={formData.date_day}
                     onChange={handleInputChange}
                   >
-                    <option>Select a dey</option>
+                    <option>Select a day</option>
                     <option>01</option>
                     <option>02</option>
                     <option>03</option>
@@ -447,6 +473,7 @@ const FormAddKitchen: React.FC = () => {
                     className="select-year"
                     as="select"
                     name="date_year"
+                    value={formData.date_year}
                     onChange={handleInputChange}
                   >
                     <option>Select a year</option>
@@ -533,4 +560,4 @@ const FormAddKitchen: React.FC = () => {
   );
 };
 
-export default FormAddKitchen;
+export default FormUpdateKitchen;
