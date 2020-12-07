@@ -83,11 +83,14 @@ const FormListings: React.FC = () => {
   const KitchensUser = () => {
     const kitchens: any = [];
 
-    restaurants.filter((restaurant: any) => {
-      kitchensIds.map((kitchenId: any) => {
-        restaurant.kitchen.id == kitchenId && kitchens.push(restaurant);
+    if (kitchensIds !== null) {
+      restaurants.filter((restaurant: any) => {
+        kitchensIds.map((kitchenId: any) => {
+          restaurant.kitchen.id == kitchenId && kitchens.push(restaurant);
+        });
       });
-    });
+    }
+
     setKitchensUser(kitchens);
   };
 

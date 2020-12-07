@@ -336,15 +336,17 @@ const NavBar: React.FC<Props> = (props: Props) => {
                         </Col>
                       </Row>
                       <Row className="row2">
+                        {user.user_type == "admin" && (
+                          <Button
+                            className="button1"
+                            style={{ justifyContent: "flex-start" }}
+                            onClick={handlePageAdmin}
+                          >
+                            Admin panel
+                          </Button>
+                        )}
                         <Button
-                          className="button1"
-                          style={{ justifyContent: "flex-start" }}
-                          onClick={handlePageAdmin}
-                        >
-                          Admin panel
-                        </Button>
-                        <Button
-                          className="button1"
+                          className="button3"
                           style={{ justifyContent: "flex-end" }}
                           onClick={logout}
                         >

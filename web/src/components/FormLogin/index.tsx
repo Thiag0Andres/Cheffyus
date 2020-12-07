@@ -14,6 +14,9 @@ import { useDispatch } from "react-redux";
 import { updateUser } from "../../store/ducks/user/actions";
 import { updateToken } from "../../store/ducks/token/actions";
 
+// Facebook login
+import FacebookLogin from "react-facebook-login";
+
 //Message
 import { useSnackbar } from "notistack";
 
@@ -103,6 +106,36 @@ const FormLogin: React.FC = () => {
      */
   };
 
+  const responseFacebook = (response: any) => {
+    console.log(response);
+
+    if (response.status !== "unknown") {
+      const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+      const url = "https://cheffyus-api.herokuapp.com/";
+
+      api
+        .post(proxyurl + url + "users/authenticate", {
+          email: response.email.trim(),
+          password: response.userID,
+        })
+        .then((response) => {
+          const data = response.data;
+
+          dispatch(updateUser(data.user));
+          dispatch(updateToken(data.token));
+
+          history.push("/");
+          enqueueSnackbar("User successfully logged in!", {
+            variant: "success",
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+          enqueueSnackbar(error.response.data.message, { variant: "error" });
+        });
+    }
+  };
+
   return (
     <>
       <Row id="content-login">
@@ -118,10 +151,13 @@ const FormLogin: React.FC = () => {
         )}
         <Col className="body" xl="12" lg="12" md="12" xs="12" sm="12">
           <Form className="form1" onSubmit={signIn}>
-            <Button className="button1" variant="primary" size="lg" block>
-              <IoLogoFacebook size={25} />
-              Log in with Facebook
-            </Button>
+            <FacebookLogin
+              icon={<IoLogoFacebook size={25} />}
+              appId="1293792574327500"
+              fields="name,email,picture"
+              textButton="&nbsp;&nbsp;Sign up with Facebook"
+              callback={responseFacebook}
+            />
             <p>...or with your email:</p>
             <Form.Group controlId="formBasicEmail">
               <Form.Label className="text">Email:</Form.Label>

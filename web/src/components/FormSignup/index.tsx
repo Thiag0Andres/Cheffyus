@@ -17,12 +17,16 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+// Facebook login
+import FacebookLogin from "react-facebook-login";
+
 // Icons
 import { IoLogoFacebook } from "react-icons/io";
 
 import api from "../../services/api";
 
 import "./styles.scss";
+import { RefreshSharp } from "@material-ui/icons";
 
 const FormSignup: React.FC = () => {
   const dispatch = useDispatch();
@@ -81,6 +85,53 @@ const FormSignup: React.FC = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const responseFacebook = (response: any) => {
+    console.log(response);
+
+    if (response.status !== "unknown") {
+      var texto = response.name;
+      var palavras = texto.split(" ");
+
+      const body = {
+        emails: [response.email],
+        defaultEmail: response.email,
+        first_name: palavras[0],
+        last_name: palavras[1],
+        username: palavras[0].toLowerCase() + palavras[1].toLowerCase(),
+        display_name:
+          palavras[0][0].toUpperCase() + palavras[1][0].toUpperCase(),
+        password: response.userID,
+        user_type: "chef",
+      };
+
+      const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+      const url = "https://cheffyus-api.herokuapp.com/";
+
+      api
+        .post(proxyurl + url + "users/register", body)
+        .then((response) => {
+          const data = response.data.result;
+
+          dispatch(updateUser(data));
+          dispatch(
+            updateToken({
+              token: { token: `Bearer ${response.data.result.auth_token}` },
+            })
+          );
+
+          history.push("/confirm-login");
+
+          enqueueSnackbar("User successfully registered!", {
+            variant: "success",
+          });
+        })
+        .catch((error) => {
+          enqueueSnackbar(error.response.data.message, { variant: "error" });
+          console.log(error);
+        });
+    }
+  };
+
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
@@ -91,8 +142,14 @@ const FormSignup: React.FC = () => {
       defaultEmail,
       first_name,
       last_name,
-      username: first_name.toLowerCase() + last_name[0].toLowerCase(),
-      display_name: first_name[0].toUpperCase() + last_name[0].toUpperCase(),
+      username:
+        first_name.length > 0 && last_name.length > 0
+          ? first_name.toLowerCase() + last_name[0].toLowerCase()
+          : "",
+      display_name:
+        first_name.length > 0 && last_name.length > 0
+          ? first_name[0].toUpperCase() + last_name[0].toUpperCase()
+          : "",
       password,
       user_type: "chef",
     };
@@ -129,10 +186,13 @@ const FormSignup: React.FC = () => {
       <Row id="contentSignup">
         <Col className="body" xl="12" lg="12" md="12" xs="12" sm="12">
           <Form className="form" onSubmit={handleSubmit}>
-            <Button className="button1" size="lg" block>
-              <IoLogoFacebook size={25} />
-              Sign up with Facebook
-            </Button>
+            <FacebookLogin
+              icon={<IoLogoFacebook size={25} />}
+              appId="1293792574327500"
+              fields="name,email,picture"
+              textButton="&nbsp;&nbsp;Sign up with Facebook"
+              callback={responseFacebook}
+            />
             <h3>Sign up with email</h3>
             <Form.Group controlId="formBasicEmail">
               <Form.Label className="text">Email address</Form.Label>
