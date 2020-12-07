@@ -131,11 +131,11 @@ const FormPayments: React.FC = () => {
     preferences.filter((preference: any) => {
       if (preference.user_id == user.id) {
         const month = preference.birth_date.slice(0, 6);
-        console.log(month);
+        //console.log(month);
         const day = preference.birth_date.slice(7, 9);
-        console.log(day);
+        //console.log(day);
         const year = preference.birth_date.slice(10, 14);
-        console.log(year);
+        //console.log(year);
 
         if (preference.address_country) {
           setShow(true);

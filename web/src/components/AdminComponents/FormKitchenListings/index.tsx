@@ -67,6 +67,7 @@ const FormKitchenListings: React.FC = () => {
               type="text"
               placeholder="Search for a kitchen title"
             />
+            &nbsp;&nbsp;&nbsp;
             <Dropdown>
               <Dropdown.Toggle className="input-dropdown">
                 All statues
@@ -77,12 +78,13 @@ const FormKitchenListings: React.FC = () => {
                 <Dropdown.Item>Expired</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+            &nbsp;&nbsp;&nbsp;
             <div className="buttons">
               <Button className="button1">Search</Button>
               <Button className="button2">Show all</Button>
             </div>
           </Form>
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive>
             <thead
               style={{
                 color: "#3c3c3c",
@@ -120,7 +122,16 @@ const FormKitchenListings: React.FC = () => {
                   <td>{restaurant.kitchen.category_id}</td>
                   <td>{restaurant.kitchen.status}</td>
                   <td>
-                    <TiPencil className="icon" />
+                    <Link
+                      to={{
+                        pathname: `/update-kitchen/${restaurant.kitchen.name}`,
+                        state: {
+                          detail: restaurant,
+                        },
+                      }}
+                    >
+                      <TiPencil className="icon" />
+                    </Link>
                   </td>
                 </tr>
               ))}

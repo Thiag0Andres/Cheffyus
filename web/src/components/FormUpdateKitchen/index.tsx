@@ -109,7 +109,7 @@ const FormUpdateKitchen: React.FC<Props> = ({ detail }) => {
     Number(detail.kitchen.location_lon),
   ]);
   const [formData, setFormData] = useState({
-    user_id: user.id,
+    user_id: detail.user.id,
     name: detail.kitchen.name,
     price_per_time: detail.kitchen.price_per_time,
     time_type: detail.kitchen.time_type,

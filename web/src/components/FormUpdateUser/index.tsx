@@ -42,8 +42,6 @@ import markerMap from "../../images/markerMap.png";
 
 import api from "../../services/api";
 
-import "./styles.scss";
-
 interface UploadFile {
   file: any;
   name: string;
@@ -70,8 +68,11 @@ interface result {
   ];
   raw: any; // raw provider result
 }
+interface Props {
+  detail: any;
+}
 
-const FormProfileInfo: React.FC = () => {
+const FormUpdateUser: React.FC<Props> = ({ detail }) => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
   const token: Token = useSelector(
     (state: RootStateOrAny) => state.token.token.token
@@ -84,21 +85,22 @@ const FormProfileInfo: React.FC = () => {
   // States
   const [uploadedFiles, setUploadedFiles] = useState<UploadFile[]>([]);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
-    Number(user.location_lat),
-    Number(user.location_lon),
+    Number(detail.location_lat),
+    Number(detail.location_lon),
   ]);
   const [selectedPosition, setSelectedPosition] = useState<[number, number]>([
-    Number(user.location_lat),
-    Number(user.location_lon),
+    Number(detail.location_lat),
+    Number(detail.location_lon),
   ]);
   const [formData, setFormData] = useState({
-    first_name: user.first_name,
-    last_name: user.last_name,
+    first_name: detail.first_name,
+    last_name: detail.last_name,
     display_name:
-      user.first_name[0].toUpperCase() + user.last_name[0].toUpperCase(),
-    username: user.first_name.toLowerCase() + user.last_name[0].toLowerCase(),
-    phone_number: user.phone_number ? user.phone_number : undefined,
-    bio: user.bio ? user.bio : undefined,
+      detail.first_name[0].toUpperCase() + detail.last_name[0].toUpperCase(),
+    username:
+      detail.first_name.toLowerCase() + detail.last_name[0].toLowerCase(),
+    phone_number: detail.phone_number ? detail.phone_number : undefined,
+    bio: detail.bio ? detail.bio : undefined,
   });
 
   useEffect(() => {
@@ -199,14 +201,15 @@ const FormProfileInfo: React.FC = () => {
     const url = "https://cheffyus-api.herokuapp.com/";
 
     api
-      .put(proxyurl + url + `/users/${user.id}`, body, {
+      .put(proxyurl + url + `/users/${detail.id}`, body, {
         headers: { Authorization: token },
       })
       .then((response) => {
         const data = response.data;
         //console.log(data);
 
-        dispatch(updateUser(data));
+        //dispatch(updateUser(data));
+        history.push("/administrator");
 
         enqueueSnackbar("User updated successfully!", {
           variant: "success",
@@ -342,7 +345,7 @@ const FormProfileInfo: React.FC = () => {
               <div className="map">
                 <Map
                   center={initialPosition}
-                  zoom={12}
+                  zoom={13}
                   onClick={handleMapClick}
                 >
                   <TileLayer
@@ -398,4 +401,4 @@ const FormProfileInfo: React.FC = () => {
   );
 };
 
-export default FormProfileInfo;
+export default FormUpdateUser;

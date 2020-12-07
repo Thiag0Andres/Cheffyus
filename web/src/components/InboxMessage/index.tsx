@@ -58,7 +58,7 @@ const InboxMessage: React.FC = () => {
     setUserMessage(users);
   };
 
-  console.log(userMessage);
+  //console.log(userMessage);
 
   useEffect(() => {
     handle();

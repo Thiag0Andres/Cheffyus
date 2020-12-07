@@ -68,6 +68,7 @@ const FormReviewsListings: React.FC = () => {
               type="text"
               placeholder="Search for a name or keyword"
             />
+            &nbsp;&nbsp;&nbsp;
             <Dropdown>
               <Dropdown.Toggle className="input-dropdown">
                 Filters
@@ -78,12 +79,13 @@ const FormReviewsListings: React.FC = () => {
                 <Dropdown.Item>Expired</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+            &nbsp;&nbsp;&nbsp;
             <div className="buttons">
               <Button className="button1">Search</Button>
               <Button className="button2">Show all</Button>
             </div>
           </Form>
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive>
             <thead
               style={{
                 color: "#3c3c3c",

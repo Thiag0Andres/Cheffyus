@@ -176,7 +176,7 @@ const FormListings: React.FC = () => {
             </div>
           </div>
         </Form>
-        <Table striped bordered hover>
+        <Table striped bordered hover responsive>
           <thead
             style={{
               color: "#3c3c3c",

@@ -73,6 +73,7 @@ const FormUsersListings: React.FC = () => {
               type="text"
               placeholder="Search for a name, email or display name"
             />
+            &nbsp;&nbsp;&nbsp;
             <Dropdown>
               <Dropdown.Toggle className="input-dropdown">
                 All statues
@@ -82,12 +83,13 @@ const FormUsersListings: React.FC = () => {
                 <Dropdown.Item>Admin</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+            &nbsp;&nbsp;&nbsp;
             <div className="buttons">
               <Button className="button1">Search</Button>
               <Button className="button2">Show all</Button>
             </div>
           </Form>
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive>
             <thead
               style={{
                 color: "#3c3c3c",
@@ -125,7 +127,17 @@ const FormUsersListings: React.FC = () => {
                   <td>{userL.user_type}</td>
                   <td></td>
                   <td>
-                    <TiPencil className="icon" size={20} /> &nbsp; &nbsp;
+                    <Link
+                      to={{
+                        pathname: `/update-user/${userL.first_name}`,
+                        state: {
+                          detail: userL,
+                        },
+                      }}
+                    >
+                      <TiPencil className="icon" size={20} />
+                    </Link>
+                    &nbsp; &nbsp;
                     <TiPlus className="icon" size={20} /> &nbsp; &nbsp;
                     <MdDelete className="icon" size={20} />
                   </td>

@@ -1,6 +1,11 @@
 @import "../../mixin.scss";
 
 #content-profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 30px;
+
   .body {
     padding-right: 0;
     padding-left: 0;
@@ -20,19 +25,19 @@
       }
 
       .input {
+        width: 100%;
+        min-height: 42px;
         border-radius: 5px;
         border: 2px solid #c3c3c3;
         box-shadow: none;
-        min-height: 42px;
-        width: 100%;
       }
 
       .textarea {
+        width: 100%;
+        min-height: 120px;
         border-radius: 5px;
         border: 2px solid #c3c3c3;
         box-shadow: none;
-        min-height: 120px;
-        width: 100%;
       }
 
       .map {

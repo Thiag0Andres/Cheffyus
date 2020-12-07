@@ -95,14 +95,14 @@ const FormTransactions: React.FC = () => {
             <Button className="button2">Show all</Button>
           </div>
         </Form>
-        <Table striped bordered hover>
+        <Table striped bordered hover responsive>
           <thead
             style={{
               color: "#3c3c3c",
             }}
           >
             <tr>
-              <th>Listing</th>
+              <th>Kitchens</th>
               <th>Status</th>
               <th>Sum</th>
               <th>Latest activity</th>

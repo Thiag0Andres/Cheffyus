@@ -6,9 +6,11 @@
   width: 732px;
 
   .body {
-    flex: 1;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 
     .form {
       display: flex;
@@ -94,12 +96,17 @@
 
 @media screen and (max-width: 850px) {
   #content-form-listings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+
     .form {
       flex-direction: column;
       align-items: start;
     }
 
-    .table {
+    /*     .table {
       display: flex;
       flex-direction: column;
 
@@ -113,6 +120,6 @@
         flex-direction: column;
         flex-wrap: wrap;
       }
-    }
+    } */
   }
 }

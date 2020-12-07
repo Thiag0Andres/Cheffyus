@@ -68,6 +68,7 @@ const FormTransactionsListings: React.FC = () => {
               type="text"
               placeholder="Search for a transaction title or parties involved"
             />
+            &nbsp;&nbsp;&nbsp;
             <Dropdown>
               <Dropdown.Toggle className="input-dropdown">
                 All statues
@@ -90,12 +91,13 @@ const FormTransactionsListings: React.FC = () => {
                 <Dropdown.Item>Rejected</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+            &nbsp;&nbsp;&nbsp;
             <div className="buttons">
               <Button className="button1">Search</Button>
               <Button className="button2">Show all</Button>
             </div>
           </Form>
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive>
             <thead
               style={{
                 color: "#3c3c3c",

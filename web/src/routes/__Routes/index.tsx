@@ -21,6 +21,7 @@ import ContactChef from "../../containers/ContactChef";
 import Request from "../../containers/Request";
 import Settings from "../../containers/Settings";
 import UpdateKitchen from "../../containers/UpdateKitchen";
+import UpdateUser from "../../containers/UpdateUser";
 import Inbox from "../../containers/Inbox";
 import Conversation from "../../containers/Conversation";
 import Administrator from "../../containers/Administrator";
@@ -57,6 +58,11 @@ export default function Routes() {
         exact
         path="/update-kitchen/:updateKitchen"
         component={UpdateKitchen}
+      />
+      <PrivateRoute
+        exact
+        path="/update-user/:updateUser"
+        component={UpdateUser}
       />
       <PrivateRoute exact path="/inbox" component={Inbox} />
       <PrivateRoute

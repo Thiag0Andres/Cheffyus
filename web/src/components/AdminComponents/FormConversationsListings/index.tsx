@@ -31,25 +31,11 @@ const FormConversationsListings: React.FC = () => {
 
   // States
   const [messageList, setMessageList] = useState([]);
-  const [messageForUser, setMessageForUser] = useState([]);
-  const [userMessage, setUserMessage] = useState<Array<any>>([]);
-  const [userList, setUserList] = useState([]);
 
   // Chamada a api
   useEffect(() => {
     const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = "http://cheffyus-api.herokuapp.com/";
-
-    api
-      .get(proxyurl + url + "users", {
-        headers: { Authorization: token },
-      })
-      .then((response) => {
-        setUserList(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
 
     api
       .get(proxyurl + url + "inbox", {
@@ -62,24 +48,6 @@ const FormConversationsListings: React.FC = () => {
         console.log(error);
       });
   }, []);
-
-  useEffect(() => {
-    handle();
-  }, [messageList, userList]);
-
-  const handle = () => {
-    const users: any = [];
-
-    messageList.filter((messageL: any) =>
-      userList.map(
-        (userL: any) =>
-          messageL.sender_id == userL.id && users.push(userL, messageL)
-      )
-    );
-    setUserMessage(users);
-  };
-
-  console.log(userMessage);
 
   return (
     <>
@@ -105,7 +73,7 @@ const FormConversationsListings: React.FC = () => {
               <Button className="button2">Show all</Button>
             </div>
           </Form>
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive>
             <thead
               style={{
                 color: "#3c3c3c",
@@ -125,12 +93,14 @@ const FormConversationsListings: React.FC = () => {
                 color: "#3c3c3c",
               }}
             >
-              {userMessage.map((userM: any) => (
+              {messageList.map((messageL: any) => (
                 <tr>
-                  <td>{userM.isReview}</td>
-                  <td>{userM.createdAt}</td>
-                  <td>{userM.updatedAt}</td>
-                  <td>{userM.first_name}</td>
+                  <th>Started from</th>
+                  <th>Status</th>
+                  <td>{messageL.createdAt}</td>
+                  <td>{messageL.updatedAt}</td>
+                  <td>{messageL.sender.first_name}</td>
+                  <td>{messageL.user.first_name}</td>
                 </tr>
               ))}
             </tbody>
