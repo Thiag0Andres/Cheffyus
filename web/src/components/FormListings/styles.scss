@@ -3,11 +3,9 @@
 #content-form-listings {
   padding-right: 0;
   padding-left: 0;
-  width: 732px;
 
   .body {
-    width: 100%;
-    height: 100%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,60 +23,64 @@
         box-shadow: none;
       }
 
-      .input-dropdown {
-        width: 100%;
-        min-height: 42px;
-        border-radius: 5px;
-        color: $gray_light;
-        background-color: #fff;
-        border-color: #fff;
-        border: 2px solid #c3c3c3;
-        box-shadow: none;
-
-        .input-item {
-          border-bottom: 2px solid #c3c3c3;
-        }
-      }
-
-      .dropdown-item:active {
-        color: #16181b;
-        background-color: #f8f9fa;
-      }
-
-      .buttons {
+      .groupFilter {
         display: flex;
-        align-items: center;
 
-        .button1 {
-          width: 94px;
-          height: 42px;
+        .input-dropdown {
+          width: 100%;
+          min-height: 42px;
+          border-radius: 5px;
+          color: $gray_light;
+          background-color: #fff;
+          border-color: #fff;
+          border: 2px solid #c3c3c3;
           box-shadow: none;
-          background-color: $red_classic;
-          border-color: $red_classic;
-          color: $white;
-          transition: background-color 0.2s;
 
-          &:hover {
-            background-color: $red_light;
+          .input-item {
+            border-bottom: 2px solid #c3c3c3;
           }
         }
 
-        .button2 {
-          width: 81px;
-          height: 21px;
+        .dropdown-item:active {
+          color: #16181b;
+          background-color: #f8f9fa;
+        }
+
+        .buttons {
           display: flex;
           align-items: center;
-          font-size: 1em;
-          line-height: 1.38462em;
-          box-shadow: none;
-          border: none;
-          background-color: transparent;
-          border-color: transparent;
-          color: $red_classic;
 
-          &:hover {
-            color: $red_dark;
-            text-decoration: none;
+          .button1 {
+            width: 94px;
+            height: 42px;
+            box-shadow: none;
+            background-color: $red_classic;
+            border-color: $red_classic;
+            color: $white;
+            transition: background-color 0.2s;
+
+            &:hover {
+              background-color: $red_light;
+            }
+          }
+
+          .button2 {
+            width: 81px;
+            height: 21px;
+            display: flex;
+            align-items: center;
+            font-size: 1em;
+            line-height: 1.38462em;
+            box-shadow: none;
+            border: none;
+            background-color: transparent;
+            border-color: transparent;
+            color: $red_classic;
+
+            &:hover {
+              color: $red_dark;
+              text-decoration: none;
+            }
           }
         }
       }
@@ -94,32 +96,19 @@
   }
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 745px) {
   #content-form-listings {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px 0;
-
+    margin-top: 30px !important;
+  }
+  .body {
     .form {
-      flex-direction: column;
-      align-items: start;
+      width: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+
+      .groupFilter {
+        width: 100% !important;
+      }
     }
-
-    /*     .table {
-      display: flex;
-      flex-direction: column;
-
-      thead {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-      }
-      tbody {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-      }
-    } */
   }
 }

@@ -152,7 +152,7 @@ const FormListings: React.FC = () => {
             onChange={handleInputChange}
           />
           &nbsp;&nbsp;&nbsp;
-          <div style={{ display: "flex" }}>
+          <div className="groupFilter">
             <Dropdown>
               <Dropdown.Toggle className="input-dropdown">
                 All statues

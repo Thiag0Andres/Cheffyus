@@ -1,10 +1,10 @@
 @import "../../mixin.scss";
 
-#content-profile-info {
+#content-update-user {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 10px;
+  padding: 30px;
 
   .body {
     padding-right: 0;
@@ -79,14 +79,8 @@
   }
 }
 
-@media screen and (max-width: 670px) {
-  #content-profile-info {
-    margin-top: 30px;
-  }
-}
-
 @media screen and (max-width: 600px) {
-  #content-profile-info {
+  #content-update-user {
     .form {
       .text {
         width: 100% !important;

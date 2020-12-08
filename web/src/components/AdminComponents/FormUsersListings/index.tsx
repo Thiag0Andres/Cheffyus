@@ -74,19 +74,21 @@ const FormUsersListings: React.FC = () => {
               placeholder="Search for a name, email or display name"
             />
             &nbsp;&nbsp;&nbsp;
-            <Dropdown>
-              <Dropdown.Toggle className="input-dropdown">
-                All statues
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="input-dropdown">
-                <Dropdown.Item className="input-item">Chef</Dropdown.Item>
-                <Dropdown.Item>Admin</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            &nbsp;&nbsp;&nbsp;
-            <div className="buttons">
-              <Button className="button1">Search</Button>
-              <Button className="button2">Show all</Button>
+            <div className="groupFilter">
+              <Dropdown>
+                <Dropdown.Toggle className="input-dropdown">
+                  All statues
+                </Dropdown.Toggle>
+                <Dropdown.Menu className="input-dropdown">
+                  <Dropdown.Item className="input-item">Chef</Dropdown.Item>
+                  <Dropdown.Item>Admin</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              &nbsp;&nbsp;&nbsp;
+              <div className="buttons">
+                <Button className="button1">Search</Button>
+                <Button className="button2">Show all</Button>
+              </div>
             </div>
           </Form>
           <Table striped bordered hover responsive>

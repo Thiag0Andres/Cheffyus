@@ -42,6 +42,8 @@ import markerMap from "../../images/markerMap.png";
 
 import api from "../../services/api";
 
+import "./styles.scss";
+
 interface UploadFile {
   file: any;
   name: string;
@@ -254,7 +256,7 @@ const FormUpdateUser: React.FC<Props> = ({ detail }) => {
 
   return (
     <>
-      <Row id="content-profile-info">
+      <Row id="content-update-user">
         <Col className="body" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
           <Form className="form" onSubmit={handleSubmit}>
             <Form.Group>

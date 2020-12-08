@@ -99,13 +99,12 @@
     }
   }
 }
-
 @media screen and (max-width: 740px) {
   #content-form-payments {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px 0;
+    margin-top: 30px;
 
     .date {
       flex-direction: column !important;

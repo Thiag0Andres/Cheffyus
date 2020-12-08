@@ -35,8 +35,6 @@ const FormLogin: React.FC = () => {
 
   // States
   const [show, setShow] = useState(false);
-  const [alert, setAlert] = useState(false);
-
   const [formData, setFormData] = useState({
     defaultEmail: "",
     password: "",
@@ -139,23 +137,13 @@ const FormLogin: React.FC = () => {
   return (
     <>
       <Row id="content-login">
-        {alert && (
-          <Alert className="alert" variant="secondary">
-            <FaInfoCircle size={18} />
-            <div>
-              You must log in to Cheffy to create a new listing. If you don't
-              have an account you can
-              <Link to="/signup"> create one here</Link>.
-            </div>
-          </Alert>
-        )}
         <Col className="body" xl="12" lg="12" md="12" xs="12" sm="12">
           <Form className="form1" onSubmit={signIn}>
             <FacebookLogin
               icon={<IoLogoFacebook size={25} />}
               appId="1293792574327500"
               fields="name,email,picture"
-              textButton="&nbsp;&nbsp;Sign up with Facebook"
+              textButton="&nbsp;&nbsp;Log in with Facebook"
               callback={responseFacebook}
             />
             <p>...or with your email:</p>

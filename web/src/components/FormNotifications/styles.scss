@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 0;
   padding-right: 0;
   padding-left: 0;
   width: 732px;
@@ -40,6 +39,12 @@
         }
       }
     }
+  }
+}
+
+@media screen and (max-width: 670px) {
+  #content-form-listings {
+    margin-top: 30px;
   }
 }
 
