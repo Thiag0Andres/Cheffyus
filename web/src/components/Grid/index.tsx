@@ -23,11 +23,13 @@ import Slider from "@material-ui/core/Slider";
 import { theme } from "../../material-ui";
 import { CircularProgress, ThemeProvider } from "@material-ui/core";
 
+// Components
+import PaginationUi from "../Pagination";
+
 // Icons
 import { BsFillGridFill } from "react-icons/bs";
 import { GoListUnordered } from "react-icons/go";
 import { FaMapMarkedAlt } from "react-icons/fa";
-import { FaCheck } from "react-icons/fa";
 
 // Images
 import userNotfound from "../../images/user.png";
@@ -292,6 +294,7 @@ const Grid: React.FC = () => {
                   <div className="opacity"></div>
 
                   <img
+                    className="imgKitchen"
                     src={
                       restaurant.kitchen.image_urls[0] === null
                         ? kitchenNotFound
@@ -329,6 +332,7 @@ const Grid: React.FC = () => {
                     }}
                   >
                     <img
+                      className="imgChef"
                       src={
                         restaurant.user.image_url === null
                           ? userNotfound
@@ -352,6 +356,9 @@ const Grid: React.FC = () => {
               ))}
           </ul>
         </Col>
+      </Row>
+      <Row className="pagination">
+        <PaginationUi />
       </Row>
     </Container>
   );

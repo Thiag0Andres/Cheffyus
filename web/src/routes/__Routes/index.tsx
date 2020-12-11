@@ -6,6 +6,7 @@ import PrivateRoute from "../_PrivateRoute";
 
 //Containers
 import HomeGrid from "../../containers/HomeGrid";
+import HomeGridFood from "../../containers/HomeGrid copy";
 import HomeList from "../../containers/HomeList";
 import HomeMap from "../../containers/HomeMap";
 import About from "../../containers/About";
@@ -30,6 +31,7 @@ export default function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={HomeGrid} />
+      <Route exact path="/food" component={HomeGridFood} />
       <Route path="/list" component={HomeList} />
       <Route path="/map" component={HomeMap} />
       <Route path="/about" component={About} />

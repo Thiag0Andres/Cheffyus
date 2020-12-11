@@ -6,7 +6,6 @@ import { checkAuth } from "../../services/validation";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../store/ducks/user/actions";
 import { updateToken } from "../../store/ducks/token/actions";
-import { environment } from "../../environment/environment";
 
 //Message
 import { useSnackbar } from "notistack";
@@ -26,7 +25,6 @@ import { IoLogoFacebook } from "react-icons/io";
 import api from "../../services/api";
 
 import "./styles.scss";
-import { RefreshSharp } from "@material-ui/icons";
 
 const FormSignup: React.FC = () => {
   const dispatch = useDispatch();
@@ -86,7 +84,7 @@ const FormSignup: React.FC = () => {
   };
 
   const responseFacebook = (response: any) => {
-    console.log(response);
+    //console.log(response);
 
     if (response.status !== "unknown") {
       var texto = response.name;
@@ -100,6 +98,7 @@ const FormSignup: React.FC = () => {
         username: palavras[0].toLowerCase() + palavras[1].toLowerCase(),
         display_name:
           palavras[0][0].toUpperCase() + palavras[1][0].toUpperCase(),
+        image_url: response.picture.data.url,
         password: response.userID,
         user_type: "chef",
       };

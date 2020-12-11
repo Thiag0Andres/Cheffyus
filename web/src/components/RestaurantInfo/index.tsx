@@ -36,9 +36,9 @@ import { ImTwitter } from "react-icons/im";
 import markerMap from "../../images/markerMap.png";
 import userNotfound from "../../images/user.png";
 
-import "./styles.scss";
 import api from "../../services/api";
-import { format } from "util";
+
+import "./styles.scss";
 
 interface Props {
   detail: any;

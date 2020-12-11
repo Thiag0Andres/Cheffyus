@@ -105,7 +105,7 @@ const FormLogin: React.FC = () => {
   };
 
   const responseFacebook = (response: any) => {
-    console.log(response);
+    //console.log(response);
 
     if (response.status !== "unknown") {
       const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";

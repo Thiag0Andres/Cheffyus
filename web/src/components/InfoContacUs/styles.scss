@@ -1,0 +1,92 @@
+@import "../../mixin.scss";
+
+#content-contact-us {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+
+  .body {
+    padding-right: 0;
+    padding-left: 0;
+    max-width: 1280px;
+    display: flex;
+    justify-content: space-around;
+
+    .information {
+      width: 400px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .text {
+        width: 100%;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 24px;
+        color: $gray_light;
+      }
+
+      .icon {
+        color: $red_classic;
+
+        &:hover {
+          color: $red_dark;
+        }
+      }
+    }
+    .map {
+      width: 500px;
+      height: 400px;
+
+      .leaflet-container {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #content-contact-us {
+    .body {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+
+      .map {
+        width: 400px !important;
+        height: 400px !important;
+
+        .leaflet-container {
+          width: 100% !important;
+          height: 100% !important;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 451px) {
+  #content-contact-us {
+    .body {
+      .information {
+        width: 320px !important;
+        height: 300px !important;
+      }
+      .map {
+        width: 300px !important;
+        height: 300px !important;
+
+        .leaflet-container {
+          width: 100% !important;
+          height: 100% !important;
+        }
+      }
+    }
+  }
+}

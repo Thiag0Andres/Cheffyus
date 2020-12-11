@@ -21,6 +21,9 @@ import Button from "react-bootstrap/Button";
 import Hidden from "@material-ui/core/Hidden";
 import Slider from "@material-ui/core/Slider";
 
+// Components
+import PaginationUi from "../Pagination";
+
 // leaflet
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import Leaflet from "leaflet";
@@ -354,6 +357,9 @@ const Mapa: React.FC = () => {
               ))}
           </Map>
         </Col>
+      </Row>
+      <Row className="pagination">
+        <PaginationUi />
       </Row>
     </Container>
   );

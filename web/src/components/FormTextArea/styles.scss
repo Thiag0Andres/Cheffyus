@@ -1,17 +1,20 @@
 @import "../../mixin.scss";
 
-#content {
-  padding-right: 0;
-  padding-left: 0;
-  padding: 30px;
+#content-form-area {
+  padding: 0 120px;
+  padding-bottom: 30px;
+  display: flex;
+  justify-content: center;
 
   .body {
+    padding-right: 0;
+    padding-left: 0;
+    max-width: 1280px;
     display: flex;
     justify-content: center;
 
     .form {
-      width: 432px;
-      height: 342px;
+      flex: 1;
 
       .text {
         width: 100%;
@@ -25,19 +28,19 @@
       }
 
       .input {
+        width: 100%;
         border-radius: 5px;
         border: 2px solid #c3c3c3;
         box-shadow: none;
         min-height: 42px;
-        width: 100%;
       }
 
       .textarea {
+        width: 100%;
         border-radius: 5px;
         border: 2px solid #c3c3c3;
         box-shadow: none;
         min-height: 120px;
-        width: 100%;
       }
 
       .button {
@@ -54,5 +57,17 @@
         }
       }
     }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #content-form-area {
+    padding: 0 60px !important;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  #content-form-area {
+    padding: 0 30px !important;
   }
 }

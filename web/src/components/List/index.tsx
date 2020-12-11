@@ -21,6 +21,9 @@ import Button from "react-bootstrap/Button";
 import Hidden from "@material-ui/core/Hidden";
 import Slider from "@material-ui/core/Slider";
 
+// Components
+import PaginationUi from "../Pagination";
+
 // Icons
 import { BsFillGridFill } from "react-icons/bs";
 import { GoListUnordered } from "react-icons/go";
@@ -337,6 +340,9 @@ const List: React.FC = () => {
               ))}
           </ul>
         </Col>
+      </Row>
+      <Row className="pagination">
+        <PaginationUi />
       </Row>
     </Container>
   );
