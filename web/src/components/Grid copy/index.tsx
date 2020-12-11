@@ -72,7 +72,7 @@ const GridFood: React.FC = () => {
       });
   }, []);
 
-  console.log(restaurants);
+  //console.log(restaurants);
 
   useEffect(() => {
     const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
