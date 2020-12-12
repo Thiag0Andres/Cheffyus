@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 // Components
-import NavBar from "../../components/NavBar";
-import Grid from "../../components/Grid";
+import NavBarHome from "../../components/NavBarHome";
+import MenuScreen from "../../components/MenuScreen";
 
 const HomeScreen: React.FC = () => {
   return (
     <>
-      <NavBar />
+      <NavBarHome />
+      <MenuScreen />
     </>
   );
 };

@@ -211,7 +211,7 @@ const FormUpdateUser: React.FC<Props> = ({ detail }) => {
         //console.log(data);
 
         //dispatch(updateUser(data));
-        history.push("/administrator");
+        history.push("/kitchen/administrator");
 
         enqueueSnackbar("User updated successfully!", {
           variant: "success",

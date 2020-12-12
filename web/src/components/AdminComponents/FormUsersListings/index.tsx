@@ -115,7 +115,7 @@ const FormUsersListings: React.FC = () => {
                   <td>
                     <Link
                       to={{
-                        pathname: `/profile-chef/${userL.first_name}`,
+                        pathname: `/kitchen/profile-chef/${userL.first_name}`,
                         state: {
                           detail: userL,
                         },
@@ -131,7 +131,7 @@ const FormUsersListings: React.FC = () => {
                   <td>
                     <Link
                       to={{
-                        pathname: `/update-user/${userL.first_name}`,
+                        pathname: `/kitchen/update-user/${userL.first_name}`,
                         state: {
                           detail: userL,
                         },

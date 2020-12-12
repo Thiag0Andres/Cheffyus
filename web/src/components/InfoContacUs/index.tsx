@@ -28,7 +28,7 @@ const FormContact: React.FC = () => {
 
   return (
     <Row id="content-contact-us">
-      <Col className="body">
+      <Col className="body" xl="12" lg="12" md="12" xs="12" sm="12">
         <div className="information">
           <MdPhoneIphone size={50} className="icon" />
           <p className="text">(+1) 703 909 3859 (USA)</p>

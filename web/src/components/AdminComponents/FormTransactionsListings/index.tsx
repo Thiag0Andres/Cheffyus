@@ -133,7 +133,7 @@ const FormTransactionsListings: React.FC = () => {
                           <td>
                             <Link
                               to={{
-                                pathname: `/restaurant/${restaurant.kitchen.name}`,
+                                pathname: `/kitchen/restaurant/${restaurant.kitchen.name}`,
                                 state: {
                                   detail: restaurant,
                                 },

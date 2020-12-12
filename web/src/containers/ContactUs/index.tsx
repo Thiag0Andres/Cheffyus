@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // Components
-import NavBar from "../../components/NavBar";
+import NavBarHome from "../../components/NavBarHome";
 import Background2 from "../../components/Background2";
 import InfoContacUs from "../../components/InfoContacUs";
 import FormTextArea from "../../components/FormTextArea";
@@ -12,7 +12,7 @@ const ContactUs: React.FC = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBarHome />
       <Background2 text={text} />
       <InfoContacUs />
       <FormTextArea />

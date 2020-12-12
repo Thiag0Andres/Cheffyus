@@ -110,7 +110,7 @@ const FormKitchenListings: React.FC = () => {
                   <td>
                     <Link
                       to={{
-                        pathname: `/restaurant/${restaurant.kitchen.name}`,
+                        pathname: `/kitchen/restaurant/${restaurant.kitchen.name}`,
                         state: {
                           detail: restaurant,
                         },
@@ -126,7 +126,7 @@ const FormKitchenListings: React.FC = () => {
                   <td>
                     <Link
                       to={{
-                        pathname: `/update-kitchen/${restaurant.kitchen.name}`,
+                        pathname: `/kitchen/update-kitchen/${restaurant.kitchen.name}`,
                         state: {
                           detail: restaurant,
                         },

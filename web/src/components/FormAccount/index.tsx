@@ -165,7 +165,7 @@ const FormAccount: React.FC = () => {
       .then(() => {
         dispatch(removeUser());
         dispatch(removeToken());
-        history.push("/");
+        history.push("/kitchen/grid-kitchens");
 
         enqueueSnackbar("User successfully deleted!", {
           variant: "success",

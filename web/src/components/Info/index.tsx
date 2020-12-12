@@ -54,7 +54,7 @@ const Info: React.FC<Props> = ({ detail, formData }) => {
           <p>
             <Link
               to={{
-                pathname: `/restaurant/${detail.kitchen.name}`,
+                pathname: `/kitchen/restaurant/${detail.kitchen.name}`,
                 state: {
                   detail: detail,
                 },
@@ -65,7 +65,7 @@ const Info: React.FC<Props> = ({ detail, formData }) => {
             &nbsp; by &nbsp;
             <Link
               to={{
-                pathname: `/profile-chef/${detail.user.first_name}`,
+                pathname: `/kitchen/profile-chef/${detail.user.first_name}`,
                 state: {
                   detail: detail,
                 },

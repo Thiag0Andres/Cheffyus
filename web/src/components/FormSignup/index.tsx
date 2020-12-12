@@ -118,7 +118,7 @@ const FormSignup: React.FC = () => {
             })
           );
 
-          history.push("/confirm-login");
+          history.push("/kitchen/confirm-login");
 
           enqueueSnackbar("User successfully registered!", {
             variant: "success",
@@ -168,7 +168,7 @@ const FormSignup: React.FC = () => {
           })
         );
 
-        history.push("/confirm-login");
+        history.push("/kitchen/confirm-login");
 
         enqueueSnackbar("User successfully registered!", {
           variant: "success",

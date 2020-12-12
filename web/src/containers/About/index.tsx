@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // Components
-import NavBar from "../../components/NavBar";
+import NavBarHome from "../../components/NavBarHome";
 import Background2 from "../../components/Background2";
 import InformationsAbout from "../../components/InformationsAbout";
 
@@ -11,7 +11,7 @@ const About: React.FC = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBarHome />
       <Background2 text={text} />
       <InformationsAbout />
     </>

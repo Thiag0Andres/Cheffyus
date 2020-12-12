@@ -71,7 +71,7 @@ const FormConfirmLogin: React.FC = () => {
         dispatch(updateUser(data));
         setFormData({ email: "", tokenEmail: "" });
 
-        history.push("/");
+        history.push("/kitchen/grid-kitchens");
 
         enqueueSnackbar("Email verified successfully!", {
           variant: "success",

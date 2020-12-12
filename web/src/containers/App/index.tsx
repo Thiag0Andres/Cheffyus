@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
 
-import Routes from "../../routes/__Routes";
+import Routes from "../../Routes";
 
 import "../../common.scss";
 

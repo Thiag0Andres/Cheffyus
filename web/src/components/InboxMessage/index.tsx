@@ -79,7 +79,7 @@ const InboxMessage: React.FC = () => {
             key={messageL.id}
             className="message"
             to={{
-              pathname: `/conversation/${messageL.sender.first_name}`,
+              pathname: `/kitchen/conversation/${messageL.sender.first_name}`,
               state: {
                 detail: messageL,
               },
@@ -98,7 +98,7 @@ const InboxMessage: React.FC = () => {
               <div className="name-hour">
                 <Link
                   to={{
-                    pathname: `/profile-chef/${messageL.sender.first_name}`,
+                    pathname: `/kitchen/profile-chef/${messageL.sender.first_name}`,
                     state: {
                       detail: messageL.sender,
                     },

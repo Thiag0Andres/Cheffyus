@@ -68,13 +68,13 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
   const handleNextPageContactChef = () => {
     if (isLogged) {
       history.push({
-        pathname: `/contact-chef/${detail.user.username}`,
+        pathname: `/kitchen/contact-chef/${detail.user.username}`,
         state: {
           detail: detail,
         },
       });
     } else {
-      history.push("/login");
+      history.push("/kitchen/login");
       enqueueSnackbar("You must log in to Cheffy to contact a chef", {
         variant: "error",
       });
@@ -84,14 +84,14 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
   const handleNextPageRequest = () => {
     if (isLogged) {
       history.push({
-        pathname: `/request/${detail.kitchen.name}`,
+        pathname: `/kitchen/request/${detail.kitchen.name}`,
         state: {
           detail: detail,
           formData: formData,
         },
       });
     } else {
-      history.push("/login");
+      history.push("/kitchen/login");
       enqueueSnackbar("You must log in to Cheffy to make a request", {
         variant: "error",
       });
@@ -215,7 +215,7 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
         <Row className="box2">
           <Link
             to={{
-              pathname: `/profile-chef/${detail.user.first_name}`,
+              pathname: `/kitchen/profile-chef/${detail.user.first_name}`,
               state: {
                 detail: detail,
               },
@@ -234,7 +234,7 @@ const RestaurantInfo: React.FC<Props> = ({ detail }) => {
           <div>
             <Link
               to={{
-                pathname: `/profile-chef/${detail.user.first_name}`,
+                pathname: `/kitchen/profile-chef/${detail.user.first_name}`,
                 state: {
                   detail: detail,
                 },

@@ -68,7 +68,7 @@ const FormLogin: React.FC = () => {
         dispatch(updateUser(data.user));
         dispatch(updateToken(data.token));
 
-        history.push("/");
+        history.push("/kitchen/grid-kitchens");
         enqueueSnackbar("User successfully logged in!", { variant: "success" });
       })
       .catch((error) => {
@@ -122,7 +122,7 @@ const FormLogin: React.FC = () => {
           dispatch(updateUser(data.user));
           dispatch(updateToken(data.token));
 
-          history.push("/");
+          history.push("/kitchen/grid-kitchens");
           enqueueSnackbar("User successfully logged in!", {
             variant: "success",
           });

@@ -230,7 +230,7 @@ const FormAddKitchen: React.FC = () => {
         headers: { Authorization: token },
       })
       .then(() => {
-        history.push("/");
+        history.push("/kitchen/grid-kitchens");
         enqueueSnackbar("Kitchen successfully registered!", {
           variant: "success",
         });

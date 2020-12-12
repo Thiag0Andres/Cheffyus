@@ -85,7 +85,7 @@ const FormContact: React.FC<Props> = ({ detail, verification }) => {
             Send message to{" "}
             <Link
               to={{
-                pathname: `/profile-chef/${detail.user.first_name}`,
+                pathname: `/kitchen/profile-chef/${detail.user.first_name}`,
                 state: {
                   detail: detail,
                 },

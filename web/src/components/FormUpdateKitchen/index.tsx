@@ -264,7 +264,7 @@ const FormUpdateKitchen: React.FC<Props> = ({ detail }) => {
         headers: { Authorization: token },
       })
       .then(() => {
-        history.push("/settings");
+        history.push("/kitchen/settings");
         enqueueSnackbar("Kitchen successfully updated!", {
           variant: "success",
         });

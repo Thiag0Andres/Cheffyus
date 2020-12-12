@@ -43,13 +43,13 @@ const ChefProfile: React.FC<Props> = ({ detail }) => {
   const handleNextPage = () => {
     if (isLogged) {
       history.push({
-        pathname: `/contact-chef/${detail.user.first_name}`,
+        pathname: `/kitchen/contact-chef/${detail.user.first_name}`,
         state: {
           detail: detail,
         },
       });
     } else {
-      history.push("/login");
+      history.push("/kitchen/login");
       enqueueSnackbar("You must log in to Cheffy to contact a chef", {
         variant: "error",
       });
@@ -66,7 +66,7 @@ const ChefProfile: React.FC<Props> = ({ detail }) => {
           <Link
             className="box1"
             to={{
-              pathname: `/restaurant/${detail.kitchen.name}`,
+              pathname: `/kitchen/restaurant/${detail.kitchen.name}`,
               state: {
                 detail: detail,
               },

@@ -147,21 +147,33 @@ const Grid: React.FC = () => {
             </Button>
           </Hidden>
           <Pagination>
-            <Pagination.Item id="pagination1" href="/" active={true}>
+            <Pagination.Item
+              id="pagination1"
+              href="/kitchen/grid-kitchens"
+              active={true}
+            >
               <BsFillGridFill />
               &nbsp;&nbsp;
               <Hidden smDown implementation="css">
                 Grid
               </Hidden>
             </Pagination.Item>
-            <Pagination.Item id="pagination2" href="/list" disabled={false}>
+            <Pagination.Item
+              id="pagination2"
+              href="/kitchen/list-kitchens"
+              disabled={false}
+            >
               <GoListUnordered />
               &nbsp;&nbsp;
               <Hidden smDown implementation="css">
                 List
               </Hidden>
             </Pagination.Item>
-            <Pagination.Item id="pagination3" href="/map" disabled={false}>
+            <Pagination.Item
+              id="pagination3"
+              href="/kitchen/map-kitchens"
+              disabled={false}
+            >
               <FaMapMarkedAlt />
               <Hidden smDown implementation="css">
                 &nbsp;&nbsp; Map
@@ -305,7 +317,7 @@ const Grid: React.FC = () => {
                   <Link
                     className="box1"
                     to={{
-                      pathname: `/restaurant/${restaurant.kitchen.name}`,
+                      pathname: `/kitchen/restaurant/${restaurant.kitchen.name}`,
                       state: {
                         detail: restaurant,
                       },
@@ -325,7 +337,7 @@ const Grid: React.FC = () => {
                   <Link
                     className="box2"
                     to={{
-                      pathname: `/profile-chef/${restaurant.user.first_name}`,
+                      pathname: `/kitchen/profile-chef/${restaurant.user.first_name}`,
                       state: {
                         detail: restaurant,
                       },
@@ -343,7 +355,7 @@ const Grid: React.FC = () => {
                     &nbsp;&nbsp;&nbsp;
                     <Link
                       to={{
-                        pathname: `/profile-chef/${restaurant.user.first_name}`,
+                        pathname: `/kitchen/profile-chef/${restaurant.user.first_name}`,
                         state: {
                           detail: restaurant,
                         },
