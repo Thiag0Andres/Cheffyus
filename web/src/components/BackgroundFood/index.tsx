@@ -4,16 +4,14 @@ import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import "./styles.scss";
-
-const Background: React.FC = () => {
+const BackgroundFood: React.FC = () => {
   return (
     <Row id="page-home-background">
       <Col className="text" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
-        <h6> Cheffy</h6>
-        <p>Rent Kitchen. Lease Kitchen.</p>
+        <h6>Cheffy</h6>
+        <p>Order Food. Lease Food.</p>
       </Col>
     </Row>
   );
 };
-export default Background;
+export default BackgroundFood;

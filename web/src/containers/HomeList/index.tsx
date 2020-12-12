@@ -9,7 +9,7 @@ import { User } from "../../store/ducks/user/types";
 
 // Components
 import NavBar from "../../components/NavBar";
-import Background from "../../components/Background";
+import Background from "../../components/BackgroundKitchen";
 import List from "../../components/List";
 
 const HomeGrid: React.FC = () => {

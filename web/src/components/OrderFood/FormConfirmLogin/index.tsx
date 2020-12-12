@@ -4,12 +4,12 @@ import { useHistory } from "react-router-dom";
 // Redux e Auth
 import { useSelector, RootStateOrAny } from "react-redux";
 import { useDispatch } from "react-redux";
-import { updateUser, removeUser } from "../../store/ducks/user/actions";
-import { updateToken, removeToken } from "../../store/ducks/token/actions";
+import { updateUser, removeUser } from "../../../store/ducks/user/actions";
+import { updateToken, removeToken } from "../../../store/ducks/token/actions";
 
 // Types
-import { User } from "../../store/ducks/user/types";
-import { Token } from "../../store/ducks/token/types";
+import { User } from "../../../store/ducks/user/types";
+import { Token } from "../../../store/ducks/token/types";
 
 //Message
 import { useSnackbar } from "notistack";
@@ -20,7 +20,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import api from "../../services/api";
+import api from "../../../services/api";
 
 import "./styles.scss";
 

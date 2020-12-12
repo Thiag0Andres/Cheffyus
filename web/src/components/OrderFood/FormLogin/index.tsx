@@ -9,10 +9,10 @@ import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Button";
 
 // Redux e Auth
-import { checkAuth } from "../../services/validation";
+import { checkAuth } from "../../../services/validation";
 import { useDispatch } from "react-redux";
-import { updateUser } from "../../store/ducks/user/actions";
-import { updateToken } from "../../store/ducks/token/actions";
+import { updateUser } from "../../../store/ducks/user/actions";
+import { updateToken } from "../../../store/ducks/token/actions";
 
 // Facebook login
 import FacebookLogin from "react-facebook-login";
@@ -24,7 +24,7 @@ import { useSnackbar } from "notistack";
 import { IoLogoFacebook } from "react-icons/io";
 import { FaInfoCircle } from "react-icons/fa";
 
-import api from "../../services/api";
+import api from "../../../services/api";
 
 import "./styles.scss";
 

@@ -1,0 +1,63 @@
+@import "../../../mixin.scss";
+
+#contentSignup {
+  padding-right: 0;
+  padding-left: 0;
+  padding: 30px;
+
+  .body {
+    display: flex;
+    justify-content: center;
+
+    .form {
+      width: 456px;
+      height: 780px;
+
+      .text {
+        width: 100%;
+        display: block;
+        margin-top: 12px;
+        margin-bottom: 3px;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+        color: $gray_light;
+      }
+
+      .input {
+        border-radius: 5px;
+        border: 2px solid #c3c3c3;
+        min-height: 42px;
+        width: 100%;
+        box-shadow: none;
+      }
+
+      .text2 {
+        display: inline-block;
+        width: auto;
+        padding: 0 0 0 1.5em;
+        margin-top: 0.5625em;
+        margin-bottom: 0.1875em;
+        font-weight: 600;
+        font-size: 1em;
+        line-height: 1.5em;
+        color: #3c3c3c;
+      }
+
+      .button2 {
+        width: 150px;
+        height: 42px;
+        margin-top: 20px;
+        box-shadow: none;
+        background-color: $red_classic;
+        border-color: $red_classic;
+        color: $white;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: $red_light;
+        }
+      }
+    }
+  }
+}

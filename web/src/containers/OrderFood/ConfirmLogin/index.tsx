@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 // Components
-import NavBar from "../../components/NavBar";
-import Background2 from "../../components/Background2";
-import FormConfirmLogin from "../../components/FormConfirmLogin";
+import NavBar from "../../../components/NavBar";
+import Background2 from "../../../components/Background2";
+import FormConfirmLogin from "../../../components/OrderFood/FormConfirmLogin";
 
 const ConfirmLogin: React.FC = () => {
   // States

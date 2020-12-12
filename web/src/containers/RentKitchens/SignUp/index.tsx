@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 // Components
-import NavBar from "../../components/NavBar";
-import Background2 from "../../components/Background2";
-import FormSignup from "../../components/FormSignup";
+import NavBar from "../../../components/NavBar";
+import Background2 from "../../../components/Background2";
+import FormSignup from "../../../components/RentKitchen/FormSignup";
 
 const SignUp: React.FC = () => {
   // States

@@ -53,7 +53,7 @@ interface Props {
   window?: () => Window;
 }
 
-const NavBar: React.FC<Props> = (props: Props) => {
+const NavBarFood: React.FC<Props> = (props: Props) => {
   const { window } = props;
   const dispatch = useDispatch();
   const user: User = useSelector((state: ApplicationState) => state.user.user);
@@ -111,15 +111,15 @@ const NavBar: React.FC<Props> = (props: Props) => {
   const logout = () => {
     dispatch(removeUser());
     dispatch(removeToken());
-    history.push("/kitchen/grid-kitchens");
+    history.push("/food/grid-foods");
     enqueueSnackbar("User successfully logged out!", { variant: "info" });
   };
 
   const handlePage = () => {
     if (isLogged) {
-      history.push("/kitchen/add-kitchen");
+      history.push("/food/add-kitchen");
     } else {
-      history.push("/kitchen/login");
+      history.push("/food/login");
       enqueueSnackbar("You must log in to Cheffy to add a new listing.", {
         variant: "error",
       });
@@ -127,12 +127,12 @@ const NavBar: React.FC<Props> = (props: Props) => {
   };
 
   const handlePageAdmin = () => {
-    history.push("/kitchen/administrator");
+    history.push("/food/administrator");
   };
 
   const handlePageProfile = () => {
     history.push({
-      pathname: `/kitchen/profile-user/${user.username}`,
+      pathname: `/food/profile-user/${user.username}`,
       state: {
         detail: user,
       },
@@ -162,17 +162,17 @@ const NavBar: React.FC<Props> = (props: Props) => {
             )}
           </div>
 
-          <Button className="button" type="submit" href="/kitchen/add-kitchen">
+          <Button className="button" type="submit" href="">
             + Add Your Kitchen
           </Button>
         </div>
       ) : (
         <div className="drawer-login2">
-          <Link className="text3" to="/kitchen/signup">
+          <Link className="text3" to="/food/signup">
             Sign up
           </Link>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <Link className="text3" to="/kitchen/login">
+          <Link className="text3" to="/food/login">
             Log in
           </Link>
         </div>
@@ -180,7 +180,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
 
       <div className="drawer-menu">
         <p>Menu</p>
-        <Link className="text3" to="/kitchen/grid-kitchens">
+        <Link className="text3" to="/food/grid-foods">
           Home
         </Link>
         <Link className="text3" to="/about">
@@ -195,13 +195,13 @@ const NavBar: React.FC<Props> = (props: Props) => {
         <Hidden mdUp implementation="css">
           <div className="drawer-user">
             <p>User</p>
-            <Link className="text3" to="/kitchen/inbox">
+            <Link className="text3" to="">
               Inbox
             </Link>
             <Link
               className="text3"
               to={{
-                pathname: `/kitchen/profile-user/${user.username}`,
+                pathname: `/food/profile-user/${user.username}`,
                 state: {
                   detail: user,
                 },
@@ -209,7 +209,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
             >
               Profile
             </Link>
-            <Link className="text3" to="/kitchen/settings">
+            <Link className="text3" to="">
               Settings
             </Link>
           </div>
@@ -261,7 +261,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
               <BiMenu />
             </IconButton>
           </Hidden>
-          <Navbar.Brand className="logo" href="/kitchen/grid-kitchens">
+          <Navbar.Brand className="logo" href="/food/grid-foods">
             <img src={logo} alt="Cheffy" />
           </Navbar.Brand>
           <Hidden smDown implementation="css">
@@ -269,7 +269,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
               <FormControl
                 className="search"
                 type="text"
-                placeholder="Search Kitchen here..."
+                placeholder="Search for a food here..."
                 name="search"
                 onChange={handleInputChange}
               />
@@ -309,7 +309,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
                     >
                       <Row className="row1">
                         <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
-                          <Link className="item" to="/kitchen/inbox">
+                          <Link className="item" to="">
                             <FiInbox size={32} />
                             Inbox
                           </Link>
@@ -318,7 +318,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
                           <Link
                             className="item"
                             to={{
-                              pathname: `/kitchen/profile-user/${user.username}`,
+                              pathname: `/food/profile-user/${user.username}`,
                               state: {
                                 detail: user,
                               },
@@ -329,7 +329,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
                           </Link>
                         </Col>
                         <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
-                          <Link className="item" to="/kitchen/settings">
+                          <Link className="item" to="">
                             <GiSettingsKnobs size={32} />
                             Settings
                           </Link>
@@ -357,20 +357,16 @@ const NavBar: React.FC<Props> = (props: Props) => {
                   )}
                 </div>
 
-                <Button
-                  className="button2"
-                  type="submit"
-                  href="/kitchen/add-kitchen"
-                >
+                <Button className="button2" type="submit" href="">
                   + Add Your Kitchen
                 </Button>
               </div>
             ) : (
               <div className="box2">
-                <Nav.Link className="text2" href="/kitchen/signup">
+                <Nav.Link className="text2" href="/food/signup">
                   Sign up
                 </Nav.Link>
-                <Nav.Link className="text2" href="/kitchen/login">
+                <Nav.Link className="text2" href="/food/login">
                   Log in
                 </Nav.Link>
                 <Button className="button2" type="submit" onClick={handlePage}>
@@ -409,7 +405,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
             <FormControl
               className="search"
               type="text"
-              placeholder="Search Kitchen here..."
+              placeholder="Search for a food here..."
               name="search"
               value={formData.search}
               onChange={handleInputChange}
@@ -430,4 +426,4 @@ const NavBar: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default NavBar;
+export default NavBarFood;

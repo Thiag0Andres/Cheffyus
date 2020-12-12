@@ -3,18 +3,19 @@ import React from "react";
 const About: React.FC = () => {
   return (
     <>
-      <h2>Community marketplace</h2>
+      <h1>This is our story.</h1>
       <p>
-        This is a place to rent and share kitchens with the other Chefs of the
-        Cheffy.
+        TEAM Cheffy, we aim to bring opportunities to every people with any
+        backgrounds. Because our app supports all different food categories for
+        different health conditions, people with special dietary requirements
+        can use Cheffy to meet their custom food needs. Plus, We do this by
+        empowering local businesses and in turn, generate new ways for people to
+        earn, work and live. We started this in 5 states including Washington,
+        D.C., Virginia, Maryland, Pennsylvania, New York and with more coming
+        soon...
       </p>
-      <p>
-        This marketplace is powered by Sharetribe platform. With Sharetribe you
-        can easily create your own marketplace website. It's free and only takes
-        a minute.
-        <a href="https://www.sharetribe.com/?ref=about_page"> Click here</a> to
-        learn more!
-      </p>
+      <p></p>
+      <a href="https://thecheffy.com/index.html">thecheffy.com</a>
     </>
   );
 };

@@ -2,10 +2,10 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useHistory } from "react-router-dom";
 
 // Redux e Auth
-import { checkAuth } from "../../services/validation";
+import { checkAuth } from "../../../services/validation";
 import { useDispatch } from "react-redux";
-import { updateUser } from "../../store/ducks/user/actions";
-import { updateToken } from "../../store/ducks/token/actions";
+import { updateUser } from "../../../store/ducks/user/actions";
+import { updateToken } from "../../../store/ducks/token/actions";
 
 //Message
 import { useSnackbar } from "notistack";
@@ -22,7 +22,7 @@ import FacebookLogin from "react-facebook-login";
 // Icons
 import { IoLogoFacebook } from "react-icons/io";
 
-import api from "../../services/api";
+import api from "../../../services/api";
 
 import "./styles.scss";
 

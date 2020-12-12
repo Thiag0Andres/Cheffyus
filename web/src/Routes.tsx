@@ -13,9 +13,9 @@ import ContactUs from "./containers/ContactUs";
 import HomeGrid from "./containers/HomeGrid";
 import HomeList from "./containers/HomeList";
 import HomeMap from "./containers/HomeMap";
-import LogIn from "./containers/LogIn";
-import ConfirmLogin from "./containers/ConfirmLogin";
-import SignUp from "./containers/SignUp";
+import LogInKitchen from "./containers/RentKitchens/LogIn";
+import SignUpKitchen from "./containers/RentKitchens/SignUp";
+import ConfirmLoginKitchen from "./containers/RentKitchens/ConfirmLogin";
 import AddKitchen from "./containers/AddKitchen";
 import Restaurant from "./containers/Restaurant";
 import ProfileChef from "./containers/ProfileChef";
@@ -30,7 +30,10 @@ import Conversation from "./containers/Conversation";
 import Administrator from "./containers/Administrator";
 
 //Containers Food
-import HomeGridFood from "./containers/HomeGrid copy";
+import HomeGridFood from "./containers/HomeGridFood";
+import LogInFood from "./containers/OrderFood/LogIn";
+import SignUpFood from "./containers/OrderFood/SignUp";
+import ConfirmLoginFood from "./containers/OrderFood/ConfirmLogin";
 
 export default function Routes() {
   return (
@@ -43,8 +46,8 @@ export default function Routes() {
         <Route path="/kitchen/grid-kitchens" component={HomeGrid} />
         <Route path="/kitchen/list-kitchens" component={HomeList} />
         <Route path="/kitchen/map-kitchens" component={HomeMap} />
-        <Route path="/kitchen/login" component={LogIn} />
-        <Route path="/kitchen/signup" component={SignUp} />
+        <Route path="/kitchen/login" component={LogInKitchen} />
+        <Route path="/kitchen/signup" component={SignUpKitchen} />
         <Route path="/kitchen/restaurant/:restaurant" component={Restaurant} />
         <Route
           path="/kitchen/profile-chef/:profileChef"
@@ -54,7 +57,7 @@ export default function Routes() {
         <PrivateRentKitchenRoute
           exact
           path="/kitchen/confirm-login"
-          component={ConfirmLogin}
+          component={ConfirmLoginKitchen}
         />
         <PrivateRentKitchenRoute
           exact
@@ -109,6 +112,8 @@ export default function Routes() {
         />
 
         <Route path="/food/grid-foods" component={HomeGridFood} />
+        <Route path="/food/login" component={LogInFood} />
+        <Route path="/food/signup" component={SignUpFood} />
 
         <Redirect from="*" to="/" />
       </Switch>

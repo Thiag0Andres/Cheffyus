@@ -8,11 +8,11 @@ import { isAuthenticated } from "../../services/auth";
 import { User } from "../../store/ducks/user/types";
 
 // Components
-import NavBar from "../../components/NavBar";
-import Background from "../../components/Background";
-import GridFood from "../../components/Grid copy";
+import NavBarFood from "../../components/NavBarFood";
+import Background from "../../components/BackgroundFood";
+import GridFood from "../../components/GridFood";
 
-const HomeGrid: React.FC = () => {
+const HomeGridFood: React.FC = () => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
 
   // States
@@ -26,11 +26,11 @@ const HomeGrid: React.FC = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBarFood />
       {!isLogged && <Background />}
       <GridFood />
     </>
   );
 };
 
-export default HomeGrid;
+export default HomeGridFood;
