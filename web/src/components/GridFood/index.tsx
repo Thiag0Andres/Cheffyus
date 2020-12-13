@@ -69,23 +69,6 @@ const GridFood: React.FC<Props> = ({ filter }) => {
 
   useEffect(() => {
     //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = `https://mycheffy.herokuapp.com/plate/?pageSize=${12}`;
-
-    api
-      .get(url)
-      .then((response) => {
-        const data = response.data;
-        setRestaurants(data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  console.log(restaurants);
-
-  useEffect(() => {
-    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = `https://mycheffy.herokuapp.com/plate/?page=${page}&pageSize=${12}`;
 
     api
@@ -98,6 +81,8 @@ const GridFood: React.FC<Props> = ({ filter }) => {
         console.log(error);
       });
   }, [page]);
+
+  console.log(restaurants);
 
   const handleChangePagination = (
     event: React.ChangeEvent<unknown>,
@@ -115,7 +100,7 @@ const GridFood: React.FC<Props> = ({ filter }) => {
     event.preventDefault();
 
     //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = `https://mycheffy.herokuapp.com/plate/?pageSize=${12}&price=${
+    const url = `https://mycheffy.herokuapp.com/plate/?page=${page}&pageSize=${12}&price=${
       value[0]
     }`;
 

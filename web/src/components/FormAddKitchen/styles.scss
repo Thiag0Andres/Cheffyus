@@ -1,6 +1,7 @@
 @import "../../mixin.scss";
 
 #content-add-kitchen {
+  height: 100%;
   padding-right: 0;
   padding-left: 0;
   padding: 30px;
@@ -10,7 +11,6 @@
 
   .body {
     width: 556px;
-    height: 130.5px;
     display: flex;
     flex-direction: column;
 

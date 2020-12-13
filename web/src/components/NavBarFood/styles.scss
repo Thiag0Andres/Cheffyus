@@ -162,7 +162,7 @@
   }
 }
 
-#navbar {
+#navbarfood {
   height: 80px;
   display: flex;
   justify-content: space-between;
@@ -396,7 +396,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  #navbar {
+  #navbarfood {
     .content1 {
       width: 65% !important;
       justify-content: space-between !important;
@@ -408,7 +408,7 @@
 }
 
 @media screen and (max-width: 414px) {
-  #navbar {
+  #navbarfood {
     .content1 {
       width: 75% !important;
     }
@@ -419,7 +419,7 @@
 }
 
 @media screen and (max-width: 375px) {
-  #navbar {
+  #navbarfood {
     .content1 {
       width: 77% !important;
     }
@@ -430,7 +430,7 @@
 }
 
 @media screen and (max-width: 360px) {
-  #navbar {
+  #navbarfood {
     .content1 {
       width: 80% !important;
     }
@@ -441,7 +441,7 @@
 }
 
 @media screen and (max-width: 320px) {
-  #navbar {
+  #navbarfood {
     .content1 {
       width: 85% !important;
     }

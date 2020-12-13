@@ -59,7 +59,7 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
   /*   const handleNextPageContactChef = () => {
     if (isLogged) {
       history.push({
-        pathname: `/kitchen/contact-chef/${detail.user.username}`,
+        pathname: `/food/contact-chef/${detail.chef.name}`,
         state: {
           detail: detail,
         },
@@ -73,7 +73,7 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
   }; */
 
   const handleNextPageRequest = () => {
-    if (isLogged) {
+    /*     if (isLogged) {
       history.push({
         pathname: `/food/request/${detail.name}`,
         state: {
@@ -82,11 +82,19 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
         },
       });
     } else {
-      history.push("/kitchen/login");
+      history.push("/food/login");
       enqueueSnackbar("You must log in to Cheffy to make a request", {
         variant: "error",
       });
-    }
+    } */
+
+    history.push({
+      pathname: `/food/request/${detail.name}`,
+      state: {
+        detail: detail,
+        formData: formData,
+      },
+    });
   };
 
   const handleInputChange = async (event: ChangeEvent<HTMLSelectElement>) => {

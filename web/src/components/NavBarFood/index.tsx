@@ -125,7 +125,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
       history.push("/food/add-kitchen");
     } else {
       history.push("/food/login");
-      enqueueSnackbar("You must log in to Cheffy to add a new listing.", {
+      enqueueSnackbar("You must log in to Cheffy to see the cart.", {
         variant: "error",
       });
     }
@@ -237,7 +237,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <Navbar id="navbar" expand="xl">
+      <Navbar id="navbarfood" expand="xl">
         <Drawer
           container={container}
           variant="temporary"

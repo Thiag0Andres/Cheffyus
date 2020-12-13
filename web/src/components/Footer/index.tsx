@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
       <div className="footer-center">
         {icons.map((Icon) => (
           <div className="icons">
-            <a href={Icon.link} target="__blank">
+            <a href={Icon.link} target="__blank" style={{ marginLeft: "10px" }}>
               <Icon.icon size={26} color={"#777777"} className="icon" />
             </a>
           </div>

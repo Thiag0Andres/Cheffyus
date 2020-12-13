@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 // Components
-import NavBar from "../../components/NavBar";
+import NavBarFood from "../../components/NavBarFood";
 import Background2 from "../../components/Background2";
-import Info from "../../components/Info";
+import InfoFood from "../../components/InfoFood";
 import Footer from "../../components/Footer";
 
 const RequestFood: React.FC = () => {
@@ -17,12 +17,13 @@ const RequestFood: React.FC = () => {
 
   // States
   const [text, setText] = useState(`Request ${detail.name}`);
+  const [filter, setFilter] = useState([]);
 
   return (
     <>
-      <NavBar />
+      <NavBarFood setFilter={setFilter} />
       <Background2 text={text} />
-      <Info detail={detail} formData={formData} />
+      <InfoFood detail={detail} formData={formData} />
       <Footer />
     </>
   );
