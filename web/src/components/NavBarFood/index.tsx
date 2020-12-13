@@ -28,11 +28,14 @@ import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
 import { useTheme } from "@material-ui/core/styles";
 
+// Components
+import GridFood from "../GridFood";
+
 //Message
 import { useSnackbar } from "notistack";
 
 //Icons
-import { FaRegUser } from "react-icons/fa";
+import { FaRegUser, FaShoppingCart } from "react-icons/fa";
 import { FiInbox } from "react-icons/fi";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { BiMenu } from "react-icons/bi";
@@ -51,10 +54,11 @@ interface Props {
    * You won't need it on your project.
    */
   window?: () => Window;
+  setFilter: any;
 }
 
 const NavBarFood: React.FC<Props> = (props: Props) => {
-  const { window } = props;
+  const { window, setFilter } = props;
   const dispatch = useDispatch();
   const user: User = useSelector((state: ApplicationState) => state.user.user);
   const history = useHistory();
@@ -74,32 +78,33 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
 
   // Chamada a api
   useEffect(() => {
-    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = "http://cheffyus-api.herokuapp.com/";
+    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    const url = `https://mycheffy.herokuapp.com/plate/?pageSize=${12}`;
 
     api
-      .get(proxyurl + url + "kitchens")
+      .get(url)
       .then((response) => {
-        setRestaurants(response.data);
-        //console.log(response.data);
+        const data = response.data;
+        setRestaurants(data.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
+  useEffect(() => {
+    setFilter(filteredKitchens);
+    console.log(filteredKitchens);
+  }, [formData.search]);
+
   const filteredKitchens: any = restaurants.filter((restaurant: any) => {
     return (
-      (restaurant.kitchen.name
-        .toLowerCase()
-        .indexOf(formData.search.toLowerCase()) &&
-        restaurant.user.first_name
+      (restaurant.name.toLowerCase().indexOf(formData.search.toLowerCase()) &&
+        restaurant.chef.name
           .toLowerCase()
           .indexOf(formData.search.toLowerCase())) !== -1
     );
   });
-
-  dispatch(updateFilterName(filteredKitchens));
 
   // Atualiza o estado de autenticação na mudança de usuário
   useEffect(() => {
@@ -163,7 +168,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
           </div>
 
           <Button className="button" type="submit" href="">
-            + Add Your Kitchen
+            <FaShoppingCart /> Cart
           </Button>
         </div>
       ) : (
@@ -214,11 +219,6 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
             </Link>
           </div>
           <div className="logout-adm">
-            {user.user_type == "admin" && (
-              <Button className="button1" onClick={handlePageAdmin}>
-                Admin panel
-              </Button>
-            )}
             <Button
               className="button1"
               style={{ justifyContent: "flex-end" }}
@@ -336,15 +336,6 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                         </Col>
                       </Row>
                       <Row className="row2">
-                        {user.user_type == "admin" && (
-                          <Button
-                            className="button1"
-                            style={{ justifyContent: "flex-start" }}
-                            onClick={handlePageAdmin}
-                          >
-                            Admin panel
-                          </Button>
-                        )}
                         <Button
                           className="button3"
                           style={{ justifyContent: "flex-end" }}
@@ -358,7 +349,8 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                 </div>
 
                 <Button className="button2" type="submit" href="">
-                  + Add Your Kitchen
+                  <FaShoppingCart />
+                  &nbsp;&nbsp;&nbsp;Cart
                 </Button>
               </div>
             ) : (
@@ -370,7 +362,8 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                   Log in
                 </Nav.Link>
                 <Button className="button2" type="submit" onClick={handlePage}>
-                  + Add Your Kitchen
+                  <FaShoppingCart />
+                  &nbsp;&nbsp;&nbsp;Cart
                 </Button>
               </div>
             )}
@@ -392,7 +385,8 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
               )}
               <Hidden xsDown implementation="css">
                 <Button className="button2" type="submit" onClick={handlePage}>
-                  + Add Your Kitchen
+                  <FaShoppingCart />
+                  &nbsp;&nbsp;&nbsp;Cart
                 </Button>
               </Hidden>
             </div>

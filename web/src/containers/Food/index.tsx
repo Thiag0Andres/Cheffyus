@@ -2,30 +2,32 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 // Components
-import NavBar from "../../components/NavBar";
+import NavBarFood from "../../components/NavBarFood";
 import Background2 from "../../components/Background2";
-import RestaurantInfo from "../../components/RestaurantInfo";
+import FoodInfo from "../../components/FoodInfo";
 import Footer from "../../components/Footer";
+
 interface Props {
   detail: any;
 }
 
-const Restaurant: React.FC<Props> = () => {
+const Food: React.FC<Props> = () => {
   const location = useLocation();
 
   const detail = (location.state as Props).detail;
 
   // States
-  const [text, setText] = useState(detail.kitchen.name);
+  const [text, setText] = useState(detail.name);
+  const [filter, setFilter] = useState([]);
 
   return (
     <>
-      <NavBar />
+      <NavBarFood setFilter={setFilter} />
       <Background2 text={text} />
-      <RestaurantInfo detail={detail} />
+      <FoodInfo detail={detail} />
       <Footer />
     </>
   );
 };
 
-export default Restaurant;
+export default Food;

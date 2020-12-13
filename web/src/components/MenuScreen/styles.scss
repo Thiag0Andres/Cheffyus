@@ -3,11 +3,13 @@
 #content-menu-screen {
   background: $red_classic url("../../images/background.svg") no-repeat center
     top;
-  width: 100%;
-  height: 88vh;
+  max-width: 1280px;
+  height: 100vh;
   padding: 0 50px;
 
   .body {
+    padding-left: 0;
+    padding-right: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;

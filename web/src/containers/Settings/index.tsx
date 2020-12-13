@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
 import InformationsSettings from "../../components/InformationsSettings";
+import Footer from "../../components/Footer";
 
 const Settings: React.FC = () => {
   // States
@@ -14,6 +15,7 @@ const Settings: React.FC = () => {
       <NavBar />
       <Background2 text={text} />
       <InformationsSettings />
+      <Footer />
     </>
   );
 };

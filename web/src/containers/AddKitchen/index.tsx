@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
 import FormAddKitchen from "../../components/FormAddKitchen";
+import Footer from "../../components/Footer";
 
 const AddKitchen: React.FC = () => {
   // States
@@ -14,6 +15,7 @@ const AddKitchen: React.FC = () => {
       <NavBar />
       <Background2 text={text} />
       <FormAddKitchen />
+      <Footer />
     </>
   );
 };

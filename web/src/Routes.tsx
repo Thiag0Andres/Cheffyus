@@ -21,7 +21,7 @@ import Restaurant from "./containers/Restaurant";
 import ProfileChef from "./containers/ProfileChef";
 import ProfileUser from "./containers/ProfileUser";
 import ContactChef from "./containers/ContactChef";
-import Request from "./containers/Request";
+import RequestKitchen from "./containers/RequestKitchen";
 import Settings from "./containers/Settings";
 import UpdateKitchen from "./containers/UpdateKitchen";
 import UpdateUser from "./containers/UpdateUser";
@@ -34,6 +34,8 @@ import HomeGridFood from "./containers/HomeGridFood";
 import LogInFood from "./containers/OrderFood/LogIn";
 import SignUpFood from "./containers/OrderFood/SignUp";
 import ConfirmLoginFood from "./containers/OrderFood/ConfirmLogin";
+import Food from "./containers/Food";
+import RequestFood from "./containers/RequestFood";
 
 export default function Routes() {
   return (
@@ -67,7 +69,7 @@ export default function Routes() {
         <PrivateRentKitchenRoute
           exact
           path="/kitchen/request/:request"
-          component={Request}
+          component={RequestKitchen}
         />
         <PrivateRentKitchenRoute
           exact
@@ -114,6 +116,8 @@ export default function Routes() {
         <Route path="/food/grid-foods" component={HomeGridFood} />
         <Route path="/food/login" component={LogInFood} />
         <Route path="/food/signup" component={SignUpFood} />
+        <Route path="/food/food/:food" component={Food} />
+        <Route path="/food/request/:request" component={RequestFood} />
 
         <Redirect from="*" to="/" />
       </Switch>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 // Redux e Auth
 import { useSelector, RootStateOrAny } from "react-redux";
@@ -11,12 +12,14 @@ import { User } from "../../store/ducks/user/types";
 import NavBarFood from "../../components/NavBarFood";
 import Background from "../../components/BackgroundFood";
 import GridFood from "../../components/GridFood";
+import Footer from "../../components/Footer";
 
 const HomeGridFood: React.FC = () => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
 
   // States
   const [isLogged, setIsLogged] = useState(false);
+  const [filter, setFilter] = useState([]);
 
   // Atualiza o estado de autenticação na mudança de usuário
   useEffect(() => {
@@ -26,9 +29,10 @@ const HomeGridFood: React.FC = () => {
 
   return (
     <>
-      <NavBarFood />
+      <NavBarFood setFilter={setFilter} />
       {!isLogged && <Background />}
-      <GridFood />
+      <GridFood filter={filter} />
+      <Footer />
     </>
   );
 };

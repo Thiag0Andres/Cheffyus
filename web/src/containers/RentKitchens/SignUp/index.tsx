@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import NavBar from "../../../components/NavBar";
 import Background2 from "../../../components/Background2";
 import FormSignup from "../../../components/RentKitchen/FormSignup";
+import Footer from "../../../components/Footer";
 
 const SignUp: React.FC = () => {
   // States
@@ -14,6 +15,7 @@ const SignUp: React.FC = () => {
       <NavBar />
       <Background2 text={text} />
       <FormSignup />
+      <Footer />
     </>
   );
 };

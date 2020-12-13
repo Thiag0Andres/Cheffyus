@@ -5,6 +5,7 @@ import NavBarHome from "../../components/NavBarHome";
 import Background2 from "../../components/Background2";
 import InfoContacUs from "../../components/InfoContacUs";
 import FormTextArea from "../../components/FormTextArea";
+import Footer from "../../components/Footer";
 
 const ContactUs: React.FC = () => {
   // States
@@ -16,6 +17,7 @@ const ContactUs: React.FC = () => {
       <Background2 text={text} />
       <InfoContacUs />
       <FormTextArea />
+      <Footer />
     </>
   );
 };

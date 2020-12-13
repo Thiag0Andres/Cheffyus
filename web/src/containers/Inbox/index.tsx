@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
 import InboxMessage from "../../components/InboxMessage";
+import Footer from "../../components/Footer";
 
 const Inbox: React.FC = () => {
   // States
@@ -14,6 +15,7 @@ const Inbox: React.FC = () => {
       <NavBar />
       <Background2 text={text} />
       <InboxMessage />
+      <Footer />
     </>
   );
 };

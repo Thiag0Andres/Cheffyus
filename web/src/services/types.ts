@@ -1,3 +1,10 @@
+import { IconType } from "react-icons";
+
+export interface Icon {
+  icon: IconType;
+  link: string;
+}
+
 export interface Example {
   id: string;
   options: Option[];

@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
 import UserProfile from "../../components/UserProfile";
+import Footer from "../../components/Footer";
 
 const ProfileUser: React.FC = () => {
   const location = useLocation();
@@ -19,6 +20,7 @@ const ProfileUser: React.FC = () => {
       <NavBar />
       <Background2 text={text} />
       <UserProfile detail={detail} />
+      <Footer />
     </>
   );
 };

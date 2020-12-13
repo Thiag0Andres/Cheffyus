@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
 import FormConversation from "../../components/FormConversation";
+import Footer from "../../components/Footer";
 
 const Conversation: React.FC = () => {
   const location = useLocation();
@@ -21,6 +22,7 @@ const Conversation: React.FC = () => {
       <NavBar />
       <Background2 text={text} />
       <FormConversation />
+      <Footer />
     </>
   );
 };

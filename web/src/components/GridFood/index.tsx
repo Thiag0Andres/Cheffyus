@@ -29,7 +29,7 @@ import PaginationUi from "../Pagination";
 
 // Images
 import userNotfound from "../../images/user.png";
-import kitchenNotFound from "../../images/kitchen.jpg";
+import foodNotFound from "../../images/foodNotFound.jpg";
 
 import api from "../../services/api";
 
@@ -47,7 +47,11 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const GridFood: React.FC = () => {
+interface Props {
+  filter: any;
+}
+
+const GridFood: React.FC<Props> = ({ filter }) => {
   const classes = useStyles();
 
   // States
@@ -57,12 +61,18 @@ const GridFood: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = React.useState(1);
 
+  //console.log("filter", filter);
+
   useEffect(() => {
-    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    setRestaurants(filter);
+  }, [filter]);
+
+  useEffect(() => {
+    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = `https://mycheffy.herokuapp.com/plate/?pageSize=${12}`;
 
     api
-      .get(proxyurl + url)
+      .get(url)
       .then((response) => {
         const data = response.data;
         setRestaurants(data.data);
@@ -72,14 +82,14 @@ const GridFood: React.FC = () => {
       });
   }, []);
 
-  //console.log(restaurants);
+  console.log(restaurants);
 
   useEffect(() => {
-    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = `https://mycheffy.herokuapp.com/plate/?page=${page}&pageSize=${12}`;
 
     api
-      .get(proxyurl + url)
+      .get(url)
       .then((response) => {
         const data = response.data;
         setRestaurants(data.data);
@@ -104,13 +114,13 @@ const GridFood: React.FC = () => {
   const FilterMinMax = (event: FormEvent) => {
     event.preventDefault();
 
-    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = `https://mycheffy.herokuapp.com/plate/?pageSize=${12}&price=${
       value[0]
     }`;
 
     api
-      .get(proxyurl + url)
+      .get(url)
       .then((response) => {
         const data = response.data;
         setRestaurants(data.data);
@@ -234,18 +244,35 @@ const GridFood: React.FC = () => {
                     className="imgKitchen"
                     src={
                       restaurant.PlateImages.length === 0
-                        ? kitchenNotFound
+                        ? foodNotFound
                         : restaurant.PlateImages[0]?.url
                     }
                     alt={restaurant.name}
                   />
-                  <Link className="box1" to="/food">
+                  <Link
+                    className="box1"
+                    to={{
+                      pathname: `/food/food/${restaurant.name}`,
+                      state: {
+                        detail: restaurant,
+                      },
+                    }}
+                  >
                     <div className="price">
                       <span className="value">${restaurant.price}</span>
                     </div>
                     <p>{restaurant.name}</p>
                   </Link>
-                  <Link className="box2" to="/food">
+                  <Link
+                    className="box2"
+                    to="/food/grid-foods"
+                    /*                     to={{
+                      pathname: `/food/profile-chef/${restaurant.chef.name}`,
+                      state: {
+                        detail: restaurant,
+                      },
+                    }} */
+                  >
                     <img
                       className="imgChef"
                       src={
@@ -256,7 +283,17 @@ const GridFood: React.FC = () => {
                       alt={restaurant.chef.name}
                     />
                     &nbsp;&nbsp;&nbsp;
-                    <Link to="/food">{restaurant.chef.name}</Link>
+                    <Link
+                      to="/food/grid-foods"
+                      /*                     to={{
+                      pathname: `/food/profile-chef/${restaurant.chef.name}`,
+                      state: {
+                        detail: restaurant,
+                      },
+                    }} */
+                    >
+                      {restaurant.chef.name}
+                    </Link>
                   </Link>
                 </li>
               ))}

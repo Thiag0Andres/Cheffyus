@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import Background2 from "../../components/Background2";
 import FormUpdateKitchen from "../../components/FormUpdateKitchen";
+import Footer from "../../components/Footer";
 
 const UpdateKitchen: React.FC = () => {
   const location = useLocation();
@@ -19,6 +20,7 @@ const UpdateKitchen: React.FC = () => {
       <NavBar />
       <Background2 text={text} />
       <FormUpdateKitchen detail={detail} />
+      <Footer />
     </>
   );
 };

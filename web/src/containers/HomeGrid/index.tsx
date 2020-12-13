@@ -11,6 +11,7 @@ import { User } from "../../store/ducks/user/types";
 import NavBar from "../../components/NavBar";
 import Background from "../../components/BackgroundKitchen";
 import Grid from "../../components/Grid";
+import Footer from "../../components/Footer";
 
 const HomeGrid: React.FC = () => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
@@ -29,6 +30,7 @@ const HomeGrid: React.FC = () => {
       <NavBar />
       {!isLogged && <Background />}
       <Grid />
+      <Footer />
     </>
   );
 };

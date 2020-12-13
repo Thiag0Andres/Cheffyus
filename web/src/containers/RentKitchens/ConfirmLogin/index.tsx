@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import NavBar from "../../../components/NavBar";
 import Background2 from "../../../components/Background2";
 import FormConfirmLogin from "../../../components/RentKitchen/FormConfirmLogin";
+import Footer from "../../../components/Footer";
 
 const ConfirmLogin: React.FC = () => {
   // States
@@ -14,6 +15,7 @@ const ConfirmLogin: React.FC = () => {
       <NavBar />
       <Background2 text={text} />
       <FormConfirmLogin />
+      <Footer />
     </>
   );
 };
