@@ -29,6 +29,7 @@ import "leaflet/dist/leaflet.css";
 import markerMap from "../../images/markerMap.png";
 import foodNotFound from "../../images/foodNotFound.jpg";
 import userNotfound from "../../images/user.png";
+import DeliveryMan from "../../images/DeliveryMan.png";
 
 import "./styles.scss";
 
@@ -46,6 +47,7 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
 
   //States
   const [isLogged, setIsLogged] = useState(false);
+
   const [formData, setFormData] = useState({
     time: 1,
   });
@@ -55,6 +57,14 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
     const response = isAuthenticated();
     setIsLogged(response);
   }, [user]);
+
+  const filterAddress: any = () => {
+    detail.chef.address.filter((address: any) => {
+      if (address.isDefaultAddress) {
+        return <p>{filterAddress.addressLine1}</p>;
+      }
+    });
+  };
 
   /*   const handleNextPageContactChef = () => {
     if (isLogged) {
@@ -113,22 +123,40 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
     iconAnchor: [11.5, 33],
   });
 
-  /*   const typeTime = () => {
-    if (detail.kitchen.time_type == "hour") {
-      return <p>hours:</p>;
-    } else if (detail.kitchen.time_type == "day") {
-      return <p>days:</p>;
-    } else if (detail.kitchen.time_type == "week") {
-      return <p>weeks:</p>;
-    } else if (detail.kitchen.time_type == "month") {
-      return <p>months:</p>;
-    } else if (detail.kitchen.time_type == "year") {
-      return <p>years:</p>;
+  const typeDelivery = () => {
+    if (detail.delivery_type == "free") {
+      return (
+        <p
+          className="text"
+          style={{ display: "flex", alignItems: "center", color: "#4c9e4c" }}
+        >
+          <img
+            src={DeliveryMan}
+            alt="Delivery Man"
+            style={{ width: "30px", height: "30px" }}
+          />
+          &nbsp; delivery:&nbsp; ${detail.delivery_type}
+        </p>
+      );
+    } else if (detail.delivery_type == "paid") {
+      return (
+        <p
+          className="text"
+          style={{ display: "flex", alignItems: "center", color: " #cb2f28" }}
+        >
+          <img
+            src={DeliveryMan}
+            alt="Delivery Man"
+            style={{ width: "30px", height: "30px" }}
+          />
+          &nbsp; delivery:&nbsp; ${detail.delivery_type}
+        </p>
+      );
     }
-  }; */
+  };
 
   return (
-    <Row id="page-restaurant-info">
+    <Row id="page-food-info">
       <Col className="image" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
         <Carousel>
           <Carousel.Item>
@@ -142,19 +170,26 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
             />
           </Carousel.Item>
         </Carousel>
-        <p>{detail.description}</p>
+        <p>
+          <strong style={{ color: " #474747" }}>Address: </strong>
+          &nbsp;
+          {filterAddress()}
+        </p>
+        <p>
+          <strong style={{ color: " #474747" }}>Food description: </strong>
+          &nbsp;
+          {detail.description}
+        </p>
       </Col>
       <Col className="info" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
         <Row className="box1">
           <div className="price">
             <span className="value">${detail.price}</span>
             &nbsp;&nbsp;
-            {/*  <p>per {detail.kitchen.time_type}</p> */}
+            <p className="text">{detail.delivery_time} min</p>
           </div>
           <div className="input-price">
-            <Form.Label className="text" style={{ display: "flex" }}>
-              Number {/* of&nbsp;{typeTime()} */}
-            </Form.Label>
+            {typeDelivery()}
             <Form.Control
               className="input"
               type="number"
@@ -200,7 +235,9 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
                 },
               }}
             >
-              {detail.chef.name}
+              {detail.chef.restaurant_name === null
+                ? detail.chef.name
+                : detail.chef.restaurant_name}
             </Link>
             <Button
               className="button"

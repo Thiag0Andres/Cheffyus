@@ -1,6 +1,6 @@
 @import "../../mixin.scss";
 
-#page-restaurant-info {
+#page-food-info {
   height: 100%;
   padding: 30px;
   display: flex;
@@ -25,63 +25,6 @@
       justify-content: flex-start;
       margin-top: 10px;
     }
-
-    .spans {
-      width: 100%;
-      display: flex;
-
-      .like {
-        width: 80px;
-        height: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 3px;
-        font-size: 11px;
-        font-weight: bold;
-        font-family: Helvetica, Arial, sans-serif;
-        background-color: #1877f2;
-
-        &:hover {
-          background-color: #365899;
-        }
-      }
-
-      .share {
-        width: 50px;
-        height: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 3px;
-        margin-left: 5px;
-        font-size: 11px;
-        font-weight: bold;
-        font-family: Helvetica, Arial, sans-serif;
-        background-color: #1877f2;
-
-        &:hover {
-          background-color: #365899;
-        }
-      }
-
-      .tweet {
-        width: 70px;
-        height: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: 20px;
-        border-radius: 3px;
-        font-size: 11px;
-        font-family: Helvetica, Arial, sans-serif;
-        background-color: #1b95e0;
-
-        &:hover {
-          background-color: #0c7abf;
-        }
-      }
-    }
   }
 
   .info {
@@ -96,8 +39,8 @@
 
       .price {
         display: flex;
-        flex-direction: row;
-        align-items: flex-start;
+        align-items: center;
+        justify-content: space-between;
         padding-bottom: 15px;
 
         .value {
@@ -107,9 +50,10 @@
           color: #474747;
         }
 
-        p {
-          margin-top: 5px;
-          color: gray;
+        .text {
+          font-size: 20px;
+          font-weight: bold;
+          color: $gray_light;
         }
       }
 
@@ -204,7 +148,7 @@
 }
 
 @media screen and (max-width: 1000px) {
-  #page-restaurant-info {
+  #page-food-info {
     flex-direction: column !important;
     align-content: center !important;
 
@@ -226,7 +170,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  #page-restaurant-info {
+  #page-food-info {
     .image {
       img {
         height: 350px !important;
@@ -236,7 +180,7 @@
 }
 
 @media screen and (max-width: 414px) {
-  #page-restaurant-info {
+  #page-food-info {
     .image {
       img {
         height: 300px !important;
@@ -246,7 +190,7 @@
 }
 
 @media screen and (max-width: 320px) {
-  #page-restaurant-info {
+  #page-food-info {
     .image {
       img {
         height: 250px !important;
