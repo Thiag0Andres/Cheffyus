@@ -1,6 +1,6 @@
 @import "../../../mixin.scss";
 
-#contentSignup {
+#contentSignupFood {
   height: 100%;
   padding-right: 0;
   padding-left: 0;
@@ -33,6 +33,14 @@
         box-shadow: none;
       }
 
+      .select-user-type {
+        width: 100%;
+        min-height: 42px;
+        border-radius: 5px;
+        border: 2px solid #c3c3c3;
+        box-shadow: none;
+      }
+
       .text2 {
         display: inline-block;
         width: auto;
@@ -44,20 +52,20 @@
         line-height: 1.5em;
         color: #3c3c3c;
       }
+    }
+    .button {
+      width: 150px;
+      height: 42px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      box-shadow: none;
+      background-color: $red_classic;
+      border-color: $red_classic;
+      color: $white;
+      transition: background-color 0.2s;
 
-      .button2 {
-        width: 150px;
-        height: 42px;
-        margin-top: 20px;
-        box-shadow: none;
-        background-color: $red_classic;
-        border-color: $red_classic;
-        color: $white;
-        transition: background-color 0.2s;
-
-        &:hover {
-          background-color: $red_light;
-        }
+      &:hover {
+        background-color: $red_light;
       }
     }
   }

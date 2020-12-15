@@ -2,15 +2,13 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 // Redux e Auth
-import { useSelector, useDispatch } from "react-redux";
-import { ApplicationState } from "../../store";
-import { removeUser } from "../../store/ducks/user/actions";
-import { removeToken } from "../../store/ducks/token/actions";
-import { updateFilterName } from "../../store/ducks/filterName/actions";
-import { isAuthenticated } from "../../services/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { removeUserDelivery } from "../../store/ducks/userDelivery/actions";
+import { removeTokenDelivery } from "../../store/ducks/tokenDelivery/actions";
+import { isAuthenticatedDelivery } from "../../services/auth";
 
 // Types
-import { User } from "../../store/ducks/user/types";
+import { UserDelivery } from "../../store/ducks/userDelivery/types";
 
 // Bootstrap
 import Navbar from "react-bootstrap/Navbar";
@@ -28,9 +26,6 @@ import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
 import { useTheme } from "@material-ui/core/styles";
 
-// Components
-import GridFood from "../GridFood";
-
 //Message
 import { useSnackbar } from "notistack";
 
@@ -47,6 +42,7 @@ import logo from "../../images/logo.jpg";
 import api from "../../services/api";
 
 import "./styles.scss";
+import { ApplicationState } from "../../store";
 
 interface Props {
   /**
@@ -60,7 +56,9 @@ interface Props {
 const NavBarFood: React.FC<Props> = (props: Props) => {
   const { window, setFilter } = props;
   const dispatch = useDispatch();
-  const user: User = useSelector((state: ApplicationState) => state.user.user);
+  const userDelivery: UserDelivery = useSelector(
+    (state: ApplicationState) => state.userDelivery.userDelivery
+  );
   const history = useHistory();
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
@@ -94,7 +92,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     setFilter(filteredKitchens);
-    console.log(filteredKitchens);
+    //console.log(filteredKitchens);
   }, [formData.search]);
 
   const filteredKitchens: any = restaurants.filter((restaurant: any) => {
@@ -108,14 +106,15 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
 
   // Atualiza o estado de autenticação na mudança de usuário
   useEffect(() => {
-    const response = isAuthenticated();
+    const response = isAuthenticatedDelivery();
     setIsLogged(response);
-  }, [user]);
+    console.log(isLogged);
+  }, [userDelivery]);
 
   // Logout do usuário
   const logout = () => {
-    dispatch(removeUser());
-    dispatch(removeToken());
+    dispatch(removeUserDelivery());
+    dispatch(removeTokenDelivery());
     history.push("/food/grid-foods");
     enqueueSnackbar("User successfully logged out!", { variant: "info" });
   };
@@ -131,18 +130,14 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
     }
   };
 
-  const handlePageAdmin = () => {
-    history.push("/food/administrator");
-  };
-
-  const handlePageProfile = () => {
+  /*   const handlePageProfile = () => {
     history.push({
-      pathname: `/food/profile-user/${user.username}`,
+      pathname: `/food/profile-user/${userDelivery.name}`,
       state: {
-        detail: user,
+        detail: userDelivery,
       },
     });
-  };
+  }; */
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -159,16 +154,17 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
     <div id="drawer">
       {isLogged ? (
         <div className="drawer-login1">
-          <div className="avatar" onClick={handlePageProfile}>
-            {user.image_url === null ? (
-              user.display_name
+          <div className="avatar" /* onClick={handlePageProfile} */>
+            {userDelivery.imagePath === null ? (
+              userDelivery.name[0].toUpperCase()
             ) : (
-              <img src={user.image_url} />
+              <img src={userDelivery.imagePath} />
             )}
           </div>
 
           <Button className="button" type="submit" href="">
-            <FaShoppingCart /> Cart
+            <FaShoppingCart />
+            &nbsp;&nbsp;&nbsp;Cart
           </Button>
         </div>
       ) : (
@@ -206,9 +202,9 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
             <Link
               className="text3"
               to={{
-                pathname: `/food/profile-user/${user.username}`,
+                pathname: `/food/profile-user/${userDelivery.name}`,
                 state: {
-                  detail: user,
+                  detail: userDelivery,
                 },
               }}
             >
@@ -219,11 +215,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
             </Link>
           </div>
           <div className="logout-adm">
-            <Button
-              className="button1"
-              style={{ justifyContent: "flex-end" }}
-              onClick={logout}
-            >
+            <Button className="button1" onClick={logout}>
               Log out
             </Button>
           </div>
@@ -296,10 +288,10 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                     onClick={() => setShow(true)}
                     onMouseOver={() => setShow(true)}
                   >
-                    {user.image_url === null ? (
-                      user.display_name
+                    {userDelivery.imagePath === null ? (
+                      userDelivery.name[0].toUpperCase()
                     ) : (
-                      <img src={user.image_url} />
+                      <img src={userDelivery.imagePath} />
                     )}
                   </div>
                   {show && (
@@ -318,9 +310,9 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                           <Link
                             className="item"
                             to={{
-                              pathname: `/food/profile-user/${user.username}`,
+                              pathname: `/food/profile-user/${userDelivery.name}`,
                               state: {
-                                detail: user,
+                                detail: userDelivery,
                               },
                             }}
                           >
@@ -336,11 +328,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                         </Col>
                       </Row>
                       <Row className="row2">
-                        <Button
-                          className="button3"
-                          style={{ justifyContent: "flex-end" }}
-                          onClick={logout}
-                        >
+                        <Button className="button3" onClick={logout}>
                           Log out
                         </Button>
                       </Row>

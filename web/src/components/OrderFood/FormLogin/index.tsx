@@ -6,13 +6,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Alert from "react-bootstrap/Button";
 
 // Redux e Auth
 import { checkAuth } from "../../../services/validation";
 import { useDispatch } from "react-redux";
-import { updateUser } from "../../../store/ducks/user/actions";
-import { updateToken } from "../../../store/ducks/token/actions";
+import { updateUserDelivery } from "../../../store/ducks/userDelivery/actions";
+import { updateTokenDelivery } from "../../../store/ducks/tokenDelivery/actions";
 
 // Facebook login
 import FacebookLogin from "react-facebook-login";
@@ -26,8 +25,6 @@ import { FaInfoCircle } from "react-icons/fa";
 
 import api from "../../../services/api";
 
-import "./styles.scss";
-
 const FormLogin: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -36,7 +33,7 @@ const FormLogin: React.FC = () => {
   // States
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
-    defaultEmail: "",
+    email: "",
     password: "",
   });
 
@@ -52,59 +49,34 @@ const FormLogin: React.FC = () => {
   const signIn = (event: FormEvent) => {
     event.preventDefault();
 
-    const { defaultEmail, password } = formData;
+    const { email, password } = formData;
 
-    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = "https://cheffyus-api.herokuapp.com/";
+    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    const url = "https://mycheffy.herokuapp.com/";
 
     api
-      .post(proxyurl + url + "users/authenticate", {
-        email: defaultEmail.trim(),
+      .post(url + "user/login", {
+        login: email.trim(),
         password: password,
       })
       .then((response) => {
         const data = response.data;
 
-        dispatch(updateUser(data.user));
-        dispatch(updateToken(data.token));
+        //console.log(data);
 
-        history.push("/kitchen/grid-kitchens");
+        dispatch(updateUserDelivery(data.data.userResponse));
+        dispatch(updateTokenDelivery(data.token));
+
+        history.push("/food/grid-foods");
         enqueueSnackbar("User successfully logged in!", { variant: "success" });
       })
       .catch((error) => {
         console.log(error);
         enqueueSnackbar(error.response.data.message, { variant: "error" });
       });
-
-    /* 
-    // Validação do email
-    const isEmailValid = checkAuth("email", email.trim());
-
-    // Verificando autenticação
-    const isValidated = checkAuth("auth", {
-      email: email.trim(),
-      password,
-    });
-
-    if (email === "" && password === "") {
-      setError(true);
-    } else if (email === "" || password === "") {
-      setError(true);
-    } else if (!isEmailValid) {
-      setError(true);
-    } else if (isValidated) {
-      dispatch(updateUser({ user }));
-      history.push("/");
-      //enqueueSnackbar("Usuário logado com sucesso!", { variant: "success" });
-    } else {
-      setEmail("");
-      setPassword("");
-      //enqueueSnackbar("Falha ao autenticar.", { variant: "error" });
-    }
-     */
   };
 
-  const responseFacebook = (response: any) => {
+  /*   const responseFacebook = (response: any) => {
     //console.log(response);
 
     if (response.status !== "unknown") {
@@ -132,7 +104,7 @@ const FormLogin: React.FC = () => {
           enqueueSnackbar(error.response.data.message, { variant: "error" });
         });
     }
-  };
+  }; */
 
   return (
     <>
@@ -144,7 +116,7 @@ const FormLogin: React.FC = () => {
               appId="1293792574327500"
               fields="name,email,picture"
               textButton="&nbsp;&nbsp;Log in with Facebook"
-              callback={responseFacebook}
+              callback={() => {}}
             />
             <p>...or with your email:</p>
             <Form.Group controlId="formBasicEmail">
@@ -152,7 +124,7 @@ const FormLogin: React.FC = () => {
               <Form.Control
                 className="input"
                 type="text"
-                name="defaultEmail"
+                name="email"
                 onChange={handleInputChange}
                 required
               />
@@ -171,7 +143,7 @@ const FormLogin: React.FC = () => {
               Log in
             </Button>
             <div>
-              <Link to="/signup">Create a new account</Link>
+              <Link to="food/signup">Create a new account</Link>
             </div>
             <Button className="button3" onClick={() => setShow(true)}>
               Forgot password

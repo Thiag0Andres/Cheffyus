@@ -110,6 +110,7 @@
   .logout-adm {
     padding: 0 1.4em;
     display: flex;
+    justify-content: flex-end;
 
     .button1 {
       width: 75%;
@@ -294,7 +295,7 @@
             width: 420px;
             height: 30%;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             border-top: 1px solid rgba(169, 172, 176, 0.5);
             background-color: $white;

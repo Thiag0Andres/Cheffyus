@@ -33,7 +33,6 @@ import Administrator from "./containers/Administrator";
 import HomeGridFood from "./containers/HomeGridFood";
 import LogInFood from "./containers/OrderFood/LogIn";
 import SignUpFood from "./containers/OrderFood/SignUp";
-import ConfirmLoginFood from "./containers/OrderFood/ConfirmLogin";
 import Food from "./containers/Food";
 import RequestFood from "./containers/RequestFood";
 

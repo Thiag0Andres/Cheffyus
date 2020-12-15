@@ -11,11 +11,11 @@ import Form from "react-bootstrap/Form";
 
 // Redux e Auth
 import { useSelector, RootStateOrAny } from "react-redux";
-import { isAuthenticated } from "../../services/auth";
+import { isAuthenticatedDelivery } from "../../services/auth";
 
 // Types
-import { User } from "../../store/ducks/user/types";
-import { Token } from "../../store/ducks/token/types";
+import { UserDelivery } from "../../store/ducks/userDelivery/types";
+import { TokenDelivery } from "../../store/ducks/tokenDelivery/types";
 
 //Message
 import { useSnackbar } from "notistack";
@@ -38,10 +38,12 @@ interface Props {
 }
 
 const FoodInfo: React.FC<Props> = ({ detail }) => {
-  const token: Token = useSelector(
-    (state: RootStateOrAny) => state.token.token.token
+  const tokenDelivery: TokenDelivery = useSelector(
+    (state: RootStateOrAny) => state.tokenDelivery.tokenDelivery.tokenDelivery
   );
-  const user: User = useSelector((state: RootStateOrAny) => state.user.user);
+  const userDelivery: UserDelivery = useSelector(
+    (state: RootStateOrAny) => state.userDelivery.userDelivery
+  );
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -54,9 +56,9 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
 
   // Atualiza o estado de autenticação na mudança de usuário
   useEffect(() => {
-    const response = isAuthenticated();
+    const response = isAuthenticatedDelivery();
     setIsLogged(response);
-  }, [user]);
+  }, [userDelivery]);
 
   const filterAddress: any = () => {
     detail.chef.address.filter((address: any) => {
@@ -83,7 +85,7 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
   }; */
 
   const handleNextPageRequest = () => {
-    /*     if (isLogged) {
+    if (isLogged) {
       history.push({
         pathname: `/food/request/${detail.name}`,
         state: {
@@ -96,15 +98,7 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
       enqueueSnackbar("You must log in to Cheffy to make a request", {
         variant: "error",
       });
-    } */
-
-    history.push({
-      pathname: `/food/request/${detail.name}`,
-      state: {
-        detail: detail,
-        formData: formData,
-      },
-    });
+    }
   };
 
   const handleInputChange = async (event: ChangeEvent<HTMLSelectElement>) => {

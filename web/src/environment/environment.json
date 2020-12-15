@@ -1,7 +1,9 @@
 {
   "name": "dev",
   "REACT_APP_LOCAL_STORAGE_USER": "@cheffy/user",
+  "REACT_APP_LOCAL_STORAGE_USER_DELIVERY": "@cheffy/userDelivery",
   "REACT_APP_LOCAL_STORAGE_TOKEN": "@cheffy/token",
+  "REACT_APP_LOCAL_STORAGE_TOKEN_DELIVERY": "@cheffy/tokenDelivery",
   "REACT_APP_LOCAL_STORAGE_FILTER_NAME": "@cheffy/filterName",
   "headers": {
     "Content-type": "application/json"

@@ -82,7 +82,7 @@ const GridFood: React.FC<Props> = ({ filter }) => {
       });
   }, [page]);
 
-  console.log(restaurants);
+  //console.log(restaurants);
 
   const handleChangePagination = (
     event: React.ChangeEvent<unknown>,
