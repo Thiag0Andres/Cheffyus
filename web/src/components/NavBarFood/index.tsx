@@ -43,6 +43,7 @@ import api from "../../services/api";
 
 import "./styles.scss";
 import { ApplicationState } from "../../store";
+import { Restaurant } from "@material-ui/icons";
 
 interface Props {
   /**
@@ -51,10 +52,11 @@ interface Props {
    */
   window?: () => Window;
   setFilter: any;
+  page: any;
 }
 
 const NavBarFood: React.FC<Props> = (props: Props) => {
-  const { window, setFilter } = props;
+  const { window, setFilter, page } = props;
   const dispatch = useDispatch();
   const userDelivery: UserDelivery = useSelector(
     (state: ApplicationState) => state.userDelivery.userDelivery
@@ -70,45 +72,62 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
   const [isLogged, setIsLogged] = useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [restaurants, setRestaurants] = useState([]);
+  const [initialPosition, setInitialPosition] = useState<[number, number]>([
+    -5.03284353,
+    -42.8176576,
+    /*     0,
+    0, */
+  ]);
   const [formData, setFormData] = useState({
     search: "",
   });
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+
+      setInitialPosition([latitude, longitude]);
+    });
+  }, []);
+
   // Chamada a api
   useEffect(() => {
     //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = `https://mycheffy.herokuapp.com/plate/?pageSize=${12}`;
+    //const url = `https://mycheffy.herokuapp.com/plate/?page=${page}&pageSize=${12}`;
+    const url = `https://mycheffy.herokuapp.com/plate/?page=${page}&pageSize=${12}&near=${true}&lat=${
+      initialPosition[0]
+    }&lon=${initialPosition[1]}&radius=${20}`;
 
     api
       .get(url)
       .then((response) => {
         const data = response.data;
+        //console.log(data.data);
         setRestaurants(data.data);
+        setFilter(data.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [page]);
 
   useEffect(() => {
+    const filteredKitchens: any = restaurants.filter((restaurant: any) => {
+      return (
+        (restaurant.name.toLowerCase().indexOf(formData.search.toLowerCase()) &&
+          restaurant.chef.name
+            .toLowerCase()
+            .indexOf(formData.search.toLowerCase())) !== -1
+      );
+    });
     setFilter(filteredKitchens);
-    //console.log(filteredKitchens);
   }, [formData.search]);
-
-  const filteredKitchens: any = restaurants.filter((restaurant: any) => {
-    return (
-      (restaurant.name.toLowerCase().indexOf(formData.search.toLowerCase()) &&
-        restaurant.chef.name
-          .toLowerCase()
-          .indexOf(formData.search.toLowerCase())) !== -1
-    );
-  });
 
   // Atualiza o estado de autenticação na mudança de usuário
   useEffect(() => {
     const response = isAuthenticatedDelivery();
     setIsLogged(response);
-    console.log(isLogged);
+    //console.log(isLogged);
   }, [userDelivery]);
 
   // Logout do usuário

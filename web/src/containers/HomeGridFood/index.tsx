@@ -20,6 +20,7 @@ const HomeGridFood: React.FC = () => {
   // States
   const [isLogged, setIsLogged] = useState(false);
   const [filter, setFilter] = useState([]);
+  const [page, setPage] = useState(1);
 
   // Atualiza o estado de autenticação na mudança de usuário
   useEffect(() => {
@@ -29,9 +30,9 @@ const HomeGridFood: React.FC = () => {
 
   return (
     <>
-      <NavBarFood setFilter={setFilter} />
+      <NavBarFood setFilter={setFilter} page={page} />
       {!isLogged && <Background />}
-      <GridFood filter={filter} />
+      <GridFood filter={filter} setPage={setPage} />
       <Footer />
     </>
   );

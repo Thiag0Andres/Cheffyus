@@ -1,0 +1,29 @@
+@import "../../mixin.scss";
+
+#pagination-category {
+  .categoryList {
+    display: flex;
+    grid-gap: 30px;
+    list-style: none;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+
+      img {
+        width: 150px;
+        height: 100px;
+        border-radius: 5px;
+        object-fit: cover;
+      }
+
+      .text {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        color: $gray_light;
+      }
+    }
+  }
+}

@@ -50,6 +50,7 @@ const List: React.FC = () => {
   const [show, setShow] = useState(false);
   const [value, setValue] = useState<number[]>([0, 10000]);
   const [valueDrop, setValueDrop] = useState<number>(0);
+  const [valuePage, setValuePage] = useState();
 
   const handleChange = (event: any, newValue: number | number[]) => {
     setValue(newValue as number[]);
@@ -354,7 +355,7 @@ const List: React.FC = () => {
         </Col>
       </Row>
       <Row className="pagination">
-        <PaginationUi />
+        <PaginationUi setValuePage={setValuePage} />
       </Row>
     </Container>
   );

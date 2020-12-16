@@ -18,20 +18,25 @@ import "./styles.scss";
 const Footer: React.FC = () => {
   //Icones com links
   const icons: Icon[] = [
-    { icon: IoLogoFacebook, link: "https://www.facebook.com/OluhaIC/" },
+    { id: 1, icon: IoLogoFacebook, link: "https://www.facebook.com/OluhaIC/" },
     {
+      id: 2,
       icon: ImTwitter,
       link: "https://twitter.com/Cheffy74421153",
     },
-    { icon: FaInstagram, link: "https://www.instagram.com/cheffy.partners/" },
-    { icon: AiOutlineMail, link: "mailto:chaejimmy1@gmail.com" },
+    {
+      id: 3,
+      icon: FaInstagram,
+      link: "https://www.instagram.com/cheffy.partners/",
+    },
+    { id: 4, icon: AiOutlineMail, link: "mailto:chaejimmy1@gmail.com" },
   ];
 
   return (
     <Container fluid id="footer">
       <div className="footer-center">
         {icons.map((Icon) => (
-          <div className="icons">
+          <div key={Icon.id} className="icons">
             <a href={Icon.link} target="__blank" style={{ marginLeft: "10px" }}>
               <Icon.icon size={26} color={"#777777"} className="icon" />
             </a>

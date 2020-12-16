@@ -56,6 +56,7 @@ const Grid: React.FC = () => {
   const [value, setValue] = useState<number[]>([0, 10000]);
   const [valueDrop, setValueDrop] = useState<number>(0);
   const [loading, setLoading] = useState(false);
+  const [valuePage, setValuePage] = useState();
 
   const handleChange = (event: any, newValue: number | number[]) => {
     setValue(newValue as number[]);
@@ -370,7 +371,7 @@ const Grid: React.FC = () => {
         </Col>
       </Row>
       <Row className="pagination">
-        <PaginationUi />
+        <PaginationUi setValuePage={setValuePage} />
       </Row>
     </Container>
   );

@@ -18,10 +18,11 @@ const RequestFood: React.FC = () => {
   // States
   const [text, setText] = useState(`Request ${detail.name}`);
   const [filter, setFilter] = useState([]);
+  const [page, setPage] = useState();
 
   return (
     <>
-      <NavBarFood setFilter={setFilter} />
+      <NavBarFood setFilter={setFilter} page={page} />
       <Background2 text={text} />
       <InfoFood detail={detail} formData={formData} />
       <Footer />

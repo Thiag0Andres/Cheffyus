@@ -10,10 +10,11 @@ const LogIn: React.FC = () => {
   // States
   const [text, setText] = useState("Log in to Cheffy");
   const [filter, setFilter] = useState([]);
+  const [page, setPage] = useState();
 
   return (
     <>
-      <NavBarFood setFilter={setFilter} />
+      <NavBarFood setFilter={setFilter} page={page} />
       <Background2 text={text} />
       <FormLogin />
       <Footer />

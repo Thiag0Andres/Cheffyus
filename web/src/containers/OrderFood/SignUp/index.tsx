@@ -10,10 +10,11 @@ const SignUp: React.FC = () => {
   // States
   const [text, setText] = useState("Create a new Cheffy account");
   const [filter, setFilter] = useState([]);
+  const [page, setPage] = useState();
 
   return (
     <>
-      <NavBarFood setFilter={setFilter} />
+      <NavBarFood setFilter={setFilter} page={page} />
       <Background2 text={text} />
       <FormSignup />
       <Footer />

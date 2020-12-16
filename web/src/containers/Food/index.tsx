@@ -19,10 +19,11 @@ const Food: React.FC<Props> = () => {
   // States
   const [text, setText] = useState(detail.name);
   const [filter, setFilter] = useState([]);
+  const [page, setPage] = useState();
 
   return (
     <>
-      <NavBarFood setFilter={setFilter} />
+      <NavBarFood setFilter={setFilter} page={page} />
       <Background2 text={text} />
       <FoodInfo detail={detail} />
       <Footer />

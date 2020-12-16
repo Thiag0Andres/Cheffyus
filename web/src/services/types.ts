@@ -1,6 +1,7 @@
 import { IconType } from "react-icons";
 
 export interface Icon {
+  id: number;
   icon: IconType;
   link: string;
 }

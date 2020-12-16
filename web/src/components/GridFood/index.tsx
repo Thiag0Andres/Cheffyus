@@ -21,11 +21,10 @@ import Hidden from "@material-ui/core/Hidden";
 import Slider from "@material-ui/core/Slider";
 import { theme } from "../../material-ui";
 import { CircularProgress, ThemeProvider } from "@material-ui/core";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-import Pagination from "@material-ui/lab/Pagination";
 
 // Components
-import PaginationUi from "../Pagination";
+import Pagination from "../Pagination";
+import PaginationCategory from "../PaginationCategory";
 
 // Images
 import userNotfound from "../../images/user.png";
@@ -33,64 +32,52 @@ import foodNotFound from "../../images/foodNotFound.jpg";
 
 import api from "../../services/api";
 
+import "./styles.scss";
+
 function valuetext(value: number) {
   return `$ ${value}`;
 }
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    root: {
-      "& > *": {
-        marginTop: theme.spacing(2),
-      },
-    },
-  })
-);
-
 interface Props {
   filter: any;
+  setPage: any;
 }
 
-const GridFood: React.FC<Props> = ({ filter }) => {
-  const classes = useStyles();
-
+const GridFood: React.FC<Props> = ({ filter, setPage }) => {
   // States
   const [show, setShow] = useState(false);
   const [restaurants, setRestaurants] = useState<Array<any>>([]);
   const [value, setValue] = useState<number[]>([0, 1000]);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = React.useState(1);
+  const [valuePage, setValuePage] = useState(1);
+  const [categoryFiltered, setCategoryFiltered] = useState([]);
+  const [id, setId] = useState();
+  const [initialPosition, setInitialPosition] = useState<[number, number]>([
+    0,
+    0,
+  ]);
 
-  //console.log("filter", filter);
+  //console.log("filter", categoryFiltered);
+  //console.log("id", id);
+
+  useEffect(() => {
+    setRestaurants(categoryFiltered);
+  }, [categoryFiltered]);
 
   useEffect(() => {
     setRestaurants(filter);
   }, [filter]);
 
   useEffect(() => {
-    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = `https://mycheffy.herokuapp.com/plate/?page=${page}&pageSize=${12}`;
+    setPage(valuePage);
+  }, [valuePage]);
 
-    api
-      .get(url)
-      .then((response) => {
-        const data = response.data;
-        setRestaurants(data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [page]);
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
 
-  //console.log(restaurants);
-
-  const handleChangePagination = (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    const sum = value + 1;
-    setPage(sum);
-  };
+      setInitialPosition([latitude, longitude]);
+    });
+  }, []);
 
   const handleChange = (event: any, newValue: number | number[]) => {
     setValue(newValue as number[]);
@@ -99,10 +86,12 @@ const GridFood: React.FC<Props> = ({ filter }) => {
   const FilterMinMax = (event: FormEvent) => {
     event.preventDefault();
 
-    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = `https://mycheffy.herokuapp.com/plate/?page=${page}&pageSize=${12}&price=${
+    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";category?page=1&pageSize=10
+    const url = `https://mycheffy.herokuapp.com/plate/?page=${valuePage}&pageSize=${12}&price=${
       value[0]
-    }`;
+    }&near=${true}&lat=${initialPosition[0]}&lon=${
+      initialPosition[1]
+    }&radius=${20}`;
 
     api
       .get(url)
@@ -116,7 +105,7 @@ const GridFood: React.FC<Props> = ({ filter }) => {
   };
 
   return (
-    <Container fluid id="page-home-grid">
+    <Container fluid id="page-home-grid-food">
       <Row className="content-header">
         <Col className="header" xl="12" lg="12" md="12" xs="12" sm="12">
           <Hidden mdUp implementation="css">
@@ -124,6 +113,11 @@ const GridFood: React.FC<Props> = ({ filter }) => {
               Filter
             </Button>
           </Hidden>
+          <PaginationCategory
+            setCategoryFiltered={setCategoryFiltered}
+            setId={setId}
+            valuePage={valuePage}
+          />
         </Col>
 
         {show && (
@@ -203,7 +197,7 @@ const GridFood: React.FC<Props> = ({ filter }) => {
         </Col>
 
         <Col className="grid" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
-          {loading && (
+          {/*           {loading && (
             <div
               style={{
                 width: "100vh",
@@ -217,7 +211,7 @@ const GridFood: React.FC<Props> = ({ filter }) => {
                 <CircularProgress />
               </ThemeProvider>
             </div>
-          )}
+          )} */}
 
           <ul>
             {restaurants.length > 0 &&
@@ -228,7 +222,7 @@ const GridFood: React.FC<Props> = ({ filter }) => {
                   <img
                     className="imgKitchen"
                     src={
-                      restaurant.PlateImages.length === 0
+                      restaurant.PlateImages.length === null
                         ? foodNotFound
                         : restaurant.PlateImages[0]?.url
                     }
@@ -285,15 +279,8 @@ const GridFood: React.FC<Props> = ({ filter }) => {
           </ul>
         </Col>
       </Row>
-      <Row
-        className={classes.root}
-        style={{ display: "flex", justifyContent: "flex-end" }}
-      >
-        <Pagination
-          count={page}
-          shape="rounded"
-          onChange={handleChangePagination}
-        />
+      <Row style={{ display: "flex", justifyContent: "flex-end" }}>
+        <Pagination setValuePage={setValuePage} />
       </Row>
     </Container>
   );

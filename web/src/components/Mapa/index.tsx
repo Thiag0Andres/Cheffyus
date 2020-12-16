@@ -56,6 +56,7 @@ const Mapa: React.FC = () => {
   const [show, setShow] = useState(false);
   const [value, setValue] = useState<number[]>([0, 10000]);
   const [valueDrop, setValueDrop] = useState<number>(0);
+  const [valuePage, setValuePage] = useState();
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
     38.8935124,
     -77.1550051,
@@ -371,7 +372,7 @@ const Mapa: React.FC = () => {
         </Col>
       </Row>
       <Row className="pagination">
-        <PaginationUi />
+        <PaginationUi setValuePage={setValuePage} />
       </Row>
     </Container>
   );
