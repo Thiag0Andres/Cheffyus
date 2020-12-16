@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
 
+// Bootstrap
+import Button from "react-bootstrap/Button";
+
+//Icons
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+
 // Images
 import foodNotFound from "../../images/foodNotFound.jpg";
 
 import "./styles.scss";
 
 import api from "../../services/api";
+import { PaginationItem } from "@material-ui/lab";
 
 interface Props {
   setCategoryFiltered: any;
@@ -71,6 +78,7 @@ const PaginationCategory: React.FC<Props> = ({
       });
   }, [idCategory, valuePage]);
 
+  // Get current categories
   const indexOfLastCat = currentPage * categoryPerPage;
   const indeOfFirstPage = indexOfLastCat - categoryPerPage;
   const currentCategory = categories.slice(indeOfFirstPage, indexOfLastCat);
@@ -78,25 +86,42 @@ const PaginationCategory: React.FC<Props> = ({
   const Pagination = () => {
     const pageNumbers = [];
 
-    for (let i = 1; i < Math.ceil(categoryPerPage / categories.length); i++) {
+    for (let i = 1; i <= Math.ceil(categories.length / categoryPerPage); i++) {
       pageNumbers.push(i);
     }
 
+    const handlePreviousPage = () => {
+      if (currentPage <= pageNumbers.length && currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
+    };
+
+    const handleNextPage = () => {
+      if (currentPage < pageNumbers.length) {
+        setCurrentPage(currentPage + 1);
+      }
+    };
+
     return (
-      <nav>
-        <ul id="pagination">
-          {pageNumbers.map((number: number) => (
-            <li key={number} className="page-item">
-              {number}
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <>
+        <nav className="nav">
+          <p className="textTitle">Food categories</p>
+          <div className="buttons">
+            <Button className="button" onClick={handlePreviousPage}>
+              <BsArrowLeft color="#000" size={20} />
+            </Button>
+            <Button className="button" onClick={handleNextPage}>
+              <BsArrowRight color="#000" size={20} />
+            </Button>
+          </div>
+        </nav>
+      </>
     );
   };
 
   return (
     <div id="pagination-category">
+      {Pagination()}
       <ul className="categoryList">
         {categories.length > 0 &&
           currentCategory.map((category: any) => (

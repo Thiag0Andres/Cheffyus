@@ -73,10 +73,10 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [restaurants, setRestaurants] = useState([]);
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
-    -5.03284353,
-    -42.8176576,
-    /*     0,
-    0, */
+    /*     -5.03284353,
+    -42.8176576, */
+    0,
+    0,
   ]);
   const [formData, setFormData] = useState({
     search: "",

@@ -1,8 +1,54 @@
 @import "../../mixin.scss";
 
 #pagination-category {
-  .categoryList {
+  width: 100%;
+
+  .nav {
     display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .textTitle {
+      margin-bottom: 0;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      color: $gray_light;
+    }
+
+    .buttons {
+      display: flex;
+      grid-gap: 5px;
+
+      .button {
+        padding: 0;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $gray_classic;
+        border-color: $gray_classic;
+        box-shadow: none;
+
+        &:hover {
+          background-color: #c3c3c3;
+          border-color: #c3c3c3;
+        }
+
+        &:active {
+          background-color: #c3c3c3;
+          border-color: #c3c3c3;
+        }
+      }
+    }
+  }
+
+  .categoryList {
+    width: 100%;
+    display: flex;
+    justify-content: center;
     grid-gap: 30px;
     list-style: none;
 
@@ -12,13 +58,14 @@
       cursor: pointer;
 
       img {
-        width: 150px;
-        height: 100px;
+        width: 135px;
+        height: 85px;
         border-radius: 5px;
         object-fit: cover;
       }
 
       .text {
+        margin-bottom: 0;
         font-size: 20px;
         font-weight: bold;
         text-align: center;
