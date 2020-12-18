@@ -17,7 +17,7 @@ export enum UserTypes {
 export interface UserDelivery {
   id: number;
   name: string;
-  imagePath: string;
+  imagePath?: string;
   email: string;
   country_code: string;
   phone_no: string;

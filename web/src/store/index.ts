@@ -6,6 +6,7 @@ import { UserDeliveryState } from "./ducks/userDelivery/types";
 import { TokenState } from "./ducks/token/types";
 import { TokenDeliveryState } from "./ducks/tokenDelivery/types";
 import { FilterNameState } from "./ducks/filterName/types";
+import { CartState } from "./ducks/cart/types";
 
 import rootReducer from "./ducks/rootReducer";
 
@@ -15,6 +16,7 @@ export interface ApplicationState {
   token: TokenState;
   tokenDelivery: TokenDeliveryState;
   filterName: FilterNameState;
+  cart: CartState;
 }
 let middleware: any = [];
 

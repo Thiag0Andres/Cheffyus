@@ -19,9 +19,8 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Table from "react-bootstrap/Table";
 
 // Icons
-import { TiPencil } from "react-icons/ti";
+import { TiPencil, TiPlus } from "react-icons/ti";
 import { MdDelete } from "react-icons/md";
-import { TiPlus } from "react-icons/ti";
 
 import api from "../../../services/api";
 

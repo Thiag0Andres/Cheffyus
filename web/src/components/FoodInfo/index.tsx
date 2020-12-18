@@ -10,12 +10,14 @@ import Carousel from "react-bootstrap/Carousel";
 import Form from "react-bootstrap/Form";
 
 // Redux e Auth
-import { useSelector, RootStateOrAny } from "react-redux";
+import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
 import { isAuthenticatedDelivery } from "../../services/auth";
+import { addCart } from "../../store/ducks/cart/actions";
 
 // Types
 import { UserDelivery } from "../../store/ducks/userDelivery/types";
 import { TokenDelivery } from "../../store/ducks/tokenDelivery/types";
+import { Cart } from "../../store/ducks/cart/types";
 
 //Message
 import { useSnackbar } from "notistack";
@@ -44,14 +46,17 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
   const userDelivery: UserDelivery = useSelector(
     (state: RootStateOrAny) => state.userDelivery.userDelivery
   );
+  const cart: Cart[] = useSelector((state: RootStateOrAny) => state.cart.cart);
+  const dispatch = useDispatch();
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
 
   //States
   const [isLogged, setIsLogged] = useState(false);
-
+  const [plate, setPlate] = useState("");
+  const [click, setClick] = useState(0);
   const [formData, setFormData] = useState({
-    time: 1,
+    quantity: 1,
   });
 
   // Atualiza o estado de autenticação na mudança de usuário
@@ -60,6 +65,22 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
     setIsLogged(response);
   }, [userDelivery]);
 
+  useEffect(() => {
+    const L = () => {
+      cart.map((item: any) => {
+        if (item.chef.id === detail.chef.id && item.id === detail.id) {
+          return setPlate("CASE1");
+        } else if (item.chef.id === detail.chef.id && item.id !== detail.id) {
+          return setPlate("CASE2");
+        } else if (item.chef.id !== detail.chef.id) {
+          return setPlate("CASE3");
+        }
+      });
+    };
+
+    L();
+  }, [click]);
+
   const filterAddress: any = () => {
     detail.chef.address.filter((address: any) => {
       if (address.isDefaultAddress) {
@@ -67,6 +88,8 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
       }
     });
   };
+
+  //console.log(detail);
 
   /*   const handleNextPageContactChef = () => {
     if (isLogged) {
@@ -86,16 +109,28 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
 
   const handleNextPageRequest = () => {
     if (isLogged) {
-      history.push({
-        pathname: `/food/request/${detail.name}`,
-        state: {
-          detail: detail,
-          formData: formData,
-        },
-      });
+      if (cart.length === 0) {
+        dispatch(addCart({ ...detail, quantity: formData.quantity }));
+        enqueueSnackbar("Food add to cart", {
+          variant: "success",
+        });
+      } else if (plate === "CASE1") {
+        enqueueSnackbar("Food is already in the cart", {
+          variant: "error",
+        });
+      } else if (plate === "CASE2") {
+        dispatch(addCart({ ...detail, quantity: formData.quantity }));
+        enqueueSnackbar("Food add to cart", {
+          variant: "success",
+        });
+      } else if (plate === "CASE3") {
+        enqueueSnackbar("You can only order food from the same Chef", {
+          variant: "error",
+        });
+      }
+      setClick(click + 1);
     } else {
-      history.push("/food/login");
-      enqueueSnackbar("You must log in to Cheffy to make a request", {
+      enqueueSnackbar("You must log in to Cheffy to add to cart", {
         variant: "error",
       });
     }
@@ -103,12 +138,10 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
 
   const handleInputChange = async (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
-    console.log(event.target.value);
+    //console.log(event.target.value);
 
     setFormData({ ...formData, [name]: Number(value) });
   };
-
-  //console.log(formData);
 
   // Marker do map
   const mapIcon = Leaflet.icon({
@@ -189,7 +222,7 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
               type="number"
               min={1}
               placeholder="Quantity"
-              name="time"
+              name="quantity"
               onChange={handleInputChange}
             />
           </div>
@@ -198,7 +231,7 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
             type="submit"
             onClick={handleNextPageRequest}
           >
-            Request
+            Add to cart
           </Button>
         </Row>
         <Row className="box2">

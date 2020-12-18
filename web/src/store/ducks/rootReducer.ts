@@ -5,6 +5,7 @@ import userDelivery from "./userDelivery";
 import token from "./token";
 import tokenDelivery from "./tokenDelivery";
 import filterName from "./filterName";
+import cart from "./cart";
 
 export default combineReducers({
   user,
@@ -12,4 +13,5 @@ export default combineReducers({
   token,
   tokenDelivery,
   filterName,
+  cart,
 });

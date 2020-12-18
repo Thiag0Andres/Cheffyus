@@ -1,22 +1,14 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
 
 // Components
 import NavBarFood from "../../components/NavBarFood";
 import Background2 from "../../components/Background2";
-import InfoFood from "../../components/InfoFood";
+import AddToCart from "../../components/AddToCart";
 import Footer from "../../components/Footer";
 
-const RequestFood: React.FC = () => {
-  const location = useLocation();
-
-  const detail = (location.state as any).detail;
-  const formData = (location.state as any).formData;
-
-  //console.log(formData);
-
+const Cart: React.FC = () => {
   // States
-  const [text, setText] = useState(`Request ${detail.name}`);
+  const [text, setText] = useState("cart");
   const [filter, setFilter] = useState([]);
   const [page, setPage] = useState();
 
@@ -24,10 +16,10 @@ const RequestFood: React.FC = () => {
     <>
       <NavBarFood setFilter={setFilter} page={page} />
       <Background2 text={text} />
-      <InfoFood detail={detail} formData={formData} />
+      <AddToCart />
       <Footer />
     </>
   );
 };
 
-export default RequestFood;
+export default Cart;

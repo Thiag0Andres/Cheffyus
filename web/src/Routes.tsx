@@ -34,7 +34,7 @@ import HomeGridFood from "./containers/HomeGridFood";
 import LogInFood from "./containers/OrderFood/LogIn";
 import SignUpFood from "./containers/OrderFood/SignUp";
 import Food from "./containers/Food";
-import RequestFood from "./containers/RequestFood";
+import Cart from "./containers/Cart";
 
 export default function Routes() {
   return (
@@ -116,7 +116,7 @@ export default function Routes() {
         <Route path="/food/login" component={LogInFood} />
         <Route path="/food/signup" component={SignUpFood} />
         <Route path="/food/food/:food" component={Food} />
-        <Route path="/food/request/:request" component={RequestFood} />
+        <Route path="/food/cart" component={Cart} />
 
         <Redirect from="*" to="/" />
       </Switch>

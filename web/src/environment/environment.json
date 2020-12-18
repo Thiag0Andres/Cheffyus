@@ -5,6 +5,7 @@
   "REACT_APP_LOCAL_STORAGE_TOKEN": "@cheffy/token",
   "REACT_APP_LOCAL_STORAGE_TOKEN_DELIVERY": "@cheffy/tokenDelivery",
   "REACT_APP_LOCAL_STORAGE_FILTER_NAME": "@cheffy/filterName",
+  "REACT_APP_LOCAL_STORAGE_CART": "@cheffy/cart",
   "headers": {
     "Content-type": "application/json"
   }

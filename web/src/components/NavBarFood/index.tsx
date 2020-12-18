@@ -2,13 +2,14 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 // Redux e Auth
-import { useDispatch, useSelector } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { removeUserDelivery } from "../../store/ducks/userDelivery/actions";
 import { removeTokenDelivery } from "../../store/ducks/tokenDelivery/actions";
 import { isAuthenticatedDelivery } from "../../services/auth";
 
 // Types
 import { UserDelivery } from "../../store/ducks/userDelivery/types";
+import { Cart } from "../../store/ducks/cart/types";
 
 // Bootstrap
 import Navbar from "react-bootstrap/Navbar";
@@ -61,6 +62,9 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
   const userDelivery: UserDelivery = useSelector(
     (state: ApplicationState) => state.userDelivery.userDelivery
   );
+  const cart: Cart[] = useSelector(
+    (state: RootStateOrAny) => state.cart.cart.length
+  );
   const history = useHistory();
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
@@ -96,7 +100,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
     //const url = `https://mycheffy.herokuapp.com/plate/?page=${page}&pageSize=${12}`;
     const url = `https://mycheffy.herokuapp.com/plate/?page=${page}&pageSize=${12}&near=${true}&lat=${
       initialPosition[0]
-    }&lon=${initialPosition[1]}&radius=${20}`;
+    }&lon=${initialPosition[1]}&radius=${321869}`;
 
     api
       .get(url)
@@ -140,7 +144,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
 
   const handlePage = () => {
     if (isLogged) {
-      history.push("/food/add-kitchen");
+      history.push("/food/cart");
     } else {
       history.push("/food/login");
       enqueueSnackbar("You must log in to Cheffy to see the cart.", {
@@ -181,9 +185,9 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
             )}
           </div>
 
-          <Button className="button" type="submit" href="">
+          <Button className="button" type="submit" onClick={handlePage}>
             <FaShoppingCart />
-            &nbsp;&nbsp;&nbsp;Cart
+            &nbsp;&nbsp;&nbsp;Cart&nbsp;&nbsp;{cart}
           </Button>
         </div>
       ) : (
@@ -355,9 +359,9 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                   )}
                 </div>
 
-                <Button className="button2" type="submit" href="">
+                <Button className="button2" onClick={handlePage}>
                   <FaShoppingCart />
-                  &nbsp;&nbsp;&nbsp;Cart
+                  &nbsp;&nbsp;&nbsp;Cart&nbsp;&nbsp;{cart}
                 </Button>
               </div>
             ) : (
@@ -368,7 +372,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                 <Nav.Link className="text2" href="/food/login">
                   Log in
                 </Nav.Link>
-                <Button className="button2" type="submit" onClick={handlePage}>
+                <Button className="button2" onClick={handlePage}>
                   <FaShoppingCart />
                   &nbsp;&nbsp;&nbsp;Cart
                 </Button>
@@ -391,7 +395,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                 </IconButton>
               )}
               <Hidden xsDown implementation="css">
-                <Button className="button2" type="submit" onClick={handlePage}>
+                <Button className="button2" onClick={handlePage}>
                   <FaShoppingCart />
                   &nbsp;&nbsp;&nbsp;Cart
                 </Button>
