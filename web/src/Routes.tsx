@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import AdministratorRentKitchenRoute from "../src/routes/AdministratorRentKitchenRoute";
 import PrivateRentKitchenRoute from "../src/routes/PrivateRentKitchenRoute";
+import PrivateOrderFoodRoute from "../src/routes/PrivateOrderFoodRoute";
 
 //Containers
 import HomeScreen from "./containers/HomeScreen";
@@ -35,15 +36,18 @@ import LogInFood from "./containers/OrderFood/LogIn";
 import SignUpFood from "./containers/OrderFood/SignUp";
 import Food from "./containers/Food";
 import Cart from "./containers/Cart";
+import SettingsFood from "./containers/SettingsFood";
 
 export default function Routes() {
   return (
     <>
       <Switch>
+        {/* Common Page */}
         <Route exact path="/" component={HomeScreen} />
         <Route path="/about" component={About} />
         <Route path="/contact-us" component={ContactUs} />
 
+        {/* Rent Kitchen Page */}
         <Route path="/kitchen/grid-kitchens" component={HomeGrid} />
         <Route path="/kitchen/list-kitchens" component={HomeList} />
         <Route path="/kitchen/map-kitchens" component={HomeMap} />
@@ -85,7 +89,6 @@ export default function Routes() {
           path="/kitchen/settings"
           component={Settings}
         />
-
         <PrivateRentKitchenRoute
           exact
           path="/kitchen/update-kitchen/:updateKitchen"
@@ -112,11 +115,18 @@ export default function Routes() {
           component={Administrator}
         />
 
+        {/* Order Food Page */}
         <Route path="/food/grid-foods" component={HomeGridFood} />
         <Route path="/food/login" component={LogInFood} />
         <Route path="/food/signup" component={SignUpFood} />
         <Route path="/food/food/:food" component={Food} />
-        <Route path="/food/cart" component={Cart} />
+
+        <PrivateOrderFoodRoute exact path="/food/cart" component={Cart} />
+        <PrivateOrderFoodRoute
+          exact
+          path="/food/settings"
+          component={SettingsFood}
+        />
 
         <Redirect from="*" to="/" />
       </Switch>

@@ -26,8 +26,8 @@ export interface UserDelivery {
   verification_email_status: string;
   verification_phone_status: string;
   status: any;
-  location_lat: number;
-  location_lon: number;
+  location_lat?: number;
+  location_lon?: number;
   zoom_id: any;
   zoom_pass: any;
   skip_doc: false;

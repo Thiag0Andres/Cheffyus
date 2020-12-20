@@ -219,9 +219,6 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
         <Hidden mdUp implementation="css">
           <div className="drawer-user">
             <p>User</p>
-            <Link className="text3" to="">
-              Inbox
-            </Link>
             <Link
               className="text3"
               to={{
@@ -233,7 +230,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
             >
               Profile
             </Link>
-            <Link className="text3" to="">
+            <Link className="text3" to="/food/settings">
               Settings
             </Link>
           </div>
@@ -323,13 +320,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                       onMouseOver={() => setShow(true)}
                     >
                       <Row className="row1">
-                        <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
-                          <Link className="item" to="">
-                            <FiInbox size={32} />
-                            Inbox
-                          </Link>
-                        </Col>
-                        <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
+                        <Col className="col" xl="6" lg="6" md="6" xs="6" sm="6">
                           <Link
                             className="item"
                             to={{
@@ -343,8 +334,8 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                             Profile
                           </Link>
                         </Col>
-                        <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
-                          <Link className="item" to="">
+                        <Col className="col" xl="6" lg="6" md="6" xs="6" sm="6">
+                          <Link className="item" to="/food/settings">
                             <GiSettingsKnobs size={32} />
                             Settings
                           </Link>

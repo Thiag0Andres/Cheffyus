@@ -113,12 +113,12 @@
     justify-content: flex-end;
 
     .button1 {
-      width: 75%;
+      width: 45%;
       height: 26px;
       font-size: 17px;
       padding: 0;
       display: flex;
-      justify-self: center;
+      justify-content: flex-end;
       align-items: center;
       text-align: right;
       box-shadow: none;
@@ -300,33 +300,13 @@
             border-top: 1px solid rgba(169, 172, 176, 0.5);
             background-color: $white;
 
-            .button1 {
-              width: 100px;
-              height: 26px;
-              margin-right: 20px;
-              margin-left: 20px;
-              padding: 0;
-              display: flex;
-              text-align: right;
-              box-shadow: none;
-              background-color: $white;
-              border-color: $white;
-              color: #525961;
-
-              &:hover {
-                color: $black;
-                text-decoration: none;
-              }
-            }
-
             .button3 {
               width: 100px;
               height: 26px;
               margin-right: 20px;
-              margin-left: 20px;
               padding: 0;
               display: flex;
-              text-align: right;
+              justify-content: flex-end;
               box-shadow: none;
               background-color: $white;
               border-color: $white;
