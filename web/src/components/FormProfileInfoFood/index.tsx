@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 // Redux e Auth
 import { useSelector, RootStateOrAny } from "react-redux";
 import { useDispatch } from "react-redux";
-import { updateUser } from "../../store/ducks/user/actions";
+import { updateUserDelivery } from "../../store/ducks/userDelivery/actions";
 
 // Types
 import { UserDelivery } from "../../store/ducks/userDelivery/types";
@@ -124,19 +124,24 @@ const FormProfileInfoFood: React.FC = () => {
       phone_no: String(phone_no),
     };
 
+    console.log(body.imagePath);
+
     const url = "https://mycheffy.herokuapp.com/";
 
     api
-      .put(url + `users/edit/?userId=${user.id}`, body, {
-        headers: { Authorization: token },
+      .put(url + `user/edit/?userId=${user.id}`, body, {
+        headers: {
+          "x-access-token": token,
+          "content-type": "application/json",
+        },
       })
       .then((response) => {
-        const data = response.data;
-        //console.log(data);
+        const data = response.data.data;
+        console.log(data);
 
-        dispatch(updateUser(data));
+        dispatch(updateUserDelivery(data));
 
-        enqueueSnackbar("User updated successfully!", {
+        enqueueSnackbar(response.data.message, {
           variant: "success",
         });
       })
@@ -154,11 +159,11 @@ const FormProfileInfoFood: React.FC = () => {
 
       body.append("file", uploadedFiles[0].file);
 
-      const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+      //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
       const url = "https://cheffyus-api.herokuapp.com/";
 
       api
-        .post(proxyurl + url + `/images/`)
+        .post(url + "images", body)
         .then((response) => {
           //console.log(response.data);
 

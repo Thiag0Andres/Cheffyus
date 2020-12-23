@@ -14,7 +14,7 @@ const SignUp: React.FC = () => {
 
   return (
     <>
-      <NavBarFood setFilter={setFilter} page={page} />
+      <NavBarFood setFilter={setFilter} />
       <Background2 text={text} />
       <FormSignup />
       <Footer />

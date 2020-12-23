@@ -1,12 +1,8 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-// Redux e Auth
-import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
-import { updateFilterName } from "../../store/ducks/filterName/actions";
-
-// Types
-import { FilterName } from "../../store/ducks/filterName/types";
+//Message
+import { useSnackbar } from "notistack";
 
 // Bootstrap
 import Container from "react-bootstrap/Container";
@@ -19,12 +15,12 @@ import Button from "react-bootstrap/Button";
 // Material UI
 import Hidden from "@material-ui/core/Hidden";
 import Slider from "@material-ui/core/Slider";
-import { theme } from "../../material-ui";
-import { CircularProgress, ThemeProvider } from "@material-ui/core";
 
 // Components
 import Pagination from "../Pagination";
 import PaginationCategory from "../PaginationCategory";
+import PlateNotExist from "../../layout/PlateNotExist";
+import Loading from "../../layout/Loading";
 
 // Images
 import userNotfound from "../../images/user.png";
@@ -44,16 +40,22 @@ interface Props {
 }
 
 const GridFood: React.FC<Props> = ({ filter, setPage }) => {
+  const { enqueueSnackbar } = useSnackbar();
+
   // States
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [restaurants, setRestaurants] = useState<Array<any>>([]);
   const [value, setValue] = useState<number[]>([0, 1000]);
   const [valuePage, setValuePage] = useState(1);
   const [categoryFiltered, setCategoryFiltered] = useState([]);
   const [id, setId] = useState();
+  const [typePlate, setTypePlate] = useState("");
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
-    0,
-    0,
+    -5.03284353,
+    -42.8176576,
+    /*     0,
+    0, */
   ]);
 
   //console.log("filter", categoryFiltered);
@@ -71,37 +73,92 @@ const GridFood: React.FC<Props> = ({ filter, setPage }) => {
     setPage(valuePage);
   }, [valuePage]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
 
       setInitialPosition([latitude, longitude]);
     });
-  }, []);
+  }, []); */
 
   const handleChange = (event: any, newValue: number | number[]) => {
     setValue(newValue as number[]);
   };
 
-  const FilterMinMax = (event: FormEvent) => {
-    event.preventDefault();
+  const handleSelectedOption = (e: any) => {
+    setTypePlate(e.target.value);
+  };
 
-    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";category?page=1&pageSize=10
-    const url = `https://mycheffy.herokuapp.com/plate/?page=${valuePage}&pageSize=${12}&price=${
-      value[0]
-    }&near=${true}&lat=${initialPosition[0]}&lon=${
-      initialPosition[1]
-    }&radius=${20}`;
+  // Chamada a api
+  useEffect(() => {
+    setLoading(true);
+    const url = `https://mycheffy.herokuapp.com/plate/?page=${valuePage}&pageSize=${12}&near=${true}&lat=${
+      initialPosition[0]
+    }&lon=${initialPosition[1]}&radius=${321869}`;
 
     api
       .get(url)
       .then((response) => {
         const data = response.data;
+        //console.log(data.data);
         setRestaurants(data.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
       });
+  }, [valuePage]);
+
+  const FilterPlates = (event: FormEvent) => {
+    event.preventDefault();
+
+    if (typePlate === "") {
+      setLoading(true);
+      console.log(1);
+      const url = `https://mycheffy.herokuapp.com/plate/?page=${valuePage}&pageSize=${12}&price=${
+        value[0]
+      }&near=${true}&lat=${initialPosition[0]}&lon=${
+        initialPosition[1]
+      }&radius=${321869}`;
+
+      api
+        .get(url)
+        .then((response) => {
+          const data = response.data;
+
+          console.log(data);
+          setRestaurants(data.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else if (typePlate === "PP") {
+      setLoading(true);
+      console.log(2);
+      const url = `https://mycheffy.herokuapp.com/plate/popular/?page=${valuePage}&pageSize=${12}&price=${
+        value[0]
+      }&near=${true}&lat=${initialPosition[0]}&lon=${
+        initialPosition[1]
+      }&radius=${321869}`;
+
+      api
+        .get(url)
+        .then((response) => {
+          const data = response.data;
+
+          console.log(data);
+          //setRestaurants(data.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      enqueueSnackbar("Failed to filter.", {
+        variant: "error",
+      });
+    }
   };
 
   return (
@@ -131,34 +188,60 @@ const GridFood: React.FC<Props> = ({ filter, setPage }) => {
                 xs="auto"
                 sm="auto"
               >
-                <Form className="range" onSubmit={FilterMinMax}>
-                  <Form.Group
-                    className="range-form"
-                    controlId="formBasicRangeCustom"
-                  >
-                    <Form.Label className="text">Price</Form.Label>
-                    <Slider
-                      value={value}
-                      onChange={handleChange}
-                      //valueLabelDisplay="auto"
-                      aria-labelledby="range-slider"
-                      getAriaValueText={valuetext}
-                      max={1000}
-                      min={0}
+                <Form className="range" onSubmit={FilterPlates}>
+                  <Form.Label className="text">Filter plates</Form.Label>
+                  <Form.Group>
+                    <Form.Check
+                      type="radio"
+                      label="All plates"
+                      id="formHorizontalRadios1"
+                      name="frequence"
+                      value=""
+                      onChange={(e) => handleSelectedOption(e)}
                     />
-
-                    <Form.Group className="Min-Max">
-                      <Form.Label className="text2">Min: {value[0]}</Form.Label>
-                      <Form.Label className="text2">Max: {value[1]}</Form.Label>
-                    </Form.Group>
-                    <Button
-                      className="button"
-                      type="submit"
-                      onClick={FilterMinMax}
-                    >
-                      Update view
-                    </Button>
                   </Form.Group>
+                  <Form.Group>
+                    <Form.Check
+                      type="radio"
+                      label="Popular plates"
+                      id="formHorizontalRadios1"
+                      name="frequence"
+                      value="PP"
+                      onChange={(e) => handleSelectedOption(e)}
+                    />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Check
+                      type="radio"
+                      label="Recommended chefs"
+                      id="formHorizontalRadios1"
+                      name="frequence"
+                      value="RC"
+                      onChange={(e) => handleSelectedOption(e)}
+                    />
+                  </Form.Group>
+                  <Form.Label className="text">Filter price</Form.Label>
+                  <Slider
+                    value={value}
+                    onChange={handleChange}
+                    //valueLabelDisplay="auto"
+                    aria-labelledby="range-slider"
+                    getAriaValueText={valuetext}
+                    max={1000}
+                    min={0}
+                  />
+
+                  <Form.Group className="Min-Max">
+                    <Form.Label className="text2">Min: ${value[0]}</Form.Label>
+                    <Form.Label className="text2">Max: ${value[1]}</Form.Label>
+                  </Form.Group>
+                  <Button
+                    className="button"
+                    type="submit"
+                    onClick={FilterPlates}
+                  >
+                    Update view
+                  </Button>
                 </Form>
               </Col>
             </Row>
@@ -168,54 +251,66 @@ const GridFood: React.FC<Props> = ({ filter, setPage }) => {
       <Row className="content-grid">
         <Col className="slider" xl="3" lg="3" md="3" xs="3" sm="3">
           <Hidden smDown implementation="css">
-            <Form className="range" onSubmit={FilterMinMax}>
-              <Form.Group
-                className="range-form"
-                controlId="formBasicRangeCustom"
-              >
-                <Form.Label className="text">Price</Form.Label>
-                <Slider
-                  value={value}
-                  onChange={handleChange}
-                  //valueLabelDisplay="auto"
-                  aria-labelledby="range-slider"
-                  getAriaValueText={valuetext}
-                  max={1000}
-                  min={0}
+            <Form className="range" onSubmit={FilterPlates}>
+              <Form.Label className="text">Filter plates</Form.Label>
+              <Form.Group>
+                <Form.Check
+                  type="radio"
+                  label="All plates"
+                  name="frequence"
+                  id="formHorizontalRadios1"
+                  value=""
+                  onChange={(e) => handleSelectedOption(e)}
                 />
-
-                <Form.Group className="Min-Max">
-                  <Form.Label className="text2">Min: {value[0]}</Form.Label>
-                  <Form.Label className="text2">Max: {value[1]}</Form.Label>
-                </Form.Group>
-                <Button className="button" type="submit" onClick={FilterMinMax}>
-                  Update view
-                </Button>
               </Form.Group>
+              <Form.Group>
+                <Form.Check
+                  type="radio"
+                  label="Popular plates"
+                  name="frequence"
+                  id="formHorizontalRadios1"
+                  value="PP"
+                  onChange={(e) => handleSelectedOption(e)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Check
+                  type="radio"
+                  label="Recommended chefs"
+                  name="frequence"
+                  id="formHorizontalRadios1"
+                  value="RC"
+                  onChange={(e) => handleSelectedOption(e)}
+                />
+              </Form.Group>
+              <Form.Label className="text">Filter price</Form.Label>
+              <Slider
+                value={value}
+                onChange={handleChange}
+                //valueLabelDisplay="auto"
+                aria-labelledby="range-slider"
+                getAriaValueText={valuetext}
+                max={1000}
+                min={0}
+              />
+
+              <Form.Group className="Min-Max">
+                <Form.Label className="text2">Min: ${value[0]}</Form.Label>
+                <Form.Label className="text2">Max: ${value[1]}</Form.Label>
+              </Form.Group>
+              <Button className="button" type="submit" onClick={FilterPlates}>
+                Update view
+              </Button>
             </Form>
           </Hidden>
         </Col>
 
-        <Col className="grid" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
-          {/*           {loading && (
-            <div
-              style={{
-                width: "100vh",
-                height: "100vh",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <ThemeProvider theme={theme}>
-                <CircularProgress />
-              </ThemeProvider>
-            </div>
-          )} */}
-
-          <ul>
-            {restaurants.length > 0 &&
-              restaurants.map((restaurant: any) => (
+        <Col className="grid" xl="9" lg="9" md="9" xs="9" sm="9">
+          {loading && <Loading />}
+          {!loading && restaurants.length === 0 && <PlateNotExist />}
+          {!loading && restaurants.length > 0 && (
+            <ul>
+              {restaurants.map((restaurant: any) => (
                 <li key={restaurant.id}>
                   <div className="opacity"></div>
 
@@ -246,11 +341,11 @@ const GridFood: React.FC<Props> = ({ filter, setPage }) => {
                     className="box2"
                     to="/food/grid-foods"
                     /*                     to={{
-                      pathname: `/food/profile-chef/${restaurant.chef.name}`,
-                      state: {
-                        detail: restaurant,
-                      },
-                    }} */
+                        pathname: `/food/profile-chef/${restaurant.chef.name}`,
+                        state: {
+                          detail: restaurant,
+                        },
+                      }} */
                   >
                     <img
                       className="imgChef"
@@ -265,18 +360,19 @@ const GridFood: React.FC<Props> = ({ filter, setPage }) => {
                     <Link
                       to="/food/grid-foods"
                       /*                     to={{
-                      pathname: `/food/profile-chef/${restaurant.chef.name}`,
-                      state: {
-                        detail: restaurant,
-                      },
-                    }} */
+                        pathname: `/food/profile-chef/${restaurant.chef.name}`,
+                        state: {
+                          detail: restaurant,
+                        },
+                      }} */
                     >
                       {restaurant.chef.name}
                     </Link>
                   </Link>
                 </li>
               ))}
-          </ul>
+            </ul>
+          )}
         </Col>
       </Row>
       <Row style={{ display: "flex", justifyContent: "flex-end" }}>

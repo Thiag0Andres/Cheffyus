@@ -14,7 +14,7 @@ const LogIn: React.FC = () => {
 
   return (
     <>
-      <NavBarFood setFilter={setFilter} page={page} />
+      <NavBarFood setFilter={setFilter} />
       <Background2 text={text} />
       <FormLogin />
       <Footer />

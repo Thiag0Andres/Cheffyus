@@ -4,8 +4,7 @@ import { useHistory } from "react-router-dom";
 // Redux e Auth
 import { useSelector, RootStateOrAny } from "react-redux";
 import { useDispatch } from "react-redux";
-import { updateUser, removeUser } from "../../store/ducks/user/actions";
-import { removeToken } from "../../store/ducks/token/actions";
+import { updateUserDelivery } from "../../store/ducks/userDelivery/actions";
 
 // Types
 import { UserDelivery } from "../../store/ducks/userDelivery/types";
@@ -45,10 +44,9 @@ const FormPayment: React.FC = () => {
   const [countries, setCountries] = useState([]);
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
-  const [show2, setShow2] = useState(false);
   const [formData, setFormData] = useState({
-    address_code: 0,
-    phone_number: user.phone_no ? user.phone_no : undefined,
+    country_code: "",
+    phone_no: user.phone_no ? user.phone_no : undefined,
     bank_code: "",
     branch_code: "",
     account_number: "",
@@ -69,7 +67,7 @@ const FormPayment: React.FC = () => {
       });
   }, []);
 
-  console.log(countries);
+  //console.log(countries);
 
   const handleInputChangeCountry = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -87,24 +85,27 @@ const FormPayment: React.FC = () => {
   };
 
   const VerifyPhone = () => {
-    const { phone_number } = formData;
+    const { country_code, phone_no } = formData;
 
     const body = {
-      phone_no: String(phone_number),
+      country_code: `+ ${String(country_code)}`,
+      phone_no: String(phone_no),
     };
 
-    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = "https://mycheffy.herokuapp.com/";
 
     api
-      .put(url + `/user/verify-phone/?userId=${user.id}`, body, {
-        headers: { Authorization: token },
+      .post(url + "user/verify-phone", body, {
+        headers: {
+          "x-access-token": token,
+          "content-type": "application/json",
+        },
       })
       .then((response) => {
-        const data = response.data;
+        const data = response.data.data;
         //console.log(data);
 
-        //dispatch(updateUser(data));
+        //dispatch(updateUserDelivery(data));
         setShow(false);
         setShow1(true);
 
@@ -153,8 +154,7 @@ const FormPayment: React.FC = () => {
                       <Form.Control
                         className="select-country"
                         as="select"
-                        name="address_code"
-                        value={formData.address_code}
+                        name="country_code"
                         onChange={handleInputChangeCountry}
                       >
                         <option>Select a country code</option>
@@ -171,9 +171,8 @@ const FormPayment: React.FC = () => {
                       </Form.Control>
                       <Form.Control
                         className="input-phone"
-                        name="phone_number"
+                        name="phone_no"
                         type="text"
-                        value={formData.phone_number}
                         onChange={handleInputChange}
                       />
                     </div>
@@ -196,7 +195,7 @@ const FormPayment: React.FC = () => {
                 </>
               )}
 
-              {show2 && (
+              {user.verification_phone_status === "verified" && (
                 <>
                   <Form.Group>
                     <Form.Label className="text">Cardholder Names </Form.Label>
@@ -230,7 +229,7 @@ const FormPayment: React.FC = () => {
                     <Form.Control
                       className="input"
                       name="token"
-                      type="text"
+                      type="password"
                       onChange={handleInputChange}
                     />
                   </Form.Group>

@@ -1,0 +1,24 @@
+@import "../../mixin.scss";
+
+#image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 400px;
+    height: 400px;
+  }
+
+  .text {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 26px;
+    font-weight: bold;
+    line-height: 24px;
+    color: $gray_light;
+  }
+}

@@ -30,7 +30,7 @@ const HomeGridFood: React.FC = () => {
 
   return (
     <>
-      <NavBarFood setFilter={setFilter} page={page} />
+      <NavBarFood setFilter={setFilter} />
       {!isLogged && <Background />}
       <GridFood filter={filter} setPage={setPage} />
       <Footer />

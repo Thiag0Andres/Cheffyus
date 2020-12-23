@@ -69,11 +69,11 @@ const Mapa: React.FC = () => {
   const FilterMinMax = (event: FormEvent) => {
     event.preventDefault();
 
-    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = `https://cheffyus-api.herokuapp.com/kitchens/?min_price=${value[0]}&max_price=${value[1]}`;
 
     api
-      .get(proxyurl + url)
+      .get(url)
       .then((response) => {
         const data = response.data;
         dispatch(updateFilterName(data));
@@ -85,11 +85,11 @@ const Mapa: React.FC = () => {
   };
 
   const AllkitchensTypes = () => {
-    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = `https://cheffyus-api.herokuapp.com/kitchens/?min_price=${0}&max_price=${10000}`;
 
     api
-      .get(proxyurl + url)
+      .get(url)
       .then((response) => {
         const data = response.data;
         dispatch(updateFilterName(data));
@@ -101,11 +101,11 @@ const Mapa: React.FC = () => {
 
   useEffect(() => {
     if (valueDrop != 0) {
-      const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+      //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
       const url = `https://cheffyus-api.herokuapp.com/kitchens/?category_id=${valueDrop}`;
 
       api
-        .get(proxyurl + url)
+        .get(url)
         .then((response) => {
           const data = response.data;
           dispatch(updateFilterName(data));

@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 
 // Redux e Auth
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { ApplicationState } from "../../store";
 import { removeUserDelivery } from "../../store/ducks/userDelivery/actions";
 import { removeTokenDelivery } from "../../store/ducks/tokenDelivery/actions";
 import { isAuthenticatedDelivery } from "../../services/auth";
@@ -32,7 +33,6 @@ import { useSnackbar } from "notistack";
 
 //Icons
 import { FaRegUser, FaShoppingCart } from "react-icons/fa";
-import { FiInbox } from "react-icons/fi";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { BiMenu } from "react-icons/bi";
 import { GoSearch } from "react-icons/go";
@@ -43,8 +43,6 @@ import logo from "../../images/logo.jpg";
 import api from "../../services/api";
 
 import "./styles.scss";
-import { ApplicationState } from "../../store";
-import { Restaurant } from "@material-ui/icons";
 
 interface Props {
   /**
@@ -53,11 +51,10 @@ interface Props {
    */
   window?: () => Window;
   setFilter: any;
-  page: any;
 }
 
 const NavBarFood: React.FC<Props> = (props: Props) => {
-  const { window, setFilter, page } = props;
+  const { window, setFilter } = props;
   const dispatch = useDispatch();
   const userDelivery: UserDelivery = useSelector(
     (state: ApplicationState) => state.userDelivery.userDelivery
@@ -76,44 +73,9 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
   const [isLogged, setIsLogged] = useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [restaurants, setRestaurants] = useState([]);
-  const [initialPosition, setInitialPosition] = useState<[number, number]>([
-    /*     -5.03284353,
-    -42.8176576, */
-    0,
-    0,
-  ]);
   const [formData, setFormData] = useState({
     search: "",
   });
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
-
-      setInitialPosition([latitude, longitude]);
-    });
-  }, []);
-
-  // Chamada a api
-  useEffect(() => {
-    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    //const url = `https://mycheffy.herokuapp.com/plate/?page=${page}&pageSize=${12}`;
-    const url = `https://mycheffy.herokuapp.com/plate/?page=${page}&pageSize=${12}&near=${true}&lat=${
-      initialPosition[0]
-    }&lon=${initialPosition[1]}&radius=${321869}`;
-
-    api
-      .get(url)
-      .then((response) => {
-        const data = response.data;
-        //console.log(data.data);
-        setRestaurants(data.data);
-        setFilter(data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [page]);
 
   useEffect(() => {
     const filteredKitchens: any = restaurants.filter((restaurant: any) => {

@@ -3,6 +3,10 @@ import React, { useEffect, useState } from "react";
 // Bootstrap
 import Button from "react-bootstrap/Button";
 
+// Components
+import PlateNotExist from "../../layout/PlateNotExist";
+import Loading from "../../layout/Loading";
+
 //Icons
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
@@ -12,7 +16,6 @@ import foodNotFound from "../../images/foodNotFound.jpg";
 import "./styles.scss";
 
 import api from "../../services/api";
-import { PaginationItem } from "@material-ui/lab";
 
 interface Props {
   setCategoryFiltered: any;
@@ -25,7 +28,6 @@ const PaginationCategory: React.FC<Props> = ({
   setId,
   valuePage,
 }) => {
-  const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<Array<any>>([]);
   const [idCategory, setIdCategory] = useState();
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,17 +37,16 @@ const PaginationCategory: React.FC<Props> = ({
     -42.8176576,
   ]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
 
       setInitialPosition([latitude, longitude]);
     });
-  }, []);
+  }, []); */
 
   // Chamada a api
   useEffect(() => {
-    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = "https://mycheffy.herokuapp.com/category";
 
     api
@@ -63,8 +64,9 @@ const PaginationCategory: React.FC<Props> = ({
 
   // Chamada a api
   useEffect(() => {
-    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
-    const url = `https://mycheffy.herokuapp.com/plate/category/${idCategory}/?page=${valuePage}&pageSize=${12}`;
+    const url = `https://mycheffy.herokuapp.com/plate/category/${idCategory}/?page=${valuePage}&pageSize=${12}&near=${true}&lat=${
+      initialPosition[0]
+    }&lon=${initialPosition[1]}&radius=${321869}`;
     api
       .get(url)
       .then((response) => {

@@ -127,6 +127,7 @@
   .content-grid {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 
     .slider {
       padding-left: 0;

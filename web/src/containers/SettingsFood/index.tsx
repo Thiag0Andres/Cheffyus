@@ -14,7 +14,7 @@ const SettingsFood: React.FC = () => {
 
   return (
     <>
-      <NavBarFood setFilter={setFilter} page={page} />
+      <NavBarFood setFilter={setFilter} />
       <Background2 text={text} />
       <InformationsSettingsFood />
       <Footer />

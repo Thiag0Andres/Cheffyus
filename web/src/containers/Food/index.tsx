@@ -23,7 +23,7 @@ const Food: React.FC<Props> = () => {
 
   return (
     <>
-      <NavBarFood setFilter={setFilter} page={page} />
+      <NavBarFood setFilter={setFilter} />
       <Background2 text={text} />
       <FoodInfo detail={detail} />
       <Footer />

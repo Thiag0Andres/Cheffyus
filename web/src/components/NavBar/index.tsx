@@ -74,11 +74,11 @@ const NavBar: React.FC<Props> = (props: Props) => {
 
   // Chamada a api
   useEffect(() => {
-    const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
+    //const proxyurl = "https://afternoon-brook-18118.herokuapp.com/";
     const url = "http://cheffyus-api.herokuapp.com/";
 
     api
-      .get(proxyurl + url + "kitchens")
+      .get(url + "kitchens")
       .then((response) => {
         setRestaurants(response.data);
         //console.log(response.data);
