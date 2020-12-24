@@ -34,13 +34,14 @@ import userNotfound from "../../images/user.png";
 import DeliveryMan from "../../images/DeliveryMan.png";
 
 import "./styles.scss";
+import api from "../../services/api";
 
 interface Props {
   detail: any;
 }
 
 const FoodInfo: React.FC<Props> = ({ detail }) => {
-  const tokenDelivery: TokenDelivery = useSelector(
+  const token: TokenDelivery = useSelector(
     (state: RootStateOrAny) => state.tokenDelivery.tokenDelivery.tokenDelivery
   );
   const userDelivery: UserDelivery = useSelector(
@@ -54,6 +55,7 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
   //States
   const [isLogged, setIsLogged] = useState(false);
   const [plate, setPlate] = useState("");
+  const [typeDel, setTypeDel] = useState("");
   const [click, setClick] = useState(0);
   const [formData, setFormData] = useState({
     quantity: 1,
@@ -64,6 +66,18 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
     const response = isAuthenticatedDelivery();
     setIsLogged(response);
   }, [userDelivery]);
+
+  useEffect(() => {
+    const typeD = () => {
+      if (detail.delivery_type == "free") {
+        setTypeDel("user");
+      } else if (detail.delivery_type == "paid") {
+        setTypeDel("driver");
+      }
+    };
+
+    typeD();
+  }, []);
 
   useEffect(() => {
     const L = () => {
@@ -107,22 +121,51 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
     }
   }; */
 
-  const handleNextPageRequest = () => {
-    if (isLogged) {
-      if (cart.length === 0) {
+  const handleSubmit = () => {
+    const body = {
+      deliveryType: String(typeDel),
+      plates: [
+        {
+          quantity: Number(formData.quantity),
+          plateId: detail.id,
+        },
+      ],
+    };
+
+    const url = "https://mycheffy.herokuapp.com/basket";
+
+    api
+      .post(url, body, {
+        headers: {
+          "x-access-token": token,
+          "content-type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log("basket", data);
+
         dispatch(addCart({ ...detail, quantity: formData.quantity }));
+
         enqueueSnackbar("Food add to cart", {
           variant: "success",
         });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleNextPageRequest = () => {
+    if (isLogged) {
+      if (cart.length === 0) {
+        handleSubmit();
       } else if (plate === "CASE1") {
         enqueueSnackbar("Food is already in the cart", {
           variant: "error",
         });
       } else if (plate === "CASE2") {
-        dispatch(addCart({ ...detail, quantity: formData.quantity }));
-        enqueueSnackbar("Food add to cart", {
-          variant: "success",
-        });
+        handleSubmit();
       } else if (plate === "CASE3") {
         enqueueSnackbar("You can only order food from the same Chef", {
           variant: "error",

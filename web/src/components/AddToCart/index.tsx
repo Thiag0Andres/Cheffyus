@@ -18,6 +18,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
+// Components
+import PayPal from "../PayPal";
+
 // Icons
 import { MdDelete } from "react-icons/md";
 
@@ -47,39 +50,20 @@ const InfoFood: React.FC = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  /*   const typeTime = () => {
-    if (detail.kitchen.time_type == "hour") {
-      return <p>Hours:</p>;
-    } else if (detail.kitchen.time_type == "day") {
-      return <p>Days:</p>;
-    } else if (detail.kitchen.time_type == "week") {
-      return <p>Weeks:</p>;
-    } else if (detail.kitchen.time_type == "month") {
-      return <p>Months:</p>;
-    } else if (detail.kitchen.time_type == "year") {
-      return <p>Years:</p>;
-    }
-  }; */
-
-  /*   const typeTime2 = () => {
-    if (detail.kitchen.time_type == "hour") {
-      return <p>hour</p>;
-    } else if (detail.kitchen.time_type == "day") {
-      return <p>day</p>;
-    } else if (detail.kitchen.time_type == "week") {
-      return <p>week</p>;
-    } else if (detail.kitchen.time_type == "month") {
-      return <p>month</p>;
-    } else if (detail.kitchen.time_type == "year") {
-      return <p>year</p>;
-    }
-  }; */
-
   const handleDeleteItem = (id: number) => {
     dispatch(removeCart(id));
     enqueueSnackbar("Food removed", {
       variant: "info",
     });
+  };
+
+  const AmountPrice = () => {};
+
+  const paymentHandler = (details: any, data: any) => {
+    /** Here you can call your backend API
+      endpoint and update the database */
+
+    console.log(details, data);
   };
 
   return (
@@ -214,34 +198,7 @@ const InfoFood: React.FC = () => {
             </Form.Group>
           </div>
 
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "45%",
-                height: "50px",
-                backgroundColor: "#474747",
-                color: "#fff",
-              }}
-            >
-              Other Payment
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "45%",
-                height: "50px",
-                backgroundColor: "blue",
-                color: "#fff",
-              }}
-            >
-              Paypal
-            </div>
-          </div>
+          <PayPal amount={200} currency={"USD"} onSuccess={paymentHandler} />
 
           <Button className="button" type="submit">
             Checkout
