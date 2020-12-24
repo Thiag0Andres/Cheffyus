@@ -116,7 +116,7 @@ export default function Routes() {
         />
 
         {/* Order Food Page */}
-        <Route path="/food/grid-foods" component={HomeGridFood} />
+        <Route path="/food/grid-foods/:gridFoods" component={HomeGridFood} />
         <Route path="/food/login" component={LogInFood} />
         <Route path="/food/signup" component={SignUpFood} />
         <Route path="/food/food/:food" component={Food} />

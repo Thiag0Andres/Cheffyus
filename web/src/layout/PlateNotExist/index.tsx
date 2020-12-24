@@ -12,9 +12,7 @@ const PlateNotExist: React.FC = () => {
   return (
     <Container id="image">
       <img src={fastFood} />
-      <h1 className="text">
-        There are no plates for the selected specification
-      </h1>
+      <h1 className="text">There are no dishes near you</h1>
     </Container>
   );
 };

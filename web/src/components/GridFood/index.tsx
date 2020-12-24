@@ -37,28 +37,25 @@ function valuetext(value: number) {
 interface Props {
   filter: any;
   setPage: any;
+  locationUser: any;
 }
 
-const GridFood: React.FC<Props> = ({ filter, setPage }) => {
+const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
   const { enqueueSnackbar } = useSnackbar();
 
   // States
-  const [show, setShow] = useState(false);
+  const [showFilter, setShowFilter] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [categoryBoolean, setCategoryBoolean] = useState(false);
+  const [filterBoolean, setFilterBoolean] = useState(false);
   const [restaurants, setRestaurants] = useState<Array<any>>([]);
   const [value, setValue] = useState<number[]>([0, 1000]);
   const [valuePage, setValuePage] = useState(1);
   const [categoryFiltered, setCategoryFiltered] = useState([]);
   const [id, setId] = useState();
   const [typePlate, setTypePlate] = useState("");
-  const [initialPosition, setInitialPosition] = useState<[number, number]>([
-    -5.03284353,
-    -42.8176576,
-    /*     0,
-    0, */
-  ]);
 
-  //console.log("filter", categoryFiltered);
+  //console.log("location", locationUser);
   //console.log("id", id);
 
   useEffect(() => {
@@ -73,13 +70,9 @@ const GridFood: React.FC<Props> = ({ filter, setPage }) => {
     setPage(valuePage);
   }, [valuePage]);
 
-  /*   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
-
-      setInitialPosition([latitude, longitude]);
-    });
-  }, []); */
+  useEffect(() => {
+    setShowFilter(filterBoolean);
+  }, [filterBoolean]);
 
   const handleChange = (event: any, newValue: number | number[]) => {
     setValue(newValue as number[]);
@@ -93,14 +86,14 @@ const GridFood: React.FC<Props> = ({ filter, setPage }) => {
   useEffect(() => {
     setLoading(true);
     const url = `https://mycheffy.herokuapp.com/plate/?page=${valuePage}&pageSize=${12}&near=${true}&lat=${
-      initialPosition[0]
-    }&lon=${initialPosition[1]}&radius=${321869}`;
+      locationUser[0]
+    }&lon=${locationUser[1]}&radius=${100}`;
 
     api
       .get(url)
       .then((response) => {
         const data = response.data;
-        //console.log(data.data);
+        //console.log("oi", data.data);
         setRestaurants(data.data);
         setLoading(false);
       })
@@ -115,11 +108,11 @@ const GridFood: React.FC<Props> = ({ filter, setPage }) => {
     if (typePlate === "") {
       setLoading(true);
       console.log(1);
-      const url = `https://mycheffy.herokuapp.com/plate/?page=${valuePage}&pageSize=${12}&price=${
+      const url = `https://mycheffy.herokuapp.com/plate/?page=${valuePage}&pageSize=${12}&priceRange=${
         value[0]
-      }&near=${true}&lat=${initialPosition[0]}&lon=${
-        initialPosition[1]
-      }&radius=${321869}`;
+      }&priceRange=${value[1]}&near=${true}&lat=${locationUser[0]}&lon=${
+        locationUser[1]
+      }&radius=${100}`;
 
       api
         .get(url)
@@ -136,11 +129,11 @@ const GridFood: React.FC<Props> = ({ filter, setPage }) => {
     } else if (typePlate === "PP") {
       setLoading(true);
       console.log(2);
-      const url = `https://mycheffy.herokuapp.com/plate/popular/?page=${valuePage}&pageSize=${12}&price=${
+      const url = `https://mycheffy.herokuapp.com/plate/popular/?page=${valuePage}&pageSize=${12}&priceRange=${
         value[0]
-      }&near=${true}&lat=${initialPosition[0]}&lon=${
-        initialPosition[1]
-      }&radius=${321869}`;
+      }&priceRange=${value[1]}&near=${true}&lat=${locationUser[0]}&lon=${
+        locationUser[1]
+      }&radius=${100}`;
 
       api
         .get(url)
@@ -148,7 +141,7 @@ const GridFood: React.FC<Props> = ({ filter, setPage }) => {
           const data = response.data;
 
           console.log(data);
-          //setRestaurants(data.data);
+          setRestaurants(data.data);
           setLoading(false);
         })
         .catch((error) => {
@@ -166,18 +159,31 @@ const GridFood: React.FC<Props> = ({ filter, setPage }) => {
       <Row className="content-header">
         <Col className="header" xl="12" lg="12" md="12" xs="12" sm="12">
           <Hidden mdUp implementation="css">
-            <Button className="button2" onClick={() => setShow(true)}>
+            <Button
+              className="button2"
+              onClick={() => {
+                setShowFilter(true);
+                setCategoryBoolean(false);
+                console.log(showFilter);
+                console.log(categoryBoolean);
+              }}
+            >
               Filter
             </Button>
           </Hidden>
           <PaginationCategory
+            setCategoryBoolean={setCategoryBoolean}
             setCategoryFiltered={setCategoryFiltered}
+            setFilterBoolean={setFilterBoolean}
             setId={setId}
             valuePage={valuePage}
+            showFilter={showFilter}
+            categoryBoolean={categoryBoolean}
+            locationUser={locationUser}
           />
         </Col>
 
-        {show && (
+        {showFilter && !categoryBoolean && (
           <Hidden mdUp implementation="css">
             <Row className="content-filter">
               <Col
@@ -315,6 +321,7 @@ const GridFood: React.FC<Props> = ({ filter, setPage }) => {
                   <div className="opacity"></div>
 
                   <img
+                    id={`id_${restaurant.id}`}
                     className="imgKitchen"
                     src={
                       restaurant.PlateImages.length === null

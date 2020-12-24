@@ -16,6 +16,9 @@ import Footer from "../../components/Footer";
 
 const HomeGridFood: React.FC = () => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
+  const location = useLocation();
+
+  const locationUser = (location.state as any).locationUser;
 
   // States
   const [isLogged, setIsLogged] = useState(false);
@@ -32,7 +35,7 @@ const HomeGridFood: React.FC = () => {
     <>
       <NavBarFood setFilter={setFilter} />
       {!isLogged && <Background />}
-      <GridFood filter={filter} setPage={setPage} />
+      <GridFood filter={filter} setPage={setPage} locationUser={locationUser} />
       <Footer />
     </>
   );

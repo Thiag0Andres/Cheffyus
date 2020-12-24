@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 // Bootstrap
@@ -14,8 +14,29 @@ import "./styles.scss";
 const MenuScreen: React.FC = () => {
   const history = useHistory();
 
+  // States
+  const [initialPosition, setInitialPosition] = useState<[number, number]>([
+    /*     37.9179474,
+    -83.9116557, */
+    0,
+    0,
+  ]);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+
+      setInitialPosition([latitude, longitude]);
+    });
+  }, []);
+
   const handlePageFood = () => {
-    history.push("/food/grid-foods");
+    history.push({
+      pathname: `/food/grid-foods/${initialPosition}`,
+      state: {
+        locationUser: initialPosition,
+      },
+    });
   };
 
   const handlePageKitchen = () => {

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 // Bootstrap
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
-// Components
-import PlateNotExist from "../../layout/PlateNotExist";
-import Loading from "../../layout/Loading";
+// Material UI
+import Hidden from "@material-ui/core/Hidden";
 
 //Icons
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
@@ -19,31 +21,38 @@ import api from "../../services/api";
 
 interface Props {
   setCategoryFiltered: any;
+  setCategoryBoolean: any;
+  setFilterBoolean: any;
   setId: any;
   valuePage: number;
+  showFilter: boolean;
+  categoryBoolean: boolean;
+  locationUser: any;
 }
 
 const PaginationCategory: React.FC<Props> = ({
   setCategoryFiltered,
+  setCategoryBoolean,
+  setFilterBoolean,
   setId,
   valuePage,
+  showFilter,
+  categoryBoolean,
+  locationUser,
 }) => {
+  const [show, setShow] = useState(false);
   const [categories, setCategories] = useState<Array<any>>([]);
   const [idCategory, setIdCategory] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [categoryPerPage, setCategoryPerPage] = useState(6);
-  const [initialPosition, setInitialPosition] = useState<[number, number]>([
-    -5.03284353,
-    -42.8176576,
-  ]);
 
-  /*   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
+  useEffect(() => {
+    setCategoryBoolean(show);
+  }, [show]);
 
-      setInitialPosition([latitude, longitude]);
-    });
-  }, []); */
+  useEffect(() => {
+    setShow(categoryBoolean);
+  }, [categoryBoolean]);
 
   // Chamada a api
   useEffect(() => {
@@ -65,8 +74,8 @@ const PaginationCategory: React.FC<Props> = ({
   // Chamada a api
   useEffect(() => {
     const url = `https://mycheffy.herokuapp.com/plate/category/${idCategory}/?page=${valuePage}&pageSize=${12}&near=${true}&lat=${
-      initialPosition[0]
-    }&lon=${initialPosition[1]}&radius=${321869}`;
+      locationUser[0]
+    }&lon=${locationUser[1]}&radius=${100}`;
     api
       .get(url)
       .then((response) => {
@@ -105,44 +114,94 @@ const PaginationCategory: React.FC<Props> = ({
     };
 
     return (
-      <>
-        <nav className="nav">
-          <p className="textTitle">Food categories</p>
-          <div className="buttons">
-            <Button className="button" onClick={handlePreviousPage}>
-              <BsArrowLeft color="#000" size={20} />
-            </Button>
-            <Button className="button" onClick={handleNextPage}>
-              <BsArrowRight color="#000" size={20} />
-            </Button>
-          </div>
-        </nav>
-      </>
+      <nav className="nav">
+        <p className="textTitle">Food categories</p>
+        <div className="buttons">
+          <Button className="button" onClick={handlePreviousPage}>
+            <BsArrowLeft color="#000" size={20} />
+          </Button>
+          <Button className="button" onClick={handleNextPage}>
+            <BsArrowRight color="#000" size={20} />
+          </Button>
+        </div>
+      </nav>
     );
   };
 
   return (
-    <div id="pagination-category">
-      {Pagination()}
-      <ul className="categoryList">
-        {categories.length > 0 &&
-          currentCategory.map((category: any) => (
-            <li
-              key={category.id}
-              onClick={() => {
-                setIdCategory(category.id);
-                setId(category.id);
-              }}
-            >
-              <img
-                src={category.url === null ? foodNotFound : category.url}
-                alt={category.name}
-              />
-              <p className="text">{category.name}</p>
-            </li>
-          ))}
-      </ul>
-    </div>
+    <Container>
+      <Row>
+        <Hidden mdUp implementation="css">
+          <Button
+            className="button2"
+            onClick={() => {
+              setShow(true);
+              setFilterBoolean(false);
+              console.log(show);
+              console.log(showFilter);
+            }}
+          >
+            Food categories
+          </Button>
+        </Hidden>
+      </Row>
+
+      {show && !showFilter && (
+        <Hidden mdUp implementation="css">
+          <Row id="pagination-category">
+            <Col xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
+              {Pagination()}
+              <ul className="categoryList">
+                {categories.length > 0 &&
+                  currentCategory.map((category: any) => (
+                    <li
+                      key={category.id}
+                      onClick={() => {
+                        setIdCategory(category.id);
+                        setId(category.id);
+                      }}
+                    >
+                      <img
+                        id={`id_${category.id}`}
+                        src={
+                          category.url === null ? foodNotFound : category.url
+                        }
+                        alt={category.name}
+                      />
+                      <p className="text">{category.name}</p>
+                    </li>
+                  ))}
+              </ul>
+            </Col>
+          </Row>
+        </Hidden>
+      )}
+
+      <Hidden smDown implementation="css">
+        <div id="pagination-category">
+          {Pagination()}
+          <ul className="categoryList">
+            {categories.length > 0 &&
+              currentCategory.map((category: any) => (
+                <li
+                  key={category.id}
+                  onClick={() => {
+                    setIdCategory(category.id);
+                    setId(category.id);
+                  }}
+                >
+                  <img
+                    id={`id_${category.id}`}
+                    src={category.url === null ? foodNotFound : category.url}
+                    alt={category.name}
+                  />
+                  <p className="text">{category.name}</p>
+                </li>
+              ))}
+          </ul>
+        </div>
+      </Hidden>
+    </Container>
   );
 };
 

@@ -74,3 +74,23 @@
     }
   }
 }
+
+@media screen and (max-width: 959px) {
+  #pagination-category {
+    .categoryList {
+      display: grid !important;
+      grid-template-columns: repeat(3, 1fr) !important;
+      grid-gap: 30px !important;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #pagination-category {
+    .categoryList {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      grid-gap: 30px !important;
+    }
+  }
+}

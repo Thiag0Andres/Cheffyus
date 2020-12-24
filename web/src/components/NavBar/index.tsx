@@ -180,7 +180,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
 
       <div className="drawer-menu">
         <p>Menu</p>
-        <Link className="text3" to="/kitchen/grid-kitchens">
+        <Link className="text3" to="/">
           Home
         </Link>
         <Link className="text3" to="/about">
@@ -261,7 +261,7 @@ const NavBar: React.FC<Props> = (props: Props) => {
               <BiMenu />
             </IconButton>
           </Hidden>
-          <Navbar.Brand className="logo" href="/kitchen/grid-kitchens">
+          <Navbar.Brand className="logo" href="/">
             <img src={logo} alt="Cheffy" />
           </Navbar.Brand>
           <Hidden smDown implementation="css">

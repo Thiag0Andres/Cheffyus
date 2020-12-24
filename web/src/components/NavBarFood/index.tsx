@@ -166,7 +166,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
 
       <div className="drawer-menu">
         <p>Menu</p>
-        <Link className="text3" to="/food/grid-foods">
+        <Link className="text3" to="/">
           Home
         </Link>
         <Link className="text3" to="/about">
@@ -235,7 +235,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
               <BiMenu />
             </IconButton>
           </Hidden>
-          <Navbar.Brand className="logo" href="/food/grid-foods">
+          <Navbar.Brand className="logo" href="/">
             <img src={logo} alt="Cheffy" />
           </Navbar.Brand>
           <Hidden smDown implementation="css">
@@ -327,7 +327,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                 </Nav.Link>
                 <Button className="button2" onClick={handlePage}>
                   <FaShoppingCart />
-                  &nbsp;&nbsp;&nbsp;Cart
+                  &nbsp;&nbsp;&nbsp;Cart&nbsp;&nbsp;{cart}
                 </Button>
               </div>
             )}
@@ -350,7 +350,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
               <Hidden xsDown implementation="css">
                 <Button className="button2" onClick={handlePage}>
                   <FaShoppingCart />
-                  &nbsp;&nbsp;&nbsp;Cart
+                  &nbsp;&nbsp;&nbsp;Cart&nbsp;&nbsp;{cart}
                 </Button>
               </Hidden>
             </div>
