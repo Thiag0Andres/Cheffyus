@@ -16,19 +16,21 @@ const MenuScreen: React.FC = () => {
 
   // States
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
-    /*     37.9179474,
-    -83.9116557, */
-    0,
-    0,
+    /*     38.866195,
+    -77.242275, */
+    -7.1466036,
+    -34.9516381,
+    /*     0,
+    0, */
   ]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
 
       setInitialPosition([latitude, longitude]);
     });
-  }, []);
+  }, []); */
 
   const handlePageFood = () => {
     history.push({

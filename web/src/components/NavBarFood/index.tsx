@@ -327,33 +327,57 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                 </Nav.Link>
                 <Button className="button2" onClick={handlePage}>
                   <FaShoppingCart />
-                  &nbsp;&nbsp;&nbsp;Cart&nbsp;&nbsp;{cart}
+                  &nbsp;&nbsp;&nbsp;Cart
                 </Button>
               </div>
             )}
           </Hidden>
           <Hidden mdUp implementation="css">
-            <div className="box3">
-              {show1 && (
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  edge="start"
-                  onClick={() => {
-                    setShow1(false);
-                    setShow2(true);
-                  }}
-                >
-                  <GoSearch />
-                </IconButton>
-              )}
-              <Hidden xsDown implementation="css">
-                <Button className="button2" onClick={handlePage}>
-                  <FaShoppingCart />
-                  &nbsp;&nbsp;&nbsp;Cart&nbsp;&nbsp;{cart}
-                </Button>
-              </Hidden>
-            </div>
+            {isLogged ? (
+              <div className="box3">
+                {show1 && (
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    onClick={() => {
+                      setShow1(false);
+                      setShow2(true);
+                    }}
+                  >
+                    <GoSearch />
+                  </IconButton>
+                )}
+                <Hidden xsDown implementation="css">
+                  <Button className="button2" onClick={handlePage}>
+                    <FaShoppingCart />
+                    &nbsp;&nbsp;&nbsp;Cart&nbsp;&nbsp;{cart}
+                  </Button>
+                </Hidden>
+              </div>
+            ) : (
+              <div className="box3">
+                {show1 && (
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    onClick={() => {
+                      setShow1(false);
+                      setShow2(true);
+                    }}
+                  >
+                    <GoSearch />
+                  </IconButton>
+                )}
+                <Hidden xsDown implementation="css">
+                  <Button className="button2" onClick={handlePage}>
+                    <FaShoppingCart />
+                    &nbsp;&nbsp;&nbsp;Cart
+                  </Button>
+                </Hidden>
+              </div>
+            )}
           </Hidden>
         </Nav>
       </Navbar>

@@ -153,19 +153,34 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
       })
       .catch((error) => {
         console.log(error);
+        enqueueSnackbar(error.response.data.message, {
+          variant: "error",
+        });
       });
   };
 
   const handleNextPageRequest = () => {
     if (isLogged) {
       if (cart.length === 0) {
-        handleSubmit();
+        if (userDelivery.address.length !== 0) {
+          handleSubmit();
+        } else {
+          enqueueSnackbar("Please add an address", {
+            variant: "error",
+          });
+        }
       } else if (plate === "CASE1") {
         enqueueSnackbar("Food is already in the cart", {
           variant: "error",
         });
       } else if (plate === "CASE2") {
-        handleSubmit();
+        if (userDelivery.address.length !== 0) {
+          handleSubmit();
+        } else {
+          enqueueSnackbar("Please add an address", {
+            variant: "error",
+          });
+        }
       } else if (plate === "CASE3") {
         enqueueSnackbar("You can only order food from the same Chef", {
           variant: "error",

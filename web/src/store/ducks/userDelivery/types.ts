@@ -41,6 +41,7 @@ export interface UserDelivery {
   state: string;
   adminVerficaton: boolean;
   auth_token: string;
+  address: Array<string>;
 }
 
 /**

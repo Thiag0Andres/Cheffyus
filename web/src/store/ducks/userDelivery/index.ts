@@ -38,6 +38,7 @@ const INITIAL_STATE: UserDeliveryState = {
     state: " ",
     adminVerficaton: false,
     auth_token: " ",
+    address: [],
   },
 };
 
