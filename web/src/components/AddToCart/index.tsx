@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Redux e Auth
@@ -7,6 +7,7 @@ import { removeCart } from "../../store/ducks/cart/actions";
 
 // Types
 import { Cart } from "../../store/ducks/cart/types";
+import { TokenDelivery } from "../../store/ducks/tokenDelivery/types";
 
 //Message
 import { useSnackbar } from "notistack";
@@ -20,20 +21,30 @@ import Button from "react-bootstrap/Button";
 
 // Components
 import PayPal from "../PayPal";
+import Loading from "../../layout/Loading";
 
 // Icons
 import { MdDelete } from "react-icons/md";
+
+import api from "../../services/api";
 
 import "./styles.scss";
 
 const InfoFood: React.FC = () => {
   const cart: Cart[] = useSelector((state: RootStateOrAny) => state.cart.cart);
+  const token: TokenDelivery = useSelector(
+    (state: RootStateOrAny) => state.tokenDelivery.tokenDelivery.tokenDelivery
+  );
 
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
   //States
+  const [loading, setLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [subTotalPrice, setSubTotalPrice] = useState(0);
+  const [deliveryPrice, setDeliveryPrice] = useState(0);
+  const [items, setItems] = useState<Array<any>>([]);
   const [formData, setFormData] = useState({
     email: "",
     name: "",
@@ -42,6 +53,31 @@ const InfoFood: React.FC = () => {
     user_type: "",
     token: "",
   });
+
+  useEffect(() => {
+    setLoading(true);
+    const url = "https://mycheffy.herokuapp.com/basket/?deliveryType=driver";
+
+    api
+      .get(url, {
+        headers: {
+          "x-access-token": token,
+          "content-type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log("basket", data);
+        setItems(data.items);
+        setTotalPrice(data.total);
+        setSubTotalPrice(data.sub_total);
+        setDeliveryPrice(data.delivery_fee);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -57,8 +93,6 @@ const InfoFood: React.FC = () => {
     });
   };
 
-  const AmountPrice = () => {};
-
   const paymentHandler = (details: any, data: any) => {
     /** Here you can call your backend API
       endpoint and update the database */
@@ -72,7 +106,9 @@ const InfoFood: React.FC = () => {
         <Row className="row">
           <h2>Details</h2>
         </Row>
-        {cart.length === 0 && (
+        <Row>{loading && <Loading />}</Row>
+
+        {!loading && items.length === 0 && (
           <Row className="row">
             <div className="box1">
               <div className="price">
@@ -91,44 +127,45 @@ const InfoFood: React.FC = () => {
           </Row>
         )}
 
-        {cart.length > 0 &&
-          cart.map((item: any) => (
-            <>
+        {!loading &&
+          items.length > 0 &&
+          items.map((item: any) => (
+            <div key={item.basketItemId}>
               <Row className="title">
                 <p>
                   <Link
                     to={{
-                      pathname: `/food/food/${item.name}`,
+                      pathname: `/food/food/${item.plate.chef.name}`,
                       state: {
-                        detail: item,
+                        detail: item.plate.chef,
                       },
                     }}
                   >
-                    {item.name}
+                    {item.plate.chef.name}
                   </Link>
                   &nbsp; by &nbsp;
                   <Link
                     to={{
-                      pathname: `/food/profile-chef/${item.chef.name}`,
+                      pathname: `/food/profile-chef/${item.plate.chef.name}`,
                       state: {
-                        detail: item,
+                        detail: item.plate.chef,
                       },
                     }}
                   >
-                    {item.chef.restaurant_name}
+                    {item.plate.chef.restaurant_name}
                   </Link>
                 </p>
                 <MdDelete
                   className="icon"
                   size={18}
-                  onClick={() => handleDeleteItem(item.id)}
+                  onClick={() => handleDeleteItem(item.basketItemId)}
                 />
               </Row>
               <Row className="row">
                 <div className="box1">
                   <div className="price">
                     <p style={{ display: "flex" }}>Price: </p>
-                    <p>${item.price}</p>
+                    <p>${item.plate.price}</p>
                   </div>
                   {item.quantity > 0 && (
                     <div className="price">
@@ -139,13 +176,23 @@ const InfoFood: React.FC = () => {
                   {item.quantity > 0 && (
                     <div className="price">
                       <p className="text">Subtotal:</p>
-                      <p>${item.price * item.quantity}</p>
+                      <p>${item.plate.price * item.quantity}</p>
                     </div>
                   )}
                 </div>
               </Row>
-            </>
+            </div>
           ))}
+        <Row className="subtotal-price">
+          <p className="text">Subtotal:</p>
+          &nbsp;&nbsp;
+          <p className="text">${subTotalPrice}</p>
+        </Row>
+        <Row className="delivery-price">
+          <p className="text">Delivery:</p>
+          &nbsp;&nbsp;
+          <p className="text">${deliveryPrice}</p>
+        </Row>
         <Row className="total-price">
           <p className="value">Total:</p>
           &nbsp;&nbsp;
@@ -154,50 +201,6 @@ const InfoFood: React.FC = () => {
       </Col>
       <Col className="payment" xl="6" lg="6" md="6" xs="6" sm="6">
         <Form className="form">
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label className="text">Address 1</Form.Label>
-            <Form.Control
-              className="input"
-              name="email"
-              type="text"
-              onChange={handleInputChange}
-              required
-            />
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label className="text">Address 2 </Form.Label>
-            <Form.Control
-              className="input"
-              name="token"
-              type="text"
-              onChange={handleInputChange}
-            />
-          </Form.Group>
-
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Form.Group>
-              <Form.Label className="text">Country</Form.Label>
-              <Form.Control
-                className="input"
-                name="name"
-                type="text"
-                onChange={handleInputChange}
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label className="text">State</Form.Label>
-              <Form.Control
-                className="input"
-                name="password"
-                type="password"
-                onChange={handleInputChange}
-                required
-              />
-            </Form.Group>
-          </div>
-
           <PayPal amount={200} currency={"USD"} onSuccess={paymentHandler} />
 
           <Button className="button" type="submit">

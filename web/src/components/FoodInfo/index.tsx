@@ -33,8 +33,9 @@ import foodNotFound from "../../images/foodNotFound.jpg";
 import userNotfound from "../../images/user.png";
 import DeliveryMan from "../../images/DeliveryMan.png";
 
-import "./styles.scss";
 import api from "../../services/api";
+
+import "./styles.scss";
 
 interface Props {
   detail: any;

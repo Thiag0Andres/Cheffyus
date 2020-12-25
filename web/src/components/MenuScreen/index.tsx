@@ -18,19 +18,19 @@ const MenuScreen: React.FC = () => {
   const [initialPosition, setInitialPosition] = useState<[number, number]>([
     /*     38.866195,
     -77.242275, */
-    -7.1466036,
-    -34.9516381,
-    /*     0,
-    0, */
+    /*     -7.1466036,
+    -34.9516381, */
+    0,
+    0,
   ]);
 
-  /*   useEffect(() => {
+  useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
 
       setInitialPosition([latitude, longitude]);
     });
-  }, []); */
+  }, []);
 
   const handlePageFood = () => {
     history.push({

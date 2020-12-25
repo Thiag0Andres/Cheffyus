@@ -53,12 +53,22 @@
         }
       }
     }
+    .subtotal-price {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    .delivery-price {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
     .total-price {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 20px;
 
       .value {
         font-size: 1.625em;

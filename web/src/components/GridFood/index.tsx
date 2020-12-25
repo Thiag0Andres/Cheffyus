@@ -8,7 +8,6 @@ import { useSnackbar } from "notistack";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -19,12 +18,16 @@ import Slider from "@material-ui/core/Slider";
 // Components
 import Pagination from "../Pagination";
 import PaginationCategory from "../PaginationCategory";
+import PaginationChef from "../PaginationChef";
 import PlateNotExist from "../../layout/PlateNotExist";
 import Loading from "../../layout/Loading";
 
 // Images
 import userNotfound from "../../images/user.png";
 import foodNotFound from "../../images/foodNotFound.jpg";
+
+// Icons
+import { MdStars } from "react-icons/md";
 
 import api from "../../services/api";
 
@@ -68,7 +71,7 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
 
   useEffect(() => {
     setPage(valuePage);
-  }, [valuePage]);
+  }, [setPage, valuePage]);
 
   useEffect(() => {
     setShowFilter(filterBoolean);
@@ -100,7 +103,7 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [valuePage]);
+  }, [locationUser, valuePage]);
 
   const FilterPlates = (event: FormEvent) => {
     event.preventDefault();
@@ -158,14 +161,17 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
     <Container fluid id="page-home-grid-food">
       <Row className="content-header">
         <Col className="header" xl="12" lg="12" md="12" xs="12" sm="12">
+          <PaginationChef />
+        </Col>
+        <Col className="header" xl="12" lg="12" md="12" xs="12" sm="12">
           <Hidden mdUp implementation="css">
             <Button
               className="button2"
               onClick={() => {
                 setShowFilter(true);
                 setCategoryBoolean(false);
-                console.log(showFilter);
-                console.log(categoryBoolean);
+                //console.log(showFilter);
+                //console.log(categoryBoolean);
               }}
             >
               Filter
@@ -317,65 +323,113 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
           {!loading && restaurants.length > 0 && (
             <ul>
               {restaurants.map((restaurant: any) => (
-                <li key={restaurant.id}>
-                  <div className="opacity"></div>
-
-                  <img
-                    id={`id_${restaurant.id}`}
-                    className="imgKitchen"
-                    src={
-                      restaurant.PlateImages.length === null
-                        ? foodNotFound
-                        : restaurant.PlateImages[0]?.url
-                    }
-                    alt={restaurant.name}
-                  />
-                  <Link
-                    className="box1"
-                    to={{
-                      pathname: `/food/food/${restaurant.name}`,
-                      state: {
-                        detail: restaurant,
-                      },
-                    }}
-                  >
-                    <div className="price">
-                      <span className="value">${restaurant.price}</span>
-                    </div>
-                    <p>{restaurant.name}</p>
-                  </Link>
-                  <Link
-                    className="box2"
-                    to="/food/grid-foods"
-                    /*                     to={{
-                        pathname: `/food/profile-chef/${restaurant.chef.name}`,
-                        state: {
-                          detail: restaurant,
-                        },
-                      }} */
-                  >
-                    <img
-                      className="imgChef"
-                      src={
-                        restaurant.chef.imagePath === null
-                          ? userNotfound
-                          : restaurant.chef.imagePath
-                      }
-                      alt={restaurant.chef.name}
-                    />
-                    &nbsp;&nbsp;&nbsp;
+                <li className="main-li shadow-sm" key={restaurant.id}>
+                  <div className="main-box">
                     <Link
-                      to="/food/grid-foods"
-                      /*                     to={{
+                      className="box1"
+                      to={{
+                        pathname: `/food/food/${restaurant.name}`,
+                        state: {
+                          detail: restaurant,
+                        },
+                      }}
+                    >
+                      <img
+                        id={`id_${restaurant.id}`}
+                        className="imgKitchen"
+                        src={
+                          !restaurant.PlateImages.length
+                            ? foodNotFound
+                            : restaurant.PlateImages[0]?.url
+                        }
+                        alt={restaurant.name}
+                      />
+                    </Link>
+                    <Row className="detais">
+                      <Col
+                        className="box-title"
+                        xl="9"
+                        lg="9"
+                        md="9"
+                        xs="9"
+                        sm="9"
+                      >
+                        {restaurant.name}
+                      </Col>
+                      <Col className="p-0" xl="3" lg="3" md="3" xs="3" sm="3">
+                        <span className="price">${restaurant.price}</span>
+                      </Col>
+                      <Col
+                        className="hr mt-0"
+                        xl="12"
+                        lg="12"
+                        md="12"
+                        xs="12"
+                        sm="12"
+                      ></Col>
+
+                      <Col className="p-0" xl="4" lg="4" md="4" xs="4" sm="4">
+                        <span>
+                          <MdStars />
+                        </span>
+                      </Col>
+                      <Col xl="8" lg="8" md="8" xs="8" sm="8">
+                        <span className="review">
+                          {restaurant.rating || 0} reviews
+                        </span>
+                      </Col>
+
+                      <Col
+                        className="hr mt-0"
+                        xl="12"
+                        lg="12"
+                        md="12"
+                        xs="12"
+                        sm="12"
+                      ></Col>
+                      <Col
+                        className="p-0"
+                        xl="12"
+                        lg="12"
+                        md="12"
+                        xs="12"
+                        sm="12"
+                      >
+                        <Link
+                          className="box2"
+                          to="/food/grid-foods"
+                          /*                     to={{
                         pathname: `/food/profile-chef/${restaurant.chef.name}`,
                         state: {
                           detail: restaurant,
                         },
                       }} */
-                    >
-                      {restaurant.chef.name}
-                    </Link>
-                  </Link>
+                        >
+                          <img
+                            className="imgChef"
+                            src={
+                              restaurant.chef.imagePath === null
+                                ? userNotfound
+                                : restaurant.chef.imagePath
+                            }
+                            alt={restaurant.chef.name}
+                          />
+                          &nbsp;&nbsp;&nbsp;
+                          <Link
+                            to="/food/grid-foods"
+                            /*                     to={{
+                        pathname: `/food/profile-chef/${restaurant.chef.name}`,
+                        state: {
+                          detail: restaurant,
+                        },
+                      }} */
+                          >
+                            {restaurant.chef.name}
+                          </Link>
+                        </Link>
+                      </Col>
+                    </Row>
+                  </div>
                 </li>
               ))}
             </ul>
