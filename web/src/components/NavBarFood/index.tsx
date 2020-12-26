@@ -6,10 +6,12 @@ import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { ApplicationState } from "../../store";
 import { removeUserDelivery } from "../../store/ducks/userDelivery/actions";
 import { removeTokenDelivery } from "../../store/ducks/tokenDelivery/actions";
+import { removeCart } from "../../store/ducks/cart/actions";
 import { isAuthenticatedDelivery } from "../../services/auth";
 
 // Types
 import { UserDelivery } from "../../store/ducks/userDelivery/types";
+import { TokenDelivery } from "../../store/ducks/tokenDelivery/types";
 import { Cart } from "../../store/ducks/cart/types";
 
 // Bootstrap
@@ -59,6 +61,9 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
   const userDelivery: UserDelivery = useSelector(
     (state: ApplicationState) => state.userDelivery.userDelivery
   );
+  const token: TokenDelivery = useSelector(
+    (state: RootStateOrAny) => state.tokenDelivery.tokenDelivery.tokenDelivery
+  );
   const cart: Cart[] = useSelector(
     (state: RootStateOrAny) => state.cart.cart.length
   );
@@ -98,6 +103,25 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
 
   // Logout do usuário
   const logout = () => {
+    const url = `https://mycheffy.herokuapp.com/basket/clear`;
+
+    const body = { deliveryType: "driver" };
+
+    api
+      .put(url, body, {
+        headers: {
+          "x-access-token": token,
+          "content-type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     dispatch(removeUserDelivery());
     dispatch(removeTokenDelivery());
     history.push("/food/grid-foods");

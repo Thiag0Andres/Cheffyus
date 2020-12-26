@@ -8,7 +8,7 @@ import Footer from "../../components/Footer";
 
 const Cart: React.FC = () => {
   // States
-  const [text, setText] = useState("cart");
+  const [text, setText] = useState("Cart");
   const [filter, setFilter] = useState([]);
   const [page, setPage] = useState();
 

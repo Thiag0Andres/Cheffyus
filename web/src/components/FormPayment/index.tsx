@@ -14,7 +14,6 @@ import { TokenDelivery } from "../../store/ducks/tokenDelivery/types";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -42,7 +41,7 @@ const FormPayment: React.FC = () => {
 
   // States
   const [countries, setCountries] = useState([]);
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const [show1, setShow1] = useState(false);
   const [formData, setFormData] = useState({
     country_code: "",
@@ -177,7 +176,11 @@ const FormPayment: React.FC = () => {
                       />
                     </div>
                   </Form.Group>
-                  {show && <Button className="button">Verify phone</Button>}
+                  {show && (
+                    <Button className="button" onClick={VerifyPhone}>
+                      Verify phone
+                    </Button>
+                  )}
                   {show1 && (
                     <>
                       <Form.Group>

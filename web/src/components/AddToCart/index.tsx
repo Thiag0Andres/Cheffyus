@@ -17,6 +17,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
 // Components
@@ -67,7 +68,7 @@ const InfoFood: React.FC = () => {
       })
       .then((response) => {
         const data = response.data;
-        console.log("basket", data);
+        //console.log("basket", data);
         setItems(data.items);
         setTotalPrice(data.total);
         setSubTotalPrice(data.sub_total);
@@ -77,7 +78,7 @@ const InfoFood: React.FC = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [items]);
 
   const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -87,10 +88,30 @@ const InfoFood: React.FC = () => {
   };
 
   const handleDeleteItem = (id: number) => {
+    const url = `https://mycheffy.herokuapp.com/basket/subtract/${id}`;
+
+    const body = { deliveryType: "driver" };
+
+    api
+      .put(url, body, {
+        headers: {
+          "x-access-token": token,
+          "content-type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log("subtract basket item", data);
+
+        enqueueSnackbar("Food removed", {
+          variant: "info",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     dispatch(removeCart(id));
-    enqueueSnackbar("Food removed", {
-      variant: "info",
-    });
   };
 
   const paymentHandler = (details: any, data: any) => {
@@ -102,6 +123,18 @@ const InfoFood: React.FC = () => {
 
   return (
     <Container id="content-add-to-cart">
+      <Col
+        className="address"
+        xl="auto"
+        lg="auto"
+        md="auto"
+        xs="auto"
+        sm="auto"
+      >
+        <Card className="card">
+          <Card.Body className="card-body">oi</Card.Body>
+        </Card>
+      </Col>
       <Col className="body" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
         <Row className="row">
           <h2>Details</h2>
@@ -199,9 +232,21 @@ const InfoFood: React.FC = () => {
           <span className="value">${totalPrice}</span>
         </Row>
       </Col>
-      <Col className="payment" xl="6" lg="6" md="6" xs="6" sm="6">
+      <Col
+        className="payment"
+        xl="auto"
+        lg="auto"
+        md="auto"
+        xs="auto"
+        sm="auto"
+      >
         <Form className="form">
-          <PayPal amount={200} currency={"USD"} onSuccess={paymentHandler} />
+          <Button className="button2">Payment with Stripe</Button>
+          <PayPal
+            amount={totalPrice}
+            currency={"USD"}
+            onSuccess={paymentHandler}
+          />
 
           <Button className="button" type="submit">
             Checkout

@@ -8,5 +8,5 @@ export const updateTokenDelivery = (data: TokenDeliveryState) => {
 
 export const removeTokenDelivery = () => {
   //action(TokenTypes.REMOVE_TOKEN);
-  return { type: TokenTypes.UPDATE_TOKEN_DELIVERY };
+  return { type: TokenTypes.REMOVE_TOKEN_DELIVERY };
 };
