@@ -46,9 +46,11 @@ const FormPayment: React.FC = () => {
   const [formData, setFormData] = useState({
     country_code: "",
     phone_no: user.phone_no ? user.phone_no : undefined,
-    bank_code: "",
-    branch_code: "",
-    account_number: "",
+    sms_token: "",
+    number: "",
+    exp_month: 0,
+    exp_year: 0,
+    cvc: 0,
   });
 
   // Chamada a api
@@ -68,14 +70,6 @@ const FormPayment: React.FC = () => {
 
   //console.log(countries);
 
-  const handleInputChangeCountry = (event: ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = event.target;
-    console.log(event.target.value);
-
-    setFormData({ ...formData, [name]: value });
-    setShow(true);
-  };
-
   const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
     //console.log(event.target);
@@ -83,11 +77,13 @@ const FormPayment: React.FC = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const VerifyPhone = () => {
+  const VerifyPhone = (event: FormEvent) => {
+    event.preventDefault();
+
     const { country_code, phone_no } = formData;
 
     const body = {
-      country_code: `+ ${String(country_code)}`,
+      country_code: `+${String(country_code)}`,
       phone_no: String(phone_no),
     };
 
@@ -101,20 +97,78 @@ const FormPayment: React.FC = () => {
         },
       })
       .then((response) => {
-        const data = response.data.data;
-        //console.log(data);
+        const data = response.data;
+        console.log(data);
 
         //dispatch(updateUserDelivery(data));
         setShow(false);
         setShow1(true);
-
-        enqueueSnackbar("User updated successfully!", {
-          variant: "success",
-        });
       })
       .catch((error) => {
         console.log(error);
-        enqueueSnackbar("Failed to update.", { variant: "error" });
+      });
+  };
+
+  const ConfirmPhone = (event: FormEvent) => {
+    event.preventDefault();
+
+    const { sms_token } = formData;
+
+    const body = {
+      sms_token: String(sms_token),
+    };
+
+    const url = "https://mycheffy.herokuapp.com/";
+
+    api
+      .post(url + "user/confirmphone", body, {
+        headers: {
+          "x-access-token": token,
+          "content-type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+
+        //dispatch(updateUserDelivery(data));
+        setShow(true);
+        setShow1(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const AddUserCard = (event: FormEvent) => {
+    event.preventDefault();
+
+    const { number, exp_month, exp_year, cvc } = formData;
+
+    const body = {
+      number: String(number),
+      exp_month: Number(exp_month),
+      exp_year: Number(exp_year),
+      cvc: Number(cvc),
+    };
+
+    const url = "https://mycheffy.herokuapp.com/";
+
+    api
+      .post(url + "card", body, {
+        headers: {
+          "x-access-token": token,
+          "content-type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log(data);
+
+        //dispatch(updateUserDelivery(data));
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -154,7 +208,8 @@ const FormPayment: React.FC = () => {
                         className="select-country"
                         as="select"
                         name="country_code"
-                        onChange={handleInputChangeCountry}
+                        onChange={handleInputChange}
+                        required
                       >
                         <option>Select a country code</option>
                         {countries.map((country: any) => (
@@ -173,26 +228,43 @@ const FormPayment: React.FC = () => {
                         name="phone_no"
                         type="text"
                         onChange={handleInputChange}
+                        required
                       />
                     </div>
                   </Form.Group>
                   {show && (
-                    <Button className="button" onClick={VerifyPhone}>
+                    <Button
+                      className="button"
+                      type="submit"
+                      onClick={VerifyPhone}
+                    >
                       Verify phone
                     </Button>
                   )}
                   {show1 && (
                     <>
                       <Form.Group>
+                        <p>
+                          You will soon receive an SMS with a confirmation
+                          token. After confirming your cell phone number, you
+                          can add a card. Cheffy Group.
+                        </p>
                         <Form.Label className="text">Access Token </Form.Label>
                         <Form.Control
                           className="input"
-                          name="token"
+                          name="sms_token"
                           type="text"
                           onChange={handleInputChange}
+                          required
                         />
                       </Form.Group>
-                      <Button className="button">Verify token</Button>
+                      <Button
+                        className="button"
+                        type="submit"
+                        onClick={ConfirmPhone}
+                      >
+                        Verify token
+                      </Button>
                     </>
                   )}
                 </>
@@ -201,43 +273,91 @@ const FormPayment: React.FC = () => {
               {user.verification_phone_status === "verified" && (
                 <>
                   <Form.Group>
-                    <Form.Label className="text">Cardholder Names </Form.Label>
+                    <Form.Label className="text">Cardholder Names</Form.Label>
                     <Form.Control
                       className="input"
-                      name="token"
+                      name="name"
                       type="text"
                       onChange={handleInputChange}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label className="text">Card Number </Form.Label>
+                    <Form.Label className="text">Card Number</Form.Label>
                     <Form.Control
                       className="input"
-                      name="token"
+                      name="tonumberken"
                       type="text"
                       onChange={handleInputChange}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="text">Expirition Date </Form.Label>
-                    <Form.Control
-                      className="input"
-                      name="token"
-                      type="text"
-                      onChange={handleInputChange}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label className="text">CVV/CVC </Form.Label>
-                    <Form.Control
-                      className="input"
-                      name="token"
-                      type="password"
-                      onChange={handleInputChange}
+                      required
                     />
                   </Form.Group>
 
-                  <Button className="button2">Save my credentials</Button>
+                  <Form.Group>
+                    <Form.Label className="text">Expiration date</Form.Label>
+                    <div className="date">
+                      <Form.Control
+                        className="select-month"
+                        as="select"
+                        name="exp_month"
+                        onChange={handleInputChange}
+                        required
+                      >
+                        <option>Select a month</option>
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                        <option>04</option>
+                        <option>05</option>
+                        <option>06</option>
+                        <option>07</option>
+                        <option>08</option>
+                        <option>09</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                      </Form.Control>
+
+                      <Form.Control
+                        className="select-year"
+                        as="select"
+                        name="exp_year"
+                        onChange={handleInputChange}
+                        required
+                      >
+                        <option>Select a year</option>
+                        <option>2020</option>
+                        <option>2021</option>
+                        <option>2022</option>
+                        <option>2023</option>
+                        <option>2024</option>
+                        <option>2025</option>
+                        <option>2026</option>
+                        <option>2027</option>
+                        <option>2028</option>
+                        <option>2029</option>
+                        <option>2030</option>
+                      </Form.Control>
+                    </div>
+                  </Form.Group>
+
+                  <Form.Group>
+                    <Form.Label className="text">CVV/CVC</Form.Label>
+                    <Form.Control
+                      className="input"
+                      name="cvc"
+                      type="password"
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </Form.Group>
+
+                  <Button
+                    className="button2"
+                    type="submit"
+                    onClick={AddUserCard}
+                  >
+                    Save my credentials
+                  </Button>
                 </>
               )}
             </Form>

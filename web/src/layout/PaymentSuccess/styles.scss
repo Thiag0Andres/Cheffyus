@@ -1,0 +1,100 @@
+@import "../../mixin.scss";
+
+#page-success {
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: $gray_classic;
+
+  header {
+    margin-top: 30px;
+    margin-left: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+      color: $gray_light;
+      font-size: 17px;
+      font-weight: bold;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+
+      svg {
+        margin-right: 16px;
+        color: $gray_light;
+      }
+    }
+  }
+
+  .body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 660px;
+      height: 490px;
+    }
+
+    .content-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .title {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        font-size: 34px;
+        font-weight: bold;
+        line-height: 24px;
+        text-align: center;
+        color: $gray_light;
+      }
+
+      .text {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        font-size: 24px;
+        font-weight: 600;
+        line-height: 24px;
+        text-align: center;
+        color: $gray_light;
+      }
+
+      .button {
+        color: $gray_light;
+        border: 1px solid $gray_light;
+        margin-top: 20px;
+        margin-right: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        float: left;
+        padding: 5px 20px;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        transition: background-color 0.2s;
+
+        .text-link {
+          margin: 0;
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 1.5;
+          text-align: left;
+          color: $gray_light;
+        }
+
+        &:hover {
+          background: $white;
+          transition: transform 0.2s;
+          transform: scale(1.02);
+        }
+      }
+    }
+  }
+}

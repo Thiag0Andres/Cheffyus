@@ -76,6 +76,27 @@
             }
           }
 
+          .date {
+            display: flex;
+
+            .select-month {
+              width: 150px;
+              min-height: 42px;
+              border-radius: 5px;
+              border: 2px solid #c3c3c3;
+              box-shadow: none;
+            }
+
+            .select-year {
+              width: 150px;
+              margin-left: 20px;
+              min-height: 42px;
+              border-radius: 5px;
+              border: 2px solid #c3c3c3;
+              box-shadow: none;
+            }
+          }
+
           .button {
             width: 120px;
             height: 42px;

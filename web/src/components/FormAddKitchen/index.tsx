@@ -383,7 +383,7 @@ const FormAddKitchen: React.FC = () => {
 
                 <Form.Label className="text">
                   Expiration date*
-                  <Button className="button4">What's this?</Button>
+                  {/*  <Button className="button4">What's this?</Button> */}
                 </Form.Label>
                 <Form.Group className="date">
                   <Form.Control
@@ -415,7 +415,7 @@ const FormAddKitchen: React.FC = () => {
                     onChange={handleInputChange}
                     required
                   >
-                    <option>Select a dey</option>
+                    <option>Select a day</option>
                     <option>01</option>
                     <option>02</option>
                     <option>03</option>

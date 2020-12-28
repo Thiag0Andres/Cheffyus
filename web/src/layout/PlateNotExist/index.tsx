@@ -8,7 +8,7 @@ import fastFood from "../../images/fastFood.svg";
 
 import "./styles.scss";
 
-const PlateNotExist: React.FC = () => {
+const PaymentSuccess: React.FC = () => {
   return (
     <Container id="image">
       <img src={fastFood} />
@@ -17,4 +17,4 @@ const PlateNotExist: React.FC = () => {
   );
 };
 
-export default PlateNotExist;
+export default PaymentSuccess;

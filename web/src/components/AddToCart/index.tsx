@@ -1,13 +1,14 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // Redux e Auth
 import { RootStateOrAny, useSelector, useDispatch } from "react-redux";
 import { removeCart } from "../../store/ducks/cart/actions";
 
 // Types
-import { Cart } from "../../store/ducks/cart/types";
+import { UserDelivery } from "../../store/ducks/userDelivery/types";
 import { TokenDelivery } from "../../store/ducks/tokenDelivery/types";
+import { Cart } from "../../store/ducks/cart/types";
 
 //Message
 import { useSnackbar } from "notistack";
@@ -20,6 +21,11 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
+// leaflet
+import { Map, TileLayer, Marker } from "react-leaflet";
+import Leaflet, { LeafletMouseEvent } from "leaflet";
+import "leaflet/dist/leaflet.css";
+
 // Components
 import PayPal from "../PayPal";
 import Loading from "../../layout/Loading";
@@ -27,25 +33,37 @@ import Loading from "../../layout/Loading";
 // Icons
 import { MdDelete } from "react-icons/md";
 
+// Images
+import markerMap from "../../images/markerMap.png";
+
 import api from "../../services/api";
 
 import "./styles.scss";
 
 const InfoFood: React.FC = () => {
+  const user: UserDelivery = useSelector(
+    (state: RootStateOrAny) => state.userDelivery.userDelivery
+  );
   const cart: Cart[] = useSelector((state: RootStateOrAny) => state.cart.cart);
   const token: TokenDelivery = useSelector(
     (state: RootStateOrAny) => state.tokenDelivery.tokenDelivery.tokenDelivery
   );
 
   const dispatch = useDispatch();
+  const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
 
   //States
   const [loading, setLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [subTotalPrice, setSubTotalPrice] = useState(0);
-  const [deliveryPrice, setDeliveryPrice] = useState(0);
+  const [deliveryFee, setDeliveryFee] = useState(0);
+  const [transactionFee, setTransactionFee] = useState(0);
   const [items, setItems] = useState<Array<any>>([]);
+  const [initialPosition, setInitialPosition] = useState<[number, number]>([
+    Number(user.location_lat) ? Number(user.location_lat) : 0,
+    Number(user.location_lon) ? Number(user.location_lon) : 0,
+  ]);
   const [formData, setFormData] = useState({
     email: "",
     name: "",
@@ -69,16 +87,25 @@ const InfoFood: React.FC = () => {
       .then((response) => {
         const data = response.data;
         //console.log("basket", data);
+
         setItems(data.items);
         setTotalPrice(data.total);
         setSubTotalPrice(data.sub_total);
-        setDeliveryPrice(data.delivery_fee);
+        setDeliveryFee(data.delivery_fee);
+        setTransactionFee(data.transaction_fee);
         setLoading(false);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [items]);
+
+  // Marker do map
+  const mapIcon = Leaflet.icon({
+    iconUrl: markerMap,
+    iconSize: [23, 33],
+    iconAnchor: [11.5, 33],
+  });
 
   const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -101,7 +128,7 @@ const InfoFood: React.FC = () => {
       })
       .then((response) => {
         const data = response.data;
-        console.log("subtract basket item", data);
+        //console.log("subtract basket item", data);
 
         enqueueSnackbar("Food removed", {
           variant: "info",
@@ -114,11 +141,44 @@ const InfoFood: React.FC = () => {
     dispatch(removeCart(id));
   };
 
+  const ConfirmationOrder = () => {
+    const url = "https://mycheffy.herokuapp.com/order";
+
+    const body = {
+      deliveryType: deliveryFee > 0 ? "driver" : "user",
+      paymentType: "cod",
+    };
+
+    api
+      .post(url, body, {
+        headers: {
+          "x-access-token": token,
+          "content-type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        //console.log("Order", data);
+
+        history.push("/success-payment");
+
+        enqueueSnackbar(response.data.message, {
+          variant: "success",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        enqueueSnackbar(error.response.data.message, {
+          variant: "error",
+        });
+      });
+  };
+
   const paymentHandler = (details: any, data: any) => {
     /** Here you can call your backend API
       endpoint and update the database */
-
     console.log(details, data);
+    ConfirmationOrder();
   };
 
   return (
@@ -131,8 +191,20 @@ const InfoFood: React.FC = () => {
         xs="auto"
         sm="auto"
       >
+        <Row className="row">
+          <h2>Delivery Address</h2>
+        </Row>
         <Card className="card">
-          <Card.Body className="card-body">oi</Card.Body>
+          <Card.Body className="card-body">
+            <div className="map">
+              <Map center={initialPosition} zoom={14}>
+                <TileLayer
+                  url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                />
+                <Marker icon={mapIcon} position={initialPosition}></Marker>
+              </Map>
+            </div>
+          </Card.Body>
         </Card>
       </Col>
       <Col className="body" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
@@ -222,9 +294,14 @@ const InfoFood: React.FC = () => {
           <p className="text">${subTotalPrice}</p>
         </Row>
         <Row className="delivery-price">
-          <p className="text">Delivery:</p>
+          <p className="text">Delivery fee:</p>
           &nbsp;&nbsp;
-          <p className="text">${deliveryPrice}</p>
+          <p className="text">${deliveryFee}</p>
+        </Row>
+        <Row className="delivery-price">
+          <p className="text">Transaction fee:</p>
+          &nbsp;&nbsp;
+          <p className="text">${transactionFee}</p>
         </Row>
         <Row className="total-price">
           <p className="value">Total:</p>
@@ -240,18 +317,20 @@ const InfoFood: React.FC = () => {
         xs="auto"
         sm="auto"
       >
-        <Form className="form">
-          <Button className="button2">Payment with Stripe</Button>
-          <PayPal
-            amount={totalPrice}
-            currency={"USD"}
-            onSuccess={paymentHandler}
-          />
-
+        {totalPrice !== 0 && (
+          <Form className="form">
+            <Button className="button2">Payment with Stripe</Button>
+            <PayPal
+              amount={totalPrice}
+              currency={"USD"}
+              onSuccess={paymentHandler}
+            />
+            {/* 
           <Button className="button" type="submit">
             Checkout
-          </Button>
-        </Form>
+          </Button> */}
+          </Form>
+        )}
       </Col>
     </Container>
   );

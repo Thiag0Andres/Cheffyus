@@ -37,6 +37,7 @@ import SignUpFood from "./containers/OrderFood/SignUp";
 import Food from "./containers/Food";
 import Cart from "./containers/Cart";
 import SettingsFood from "./containers/SettingsFood";
+import SuccessPayment from "./containers/SuccessPayment";
 
 export default function Routes() {
   return (
@@ -126,6 +127,11 @@ export default function Routes() {
           exact
           path="/food/settings"
           component={SettingsFood}
+        />
+        <PrivateOrderFoodRoute
+          exact
+          path="/success-payment"
+          component={SuccessPayment}
         />
 
         <Redirect from="*" to="/" />
