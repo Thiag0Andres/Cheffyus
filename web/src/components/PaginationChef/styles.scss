@@ -6,7 +6,7 @@
   .nav {
     display: flex;
     justify-content: space-between;
-    margin: 10px;
+    margin-bottom: 10px;
 
     .textTitle {
       margin-bottom: 0;
@@ -56,37 +56,57 @@
       align-items: center;
       cursor: pointer;
       width: 135px;
-      
-      img {
-        width: 135px;
-        height: 135px;
-        border-radius: 50%;
-        box-shadow: $gray_light 3px 0px 8px 1px;
-        padding: 2px;
-      }
-      img:hover{
-        border: solid lightgreen;
+
+      .opacity {
+        width: 150px;
+        height: 125px;
+        border-radius: 5px;
+        background: $black;
+        opacity: 0.5;
+        position: absolute;
+        z-index: 50;
       }
 
-      .text {
-        font-size: 0.9em;
-        font-weight: bold;
-        text-align: center;
-        white-space: nowrap;
-        color: $gray_light;
-        text-overflow: ellipsis;
-        display: inline-block;
-        overflow: hidden;
-        width: inherit;
-      }
-
-      .rating{
-        font-size: 0.9em;
+      .title-text {
+        width: 150px;
+        height: 125px;
         display: flex;
-        justify-content: center;
-        align-items: center;
-        color: $gray_light;
+        align-items: flex-end;
+        border-radius: 5px;
+        position: absolute;
+        /*         background-color: aqua;
+        opacity: 0.4; */
+        z-index: 50;
+
+        .text {
+          padding: 5px 10px;
+          font-size: 1.1111111111111112em;
+          font-weight: 600;
+          text-align: left;
+          white-space: nowrap;
+          color: $white;
+          text-overflow: ellipsis;
+          display: inline-block;
+          overflow: hidden;
+          width: inherit;
+        }
       }
+
+      img {
+        width: 150px;
+        height: 125px;
+        object-fit: cover;
+        border-radius: 5px;
+        -webkit-box-shadow: 2.5px 2.5px 5px -1px rgba(122, 122, 122, 1);
+        -moz-box-shadow: 2.5px 2.5px 5px -1px rgba(122, 122, 122, 1);
+        box-shadow: 2.5px 2.5px 5px -1px rgba(122, 122, 122, 1);
+        //border-radius: 50%;
+        //box-shadow: $gray_light 3px 0px 8px 1px;
+        //padding: 2px;
+      }
+      /*       img:hover {
+        border: solid lightgreen;
+      } */
     }
   }
 }

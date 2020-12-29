@@ -115,7 +115,7 @@ const PaginationCategory: React.FC<Props> = ({
 
     return (
       <nav className="nav">
-        <p className="textTitle">Food categories</p>
+        <span className="textTitle">Food categories</span>
         <div className="buttons">
           <Button className="button" onClick={handlePreviousPage}>
             <BsArrowLeft color="#000" size={20} />
@@ -161,6 +161,10 @@ const PaginationCategory: React.FC<Props> = ({
                         setId(category.id);
                       }}
                     >
+                      <div className="opacity"></div>
+                      <div className="title-text">
+                        <span className="text">{category.name}</span>
+                      </div>
                       <img
                         id={`id_${category.id}`}
                         src={
@@ -168,7 +172,6 @@ const PaginationCategory: React.FC<Props> = ({
                         }
                         alt={category.name}
                       />
-                      <p className="text">{category.name}</p>
                     </li>
                   ))}
               </ul>
@@ -190,12 +193,15 @@ const PaginationCategory: React.FC<Props> = ({
                     setId(category.id);
                   }}
                 >
+                  <div className="opacity"></div>
+                  <div className="title-text">
+                    <span className="text">{category.name}</span>
+                  </div>
                   <img
                     id={`id_${category.id}`}
                     src={category.url === null ? foodNotFound : category.url}
                     alt={category.name}
                   />
-                  <p className="text">{category.name}</p>
                 </li>
               ))}
           </ul>

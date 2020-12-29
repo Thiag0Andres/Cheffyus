@@ -36,7 +36,7 @@ const PaymentSuccess: React.FC = () => {
               className="button"
               href="https://apps.apple.com/us/app/cheffy-driver/id1483317834"
             >
-              <FaApple size={45} />
+              <FaApple size={45} /> &nbsp;&nbsp;&nbsp;&nbsp;
               <p className="text-link">
                 <small>Download On</small>
                 <br /> Apple Store
@@ -46,7 +46,7 @@ const PaymentSuccess: React.FC = () => {
               className="button"
               href="https://play.google.com/store/apps/details?id=com.app.cheffypartner"
             >
-              <IoLogoAndroid size={45} />
+              <IoLogoAndroid size={45} /> &nbsp;&nbsp;&nbsp;&nbsp;
               <p className="text-link">
                 <small>Download On</small>
                 <br /> Google Play

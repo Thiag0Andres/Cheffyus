@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import ChefList from "./ChefList";
 import api from "../../services/api";
@@ -13,10 +13,14 @@ const PaginationChef: React.FC = ({}) => {
   useEffect(() => {
     // FIXME: This is not the way to achieve side effects in component.
     // Create action creator and move this code into it.
-    const url = "https://mycheffy.herokuapp.com/user/mustTryAndRecommendedChefs?city=Centreville";
+    const url =
+      "https://mycheffy.herokuapp.com/user/mustTryAndRecommendedChefs?city=Centreville";
 
-    api.get(url).then((response) => {
+    api
+      .get(url)
+      .then((response) => {
         const data = response.data.data;
+        console.log(response.data);
         setRecommendedChefs(data["recommendedChefs"]);
         setMusTryChefs(data["mustTryChefs"]);
       })
@@ -27,9 +31,9 @@ const PaginationChef: React.FC = ({}) => {
 
   return (
     <Container>
-      <ChefList chefs={recommended} title = {"Recommended Chefs"} />
-      <PopularPlates></PopularPlates>
-      <ChefList chefs={mustTryChefs} title = {"Chef you Muts Try"} />
+      <ChefList chefs={recommended} title={"Recommended Chefs"} />
+      {/* <PopularPlates></PopularPlates> */}
+      <ChefList chefs={mustTryChefs} title={"Chef you Muts Try"} />
     </Container>
   );
 };

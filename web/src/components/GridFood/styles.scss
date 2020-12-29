@@ -28,10 +28,6 @@
           background-color: $red_light;
         }
       }
-
-      & {
-        border-bottom: 1px solid #c3c3c3;
-      }
     }
   }
 
@@ -208,6 +204,7 @@
             border: 1px solid #cccccc;
             border-radius: 5px;
             border-top-left-radius: 5px;
+            background-color: $white;
 
             .box1 {
               .imgKitchen {
@@ -219,46 +216,63 @@
               }
             }
 
-            .detais {
-              padding: 12px 15px;
+            .details {
+              padding: 12px 25px;
 
-              .box-title {
-                font-size: 16px;
-                text-align: left;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
+              .title-food {
+                .box-title {
+                  font-size: 16px;
+                  line-height: 1.5em;
+                  font-weight: 600;
+                  text-align: left;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  color: $gray_light;
+                }
               }
 
-              .price {
-                font-size: 18px;
-                line-height: 1.5em;
-                font-weight: 600;
-                text-transform: uppercase;
-                text-align: right;
-                white-space: nowrap;
-                color: $gray_light;
-              }
-
-              .hr {
+              .info-food {
+                display: flex;
+                align-items: center;
                 margin-top: 0.45rem;
-                margin-bottom: 0.45rem;
+                padding-top: 5px;
                 border: 0;
                 border-top: 1px solid rgba(0, 0, 0, 0.1);
-              }
 
-              .review {
-                font-size: 0.8333em;
-                color: #9e9e9e;
-                text-transform: uppercase;
-                text-align: right;
-                float: right;
+                .review {
+                  display: flex;
+                  align-items: center;
+                  font-size: 0.8333em;
+                  color: #9e9e9e;
+                  text-transform: uppercase;
+                  text-align: left;
+                  float: left;
+
+                  svg {
+                    color: $red_light;
+                  }
+                }
+                .price {
+                  font-size: 16px;
+                  line-height: 1.5em;
+                  font-weight: 400;
+                  text-transform: uppercase;
+                  text-align: right;
+                  float: right;
+                  white-space: nowrap;
+                  color: $gray_light;
+                }
               }
 
               .box2 {
                 display: flex;
                 align-items: center;
-                padding: 0 8px;
+                margin-top: 0.45rem;
+                margin-bottom: 0.45rem;
+                padding-top: 10px;
+                border: 0;
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
 
                 .imgChef {
                   border-radius: 50%;
@@ -268,6 +282,11 @@
                 }
               }
             }
+          }
+
+          &:hover {
+            -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
           }
         }
       }

@@ -27,7 +27,7 @@ import userNotfound from "../../images/user.png";
 import foodNotFound from "../../images/foodNotFound.jpg";
 
 // Icons
-import { MdStars } from "react-icons/md";
+import { BsFillStarFill } from "react-icons/bs";
 
 import api from "../../services/api";
 
@@ -222,16 +222,6 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
                       onChange={(e) => handleSelectedOption(e)}
                     />
                   </Form.Group>
-                  <Form.Group>
-                    <Form.Check
-                      type="radio"
-                      label="Recommended chefs"
-                      id="formHorizontalRadios1"
-                      name="frequence"
-                      value="RC"
-                      onChange={(e) => handleSelectedOption(e)}
-                    />
-                  </Form.Group>
                   <Form.Label className="text">Filter price</Form.Label>
                   <Slider
                     value={value}
@@ -285,16 +275,6 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
                   onChange={(e) => handleSelectedOption(e)}
                 />
               </Form.Group>
-              <Form.Group>
-                <Form.Check
-                  type="radio"
-                  label="Recommended chefs"
-                  name="frequence"
-                  id="formHorizontalRadios1"
-                  value="RC"
-                  onChange={(e) => handleSelectedOption(e)}
-                />
-              </Form.Group>
               <Form.Label className="text">Filter price</Form.Label>
               <Slider
                 value={value}
@@ -323,7 +303,7 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
           {!loading && restaurants.length > 0 && (
             <ul>
               {restaurants.map((restaurant: any) => (
-                <li className="main-li shadow-sm" key={restaurant.id}>
+                <li className="main-li " key={restaurant.id}>
                   <div className="main-box">
                     <Link
                       className="box1"
@@ -345,77 +325,43 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
                         alt={restaurant.name}
                       />
                     </Link>
-                    <Row className="detais">
-                      <Col
-                        className="box-title"
-                        xl="9"
-                        lg="9"
-                        md="9"
-                        xs="9"
-                        sm="9"
-                      >
-                        {restaurant.name}
-                      </Col>
-                      <Col className="p-0" xl="3" lg="3" md="3" xs="3" sm="3">
-                        <span className="price">${restaurant.price}</span>
-                      </Col>
-                      <Col
-                        className="hr mt-0"
-                        xl="12"
-                        lg="12"
-                        md="12"
-                        xs="12"
-                        sm="12"
-                      ></Col>
 
-                      <Col className="p-0" xl="4" lg="4" md="4" xs="4" sm="4">
-                        <span>
-                          <MdStars />
-                        </span>
-                      </Col>
-                      <Col xl="8" lg="8" md="8" xs="8" sm="8">
-                        <span className="review">
-                          {restaurant.rating || 0} reviews
-                        </span>
-                      </Col>
-
-                      <Col
-                        className="hr mt-0"
-                        xl="12"
-                        lg="12"
-                        md="12"
-                        xs="12"
-                        sm="12"
-                      ></Col>
-                      <Col
-                        className="p-0"
-                        xl="12"
-                        lg="12"
-                        md="12"
-                        xs="12"
-                        sm="12"
-                      >
-                        <Link
-                          className="box2"
-                          to="/food/grid-foods"
-                          /*                     to={{
-                        pathname: `/food/profile-chef/${restaurant.chef.name}`,
-                        state: {
-                          detail: restaurant,
-                        },
-                      }} */
+                    <div className="details">
+                      {" "}
+                      <Row className="title-food">
+                        <Col
+                          className="box-title"
+                          xl="12"
+                          lg="12"
+                          md="12"
+                          xs="12"
+                          sm="12"
                         >
-                          <img
-                            className="imgChef"
-                            src={
-                              restaurant.chef.imagePath === null
-                                ? userNotfound
-                                : restaurant.chef.imagePath
-                            }
-                            alt={restaurant.chef.name}
-                          />
-                          &nbsp;&nbsp;&nbsp;
+                          {restaurant.name}
+                        </Col>
+                      </Row>
+                      <Row className="info-food">
+                        <Col className="p-0" xl="9" lg="9" md="9" xs="9" sm="9">
+                          <span className="review">
+                            <BsFillStarFill />
+                            &nbsp;&nbsp; {restaurant.rating || 0} reviews
+                          </span>
+                        </Col>
+                        <Col className="p-0" xl="3" lg="3" md="3" xs="3" sm="3">
+                          <span className="price">${restaurant.price}</span>
+                        </Col>
+                      </Row>
+                      <Row className="info-chef">
+                        <Col
+                          className="p-0"
+                          xl="12"
+                          lg="12"
+                          md="12"
+                          xs="12"
+                          sm="12"
+                        >
                           <Link
+                            className="box2"
                             to="/food/grid-foods"
                             /*                     to={{
                         pathname: `/food/profile-chef/${restaurant.chef.name}`,
@@ -424,11 +370,31 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
                         },
                       }} */
                           >
-                            {restaurant.chef.name}
+                            <img
+                              className="imgChef"
+                              src={
+                                restaurant.chef.imagePath === null
+                                  ? userNotfound
+                                  : restaurant.chef.imagePath
+                              }
+                              alt={restaurant.chef.name}
+                            />
+                            &nbsp;&nbsp;&nbsp;
+                            <Link
+                              to="/food/grid-foods"
+                              /*                     to={{
+                        pathname: `/food/profile-chef/${restaurant.chef.name}`,
+                        state: {
+                          detail: restaurant,
+                        },
+                      }} */
+                            >
+                              {restaurant.chef.name}
+                            </Link>
                           </Link>
-                        </Link>
-                      </Col>
-                    </Row>
+                        </Col>
+                      </Row>
+                    </div>
                   </div>
                 </li>
               ))}
