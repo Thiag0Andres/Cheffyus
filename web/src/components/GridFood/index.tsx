@@ -160,8 +160,18 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
   return (
     <Container fluid id="page-home-grid-food">
       <Row className="content-header">
-        <Col className="header" xl="12" lg="12" md="12" xs="12" sm="12">
-          <PaginationChef />
+        <Col className="header-list" xl="12" lg="12" md="12" xs="12" sm="12">
+          <PaginationChef locationUser={locationUser} />
+          <PaginationCategory
+            setCategoryBoolean={setCategoryBoolean}
+            setCategoryFiltered={setCategoryFiltered}
+            setFilterBoolean={setFilterBoolean}
+            setId={setId}
+            valuePage={valuePage}
+            showFilter={showFilter}
+            categoryBoolean={categoryBoolean}
+            locationUser={locationUser}
+          />
         </Col>
         <Col className="header" xl="12" lg="12" md="12" xs="12" sm="12">
           <Hidden mdUp implementation="css">
@@ -177,16 +187,6 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
               Filter
             </Button>
           </Hidden>
-          <PaginationCategory
-            setCategoryBoolean={setCategoryBoolean}
-            setCategoryFiltered={setCategoryFiltered}
-            setFilterBoolean={setFilterBoolean}
-            setId={setId}
-            valuePage={valuePage}
-            showFilter={showFilter}
-            categoryBoolean={categoryBoolean}
-            locationUser={locationUser}
-          />
         </Col>
 
         {showFilter && !categoryBoolean && (

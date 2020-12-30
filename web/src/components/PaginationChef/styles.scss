@@ -48,7 +48,9 @@
   .chefList {
     width: 100%;
     display: flex;
-    grid-gap: 2em;
+    justify-content: center;
+    grid-gap: 30px;
+    list-style: none;
 
     li {
       display: flex;

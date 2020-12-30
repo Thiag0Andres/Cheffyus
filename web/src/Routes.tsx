@@ -11,44 +11,44 @@ import About from "./containers/About";
 import ContactUs from "./containers/ContactUs";
 
 //Containers Kitchens
-import HomeGrid from "./containers/HomeGrid";
-import HomeList from "./containers/HomeList";
-import HomeMap from "./containers/HomeMap";
+import HomeGrid from "./containers/RentKitchens/HomeGrid";
+import HomeList from "./containers/RentKitchens/HomeList";
+import HomeMap from "./containers/RentKitchens/HomeMap";
 import LogInKitchen from "./containers/RentKitchens/LogIn";
 import SignUpKitchen from "./containers/RentKitchens/SignUp";
 import ConfirmLoginKitchen from "./containers/RentKitchens/ConfirmLogin";
-import AddKitchen from "./containers/AddKitchen";
-import Restaurant from "./containers/Restaurant";
-import ProfileChef from "./containers/ProfileChef";
-import ProfileUser from "./containers/ProfileUser";
-import ContactChef from "./containers/ContactChef";
-import RequestKitchen from "./containers/RequestKitchen";
-import Settings from "./containers/Settings";
-import UpdateKitchen from "./containers/UpdateKitchen";
-import UpdateUser from "./containers/UpdateUser";
-import Inbox from "./containers/Inbox";
-import Conversation from "./containers/Conversation";
+import AddKitchen from "./containers/RentKitchens/AddKitchen";
+import Restaurant from "./containers/RentKitchens/Restaurant";
+import ProfileChef from "./containers/RentKitchens/ProfileChef";
+import ProfileUser from "./containers/RentKitchens/ProfileUser";
+import ContactChef from "./containers/RentKitchens/ContactChef";
+import RequestKitchen from "./containers/RentKitchens/RequestKitchen";
+import Settings from "./containers/RentKitchens/Settings";
+import UpdateKitchen from "./containers/RentKitchens/UpdateKitchen";
+import UpdateUser from "./containers/RentKitchens/UpdateUser";
+import Inbox from "./containers/RentKitchens/Inbox";
+import Conversation from "./containers/RentKitchens/Conversation";
 import Administrator from "./containers/Administrator";
 
 //Containers Food
-import HomeGridFood from "./containers/HomeGridFood";
+import HomeGridFood from "./containers/OrderFood/HomeGrid";
 import LogInFood from "./containers/OrderFood/LogIn";
 import SignUpFood from "./containers/OrderFood/SignUp";
-import Food from "./containers/Food";
-import Cart from "./containers/Cart";
-import SettingsFood from "./containers/SettingsFood";
-import SuccessPayment from "./containers/SuccessPayment";
+import Food from "./containers/OrderFood/Food";
+import Cart from "./containers/OrderFood/Cart";
+import SettingsFood from "./containers/OrderFood/Settings";
+import SuccessPayment from "./containers/OrderFood/SuccessPayment";
 
 export default function Routes() {
   return (
     <>
       <Switch>
-        {/* Common Page */}
+        {/* Common Pages */}
         <Route exact path="/" component={HomeScreen} />
         <Route path="/about" component={About} />
         <Route path="/contact-us" component={ContactUs} />
 
-        {/* Rent Kitchen Page */}
+        {/* Rent Kitchen Pages */}
         <Route path="/kitchen/grid-kitchens" component={HomeGrid} />
         <Route path="/kitchen/list-kitchens" component={HomeList} />
         <Route path="/kitchen/map-kitchens" component={HomeMap} />
@@ -116,11 +116,12 @@ export default function Routes() {
           component={Administrator}
         />
 
-        {/* Order Food Page */}
+        {/* Order Food Pages */}
         <Route path="/food/grid-foods/:gridFoods" component={HomeGridFood} />
         <Route path="/food/login" component={LogInFood} />
         <Route path="/food/signup" component={SignUpFood} />
         <Route path="/food/food/:food" component={Food} />
+        <Route path="/food/profile-chef/:profileChef" component={ProfileChef} />
 
         <PrivateOrderFoodRoute exact path="/food/cart" component={Cart} />
         <PrivateOrderFoodRoute

@@ -3,15 +3,21 @@
 #page-home-grid-food {
   max-width: 1280px;
   height: 100%;
-  padding: 20px 150px;
+  padding: 20px 100px;
 
   .content-header {
     display: flex;
     flex-direction: column;
 
+    .header-list {
+      display: flex;
+      flex-direction: column;
+    }
+
     .header {
       padding-left: 0;
       padding-right: 0;
+      margin-top: 30px;
       display: flex;
       justify-content: space-between;
 
@@ -298,21 +304,9 @@
   }
 }
 
-@media screen and (max-width: 1250px) {
-  #page-home-grid-food {
-    padding: 30px 110px !important;
-  }
-}
-
 @media screen and (max-width: 1170px) {
   #page-home-grid-food {
     padding: 30px 50px !important;
-  }
-}
-
-@media screen and (max-width: 1050px) {
-  #page-home-grid-food {
-    padding: 30px !important;
   }
 }
 
@@ -336,21 +330,6 @@
       .grid {
         margin-left: 30px !important;
         ul {
-          li {
-            width: 166px !important;
-            height: 160px !important;
-            .opacity {
-              width: 166px !important;
-              height: 110px !important;
-            }
-            .imgKitchen {
-              height: 110px !important;
-            }
-            .box1 {
-              width: 166px !important;
-              height: 110px !important;
-            }
-          }
         }
       }
     }
@@ -359,32 +338,20 @@
 
 @media screen and (max-width: 959px) {
   #page-home-grid-food {
-    padding: 20px !important;
+    padding: 0 !important;
+
+    .header {
+      justify-content: center !important;
+    }
 
     .content-grid {
-      flex-direction: column;
+      flex-direction: column !important;
       align-items: center !important;
 
       .grid {
+        display: flex;
+        justify-content: center;
         margin-left: 0 !important;
-
-        ul {
-          li {
-            width: 225px !important;
-            height: 200px !important;
-            .opacity {
-              width: 225px !important;
-              height: 150px !important;
-            }
-            .imgKitchen {
-              height: 150px !important;
-            }
-            .box1 {
-              width: 225px !important;
-              height: 150px !important;
-            }
-          }
-        }
       }
     }
   }
@@ -397,21 +364,6 @@
     .content-grid {
       .grid {
         ul {
-          li {
-            width: 166px !important;
-            height: 160px !important;
-            .opacity {
-              width: 166px !important;
-              height: 110px !important;
-            }
-            .imgKitchen {
-              height: 110px !important;
-            }
-            .box1 {
-              width: 166px !important;
-              height: 110px !important;
-            }
-          }
         }
       }
     }
@@ -421,43 +373,14 @@
 @media screen and (max-width: 768px) {
   #page-home-grid-food {
     .header {
-      justify-content: space-around !important;
-
       .button2 {
         width: 279px !important;
-      }
-
-      #pagination1 {
-        width: 93px !important;
-        height: 42px !important;
-      }
-
-      #pagination2 {
-        width: 93px !important;
-        height: 42px !important;
-      }
-
-      #pagination3 {
-        width: 93px !important;
-        height: 42px !important;
       }
     }
 
     .content-grid {
       .grid {
         ul {
-          li {
-            width: 166px !important;
-            height: 160px !important;
-            .opacity {
-              width: 166px !important;
-              height: 110px !important;
-            }
-            .box1 {
-              width: 166px !important;
-              height: 110px !important;
-            }
-          }
         }
       }
     }
@@ -470,62 +393,22 @@
       .button2 {
         width: 189px !important;
       }
-      #pagination1 {
-        width: 63px !important;
-        height: 42px !important;
-      }
-
-      #pagination2 {
-        width: 63px !important;
-        height: 42px !important;
-      }
-
-      #pagination3 {
-        width: 63px !important;
-        height: 42px !important;
-      }
     }
 
     .content-grid {
       .grid {
         ul {
           grid-template-columns: 1fr 1fr !important;
-          li {
-            width: 166px !important;
-            height: 160px !important;
-            .opacity {
-              width: 166px !important;
-              height: 110px !important;
-            }
-            .box1 {
-              width: 166px !important;
-              height: 110px !important;
-            }
-          }
         }
       }
     }
   }
 }
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 530px) {
   #page-home-grid-food {
     .header {
       .button2 {
         width: 159px !important;
-      }
-      #pagination1 {
-        width: 53px !important;
-        height: 42px !important;
-      }
-
-      #pagination2 {
-        width: 53px !important;
-        height: 42px !important;
-      }
-
-      #pagination3 {
-        width: 53px !important;
-        height: 42px !important;
       }
     }
 
@@ -533,26 +416,6 @@
       .grid {
         ul {
           grid-template-columns: 1fr !important;
-          li {
-            width: 300px !important;
-            height: 250px !important;
-
-            .opacity {
-              width: 300px !important;
-              height: 200px !important;
-            }
-            .imgKitchen {
-              height: 200px !important;
-            }
-            .box1 {
-              width: 300px !important;
-              height: 200px !important;
-            }
-
-            .box2 {
-              padding: 6px !important;
-            }
-          }
         }
       }
     }
@@ -567,46 +430,12 @@
       .button2 {
         width: 138px !important;
       }
-      #pagination1 {
-        width: 46px !important;
-        height: 42px !important;
-      }
-
-      #pagination2 {
-        width: 46px !important;
-        height: 42px !important;
-      }
-
-      #pagination3 {
-        width: 46px !important;
-        height: 42px !important;
-      }
     }
 
     .content-grid {
       .grid {
         ul {
           grid-template-columns: 1fr !important;
-          li {
-            width: 280px !important;
-            height: 230px !important;
-
-            .opacity {
-              width: 280px !important;
-              height: 186px !important;
-            }
-            .imgKitchen {
-              height: 186px !important;
-            }
-            .box1 {
-              width: 280px !important;
-              height: 186px !important;
-            }
-
-            .box2 {
-              padding: 3px 4px !important;
-            }
-          }
         }
       }
     }

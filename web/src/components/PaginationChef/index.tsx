@@ -6,21 +6,26 @@ import PopularPlates from "../PopulerPlates";
 
 import "./styles.scss";
 
-const PaginationChef: React.FC = ({}) => {
+interface Props {
+  locationUser: any;
+}
+
+const PaginationChef: React.FC<Props> = ({ locationUser }) => {
   const [recommended, setRecommendedChefs] = useState<Array<any>>([]);
   const [mustTryChefs, setMusTryChefs] = useState<Array<any>>([]);
 
   useEffect(() => {
     // FIXME: This is not the way to achieve side effects in component.
     // Create action creator and move this code into it.
-    const url =
-      "https://mycheffy.herokuapp.com/user/mustTryAndRecommendedChefs?city=Centreville";
+    const url = `https://mycheffy.herokuapp.com/user/mustTryAndRecommendedChefs/?location_lat=${
+      locationUser[0]
+    }&location_lon=${locationUser[1]}&radius=${100}`;
 
     api
       .get(url)
       .then((response) => {
         const data = response.data.data;
-        console.log(response.data);
+        //console.log(response.data);
         setRecommendedChefs(data["recommendedChefs"]);
         setMusTryChefs(data["mustTryChefs"]);
       })

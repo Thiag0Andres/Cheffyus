@@ -130,7 +130,7 @@ const PaginationCategory: React.FC<Props> = ({
 
   return (
     <Container>
-      <Row>
+      {/*       <Row>
         <Hidden mdUp implementation="css">
           <Button
             className="button2"
@@ -144,7 +144,7 @@ const PaginationCategory: React.FC<Props> = ({
             Food categories
           </Button>
         </Hidden>
-      </Row>
+      </Row> */}
 
       {show && !showFilter && (
         <Hidden mdUp implementation="css">
