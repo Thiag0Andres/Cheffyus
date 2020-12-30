@@ -240,18 +240,18 @@ const InfoFood: React.FC = () => {
                 <p>
                   <Link
                     to={{
-                      pathname: `/food/food/${item.plate.chef.name}`,
+                      pathname: `/food/food/${item.plate.id}`,
                       state: {
-                        detail: item.plate.chef,
+                        detail: item.plate,
                       },
                     }}
                   >
-                    {item.plate.chef.name}
+                    {item.plate.name}
                   </Link>
                   &nbsp; by &nbsp;
                   <Link
                     to={{
-                      pathname: `/food/profile-chef/${item.plate.chef.name}`,
+                      pathname: `/food/profile-chef/${item.plate.chef.id}`,
                       state: {
                         detail: item.plate.chef,
                       },

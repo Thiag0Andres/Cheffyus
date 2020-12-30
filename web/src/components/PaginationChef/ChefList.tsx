@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 // Bootstrap
 import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
 
 // Material UI
 import Hidden from "@material-ui/core/Hidden";
@@ -68,15 +69,19 @@ const ChefList: React.FC<Props> = ({ chefs, title }) => {
           {chefs.length > 0 &&
             currentChef.map((chef: any) => (
               <li key={chef.id}>
-                <div className="opacity"></div>
-                <div className="title-text">
-                  <span className="text">{chef.name}</span>
+                <div className="item">
+                  <Image
+                    id={`id_${chef.id}`}
+                    src={
+                      chef.imagePath === null ? foodNotFound : chef.imagePath
+                    }
+                    alt={chef.name}
+                    roundedCircle
+                  />
+                  <div className="title-text">
+                    <span className="text">{chef.name}</span>
+                  </div>
                 </div>
-                <img
-                  id={`id_${chef.id}`}
-                  src={chef.imagePath === null ? foodNotFound : chef.imagePath}
-                  alt={chef.name}
-                />
               </li>
             ))}
         </ul>

@@ -296,9 +296,9 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
         <Row className="box2">
           <Link
             to={{
-              pathname: `/food/profile-chef/${detail.chef.name}`,
+              pathname: `/food/profile-chef/${detail.chef.id}`,
               state: {
-                detail: detail,
+                detail: detail.chef,
               },
             }}
           >
@@ -315,9 +315,9 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
           <div>
             <Link
               to={{
-                pathname: `/food/profile-chef/${detail.chef.name}`,
+                pathname: `/food/profile-chef/${detail.chef.id}`,
                 state: {
-                  detail: detail,
+                  detail: detail.chef,
                 },
               }}
             >

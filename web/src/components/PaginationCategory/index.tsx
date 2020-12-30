@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
 
 // Material UI
 import Hidden from "@material-ui/core/Hidden";
@@ -161,17 +162,19 @@ const PaginationCategory: React.FC<Props> = ({
                         setId(category.id);
                       }}
                     >
-                      <div className="opacity"></div>
-                      <div className="title-text">
-                        <span className="text">{category.name}</span>
+                      <div className="item">
+                        <Image
+                          id={`id_${category.id}`}
+                          src={
+                            category.url === null ? foodNotFound : category.url
+                          }
+                          alt={category.name}
+                          roundedCircle
+                        />
+                        <div className="title-text">
+                          <span className="text">{category.name}</span>
+                        </div>
                       </div>
-                      <img
-                        id={`id_${category.id}`}
-                        src={
-                          category.url === null ? foodNotFound : category.url
-                        }
-                        alt={category.name}
-                      />
                     </li>
                   ))}
               </ul>
@@ -193,15 +196,17 @@ const PaginationCategory: React.FC<Props> = ({
                     setId(category.id);
                   }}
                 >
-                  <div className="opacity"></div>
-                  <div className="title-text">
-                    <span className="text">{category.name}</span>
+                  <div className="item">
+                    <Image
+                      id={`id_${category.id}`}
+                      src={category.url === null ? foodNotFound : category.url}
+                      alt={category.name}
+                      roundedCircle
+                    />
+                    <div className="title-text">
+                      <span className="text">{category.name}</span>
+                    </div>
                   </div>
-                  <img
-                    id={`id_${category.id}`}
-                    src={category.url === null ? foodNotFound : category.url}
-                    alt={category.name}
-                  />
                 </li>
               ))}
           </ul>

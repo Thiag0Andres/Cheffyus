@@ -9,6 +9,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
+import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
 // Material UI
@@ -96,7 +97,7 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
       .get(url)
       .then((response) => {
         const data = response.data;
-        //console.log("oi", data.data);
+        console.log("oi", data.data);
         setRestaurants(data.data);
         setLoading(false);
       })
@@ -303,12 +304,12 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
           {!loading && restaurants.length > 0 && (
             <ul>
               {restaurants.map((restaurant: any) => (
-                <li className="main-li " key={restaurant.id}>
-                  <div className="main-box">
+                <li className="main-li" key={restaurant.id}>
+                  <Card className="main-box">
                     <Link
                       className="box1"
                       to={{
-                        pathname: `/food/food/${restaurant.name}`,
+                        pathname: `/food/food/${restaurant.id}`,
                         state: {
                           detail: restaurant,
                         },
@@ -326,76 +327,80 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
                       />
                     </Link>
 
-                    <div className="details">
-                      {" "}
-                      <Row className="title-food">
-                        <Col
-                          className="box-title"
-                          xl="12"
-                          lg="12"
-                          md="12"
-                          xs="12"
-                          sm="12"
+                    <Card.Body>
+                      <Card.Title className="title">
+                        {restaurant.name}
+                      </Card.Title>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Card.Text style={{ color: "#cb2f28" }}>
+                          {restaurant.category.name}
+                        </Card.Text>
+                        <Card.Text className="price">
+                          ${restaurant.price}
+                        </Card.Text>
+                      </div>
+                      <hr
+                        style={{
+                          border: "none",
+                          margin: 3,
+                          borderBottom: "1px dashed #ddd",
+                        }}
+                      />
+
+                      <div className="details">
+                        <Link
+                          className="box2"
+                          to={{
+                            pathname: `/food/profile-chef/${restaurant.chef.id}`,
+                            state: {
+                              detail: restaurant.chef,
+                            },
+                          }}
                         >
-                          {restaurant.name}
-                        </Col>
-                      </Row>
-                      <Row className="info-food">
-                        <Col className="p-0" xl="9" lg="9" md="9" xs="9" sm="9">
-                          <span className="review">
-                            <BsFillStarFill />
-                            &nbsp;&nbsp; {restaurant.rating || 0} reviews
-                          </span>
-                        </Col>
-                        <Col className="p-0" xl="3" lg="3" md="3" xs="3" sm="3">
-                          <span className="price">${restaurant.price}</span>
-                        </Col>
-                      </Row>
-                      <Row className="info-chef">
-                        <Col
-                          className="p-0"
-                          xl="12"
-                          lg="12"
-                          md="12"
-                          xs="12"
-                          sm="12"
-                        >
+                          <img
+                            className="imgChef"
+                            src={
+                              restaurant.chef.imagePath === null
+                                ? userNotfound
+                                : restaurant.chef.imagePath
+                            }
+                            alt={restaurant.chef.name}
+                          />
+                          &nbsp;&nbsp;&nbsp;
                           <Link
-                            className="box2"
-                            to="/food/grid-foods"
-                            /*                     to={{
-                        pathname: `/food/profile-chef/${restaurant.chef.name}`,
-                        state: {
-                          detail: restaurant,
-                        },
-                      }} */
+                            to={{
+                              pathname: `/food/profile-chef/${restaurant.chef.id}`,
+                              state: {
+                                detail: restaurant.chef,
+                              },
+                            }}
                           >
-                            <img
-                              className="imgChef"
-                              src={
-                                restaurant.chef.imagePath === null
-                                  ? userNotfound
-                                  : restaurant.chef.imagePath
-                              }
-                              alt={restaurant.chef.name}
-                            />
-                            &nbsp;&nbsp;&nbsp;
-                            <Link
-                              to="/food/grid-foods"
-                              /*                     to={{
-                        pathname: `/food/profile-chef/${restaurant.chef.name}`,
-                        state: {
-                          detail: restaurant,
-                        },
-                      }} */
-                            >
-                              {restaurant.chef.name}
-                            </Link>
+                            {restaurant.chef.name}
                           </Link>
-                        </Col>
-                      </Row>
-                    </div>
-                  </div>
+                        </Link>
+                        <span className="review">
+                          <BsFillStarFill />
+                          &nbsp;&nbsp; {restaurant.rating || 0} reviews
+                        </span>
+                      </div>
+                    </Card.Body>
+                    <Card.Footer
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <small className="text-muted">Sales</small>
+                      <small className="text-muted">
+                        {restaurant.sell_count}
+                      </small>
+                    </Card.Footer>
+                  </Card>
                 </li>
               ))}
             </ul>
