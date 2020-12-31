@@ -10,12 +10,14 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { RiFileUserLine } from "react-icons/ri";
 import { MdLocalShipping } from "react-icons/md";
 import { AiFillDollarCircle } from "react-icons/ai";
+import { GrUnorderedList } from "react-icons/gr";
 import { BsArrowRight } from "react-icons/bs";
 
 // Components
 import FormProfileInfoFood from "../../components/FormProfileInfoFood";
 import FormShipping from "../../components/FormShipping";
 import FormPayment from "../../components/FormPayment";
+import FormOrderDetailsFood from "../../components/FormOrderDetailsFood";
 
 import "./styles.scss";
 
@@ -24,6 +26,7 @@ const InformationsSettingsFood: React.FC = () => {
   const [show, setShow] = useState(true);
   const [show2, setShow2] = useState(false);
   const [show3, setShow3] = useState(false);
+  const [show4, setShow4] = useState(false);
 
   return (
     <>
@@ -39,6 +42,7 @@ const InformationsSettingsFood: React.FC = () => {
                   setShow(true);
                   setShow2(false);
                   setShow3(false);
+                  setShow4(false);
                 }}
               >
                 <RiFileUserLine />
@@ -55,6 +59,7 @@ const InformationsSettingsFood: React.FC = () => {
                   setShow(false);
                   setShow2(true);
                   setShow3(false);
+                  setShow4(false);
                 }}
               >
                 <MdLocalShipping />
@@ -71,11 +76,28 @@ const InformationsSettingsFood: React.FC = () => {
                   setShow(false);
                   setShow2(false);
                   setShow3(true);
+                  setShow4(false);
                 }}
               >
                 <AiFillDollarCircle />
                 <div className="space-between">
                   &nbsp;&nbsp; Payment {show3 && <BsArrowRight />}
+                </div>
+              </ListGroup.Item>
+              <ListGroup.Item
+                className="list"
+                action
+                href="#ordersDetails"
+                onClick={() => {
+                  setShow(false);
+                  setShow2(false);
+                  setShow3(false);
+                  setShow4(true);
+                }}
+              >
+                <GrUnorderedList />
+                <div className="space-between">
+                  &nbsp;&nbsp; Orders Details {show4 && <BsArrowRight />}
                 </div>
               </ListGroup.Item>
             </ListGroup>
@@ -91,6 +113,9 @@ const InformationsSettingsFood: React.FC = () => {
               </Tab.Pane>
               <Tab.Pane eventKey="#payment">
                 <FormPayment />
+              </Tab.Pane>
+              <Tab.Pane eventKey="#ordersDetails">
+                <FormOrderDetailsFood />
               </Tab.Pane>
             </Tab.Content>
           </Col>

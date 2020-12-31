@@ -22,11 +22,11 @@ interface Props {
 
 const ChefProfileFood: React.FC<Props> = ({ detail }) => {
   const filterAddress: any = () => {
-    return detail.address.map((address: any) => {
-      if (address.isDefaultAddress) {
+    return detail.address?.map((address: any) => {
+      if (address?.isDefaultAddress) {
         return (
-          <p key={address.id}>
-            {address.addressLine1},&nbsp;{address.state},&nbsp;{address.city}
+          <p key={address?.id}>
+            {address?.addressLine1},&nbsp;{address?.state},&nbsp;{address?.city}
           </p>
         );
       }

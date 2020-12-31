@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 //Message
 import { useSnackbar } from "notistack";
@@ -45,6 +45,7 @@ interface Props {
 }
 
 const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
+  const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
 
   // States
@@ -97,7 +98,7 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
       .get(url)
       .then((response) => {
         const data = response.data;
-        console.log("oi", data.data);
+        //console.log("oi", data.data);
         setRestaurants(data.data);
         setLoading(false);
       })
@@ -111,7 +112,7 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
 
     if (typePlate === "") {
       setLoading(true);
-      console.log(1);
+      //console.log(1);
       const url = `https://mycheffy.herokuapp.com/plate/?page=${valuePage}&pageSize=${12}&priceRange=${
         value[0]
       }&priceRange=${value[1]}&near=${true}&lat=${locationUser[0]}&lon=${
@@ -122,8 +123,8 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
         .get(url)
         .then((response) => {
           const data = response.data;
+          //console.log(data);
 
-          console.log(data);
           setRestaurants(data.data);
           setLoading(false);
         })
@@ -132,7 +133,7 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
         });
     } else if (typePlate === "PP") {
       setLoading(true);
-      console.log(2);
+      //console.log(2);
       const url = `https://mycheffy.herokuapp.com/plate/popular/?page=${valuePage}&pageSize=${12}&priceRange=${
         value[0]
       }&priceRange=${value[1]}&near=${true}&lat=${locationUser[0]}&lon=${
@@ -143,8 +144,8 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
         .get(url)
         .then((response) => {
           const data = response.data;
+          //console.log(data);
 
-          console.log(data);
           setRestaurants(data.data);
           setLoading(false);
         })
@@ -156,6 +157,15 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
         variant: "error",
       });
     }
+  };
+
+  const handleFoodInfoPage = (object: any, id: any) => {
+    history.push({
+      pathname: `/food/food/${id}`,
+      state: {
+        detail: object,
+      },
+    });
   };
 
   return (
@@ -328,7 +338,12 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
                     </Link>
 
                     <Card.Body>
-                      <Card.Title className="title">
+                      <Card.Title
+                        className="title"
+                        onClick={() =>
+                          handleFoodInfoPage(restaurant, restaurant.id)
+                        }
+                      >
                         {restaurant.name}
                       </Card.Title>
                       <div

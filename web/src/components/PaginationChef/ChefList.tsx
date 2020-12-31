@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 // Bootstrap
 import Button from "react-bootstrap/Button";
@@ -21,6 +22,9 @@ interface Props {
 }
 
 const ChefList: React.FC<Props> = ({ chefs, title }) => {
+  const history = useHistory();
+
+  // States
   const [currentPage, setCurrentPage] = useState(1);
   const [chefPerPage, setChefPerPage] = useState(6);
 
@@ -63,6 +67,15 @@ const ChefList: React.FC<Props> = ({ chefs, title }) => {
     );
   };
 
+  const handleProfileChefPage = (object: any, id: any) => {
+    history.push({
+      pathname: `/food/profile-chef/${id}`,
+      state: {
+        detail: object,
+      },
+    });
+  };
+
   return (
     <Hidden smDown implementation="css">
       <div id="pagination-chef">
@@ -71,7 +84,10 @@ const ChefList: React.FC<Props> = ({ chefs, title }) => {
           {chefs.length > 0 &&
             currentChef.map((chef: any) => (
               <li key={chef.id}>
-                <div className="item">
+                <div
+                  className="item"
+                  onClick={() => handleProfileChefPage(chef, chef.id)}
+                >
                   <Image
                     id={`id_${chef.id}`}
                     src={
