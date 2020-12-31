@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 // Components
-import NavBar from "../../../components/NavBar";
+import NavBarFood from "../../../components/NavBarFood";
 import Background2 from "../../../components/Background2";
-import ChefProfile from "../../../components/ChefProfileFood";
+import ChefProfileFood from "../../../components/ChefProfileFood";
 import Footer from "../../../components/Footer";
 
 const ProfileChef: React.FC = () => {
@@ -13,15 +13,14 @@ const ProfileChef: React.FC = () => {
   const detail = (location.state as any).detail;
 
   // States
-  const [text, setText] = useState(
-    detail.user.first_name + " " + detail.user.last_name
-  );
+  const [text, setText] = useState(detail.name);
+  const [filter, setFilter] = useState([]);
 
   return (
     <>
-      <NavBar />
+      <NavBarFood setFilter={setFilter} />
       <Background2 text={text} />
-      <ChefProfile detail={detail} />
+      <ChefProfileFood detail={detail} />
       <Footer />
     </>
   );

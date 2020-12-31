@@ -177,7 +177,7 @@ const InfoFood: React.FC = () => {
   const paymentHandler = (details: any, data: any) => {
     /** Here you can call your backend API
       endpoint and update the database */
-    console.log(details, data);
+    //console.log(details, data);
     ConfirmationOrder();
   };
 

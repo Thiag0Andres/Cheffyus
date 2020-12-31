@@ -96,14 +96,6 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
     L();
   }, [click]);
 
-  const filterAddress: any = () => {
-    detail.chef.address.filter((address: any) => {
-      if (address.isDefaultAddress) {
-        return <p>{filterAddress.addressLine1}</p>;
-      }
-    });
-  };
-
   //console.log(detail);
 
   /*   const handleNextPageContactChef = () => {
@@ -256,11 +248,6 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
             />
           </Carousel.Item>
         </Carousel>
-        <p>
-          <strong style={{ color: " #474747" }}>Address: </strong>
-          &nbsp;
-          {filterAddress()}
-        </p>
         <p>
           <strong style={{ color: " #474747" }}>Food description: </strong>
           &nbsp;

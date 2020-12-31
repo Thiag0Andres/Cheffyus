@@ -6,7 +6,9 @@ import Image from "react-bootstrap/Image";
 
 // Material UI
 import Hidden from "@material-ui/core/Hidden";
-import foodNotFound from "../../images/foodNotFound.jpg";
+
+// Images
+import userNotFound from "../../images/user.png";
 
 // Icons
 import { BsArrowLeft, BsArrowRight, BsFillStarFill } from "react-icons/bs";
@@ -73,7 +75,7 @@ const ChefList: React.FC<Props> = ({ chefs, title }) => {
                   <Image
                     id={`id_${chef.id}`}
                     src={
-                      chef.imagePath === null ? foodNotFound : chef.imagePath
+                      chef.imagePath === null ? userNotFound : chef.imagePath
                     }
                     alt={chef.name}
                     roundedCircle

@@ -36,6 +36,7 @@ import LogInFood from "./containers/OrderFood/LogIn";
 import SignUpFood from "./containers/OrderFood/SignUp";
 import Food from "./containers/OrderFood/Food";
 import Cart from "./containers/OrderFood/Cart";
+import ProfileChefFood from "./containers/OrderFood/ProfileChef";
 import SettingsFood from "./containers/OrderFood/Settings";
 import SuccessPayment from "./containers/OrderFood/SuccessPayment";
 
@@ -121,7 +122,10 @@ export default function Routes() {
         <Route path="/food/login" component={LogInFood} />
         <Route path="/food/signup" component={SignUpFood} />
         <Route path="/food/food/:food" component={Food} />
-        <Route path="/food/profile-chef/:profileChef" component={ProfileChef} />
+        <Route
+          path="/food/profile-chef/:profileChef"
+          component={ProfileChefFood}
+        />
 
         <PrivateOrderFoodRoute exact path="/food/cart" component={Cart} />
         <PrivateOrderFoodRoute
