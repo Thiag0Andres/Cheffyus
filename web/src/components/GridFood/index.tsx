@@ -310,8 +310,9 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
 
         <Col className="grid" xl="9" lg="9" md="9" xs="9" sm="9">
           {loading && <Loading />}
-          {!loading && restaurants.length === 0 && <PlateNotExist />}
-          {!loading && restaurants.length > 0 && (
+          {!loading && !restaurants.length ? (
+            <PlateNotExist />
+          ) : (
             <ul>
               {restaurants.map((restaurant: any) => (
                 <li className="main-li" key={restaurant.id}>
