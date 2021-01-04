@@ -7,12 +7,15 @@ import Container from "react-bootstrap/Container";
 import fastFood from "../../images/fastFood.svg";
 
 import "./styles.scss";
+interface Props {
+  text: string;
+}
 
-const PaymentSuccess: React.FC = () => {
+const PaymentSuccess: React.FC<Props> = ({ text }) => {
   return (
     <Container id="image">
       <img src={fastFood} />
-      <h1 className="text">There are no dishes near you</h1>
+      <h1 className="text">{text}</h1>
     </Container>
   );
 };

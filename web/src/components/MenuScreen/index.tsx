@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
+// Images
 import chef from "../../images/chef.svg";
 
 import "./styles.scss";
@@ -14,31 +15,8 @@ import "./styles.scss";
 const MenuScreen: React.FC = () => {
   const history = useHistory();
 
-  // States
-  const [initialPosition, setInitialPosition] = useState<[number, number]>([
-    /*     38.866195,
-    -77.242275, */
-    /*     -7.1466036,
-    -34.9516381, */
-    0,
-    0,
-  ]);
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
-
-      setInitialPosition([latitude, longitude]);
-    });
-  }, []);
-
   const handlePageFood = () => {
-    history.push({
-      pathname: `/food/grid-foods/${initialPosition}`,
-      state: {
-        locationUser: initialPosition,
-      },
-    });
+    history.push("/food/grid-foods");
   };
 
   const handlePageKitchen = () => {

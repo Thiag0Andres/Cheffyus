@@ -8,12 +8,14 @@
   justify-content: center;
   align-items: center;
 
-  h2 {
-    font-size: 1.625em;
-    line-height: 1.14286em;
-    font-weight: bold;
-    color: #474747;
-    margin-bottom: 20px;
+  .row {
+    h2 {
+      font-size: 1.625em;
+      line-height: 1.14286em;
+      font-weight: bold;
+      color: #474747;
+      margin-bottom: 20px;
+    }
   }
 
   .address {
@@ -41,6 +43,12 @@
       display: flex;
       justify-content: space-between;
       align-items: baseline;
+
+      .food-name {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
 
       .icon {
         color: $red_classic;
@@ -102,7 +110,18 @@
 
   .payment {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    //background-color: aqua;
+
+    h2 {
+      padding: 0 20px;
+      font-size: 1.4375em;
+      line-height: 1.14286em;
+      font-weight: 700;
+      color: #474747;
+      margin-bottom: 0;
+    }
 
     .form {
       width: 456px;

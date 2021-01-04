@@ -190,7 +190,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
 
       <div className="drawer-menu">
         <p>Menu</p>
-        <Link className="text3" to="/">
+        <Link className="text3" to="/food/grid-foods">
           Home
         </Link>
         <Link className="text3" to="/about">
@@ -275,6 +275,9 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
           </Hidden>
           <Hidden smDown implementation="css">
             <div className="texts">
+              <Nav.Link className="text1" href="/food/grid-foods">
+                Home
+              </Nav.Link>
               <Nav.Link className="text1" href="/about">
                 About
               </Nav.Link>

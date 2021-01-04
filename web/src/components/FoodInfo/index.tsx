@@ -98,21 +98,14 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
 
   //console.log(detail);
 
-  /*   const handleNextPageContactChef = () => {
-    if (isLogged) {
-      history.push({
-        pathname: `/food/contact-chef/${detail.chef.name}`,
-        state: {
-          detail: detail,
-        },
-      });
-    } else {
-      history.push("/food/login");
-      enqueueSnackbar("You must log in to Cheffy to contact a chef", {
-        variant: "error",
-      });
-    }
-  }; */
+  const handleNextPageContactChef = () => {
+    history.push({
+      pathname: `/food/profile-chef/${detail.chef.id}`,
+      state: {
+        detail: detail.chef,
+      },
+    });
+  };
 
   const handleSubmit = () => {
     const body = {
@@ -315,9 +308,9 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
             <Button
               className="button"
               type="submit"
-              /* onClick={handleNextPageContactChef} */
+              onClick={handleNextPageContactChef}
             >
-              Contact
+              Perfil
             </Button>
           </div>
         </Row>

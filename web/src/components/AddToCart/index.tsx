@@ -239,6 +239,7 @@ const InfoFood: React.FC = () => {
               <Row className="title">
                 <p>
                   <Link
+                    className="food-name"
                     to={{
                       pathname: `/food/food/${item.plate.id}`,
                       state: {
@@ -291,7 +292,7 @@ const InfoFood: React.FC = () => {
         <Row className="subtotal-price">
           <p className="text">Subtotal:</p>
           &nbsp;&nbsp;
-          <p className="text">${subTotalPrice}</p>
+          <p className="text">${parseFloat(subTotalPrice.toFixed(2))}</p>
         </Row>
         <Row className="delivery-price">
           <p className="text">Delivery fee:</p>
@@ -306,7 +307,7 @@ const InfoFood: React.FC = () => {
         <Row className="total-price">
           <p className="value">Total:</p>
           &nbsp;&nbsp;
-          <span className="value">${totalPrice}</span>
+          <span className="value">${parseFloat(totalPrice.toFixed(2))}</span>
         </Row>
       </Col>
       <Col
@@ -318,18 +319,23 @@ const InfoFood: React.FC = () => {
         sm="auto"
       >
         {totalPrice !== 0 && (
-          <Form className="form">
-            <Button className="button2">Payment with Stripe</Button>
-            <PayPal
-              amount={totalPrice}
-              currency={"USD"}
-              onSuccess={paymentHandler}
-            />
-            {/* 
+          <>
+            <Row className="row">
+              <h2>Payment Method</h2>
+            </Row>
+            <Form className="form">
+              <Button className="button2">Payment with Stripe</Button>
+              <PayPal
+                amount={totalPrice}
+                currency={"USD"}
+                onSuccess={paymentHandler}
+              />
+              {/* 
           <Button className="button" type="submit">
             Checkout
           </Button> */}
-          </Form>
+            </Form>
+          </>
         )}
       </Col>
     </Container>

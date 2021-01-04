@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 
 // Redux e Auth
 import { useSelector, RootStateOrAny } from "react-redux";
@@ -16,9 +15,6 @@ import Footer from "../../../components/Footer";
 
 const HomeGrid: React.FC = () => {
   const user: User = useSelector((state: RootStateOrAny) => state.user.user);
-  const location = useLocation();
-
-  const locationUser = (location.state as any).locationUser;
 
   // States
   const [isLogged, setIsLogged] = useState(false);
@@ -35,7 +31,7 @@ const HomeGrid: React.FC = () => {
     <>
       <NavBarFood setFilter={setFilter} />
       {!isLogged && <Background />}
-      <GridFood filter={filter} setPage={setPage} locationUser={locationUser} />
+      <GridFood filter={filter} setPage={setPage} />
       <Footer />
     </>
   );

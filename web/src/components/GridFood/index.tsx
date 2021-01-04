@@ -41,10 +41,9 @@ function valuetext(value: number) {
 interface Props {
   filter: any;
   setPage: any;
-  locationUser: any;
 }
 
-const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
+const GridFood: React.FC<Props> = ({ filter, setPage }) => {
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -59,9 +58,22 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
   const [categoryFiltered, setCategoryFiltered] = useState([]);
   const [id, setId] = useState();
   const [typePlate, setTypePlate] = useState("");
+  const [initialPosition, setInitialPosition] = useState<[number, number]>([
+    /*     38.866195,
+    -77.242275, */
+    /*     -7.1466036,
+    -34.9516381, */
+    0,
+    0,
+  ]);
 
-  //console.log("location", locationUser);
-  //console.log("id", id);
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+
+      setInitialPosition([latitude, longitude]);
+    });
+  }, []);
 
   useEffect(() => {
     setRestaurants(categoryFiltered);
@@ -79,20 +91,12 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
     setShowFilter(filterBoolean);
   }, [filterBoolean]);
 
-  const handleChange = (event: any, newValue: number | number[]) => {
-    setValue(newValue as number[]);
-  };
-
-  const handleSelectedOption = (e: any) => {
-    setTypePlate(e.target.value);
-  };
-
   // Chamada a api
   useEffect(() => {
     setLoading(true);
     const url = `https://mycheffy.herokuapp.com/plate/?page=${valuePage}&pageSize=${12}&near=${true}&lat=${
-      locationUser[0]
-    }&lon=${locationUser[1]}&radius=${100}`;
+      initialPosition[0]
+    }&lon=${initialPosition[1]}&radius=${100}`;
 
     api
       .get(url)
@@ -105,7 +109,7 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [locationUser, valuePage]);
+  }, [initialPosition, valuePage]);
 
   const FilterPlates = (event: FormEvent) => {
     event.preventDefault();
@@ -115,8 +119,8 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
       //console.log(1);
       const url = `https://mycheffy.herokuapp.com/plate/?page=${valuePage}&pageSize=${12}&priceRange=${
         value[0]
-      }&priceRange=${value[1]}&near=${true}&lat=${locationUser[0]}&lon=${
-        locationUser[1]
+      }&priceRange=${value[1]}&near=${true}&lat=${initialPosition[0]}&lon=${
+        initialPosition[1]
       }&radius=${100}`;
 
       api
@@ -136,8 +140,8 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
       //console.log(2);
       const url = `https://mycheffy.herokuapp.com/plate/popular/?page=${valuePage}&pageSize=${12}&priceRange=${
         value[0]
-      }&priceRange=${value[1]}&near=${true}&lat=${locationUser[0]}&lon=${
-        locationUser[1]
+      }&priceRange=${value[1]}&near=${true}&lat=${initialPosition[0]}&lon=${
+        initialPosition[1]
       }&radius=${100}`;
 
       api
@@ -159,6 +163,14 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
     }
   };
 
+  const handleChange = (event: any, newValue: number | number[]) => {
+    setValue(newValue as number[]);
+  };
+
+  const handleSelectedOption = (e: any) => {
+    setTypePlate(e.target.value);
+  };
+
   const handleFoodInfoPage = (object: any, id: any) => {
     history.push({
       pathname: `/food/food/${id}`,
@@ -172,7 +184,7 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
     <Container fluid id="page-home-grid-food">
       <Row className="content-header">
         <Col className="header-list" xl="12" lg="12" md="12" xs="12" sm="12">
-          <PaginationChef locationUser={locationUser} />
+          <PaginationChef locationUser={initialPosition} />
           <PaginationCategory
             setCategoryBoolean={setCategoryBoolean}
             setCategoryFiltered={setCategoryFiltered}
@@ -181,7 +193,7 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
             valuePage={valuePage}
             showFilter={showFilter}
             categoryBoolean={categoryBoolean}
-            locationUser={locationUser}
+            locationUser={initialPosition}
           />
         </Col>
         <Col className="header" xl="12" lg="12" md="12" xs="12" sm="12">
@@ -311,7 +323,7 @@ const GridFood: React.FC<Props> = ({ filter, setPage, locationUser }) => {
         <Col className="grid" xl="9" lg="9" md="9" xs="9" sm="9">
           {loading && <Loading />}
           {!loading && !restaurants.length ? (
-            <PlateNotExist />
+            <PlateNotExist text={"There are no dishes near you"} />
           ) : (
             <ul>
               {restaurants.map((restaurant: any) => (

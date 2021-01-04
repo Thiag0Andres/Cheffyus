@@ -109,7 +109,7 @@ const ChefProfileFood: React.FC<Props> = ({ detail }) => {
           />
         </Col>
         <Col className="description p-0" xl="7" lg="7" md="7" xs="7" sm="7">
-          <span className="title">{detail.name}</span>
+          <span className="title">Chef {detail.name}</span>
           <span className="review">
             <BsFillStarFill />
             &nbsp;&nbsp; {detail.rating || 0} reviews
@@ -127,7 +127,9 @@ const ChefProfileFood: React.FC<Props> = ({ detail }) => {
       <Row className="body">
         {loading && <Loading />}
         {!loading && !plates.length ? (
-          <PlateNotExist />
+          <PlateNotExist
+            text={"This chef doesn't have any food at the moment"}
+          />
         ) : (
           <>
             <ul>
