@@ -32,6 +32,7 @@ import Loading from "../../layout/Loading";
 
 // Icons
 import { MdDelete } from "react-icons/md";
+import { AiFillCreditCard } from "react-icons/ai";
 
 // Images
 import markerMap from "../../images/markerMap.png";
@@ -128,7 +129,7 @@ const InfoFood: React.FC = () => {
       })
       .then((response) => {
         const data = response.data;
-        //console.log("subtract basket item", data);
+        console.log("subtract basket item", data);
 
         enqueueSnackbar("Food removed", {
           variant: "info",
@@ -324,7 +325,9 @@ const InfoFood: React.FC = () => {
               <h2>Payment Method</h2>
             </Row>
             <Form className="form">
-              <Button className="button2">Payment with Stripe</Button>
+              <Button className="button2">
+                <AiFillCreditCard /> &nbsp;&nbsp;Payment with Stripe
+              </Button>
               <PayPal
                 amount={totalPrice}
                 currency={"USD"}

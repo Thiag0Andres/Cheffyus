@@ -207,12 +207,13 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
             <p>User</p>
             <Link
               className="text3"
-              to={{
+              to="/food/settings"
+              /*               to={{
                 pathname: `/food/profile-user/${userDelivery.name}`,
                 state: {
                   detail: userDelivery,
                 },
-              }}
+              }} */
             >
               Profile
             </Link>
@@ -312,12 +313,13 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                         <Col className="col" xl="6" lg="6" md="6" xs="6" sm="6">
                           <Link
                             className="item"
-                            to={{
+                            to="/food/settings"
+                            /*                        to={{
                               pathname: `/food/profile-user/${userDelivery.name}`,
                               state: {
                                 detail: userDelivery,
                               },
-                            }}
+                            }} */
                           >
                             <FaRegUser size={32} />
                             Profile

@@ -96,17 +96,6 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
     L();
   }, [click]);
 
-  //console.log(detail);
-
-  const handleNextPageContactChef = () => {
-    history.push({
-      pathname: `/food/profile-chef/${detail.chef.id}`,
-      state: {
-        detail: detail.chef,
-      },
-    });
-  };
-
   const handleSubmit = () => {
     const body = {
       deliveryType: String(typeDel),
@@ -226,29 +215,33 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
     }
   };
 
+  //console.log(detail);
+
   return (
     <Row id="page-food-info">
       <Col className="image" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
-        <Carousel>
-          <Carousel.Item>
-            <img
-              src={
-                detail.PlateImages.length === 0
-                  ? foodNotFound
-                  : detail.PlateImages[0]?.url
-              }
-              alt={detail.name}
-            />
-          </Carousel.Item>
-        </Carousel>
-        <p>
-          <strong style={{ color: " #474747" }}>Food description: </strong>
-          &nbsp;
-          {detail.description}
-        </p>
+        <Row className="carousel-image shadow-sm rounded-sm">
+          <Carousel>
+            <Carousel.Item>
+              <img
+                className="shadow-sm rounded-sm"
+                src={
+                  detail.PlateImages.length === 0
+                    ? foodNotFound
+                    : detail.PlateImages[0]?.url
+                }
+                alt={detail.name}
+              />
+            </Carousel.Item>
+          </Carousel>
+        </Row>
+        <Row className="about shadow-sm rounded-sm">
+          <h5>About</h5>
+          <p>{detail.description}</p>
+        </Row>
       </Col>
       <Col className="info" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
-        <Row className="box1">
+        <Row className="box1 shadow-sm rounded-sm">
           <div className="price">
             <span className="value">${detail.price}</span>
             &nbsp;&nbsp;
@@ -273,26 +266,8 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
             Add to cart
           </Button>
         </Row>
-        <Row className="box2">
-          <Link
-            to={{
-              pathname: `/food/profile-chef/${detail.chef.id}`,
-              state: {
-                detail: detail.chef,
-              },
-            }}
-          >
-            <img
-              src={
-                detail.chef.imagePath === null
-                  ? userNotfound
-                  : detail.chef.imagePath
-              }
-              alt={detail.chef.name}
-            />
-          </Link>
-          &nbsp;&nbsp;&nbsp;&nbsp;
-          <div>
+        <Row className="box2 shadow-sm rounded-sm">
+          <div className="info-chef">
             <Link
               to={{
                 pathname: `/food/profile-chef/${detail.chef.id}`,
@@ -301,24 +276,37 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
                 },
               }}
             >
-              {detail.chef.restaurant_name === null
-                ? detail.chef.name
-                : detail.chef.restaurant_name}
+              <img
+                src={
+                  detail.chef.imagePath === null
+                    ? userNotfound
+                    : detail.chef.imagePath
+                }
+                alt={detail.chef.name}
+              />
             </Link>
-            <Button
-              className="button"
-              type="submit"
-              onClick={handleNextPageContactChef}
+            <Link
+              className="name-chef"
+              to={{
+                pathname: `/food/profile-chef/${detail.chef.id}`,
+                state: {
+                  detail: detail.chef,
+                },
+              }}
             >
-              Perfil
-            </Button>
+              <h6>Meet your chef</h6>
+
+              {detail.chef.name}
+            </Link>
+          </div>
+          <div className="details-chef">
+            <p>{detail.bio || "This chef does not contain any description."}</p>
           </div>
         </Row>
-
-        <Row className="box3">
+        <Row className="box3 shadow-sm rounded-sm">
           <Map
             center={[detail.chef.location_lat, detail.chef.location_lon]}
-            zoom={12}
+            zoom={15}
           >
             <TileLayer
               url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
