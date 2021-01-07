@@ -160,8 +160,7 @@ const FormShipping: React.FC = () => {
         })
         .then((response) => {
           const data = response.data;
-
-          console.log(data);
+          //console.log(data);
 
           enqueueSnackbar(response.data.message, { variant: "success" });
           setFormData({

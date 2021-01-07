@@ -28,7 +28,7 @@ const INITIAL_STATE: UserDeliveryState = {
     zoom_id: null,
     zoom_pass: null,
     skip_doc: false,
-    stripe_id: null,
+    stripe_id: " ",
     device_id: null,
     createdAt: " ",
     updatedAt: " ",

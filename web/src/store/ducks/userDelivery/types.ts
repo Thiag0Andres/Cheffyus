@@ -31,7 +31,7 @@ export interface UserDelivery {
   zoom_id: any;
   zoom_pass: any;
   skip_doc: false;
-  stripe_id: any;
+  stripe_id: string;
   device_id: any;
   createdAt: string;
   updatedAt: string;

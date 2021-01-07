@@ -1,18 +1,18 @@
 @import "../../mixin.scss";
 
 #content-order-detail {
+  padding-right: 0;
+  padding-left: 0;
+  width: 732px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 10px;
+  justify-content: center;
 
   .body {
-    padding-right: 0;
-    padding-left: 0;
-    width: 732px;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 
     .card {
       border-radius: 5px;
@@ -177,18 +177,5 @@
 @media screen and (max-width: 670px) {
   #content-order-detail {
     margin-top: 30px;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  #content-order-detail {
-    .form {
-      .text {
-        width: 100% !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: baseline !important;
-      }
-    }
   }
 }

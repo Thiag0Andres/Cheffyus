@@ -135,7 +135,7 @@ const ChefProfileFood: React.FC<Props> = ({ detail }) => {
             <ul>
               {plates.map((plate: any) => (
                 <li className="main-li" key={plate.id}>
-                  <Card className="main-box">
+                  <Card className="main-box shadow-sm">
                     <Link
                       className="box1"
                       to={{

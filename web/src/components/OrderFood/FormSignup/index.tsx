@@ -174,7 +174,7 @@ const FormSignup: React.FC = () => {
               <Form.Control
                 className="input"
                 name="email"
-                type="text"
+                type="email"
                 onChange={handleInputChange}
                 required
               />

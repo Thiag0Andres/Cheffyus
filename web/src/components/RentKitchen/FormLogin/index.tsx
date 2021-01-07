@@ -151,7 +151,7 @@ const FormLogin: React.FC = () => {
               <Form.Label className="text">Email:</Form.Label>
               <Form.Control
                 className="input"
-                type="text"
+                type="email"
                 name="defaultEmail"
                 onChange={handleInputChange}
                 required

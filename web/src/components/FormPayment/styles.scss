@@ -12,11 +12,11 @@
     flex-direction: column;
     justify-content: center;
 
-    .card1 {
+    .card {
       border-radius: 5px;
       border: 2px solid #c3c3c3;
 
-      .card-body1 {
+      .card-body {
         //padding: 30px;
 
         .form {
@@ -122,6 +122,54 @@
             &:hover {
               background-color: $red_light;
             }
+          }
+        }
+
+        .details {
+          display: flex;
+          flex-direction: column;
+
+          .infoTitle {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+
+            .title {
+              font-size: 1.2em;
+              font-weight: bold;
+              margin: 0;
+              margin-bottom: 10px;
+              color: #3c3c3c;
+            }
+
+            .icon {
+              color: $red_classic;
+
+              &:hover {
+                color: $red_dark;
+              }
+            }
+          }
+
+          .infoRow {
+            display: flex;
+            align-items: baseline;
+          }
+
+          .infoCol {
+            display: flex;
+            flex-direction: column;
+          }
+
+          h3 {
+            padding: 0;
+            margin: 0;
+            font-weight: 600;
+            color: #3c3c3c;
+          }
+
+          p {
+            margin-bottom: 10px;
           }
         }
       }

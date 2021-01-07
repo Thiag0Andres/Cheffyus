@@ -328,7 +328,7 @@ const GridFood: React.FC<Props> = ({ filter, setPage }) => {
             <ul>
               {restaurants.map((restaurant: any) => (
                 <li className="main-li" key={restaurant.id}>
-                  <Card className="main-box">
+                  <Card className="main-box shadow-sm">
                     <Link
                       className="box1"
                       to={{
