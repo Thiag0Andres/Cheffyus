@@ -12,6 +12,30 @@
     flex-direction: column;
     justify-content: center;
 
+    .header {
+      display: flex;
+      align-items: baseline;
+
+      .button {
+        width: 130px;
+        height: 21px;
+        display: flex;
+        align-items: center;
+        font-size: 1em;
+        line-height: 1.38462em;
+        box-shadow: none;
+        border: none;
+        background-color: transparent;
+        border-color: transparent;
+        color: $red_classic;
+
+        &:hover {
+          color: $red_dark;
+          text-decoration: none;
+        }
+      }
+    }
+
     .card {
       border-radius: 5px;
       border: 2px solid #c3c3c3;
@@ -97,7 +121,7 @@
             }
           }
 
-          .button {
+          .button2 {
             width: 120px;
             height: 42px;
             margin-bottom: 20px;
@@ -111,7 +135,7 @@
             }
           }
 
-          .button2 {
+          .button3 {
             width: 200px;
             height: 42px;
             box-shadow: none;

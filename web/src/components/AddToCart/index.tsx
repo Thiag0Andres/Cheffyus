@@ -28,6 +28,7 @@ import "leaflet/dist/leaflet.css";
 
 // Components
 import PayPal from "../PayPal";
+import CheckoutModal from "../CheckoutModal";
 import Loading from "../../layout/Loading";
 
 // Icons
@@ -55,6 +56,7 @@ const InfoFood: React.FC = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   //States
+  const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [subTotalPrice, setSubTotalPrice] = useState(0);
@@ -129,7 +131,7 @@ const InfoFood: React.FC = () => {
       })
       .then((response) => {
         const data = response.data;
-        console.log("subtract basket item", data);
+        //console.log("subtract basket item", data);
 
         enqueueSnackbar("Food removed", {
           variant: "info",
@@ -140,6 +142,41 @@ const InfoFood: React.FC = () => {
       });
 
     dispatch(removeCart(id));
+  };
+
+  const ConfirmationPaymentStripe = () => {
+    const url = "https://mycheffy.herokuapp.com/order";
+
+    const body = {
+      deliveryType: deliveryFee > 0 ? "driver" : "user",
+      paymentType: "card",
+      cardId: "oi",
+      cvcNumber: Number(0),
+    };
+
+    api
+      .post(url, body, {
+        headers: {
+          "x-access-token": token,
+          "content-type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        //console.log("Order Stripe", data);
+
+        history.push("/success-payment");
+
+        enqueueSnackbar(response.data.message, {
+          variant: "success",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        enqueueSnackbar(error.response.data.message, {
+          variant: "error",
+        });
+      });
   };
 
   const ConfirmationOrder = () => {
@@ -183,165 +220,169 @@ const InfoFood: React.FC = () => {
   };
 
   return (
-    <Container id="content-add-to-cart">
-      <Col
-        className="address"
-        xl="auto"
-        lg="auto"
-        md="auto"
-        xs="auto"
-        sm="auto"
-      >
-        <Row className="row">
-          <h2>Delivery Address</h2>
-        </Row>
-        <Card className="card">
-          <Card.Body className="card-body">
-            <div className="map">
-              <Map center={initialPosition} zoom={14}>
-                <TileLayer
-                  url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
-                />
-                <Marker icon={mapIcon} position={initialPosition}></Marker>
-              </Map>
-            </div>
-          </Card.Body>
-        </Card>
-      </Col>
-      <Col className="body" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
-        <Row className="row">
-          <h2>Details</h2>
-        </Row>
-        <Row>{loading && <Loading />}</Row>
-
-        {!loading && items.length === 0 && (
+    <>
+      <Container id="content-add-to-cart">
+        <Col
+          className="address"
+          xl="auto"
+          lg="auto"
+          md="auto"
+          xs="auto"
+          sm="auto"
+        >
           <Row className="row">
-            <div className="box1">
-              <div className="price">
-                <p style={{ display: "flex" }}>Price: </p>
-                <p>$0</p>
-              </div>
-              <div className="price">
-                Quantity:
-                <p>0</p>
-              </div>
-              <div className="price">
-                <p className="text">Subtotal:</p>
-                <p>$0</p>
-              </div>
-            </div>
+            <h2>Delivery Address</h2>
           </Row>
-        )}
+          <Card className="card">
+            <Card.Body className="card-body">
+              <div className="map">
+                <Map center={initialPosition} zoom={14}>
+                  <TileLayer
+                    url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                  />
+                  <Marker icon={mapIcon} position={initialPosition}></Marker>
+                </Map>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col className="body" xl="auto" lg="auto" md="auto" xs="auto" sm="auto">
+          <Row className="row">
+            <h2>Details</h2>
+          </Row>
+          <Row>{loading && <Loading />}</Row>
 
-        {!loading &&
-          items.length > 0 &&
-          items.map((item: any) => (
-            <div key={item.basketItemId}>
-              <Row className="title">
-                <p>
-                  <Link
-                    className="food-name"
-                    to={{
-                      pathname: `/food/food/${item.plate.id}`,
-                      state: {
-                        detail: item.plate,
-                      },
-                    }}
-                  >
-                    {item.plate.name}
-                  </Link>
-                  &nbsp; by &nbsp;
-                  <Link
-                    to={{
-                      pathname: `/food/profile-chef/${item.plate.chef.id}`,
-                      state: {
-                        detail: item.plate.chef,
-                      },
-                    }}
-                  >
-                    {item.plate.chef.restaurant_name}
-                  </Link>
-                </p>
-                <MdDelete
-                  className="icon"
-                  size={18}
-                  onClick={() => handleDeleteItem(item.basketItemId)}
-                />
-              </Row>
-              <Row className="row">
-                <div className="box1">
-                  <div className="price">
-                    <p style={{ display: "flex" }}>Price: </p>
-                    <p>${item.plate.price}</p>
-                  </div>
-                  {item.quantity > 0 && (
-                    <div className="price">
-                      Quantity:
-                      <p>{item.quantity}</p>
-                    </div>
-                  )}
-                  {item.quantity > 0 && (
-                    <div className="price">
-                      <p className="text">Subtotal:</p>
-                      <p>${item.plate.price * item.quantity}</p>
-                    </div>
-                  )}
-                </div>
-              </Row>
-            </div>
-          ))}
-        <Row className="subtotal-price">
-          <p className="text">Subtotal:</p>
-          &nbsp;&nbsp;
-          <p className="text">${parseFloat(subTotalPrice.toFixed(2))}</p>
-        </Row>
-        <Row className="delivery-price">
-          <p className="text">Delivery fee:</p>
-          &nbsp;&nbsp;
-          <p className="text">${deliveryFee}</p>
-        </Row>
-        <Row className="delivery-price">
-          <p className="text">Transaction fee:</p>
-          &nbsp;&nbsp;
-          <p className="text">${transactionFee}</p>
-        </Row>
-        <Row className="total-price">
-          <p className="value">Total:</p>
-          &nbsp;&nbsp;
-          <span className="value">${parseFloat(totalPrice.toFixed(2))}</span>
-        </Row>
-      </Col>
-      <Col
-        className="payment"
-        xl="auto"
-        lg="auto"
-        md="auto"
-        xs="auto"
-        sm="auto"
-      >
-        {totalPrice !== 0 && (
-          <>
+          {!loading && items.length === 0 && (
             <Row className="row">
-              <h2>Payment Method</h2>
+              <div className="box1">
+                <div className="price">
+                  <p style={{ display: "flex" }}>Price: </p>
+                  <p>$0</p>
+                </div>
+                <div className="price">
+                  Quantity:
+                  <p>0</p>
+                </div>
+                <div className="price">
+                  <p className="text">Subtotal:</p>
+                  <p>$0</p>
+                </div>
+              </div>
             </Row>
-            <Form className="form">
-              <Button className="button2">
-                <AiFillCreditCard /> &nbsp;&nbsp;Payment with Stripe
-              </Button>
-              <PayPal
-                amount={totalPrice}
-                currency={"USD"}
-                onSuccess={paymentHandler}
-              />
-              {/* 
-          <Button className="button" type="submit">
-            Checkout
-          </Button> */}
-            </Form>
-          </>
-        )}
-      </Col>
-    </Container>
+          )}
+
+          {!loading &&
+            items.length > 0 &&
+            items.map((item: any) => (
+              <div key={item.basketItemId}>
+                <Row className="title">
+                  <p>
+                    <Link
+                      className="food-name"
+                      to={{
+                        pathname: `/food/food/${item.plate.id}`,
+                        state: {
+                          detail: item.plate,
+                        },
+                      }}
+                    >
+                      {item.plate.name}
+                    </Link>
+                    &nbsp; by &nbsp;
+                    <Link
+                      to={{
+                        pathname: `/food/profile-chef/${item.plate.chef.id}`,
+                        state: {
+                          detail: item.plate.chef,
+                        },
+                      }}
+                    >
+                      {item.plate.chef.restaurant_name}
+                    </Link>
+                  </p>
+                  <MdDelete
+                    className="icon"
+                    size={18}
+                    onClick={() => handleDeleteItem(item.basketItemId)}
+                  />
+                </Row>
+                <Row className="row">
+                  <div className="box1">
+                    <div className="price">
+                      <p style={{ display: "flex" }}>Price: </p>
+                      <p>${item.plate.price}</p>
+                    </div>
+                    {item.quantity > 0 && (
+                      <div className="price">
+                        Quantity:
+                        <p>{item.quantity}</p>
+                      </div>
+                    )}
+                    {item.quantity > 0 && (
+                      <div className="price">
+                        <p className="text">Subtotal:</p>
+                        <p>${item.plate.price * item.quantity}</p>
+                      </div>
+                    )}
+                  </div>
+                </Row>
+              </div>
+            ))}
+          <Row className="subtotal-price">
+            <p className="text">Subtotal:</p>
+            &nbsp;&nbsp;
+            <p className="text">${parseFloat(subTotalPrice.toFixed(2))}</p>
+          </Row>
+          <Row className="delivery-price">
+            <p className="text">Delivery fee:</p>
+            &nbsp;&nbsp;
+            <p className="text">${deliveryFee}</p>
+          </Row>
+          <Row className="delivery-price">
+            <p className="text">Transaction fee:</p>
+            &nbsp;&nbsp;
+            <p className="text">${transactionFee}</p>
+          </Row>
+          <Row className="total-price">
+            <p className="value">Total:</p>
+            &nbsp;&nbsp;
+            <span className="value">${parseFloat(totalPrice.toFixed(2))}</span>
+          </Row>
+        </Col>
+        <Col
+          className="payment"
+          xl="auto"
+          lg="auto"
+          md="auto"
+          xs="auto"
+          sm="auto"
+        >
+          {totalPrice !== 0 && (
+            <>
+              <Row className="row">
+                <h2>Payment Method</h2>
+              </Row>
+              <Form className="form">
+                <Button
+                  className="button"
+                  onClick={() => {
+                    setShow(true);
+                  }}
+                >
+                  <AiFillCreditCard /> &nbsp;&nbsp;Payment with Stripe
+                </Button>
+                <PayPal
+                  amount={totalPrice}
+                  currency={"USD"}
+                  onSuccess={paymentHandler}
+                />
+              </Form>
+            </>
+          )}
+        </Col>
+      </Container>
+      <CheckoutModal show={show} onHide={() => setShow(false)} />
+    </>
   );
 };
 

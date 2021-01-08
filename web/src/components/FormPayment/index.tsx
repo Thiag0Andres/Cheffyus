@@ -42,9 +42,9 @@ const FormPayment: React.FC = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   // States
+  const [cards, setCards] = useState<Array<any>>([]);
   const [countries, setCountries] = useState([]);
   const [show, setShow] = useState(true);
-  const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
   const [show3, setShow3] = useState(true);
   const [show4, setShow4] = useState(false);
@@ -75,6 +75,27 @@ const FormPayment: React.FC = () => {
   }, []);
 
   //console.log(countries);
+
+  // Chamada a api
+  useEffect(() => {
+    const url = "https://mycheffy.herokuapp.com/";
+
+    api
+      .get(url + "card", {
+        headers: {
+          "x-access-token": token,
+          "content-type": "application/json",
+        },
+      })
+      .then((response) => {
+        //console.log(response.data);
+
+        setCards(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const handleInputChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -107,8 +128,11 @@ const FormPayment: React.FC = () => {
         console.log(data);
 
         //dispatch(updateUserDelivery(data));
-        setShow1(false);
+
+        setShow(false);
         setShow2(true);
+        setShow3(false);
+        setShow4(true);
         enqueueSnackbar(response.data.message, { variant: "success" });
       })
       .catch((error) => {
@@ -140,8 +164,11 @@ const FormPayment: React.FC = () => {
         console.log(data);
 
         //dispatch(updateUserDelivery(data));
-        setShow1(false);
-        setShow2(false);
+
+        setShow(false);
+        setShow2(true);
+        setShow3(true);
+        setShow4(false);
         enqueueSnackbar(response.data.message, { variant: "success" });
       })
       .catch((error) => {
@@ -177,11 +204,10 @@ const FormPayment: React.FC = () => {
         console.log(data);
 
         //dispatch(updateUserDelivery(data));
-        setShow(false);
-        setShow1(false);
+        setShow(true);
         setShow2(false);
-        setShow3(false);
-        setShow4(true);
+        setShow3(true);
+        setShow4(false);
         enqueueSnackbar(response.data.message, { variant: "success" });
       })
       .catch((error) => {
@@ -202,229 +228,273 @@ const FormPayment: React.FC = () => {
       sm="auto"
     >
       <Row className="body">
-        <h2
-          style={{
-            display: "flex",
-            alignItems: "center",
-            color: "#3c3c3c",
-          }}
-        >
-          Payout preferences
-        </h2>
         {show && (
-          <Card className="card">
-            <Card.Body className="card-body">
-              <Form className="form">
-                {user.verification_phone_status === "pending" && (
-                  <>
-                    <Form.Group className="country">
-                      <Form.Label className="text">Phone number*</Form.Label>
-                      <p>
-                        <FaInfoCircle color="gray" />
-                        &nbsp;&nbsp;The phone number should start with the
-                        country code, for example "+81 8 1234 2345".
-                      </p>
-                      <div className="camp">
-                        <Form.Control
-                          className="select-country"
-                          as="select"
-                          name="country_code"
-                          onChange={handleInputChange}
-                          required
-                        >
-                          <option>Select a country code</option>
-                          {countries.map((country: any) => (
-                            <option
-                              key={country.name}
-                              value={country.callingCodes[0]}
-                            >
-                              {country.name}&nbsp;(
-                              {country.alpha2Code}
-                              )&nbsp;&nbsp;&nbsp;&nbsp;+
-                              {country.callingCodes[0]}
-                            </option>
-                          ))}
-                        </Form.Control>
-                        <Form.Control
-                          className="input-phone"
-                          name="phone_no"
-                          type="text"
-                          onChange={handleInputChange}
-                          required
-                        />
-                      </div>
-                    </Form.Group>
-                    {show1 && (
-                      <Button
-                        className="button"
-                        type="submit"
-                        onClick={VerifyPhone}
-                      >
-                        Verify phone
-                      </Button>
-                    )}
-                    {show2 && (
-                      <>
-                        <Form.Group>
-                          <p>
-                            You will soon receive an SMS with a confirmation
-                            token. After confirming your cell phone number, you
-                            can add a card. Cheffy Group.
-                          </p>
-                          <Form.Label className="text">
-                            Access Token{" "}
-                          </Form.Label>
+          <>
+            <div className="header">
+              <h2
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  color: "#3c3c3c",
+                }}
+              >
+                Payout preferences
+              </h2>
+              <Button
+                className="button"
+                onClick={() => {
+                  setShow(false);
+                  setShow2(true);
+                }}
+              >
+                + Add card
+              </Button>
+            </div>
+            {cards.length > 0 ? (
+              <Card className="card">
+                <Card.Body className="card-body">
+                  {cards?.map((card: any) => (
+                    <ul key={card.id}>
+                      <li>
+                        <Container className="details">
+                          <Row className="infoTitle">
+                            <h2 className="title"></h2>
+                          </Row>
+                          <Row className="infoCol"></Row>
+                          <Row className="infoCol">
+                            <h3>Address Line 2</h3>
+                          </Row>
+                          <Row className="infoRow">
+                            <h3>Zipcode:</h3>&nbsp;&nbsp;
+                          </Row>
+                          <Row className="infoCol">
+                            <h3>Delivery Note</h3>
+                          </Row>
+                        </Container>
+                      </li>
+                    </ul>
+                  ))}
+                </Card.Body>
+              </Card>
+            ) : (
+              <h2
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  color: "#3c3c3c",
+                }}
+              >
+                No card registered, you need to add one!
+              </h2>
+            )}
+          </>
+        )}
+
+        {show2 && (
+          <>
+            <div className="header">
+              <h2
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  color: "#3c3c3c",
+                }}
+              >
+                Payout preferences
+              </h2>
+              <Button
+                className="button"
+                onClick={() => {
+                  setShow(true);
+                  setShow2(false);
+                }}
+              >
+                Cancel
+              </Button>
+            </div>
+
+            <Card className="card">
+              <Card.Body className="card-body">
+                <Form className="form">
+                  {user.verification_phone_status === "pending" && (
+                    <>
+                      <Form.Group className="country">
+                        <Form.Label className="text">Phone number*</Form.Label>
+                        <p>
+                          <FaInfoCircle color="gray" />
+                          &nbsp;&nbsp;The phone number should start with the
+                          country code, for example "+81 8 1234 2345".
+                        </p>
+                        <div className="camp">
                           <Form.Control
-                            className="input"
-                            name="sms_token"
+                            className="select-country"
+                            as="select"
+                            name="country_code"
+                            onChange={handleInputChange}
+                            required
+                          >
+                            <option>Select a country code</option>
+                            {countries.map((country: any) => (
+                              <option
+                                key={country.name}
+                                value={country.callingCodes[0]}
+                              >
+                                {country.name}&nbsp;(
+                                {country.alpha2Code}
+                                )&nbsp;&nbsp;&nbsp;&nbsp;+
+                                {country.callingCodes[0]}
+                              </option>
+                            ))}
+                          </Form.Control>
+                          <Form.Control
+                            className="input-phone"
+                            name="phone_no"
                             type="text"
                             onChange={handleInputChange}
                             required
                           />
-                        </Form.Group>
+                        </div>
+                      </Form.Group>
+                      {show3 && (
                         <Button
-                          className="button"
+                          className="button2"
                           type="submit"
-                          onClick={ConfirmPhone}
+                          onClick={VerifyPhone}
                         >
-                          Verify token
+                          Verify phone
                         </Button>
-                      </>
-                    )}
-                  </>
-                )}
+                      )}
+                      {show4 && (
+                        <>
+                          <Form.Group>
+                            <p>
+                              You will soon receive an SMS with a confirmation
+                              token. After confirming your cell phone number,
+                              you can add a card. Cheffy Group.
+                            </p>
+                            <Form.Label className="text">
+                              Access Token{" "}
+                            </Form.Label>
+                            <Form.Control
+                              className="input"
+                              name="sms_token"
+                              type="text"
+                              onChange={handleInputChange}
+                              required
+                            />
+                          </Form.Group>
+                          <Button
+                            className="button2"
+                            type="submit"
+                            onClick={ConfirmPhone}
+                          >
+                            Verify token
+                          </Button>
+                        </>
+                      )}
+                    </>
+                  )}
 
-                {show3 && user.verification_phone_status === "verified" && (
-                  <>
-                    <Form.Group>
-                      <Form.Label className="text">Cardholder Names</Form.Label>
-                      <Form.Control
-                        className="input"
-                        name="holder"
-                        type="text"
-                        onChange={handleInputChange}
-                        required
-                      />
-                    </Form.Group>
-                    <Form.Group>
-                      <Form.Label className="text">Card Number</Form.Label>
-                      <Form.Control
-                        className="input"
-                        name="number"
-                        type="number"
-                        onChange={handleInputChange}
-                        required
-                      />
-                    </Form.Group>
-
-                    <Form.Group>
-                      <Form.Label className="text">Expiration date</Form.Label>
-                      <div className="date">
+                  {user.verification_phone_status === "verified" && (
+                    <>
+                      <Form.Group>
+                        <Form.Label className="text">
+                          Cardholder Names
+                        </Form.Label>
                         <Form.Control
-                          className="select-month"
-                          as="select"
-                          name="exp_month"
+                          className="input"
+                          name="holder"
+                          type="text"
                           onChange={handleInputChange}
                           required
-                        >
-                          <option>Select a month</option>
-                          <option>01</option>
-                          <option>02</option>
-                          <option>03</option>
-                          <option>04</option>
-                          <option>05</option>
-                          <option>06</option>
-                          <option>07</option>
-                          <option>08</option>
-                          <option>09</option>
-                          <option>10</option>
-                          <option>11</option>
-                          <option>12</option>
-                        </Form.Control>
-
+                        />
+                      </Form.Group>
+                      <Form.Group>
+                        <Form.Label className="text">Card Number</Form.Label>
                         <Form.Control
-                          className="select-year"
-                          as="select"
-                          name="exp_year"
+                          className="input"
+                          name="number"
+                          type="number"
                           onChange={handleInputChange}
                           required
-                        >
-                          <option>Select a year</option>
-                          <option>2020</option>
-                          <option>2021</option>
-                          <option>2022</option>
-                          <option>2023</option>
-                          <option>2024</option>
-                          <option>2025</option>
-                          <option>2026</option>
-                          <option>2027</option>
-                          <option>2028</option>
-                          <option>2029</option>
-                          <option>2030</option>
-                        </Form.Control>
-                      </div>
-                    </Form.Group>
+                        />
+                      </Form.Group>
 
-                    <Form.Group>
-                      <Form.Label className="text">CVV/CVC</Form.Label>
-                      <Form.Control
-                        className="input"
-                        name="cvc"
-                        type="password"
-                        onChange={handleInputChange}
-                        required
-                      />
-                    </Form.Group>
+                      <Form.Group>
+                        <Form.Label className="text">
+                          Expiration date
+                        </Form.Label>
+                        <div className="date">
+                          <Form.Control
+                            className="select-month"
+                            as="select"
+                            name="exp_month"
+                            onChange={handleInputChange}
+                            required
+                          >
+                            <option>Select a month</option>
+                            <option>01</option>
+                            <option>02</option>
+                            <option>03</option>
+                            <option>04</option>
+                            <option>05</option>
+                            <option>06</option>
+                            <option>07</option>
+                            <option>08</option>
+                            <option>09</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                          </Form.Control>
 
-                    <Button
-                      className="button2"
-                      type="submit"
-                      onClick={AddUserCard}
-                    >
-                      Save my credentials
-                    </Button>
-                  </>
-                )}
-              </Form>
-            </Card.Body>
-          </Card>
-        )}
+                          <Form.Control
+                            className="select-year"
+                            as="select"
+                            name="exp_year"
+                            onChange={handleInputChange}
+                            required
+                          >
+                            <option>Select a year</option>
+                            <option>2020</option>
+                            <option>2021</option>
+                            <option>2022</option>
+                            <option>2023</option>
+                            <option>2024</option>
+                            <option>2025</option>
+                            <option>2026</option>
+                            <option>2027</option>
+                            <option>2028</option>
+                            <option>2029</option>
+                            <option>2030</option>
+                          </Form.Control>
+                        </div>
+                      </Form.Group>
 
-        {show4 && (
-          <Card className="card">
-            <Card.Body className="card-body">
-              {/* <Container className="details">
-                <Row className="infoTitle">
-                  <h2 className="title">{address.city}</h2>
-                  <TiPencil className="icon" size={20} />
-                </Row>
-                <Row className="infoCol">
-                  <h3>Address Line 1</h3>
-                  <p>{address.addressLine1}</p>
-                </Row>
-                <Row className="infoCol">
-                  <h3>Address Line 2</h3>
-                  {!address.addressLine2 ? (
-                    "----"
-                  ) : (
-                    <p>{address.addressLine2}</p>
+                      <Form.Group>
+                        <Form.Label className="text">CVV/CVC</Form.Label>
+                        <Form.Control
+                          className="input"
+                          name="cvc"
+                          type="password"
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </Form.Group>
+
+                      <Button
+                        className="button3"
+                        type="submit"
+                        onClick={AddUserCard}
+                      >
+                        Save my credentials
+                      </Button>
+                    </>
                   )}
-                </Row>
-                <Row className="infoRow">
-                  <h3>Zipcode:</h3>&nbsp;&nbsp;
-                  <p>{address.zipCode}</p>
-                </Row>
-                <Row className="infoCol">
-                  <h3>Delivery Note</h3>
-                  {!address.deliveryNote ? (
-                    "----"
-                  ) : (
-                    <p>{address.deliveryNote}</p>
-                  )}
-                </Row>
-              </Container> */}
-            </Card.Body>
-          </Card>
+                </Form>
+              </Card.Body>
+            </Card>
+          </>
         )}
       </Row>
     </Col>

@@ -18,7 +18,7 @@ const PaymentSuccess: React.FC = () => {
   return (
     <div id="page-success">
       <header>
-        <Link to="/">
+        <Link to="/food/grid-foods">
           <FiArrowLeft size={20} />
           Back to home
         </Link>

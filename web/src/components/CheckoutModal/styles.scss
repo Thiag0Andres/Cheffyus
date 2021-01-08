@@ -1,0 +1,112 @@
+@import "../../mixin.scss";
+
+#modal {
+  .modal-header {
+    .text {
+      margin: 0;
+      font-size: 1.625em;
+      line-height: 1.14286em;
+      font-weight: 600;
+      color: #474747;
+    }
+  }
+
+  .modal-body {
+    .card {
+      border-radius: 5px;
+      border: 2px solid #c3c3c3;
+
+      .card-body {
+        padding: 0.75rem;
+
+        ul {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          grid-gap: 20px;
+          padding: 20px 0;
+          list-style: none;
+
+          li {
+            .details {
+              display: flex;
+              flex-direction: column;
+
+              .infoTitle {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+
+                .title {
+                  font-size: 1.2em;
+                  font-weight: bold;
+                  margin: 0;
+                  margin-bottom: 10px;
+                  color: #3c3c3c;
+                }
+
+                .icon {
+                  color: $red_classic;
+
+                  &:hover {
+                    color: $red_dark;
+                  }
+                }
+              }
+
+              .infoRow {
+                display: flex;
+                align-items: baseline;
+              }
+
+              .infoCol {
+                display: flex;
+                flex-direction: column;
+              }
+
+              h3 {
+                padding: 0;
+                margin: 0;
+                font-weight: 600;
+                color: #3c3c3c;
+              }
+
+              p {
+                margin-bottom: 10px;
+              }
+            }
+          }
+        }
+      }
+
+      &:hover {
+        border-radius: 5px;
+        border: 2px solid $red_classic;
+      }
+
+      &:active {
+        border-radius: 5px;
+        border: 2px solid $red_classic;
+      }
+
+      &:focus {
+        border-radius: 5px;
+        border: 2px solid $red_classic;
+      }
+    }
+  }
+
+  .modal-footer {
+    .button {
+      height: 42px;
+      box-shadow: none;
+      background-color: $red_classic;
+      border-color: $red_classic;
+      color: $white;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: $red_light;
+      }
+    }
+  }
+}
