@@ -16,19 +16,10 @@ export enum CartTypes {
  */
 
 export interface Cart {
+  basketItemId: number;
   chef: {
     id: number;
-    name?: string;
-    imagePath?: string;
-    restuarant_name?: string;
   };
-  deliveryPriceEstimate: number;
-  delivery_time: number;
-  delivery_type?: string;
-  id: number;
-  name: string;
-  price: number;
-  quantity?: number;
 }
 
 export interface Quantity {}

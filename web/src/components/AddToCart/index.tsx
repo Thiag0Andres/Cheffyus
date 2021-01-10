@@ -274,7 +274,7 @@ const InfoFood: React.FC = () => {
           {!loading &&
             items.length > 0 &&
             items.map((item: any) => (
-              <div key={item.basketItemId}>
+              <div className="item" key={item.basketItemId}>
                 <Row className="title">
                   <p>
                     <Link

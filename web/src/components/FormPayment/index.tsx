@@ -18,12 +18,16 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+// Components
+import Loading from "../../layout/Loading";
+
 //Message
 import { useSnackbar } from "notistack";
 
 // Icons
 import { FaInfoCircle } from "react-icons/fa";
-import { TiPencil } from "react-icons/ti";
+import { TiPencil, TiSortNumerically } from "react-icons/ti";
+import { AiOutlineLock, AiOutlineCalendar } from "react-icons/ai";
 
 import axios from "axios";
 import api from "../../services/api";
@@ -44,6 +48,7 @@ const FormPayment: React.FC = () => {
   // States
   const [cards, setCards] = useState<Array<any>>([]);
   const [countries, setCountries] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(true);
   const [show2, setShow2] = useState(false);
   const [show3, setShow3] = useState(true);
@@ -78,6 +83,7 @@ const FormPayment: React.FC = () => {
 
   // Chamada a api
   useEffect(() => {
+    setLoading(true);
     const url = "https://mycheffy.herokuapp.com/";
 
     api
@@ -88,9 +94,10 @@ const FormPayment: React.FC = () => {
         },
       })
       .then((response) => {
-        //console.log(response.data);
+        console.log(response.data);
 
         setCards(response.data.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -233,6 +240,7 @@ const FormPayment: React.FC = () => {
             <div className="header">
               <h2
                 style={{
+                  marginBottom: "30px",
                   display: "flex",
                   alignItems: "center",
                   color: "#3c3c3c",
@@ -250,33 +258,8 @@ const FormPayment: React.FC = () => {
                 + Add card
               </Button>
             </div>
-            {cards.length > 0 ? (
-              <Card className="card">
-                <Card.Body className="card-body">
-                  {cards?.map((card: any) => (
-                    <ul key={card.id}>
-                      <li>
-                        <Container className="details">
-                          <Row className="infoTitle">
-                            <h2 className="title"></h2>
-                          </Row>
-                          <Row className="infoCol"></Row>
-                          <Row className="infoCol">
-                            <h3>Address Line 2</h3>
-                          </Row>
-                          <Row className="infoRow">
-                            <h3>Zipcode:</h3>&nbsp;&nbsp;
-                          </Row>
-                          <Row className="infoCol">
-                            <h3>Delivery Note</h3>
-                          </Row>
-                        </Container>
-                      </li>
-                    </ul>
-                  ))}
-                </Card.Body>
-              </Card>
-            ) : (
+            {loading && <Loading />}
+            {!loading && !cards.length ? (
               <h2
                 style={{
                   display: "flex",
@@ -287,6 +270,46 @@ const FormPayment: React.FC = () => {
               >
                 No card registered, you need to add one!
               </h2>
+            ) : (
+              cards?.map((card: any) => (
+                <ul key={card.id}>
+                  <li>
+                    <Card className="card">
+                      <Card.Body className="card-body">
+                        <Container className="details">
+                          <Row className="infoTitle">
+                            <h2 className="title">{card.holder}</h2>
+                          </Row>
+                          <Row className="infoTitle"></Row>
+                          <Row className="infoTitle">
+                            <h2 className="title">Card Number: </h2>
+                            ...&nbsp;XXXX&nbsp;
+                            {card.last4}
+                          </Row>
+                          <Row className="infoTitle">
+                            <h2 className="title">
+                              <AiOutlineCalendar />
+                              &nbsp;&nbsp;Expiration date:
+                            </h2>
+                            {card.exp_month + "/" + card.exp_year}
+                          </Row>
+                          <Row className="infoTitle">
+                            <h2 className="title">
+                              <AiOutlineLock />
+                              &nbsp;&nbsp;CVV/CVC:
+                            </h2>
+                            ***
+                          </Row>
+                          <Row className="infoTitle">
+                            <h2 className="title">Type:</h2>
+                            {!card.type ? "----" : card.type}
+                          </Row>
+                        </Container>
+                      </Card.Body>
+                    </Card>
+                  </li>
+                </ul>
+              ))
             )}
           </>
         )}
@@ -314,8 +337,8 @@ const FormPayment: React.FC = () => {
               </Button>
             </div>
 
-            <Card className="card">
-              <Card.Body className="card-body">
+            <Card className="card2">
+              <Card.Body className="card-body2">
                 <Form className="form">
                   {user.verification_phone_status === "pending" && (
                     <>
@@ -421,11 +444,10 @@ const FormPayment: React.FC = () => {
                         />
                       </Form.Group>
 
-                      <Form.Group>
-                        <Form.Label className="text">
-                          Expiration date
-                        </Form.Label>
-                        <div className="date">
+                      <Form.Label className="text">Expiration date</Form.Label>
+                      <div className="date">
+                        <Form.Group>
+                          {" "}
                           <Form.Control
                             className="select-month"
                             as="select"
@@ -447,7 +469,9 @@ const FormPayment: React.FC = () => {
                             <option>11</option>
                             <option>12</option>
                           </Form.Control>
+                        </Form.Group>
 
+                        <Form.Group>
                           <Form.Control
                             className="select-year"
                             as="select"
@@ -468,8 +492,8 @@ const FormPayment: React.FC = () => {
                             <option>2029</option>
                             <option>2030</option>
                           </Form.Control>
-                        </div>
-                      </Form.Group>
+                        </Form.Group>
+                      </div>
 
                       <Form.Group>
                         <Form.Label className="text">CVV/CVC</Form.Label>

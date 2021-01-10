@@ -36,16 +36,18 @@
       }
     }
 
-    .card {
-      border-radius: 5px;
-      border: 2px solid #c3c3c3;
+    ul {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 20px;
+      list-style: none;
+      li {
+        .card {
+          border-radius: 5px;
+          border: 2px solid #c3c3c3;
 
-      .card-body {
-        padding: 0.75rem;
-
-        ul {
-          list-style: none;
-          li {
+          .card-body {
+            padding: 0.75rem;
             .details {
               display: flex;
               flex-direction: column;
@@ -97,8 +99,12 @@
         }
       }
     }
+
     .card2 {
       margin-bottom: 30px;
+      border-radius: 5px;
+      border: 2px solid #c3c3c3;
+
       .card-body2 {
         .form {
           .text {

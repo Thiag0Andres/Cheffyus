@@ -6,6 +6,7 @@ import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { ApplicationState } from "../../store";
 import { removeUserDelivery } from "../../store/ducks/userDelivery/actions";
 import { removeTokenDelivery } from "../../store/ducks/tokenDelivery/actions";
+import { addCart } from "../../store/ducks/cart/actions";
 import { removeCart } from "../../store/ducks/cart/actions";
 import { isAuthenticatedDelivery } from "../../services/auth";
 
@@ -64,9 +65,11 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
   const token: TokenDelivery = useSelector(
     (state: RootStateOrAny) => state.tokenDelivery.tokenDelivery.tokenDelivery
   );
+
   const cart: Cart[] = useSelector(
     (state: RootStateOrAny) => state.cart.cart.length
   );
+  const cart2: Cart[] = useSelector((state: RootStateOrAny) => state.cart.cart);
   const history = useHistory();
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
@@ -77,6 +80,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
   const [show2, setShow2] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [items, setItems] = useState<Array<any>>([]);
   const [restaurants, setRestaurants] = useState([]);
   const [formData, setFormData] = useState({
     search: "",
@@ -101,6 +105,36 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
     //console.log(isLogged);
   }, [userDelivery]);
 
+  /*   useEffect(() => {
+    const url = "https://mycheffy.herokuapp.com/basket/?deliveryType=driver";
+
+    api
+      .get(url, {
+        headers: {
+          "x-access-token": token,
+          "content-type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log("basket", data);
+
+        const array: any = [];
+
+        data.items.filter((item: Cart) => {
+          array.push([]);
+        });
+
+        //console.log(array);
+
+        dispatch(addCart({ ...cart2, array }));
+        setItems(data.items);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [items]);
+ */
   // Logout do usuário
   const logout = () => {
     const url = `https://mycheffy.herokuapp.com/basket/clear`;

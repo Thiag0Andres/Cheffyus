@@ -36,11 +36,47 @@
       }
     }
 
-    .card {
+    ul {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 20px;
+      list-style: none;
+      li {
+        .card {
+          border-radius: 5px;
+          border: 2px solid #c3c3c3;
+
+          .card-body {
+            .details {
+              display: flex;
+              flex-direction: column;
+
+              .infoTitle {
+                display: flex;
+                align-items: baseline;
+
+                .title {
+                  display: flex;
+                  align-items: center;
+                  font-size: 1.125em;
+                  font-weight: bold;
+                  margin: 0;
+                  margin-right: 10px;
+                  margin-bottom: 10px;
+                  color: #3c3c3c;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .card2 {
       border-radius: 5px;
       border: 2px solid #c3c3c3;
 
-      .card-body {
+      .card-body2 {
         //padding: 30px;
 
         .form {
@@ -60,17 +96,6 @@
             border: 2px solid #c3c3c3;
             box-shadow: none;
             min-height: 42px;
-          }
-
-          .group1 {
-            display: flex;
-
-            .box1 {
-              width: 100%;
-            }
-            .box2 {
-              width: 100%;
-            }
           }
 
           .country {
@@ -103,8 +128,9 @@
           .date {
             display: flex;
 
+            grid-gap: 10px;
+
             .select-month {
-              width: 150px;
               min-height: 42px;
               border-radius: 5px;
               border: 2px solid #c3c3c3;
@@ -112,8 +138,6 @@
             }
 
             .select-year {
-              width: 150px;
-              margin-left: 20px;
               min-height: 42px;
               border-radius: 5px;
               border: 2px solid #c3c3c3;
@@ -148,54 +172,6 @@
             }
           }
         }
-
-        .details {
-          display: flex;
-          flex-direction: column;
-
-          .infoTitle {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-
-            .title {
-              font-size: 1.2em;
-              font-weight: bold;
-              margin: 0;
-              margin-bottom: 10px;
-              color: #3c3c3c;
-            }
-
-            .icon {
-              color: $red_classic;
-
-              &:hover {
-                color: $red_dark;
-              }
-            }
-          }
-
-          .infoRow {
-            display: flex;
-            align-items: baseline;
-          }
-
-          .infoCol {
-            display: flex;
-            flex-direction: column;
-          }
-
-          h3 {
-            padding: 0;
-            margin: 0;
-            font-weight: 600;
-            color: #3c3c3c;
-          }
-
-          p {
-            margin-bottom: 10px;
-          }
-        }
       }
     }
   }
@@ -206,11 +182,6 @@
     flex-direction: column;
     align-items: center;
     margin-top: 30px;
-
-    .date {
-      flex-direction: column !important;
-      width: 100% !important;
-    }
 
     .country {
       .select-country {

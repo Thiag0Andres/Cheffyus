@@ -39,6 +39,8 @@
   }
 
   .body {
+    padding: 0 40px;
+
     .title {
       display: flex;
       justify-content: space-between;
@@ -82,12 +84,14 @@
         }
       }
     }
+
     .subtotal-price {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-top: 10px;
     }
+
     .delivery-price {
       display: flex;
       align-items: center;
@@ -109,13 +113,16 @@
   }
 
   .payment {
+    padding: 0 40px;
+    margin-top: 20px;
+    width: 432px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    //align-items: center;
+    //justify-content: center;
     //background-color: aqua;
 
     h2 {
-      padding: 0 20px;
       font-size: 1.4375em;
       line-height: 1.14286em;
       font-weight: 700;
@@ -123,51 +130,12 @@
       margin-bottom: 0;
     }
 
-    .form {
-      width: 456px;
-
-      .text {
-        width: 100%;
-        display: block;
-        margin-top: 12px;
-        margin-bottom: 3px;
-        font-size: 16px;
-        font-weight: 600;
-        line-height: 24px;
-        color: $gray_light;
-      }
-
-      .input {
-        border-radius: 5px;
-        border: 2px solid #c3c3c3;
-        min-height: 42px;
-        width: 100%;
-        box-shadow: none;
-      }
-
-      .select-user-type {
-        width: 100%;
-        min-height: 42px;
-        border-radius: 5px;
-        border: 2px solid #c3c3c3;
-        box-shadow: none;
-      }
-
-      .text2 {
-        display: inline-block;
-        width: auto;
-        padding: 0 0 0 1.5em;
-        margin-top: 0.5625em;
-        margin-bottom: 0.1875em;
-        font-weight: 600;
-        font-size: 1em;
-        line-height: 1.5em;
-        color: #3c3c3c;
-      }
-    }
     .button {
       width: 100%;
       height: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin-top: 20px;
       margin-bottom: 20px;
       box-shadow: none;
@@ -183,24 +151,35 @@
   }
 }
 
-@media screen and (max-width: 471px) {
-  #ccontent-add-to-cart {
+/* @media screen and (max-width: 471px) {
+  #content-add-to-cart {
     .box1 {
+      width: 354px !important;
+    }
+
+    .payment {
       width: 354px !important;
     }
   }
 }
 @media screen and (max-width: 414px) {
-  #ccontent-add-to-cart {
+  #content-add-to-cart {
     .box1 {
+      width: 300px !important;
+    }
+    .payment {
       width: 300px !important;
     }
   }
 }
 @media screen and (max-width: 320px) {
-  #ccontent-add-to-cart {
+  #content-add-to-cart {
     .box1 {
       width: 260px !important;
     }
+
+    .payment {
+      width: 260px !important;
+    }
   }
-}
+} */

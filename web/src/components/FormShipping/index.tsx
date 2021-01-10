@@ -201,6 +201,7 @@ const FormShipping: React.FC = () => {
           <div className="header">
             <h2
               style={{
+                marginBottom: "30px",
                 display: "flex",
                 alignItems: "center",
                 color: "#3c3c3c",
@@ -381,12 +382,13 @@ const FormShipping: React.FC = () => {
             No address found, you need to add one!
           </h2>
         )}
-        {show3 && user.address.length > 0 && (
-          <Card className="card">
-            <Card.Body className="card-body">
-              {user.address.map((address: any) => (
-                <ul key={address.id}>
-                  <li>
+        {show3 &&
+          user.address.length > 0 &&
+          user.address.map((address: any) => (
+            <ul key={address.id}>
+              <li>
+                <Card className="card">
+                  <Card.Body className="card-body">
                     <Container className="details">
                       <Row className="infoTitle">
                         <h2 className="title">{address.city}</h2>
@@ -417,12 +419,11 @@ const FormShipping: React.FC = () => {
                         )}
                       </Row>
                     </Container>
-                  </li>
-                </ul>
-              ))}
-            </Card.Body>
-          </Card>
-        )}
+                  </Card.Body>
+                </Card>
+              </li>
+            </ul>
+          ))}
       </Row>
     </Col>
   );

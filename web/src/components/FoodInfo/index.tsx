@@ -118,7 +118,7 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
       })
       .then((response) => {
         const data = response.data;
-        console.log("basket", data);
+        //console.log("basket", data);
 
         dispatch(addCart({ ...detail, quantity: formData.quantity }));
 
