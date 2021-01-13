@@ -14,11 +14,12 @@ const ProfileChef: React.FC = () => {
 
   // States
   const [text, setText] = useState(detail.name);
-  const [filter, setFilter] = useState([]);
+  const [filter, setFilter] = useState<Array<any>>([]);
+  const [foods, setFoods] = useState<Array<any>>([]);
 
   return (
     <>
-      <NavBarFood setFilter={setFilter} />
+      <NavBarFood foods={foods} setFilter={setFilter} />
       <Background2 text={text} />
       <ChefProfileFood detail={detail} />
       <Footer />

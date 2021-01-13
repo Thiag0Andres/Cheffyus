@@ -38,7 +38,7 @@ const PaginationChef: React.FC<Props> = ({ locationUser }) => {
     <Container>
       <ChefList chefs={recommended} title={"Recommended Chefs"} />
       {/* <PopularPlates></PopularPlates> */}
-      <ChefList chefs={mustTryChefs} title={"Chef you Muts Try"} />
+      <ChefList chefs={mustTryChefs} title={"Chef you Must Try"} />
     </Container>
   );
 };

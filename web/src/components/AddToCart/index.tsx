@@ -131,7 +131,7 @@ const InfoFood: React.FC = () => {
       })
       .then((response) => {
         const data = response.data;
-        //console.log("subtract basket item", data);
+        console.log("subtract basket item", data);
 
         enqueueSnackbar("Food removed", {
           variant: "info",
@@ -140,8 +140,6 @@ const InfoFood: React.FC = () => {
       .catch((error) => {
         console.log(error);
       });
-
-    dispatch(removeCart(id));
   };
 
   const ConfirmationPaymentStripe = () => {
@@ -303,7 +301,10 @@ const InfoFood: React.FC = () => {
                   <MdDelete
                     className="icon"
                     size={18}
-                    onClick={() => handleDeleteItem(item.basketItemId)}
+                    onClick={() => {
+                      handleDeleteItem(item.basketItemId);
+                      dispatch(removeCart(item.basketItemId));
+                    }}
                   />
                 </Row>
                 <Row className="row">

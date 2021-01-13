@@ -41,9 +41,10 @@ function valuetext(value: number) {
 interface Props {
   filter: any;
   setPage: any;
+  setFoods: any;
 }
 
-const GridFood: React.FC<Props> = ({ filter, setPage }) => {
+const GridFood: React.FC<Props> = ({ filter, setPage, setFoods }) => {
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -104,10 +105,12 @@ const GridFood: React.FC<Props> = ({ filter, setPage }) => {
         const data = response.data;
         //console.log("oi", data.data);
         setRestaurants(data.data);
+        setFoods(data.data);
         setLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
       });
   }, [initialPosition, valuePage]);
 

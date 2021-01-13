@@ -9,12 +9,13 @@ import Footer from "../../../components/Footer";
 const LogIn: React.FC = () => {
   // States
   const [text, setText] = useState("Log in to Cheffy");
-  const [filter, setFilter] = useState([]);
+  const [filter, setFilter] = useState<Array<any>>([]);
+  const [foods, setFoods] = useState<Array<any>>([]);
   const [page, setPage] = useState();
 
   return (
     <>
-      <NavBarFood setFilter={setFilter} />
+      <NavBarFood foods={foods} setFilter={setFilter} />
       <Background2 text={text} />
       <FormLogin />
       <Footer />

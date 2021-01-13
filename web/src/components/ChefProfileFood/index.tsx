@@ -52,6 +52,7 @@ const ChefProfileFood: React.FC<Props> = ({ detail }) => {
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
       });
   }, []);
 

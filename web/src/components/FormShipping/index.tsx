@@ -370,7 +370,7 @@ const FormShipping: React.FC = () => {
             </Card>
           </>
         )}
-        {!user.address && (
+        {show3 && !user.address.length ? (
           <h2
             style={{
               display: "flex",
@@ -381,9 +381,7 @@ const FormShipping: React.FC = () => {
           >
             No address found, you need to add one!
           </h2>
-        )}
-        {show3 &&
-          user.address.length > 0 &&
+        ) : (
           user.address.map((address: any) => (
             <ul key={address.id}>
               <li>
@@ -423,7 +421,8 @@ const FormShipping: React.FC = () => {
                 </Card>
               </li>
             </ul>
-          ))}
+          ))
+        )}
       </Row>
     </Col>
   );

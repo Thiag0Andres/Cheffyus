@@ -54,10 +54,11 @@ interface Props {
    */
   window?: () => Window;
   setFilter: any;
+  foods: any;
 }
 
 const NavBarFood: React.FC<Props> = (props: Props) => {
-  const { window, setFilter } = props;
+  const { window, setFilter, foods } = props;
   const dispatch = useDispatch();
   const userDelivery: UserDelivery = useSelector(
     (state: ApplicationState) => state.userDelivery.userDelivery
@@ -69,7 +70,6 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
   const cart: Cart[] = useSelector(
     (state: RootStateOrAny) => state.cart.cart.length
   );
-  const cart2: Cart[] = useSelector((state: RootStateOrAny) => state.cart.cart);
   const history = useHistory();
   const theme = useTheme();
   const { enqueueSnackbar } = useSnackbar();
@@ -80,17 +80,16 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
   const [show2, setShow2] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [items, setItems] = useState<Array<any>>([]);
   const [restaurants, setRestaurants] = useState([]);
   const [formData, setFormData] = useState({
     search: "",
   });
 
   useEffect(() => {
-    const filteredKitchens: any = restaurants.filter((restaurant: any) => {
+    const filteredKitchens: any = foods.filter((food: any) => {
       return (
-        (restaurant.name.toLowerCase().indexOf(formData.search.toLowerCase()) &&
-          restaurant.chef.name
+        (food.name.toLowerCase().indexOf(formData.search.toLowerCase()) &&
+          food.chef.name
             .toLowerCase()
             .indexOf(formData.search.toLowerCase())) !== -1
       );
@@ -105,36 +104,6 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
     //console.log(isLogged);
   }, [userDelivery]);
 
-  /*   useEffect(() => {
-    const url = "https://mycheffy.herokuapp.com/basket/?deliveryType=driver";
-
-    api
-      .get(url, {
-        headers: {
-          "x-access-token": token,
-          "content-type": "application/json",
-        },
-      })
-      .then((response) => {
-        const data = response.data;
-        console.log("basket", data);
-
-        const array: any = [];
-
-        data.items.filter((item: Cart) => {
-          array.push([]);
-        });
-
-        //console.log(array);
-
-        dispatch(addCart({ ...cart2, array }));
-        setItems(data.items);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [items]);
- */
   // Logout do usuário
   const logout = () => {
     const url = `https://mycheffy.herokuapp.com/basket/clear`;
@@ -150,7 +119,7 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
       })
       .then((response) => {
         const data = response.data;
-        console.log(data);
+        //console.log(data);
       })
       .catch((error) => {
         console.log(error);
@@ -172,15 +141,6 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
       });
     }
   };
-
-  /*   const handlePageProfile = () => {
-    history.push({
-      pathname: `/food/profile-user/${userDelivery.name}`,
-      state: {
-        detail: userDelivery,
-      },
-    });
-  }; */
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

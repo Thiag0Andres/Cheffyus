@@ -94,13 +94,14 @@ const FormPayment: React.FC = () => {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
 
         setCards(response.data.data);
         setLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
       });
   }, []);
 
@@ -124,7 +125,7 @@ const FormPayment: React.FC = () => {
     const url = "https://mycheffy.herokuapp.com/";
 
     api
-      .post(url + "user/verify-phone", body, {
+      .post(url + "user/phone", body, {
         headers: {
           "x-access-token": token,
           "content-type": "application/json",
@@ -132,9 +133,7 @@ const FormPayment: React.FC = () => {
       })
       .then((response) => {
         const data = response.data;
-        console.log(data);
-
-        //dispatch(updateUserDelivery(data));
+        //console.log(data);
 
         setShow(false);
         setShow2(true);
@@ -160,7 +159,7 @@ const FormPayment: React.FC = () => {
     const url = "https://mycheffy.herokuapp.com/";
 
     api
-      .post(url + "user/confirmphone", body, {
+      .post(url + "user/verify-phone", body, {
         headers: {
           "x-access-token": token,
           "content-type": "application/json",
@@ -170,7 +169,16 @@ const FormPayment: React.FC = () => {
         const data = response.data;
         console.log(data);
 
-        //dispatch(updateUserDelivery(data));
+        const userUpdate = {
+          userDelivery: {
+            ...user,
+            verification_phone_status: "verified",
+          },
+        };
+
+        //console.log(userUpdate.userDelivery);
+
+        //dispatch(updateUserDelivery(userUpdate.userDelivery));
 
         setShow(false);
         setShow2(true);
@@ -223,7 +231,8 @@ const FormPayment: React.FC = () => {
       });
   };
 
-  //console.log(user);
+  //console.log(cards);
+  //console.log(loading);
 
   return (
     <Col

@@ -58,9 +58,12 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
   const [plate, setPlate] = useState("");
   const [typeDel, setTypeDel] = useState("");
   const [click, setClick] = useState(0);
+  const [click2, setClick2] = useState(0);
   const [formData, setFormData] = useState({
     quantity: 1,
   });
+
+  //console.log(cart);
 
   // Atualiza o estado de autenticação na mudança de usuário
   useEffect(() => {
@@ -83,15 +86,34 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
   useEffect(() => {
     const L = () => {
       cart.map((item: any) => {
-        if (item.chef.id === detail.chef.id && item.id === detail.id) {
+        if (
+          item.plate.chef.id === detail.chef.id &&
+          item.plate.id === detail.id
+        ) {
           return setPlate("CASE1");
-        } else if (item.chef.id === detail.chef.id && item.id !== detail.id) {
+        } else if (
+          item.plate.chef.id === detail.chef.id &&
+          item.id !== detail.id
+        ) {
           return setPlate("CASE2");
-        } else if (item.chef.id !== detail.chef.id) {
+        } else if (item.plate.chef.id !== detail.chef.id) {
           return setPlate("CASE3");
         }
       });
     };
+
+    /*     cart.map((item: any) => {
+      console.log(
+        "chefID:",
+        item.plate.chef.id,
+        "detailChefID:",
+        detail.chef.id,
+        "itemID:",
+        item.plate.id,
+        "detailID:",
+        detail.id
+      );
+    }); */
 
     L();
   }, [click]);
@@ -120,8 +142,10 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
         const data = response.data;
         //console.log("basket", data);
 
-        dispatch(addCart({ ...detail, quantity: formData.quantity }));
+        const lestElement = data.items.pop();
+        //console.log("oi", lestElement);
 
+        dispatch(addCart(lestElement));
         enqueueSnackbar("Food add to cart", {
           variant: "success",
         });
@@ -145,9 +169,7 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
           });
         }
       } else if (plate === "CASE1") {
-        enqueueSnackbar("Food is already in the cart", {
-          variant: "error",
-        });
+        handleSubmit();
       } else if (plate === "CASE2") {
         if (userDelivery.address.length !== 0) {
           handleSubmit();
@@ -216,6 +238,7 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
   };
 
   //console.log(detail);
+  //console.log("cart", cart);
 
   return (
     <Row id="page-food-info">

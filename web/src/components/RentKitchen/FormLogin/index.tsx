@@ -171,7 +171,7 @@ const FormLogin: React.FC = () => {
               Log in
             </Button>
             <div>
-              <Link to="kitchen/signup">Create a new account</Link>
+              <Link to="/kitchen/signup">Create a new account</Link>
             </div>
             <Button className="button3" onClick={() => setShow(true)}>
               Forgot password

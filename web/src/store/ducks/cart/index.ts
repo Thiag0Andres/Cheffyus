@@ -23,7 +23,7 @@ const reducer: Reducer<CartState> = (
 
   switch (action.type) {
     case CartTypes.ADD_ITEM_CART:
-      console.log(addedCartState);
+      //console.log(addedCartState);
       addedCartState.cart = [...addedCartState.cart, action.data];
       localStorage.setItem(address, JSON.stringify(addedCartState.cart));
 

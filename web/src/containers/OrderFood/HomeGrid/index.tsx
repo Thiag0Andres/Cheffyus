@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 // Redux e Auth
-import { useSelector, RootStateOrAny } from "react-redux";
-import { isAuthenticated } from "../../../services/auth";
+import { useSelector } from "react-redux";
+import { ApplicationState } from "../../../store";
+import { isAuthenticatedDelivery } from "../../../services/auth";
 
 // Types
-import { User } from "../../../store/ducks/user/types";
+import { UserDelivery } from "../../../store/ducks/userDelivery/types";
 
 // Components
 import NavBarFood from "../../../components/NavBarFood";
@@ -14,24 +15,29 @@ import GridFood from "../../../components/GridFood";
 import Footer from "../../../components/Footer";
 
 const HomeGrid: React.FC = () => {
-  const user: User = useSelector((state: RootStateOrAny) => state.user.user);
+  const user: UserDelivery = useSelector(
+    (state: ApplicationState) => state.userDelivery.userDelivery
+  );
 
   // States
   const [isLogged, setIsLogged] = useState(false);
-  const [filter, setFilter] = useState([]);
+  const [filter, setFilter] = useState<Array<any>>([]);
+  const [foods, setFoods] = useState<Array<any>>([]);
   const [page, setPage] = useState(1);
 
   // Atualiza o estado de autenticação na mudança de usuário
   useEffect(() => {
-    const response = isAuthenticated();
+    const response = isAuthenticatedDelivery();
     setIsLogged(response);
   }, [user]);
 
+  console.log(foods);
+
   return (
     <>
-      <NavBarFood setFilter={setFilter} />
+      <NavBarFood foods={foods} setFilter={setFilter} />
       {!isLogged && <Background />}
-      <GridFood filter={filter} setPage={setPage} />
+      <GridFood filter={filter} setPage={setPage} setFoods={setFoods} />
       <Footer />
     </>
   );
