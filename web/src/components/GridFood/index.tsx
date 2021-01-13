@@ -81,10 +81,6 @@ const GridFood: React.FC<Props> = ({ filter, setPage, setFoods }) => {
   }, [categoryFiltered]);
 
   useEffect(() => {
-    setRestaurants(filter);
-  }, [filter]);
-
-  useEffect(() => {
     setPage(valuePage);
   }, [setPage, valuePage]);
 
@@ -92,27 +88,51 @@ const GridFood: React.FC<Props> = ({ filter, setPage, setFoods }) => {
     setShowFilter(filterBoolean);
   }, [filterBoolean]);
 
+  //console.log(filter);
+
   // Chamada a api
   useEffect(() => {
-    setLoading(true);
-    const url = `https://mycheffy.herokuapp.com/plate/?page=${valuePage}&pageSize=${12}&near=${true}&lat=${
-      initialPosition[0]
-    }&lon=${initialPosition[1]}&radius=${100}`;
+    if (filter === "") {
+      setLoading(true);
+      const url = `https://mycheffy.herokuapp.com/plate/?page=${valuePage}&pageSize=${12}&near=${true}&lat=${
+        initialPosition[0]
+      }&lon=${initialPosition[1]}&radius=${100}`;
 
-    api
-      .get(url)
-      .then((response) => {
-        const data = response.data;
-        //console.log("oi", data.data);
-        setRestaurants(data.data);
-        setFoods(data.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-      });
-  }, [initialPosition, valuePage]);
+      api
+        .get(url)
+        .then((response) => {
+          const data = response.data;
+          //console.log("foods", data.data);
+
+          setRestaurants(data.data);
+          setFoods(data.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+        });
+    } else {
+      setLoading(true);
+      const url = `https://mycheffy.herokuapp.com/plate?keyword=${filter}&page=${valuePage}&pageSize=${12}&near=${true}&lat=${
+        initialPosition[0]
+      }&lon=${initialPosition[1]}&radius=${100}`;
+
+      api
+        .get(url)
+        .then((response) => {
+          const data = response.data;
+          //console.log("foods", data.data);
+
+          setRestaurants(data.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+        });
+    }
+  }, [initialPosition, valuePage, filter]);
 
   const FilterPlates = (event: FormEvent) => {
     event.preventDefault();

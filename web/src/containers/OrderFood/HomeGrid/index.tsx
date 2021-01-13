@@ -21,7 +21,7 @@ const HomeGrid: React.FC = () => {
 
   // States
   const [isLogged, setIsLogged] = useState(false);
-  const [filter, setFilter] = useState<Array<any>>([]);
+  const [filter, setFilter] = useState("");
   const [foods, setFoods] = useState<Array<any>>([]);
   const [page, setPage] = useState(1);
 
@@ -31,7 +31,7 @@ const HomeGrid: React.FC = () => {
     setIsLogged(response);
   }, [user]);
 
-  console.log(foods);
+  //console.log(foods);
 
   return (
     <>

@@ -9,7 +9,7 @@ import Footer from "../../../components/Footer";
 const Settings: React.FC = () => {
   // States
   const [text, setText] = useState("Settings");
-  const [filter, setFilter] = useState<Array<any>>([]);
+  const [filter, setFilter] = useState("");
   const [foods, setFoods] = useState<Array<any>>([]);
   const [page, setPage] = useState();
 

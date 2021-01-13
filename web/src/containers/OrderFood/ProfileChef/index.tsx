@@ -14,7 +14,7 @@ const ProfileChef: React.FC = () => {
 
   // States
   const [text, setText] = useState(detail.name);
-  const [filter, setFilter] = useState<Array<any>>([]);
+  const [filter, setFilter] = useState("");
   const [foods, setFoods] = useState<Array<any>>([]);
 
   return (

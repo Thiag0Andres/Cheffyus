@@ -86,15 +86,15 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
   });
 
   useEffect(() => {
-    const filteredKitchens: any = foods.filter((food: any) => {
+    /*     const filteredKitchens: any = foods.filter((food: any) => {
       return (
         (food.name.toLowerCase().indexOf(formData.search.toLowerCase()) &&
           food.chef.name
             .toLowerCase()
             .indexOf(formData.search.toLowerCase())) !== -1
       );
-    });
-    setFilter(filteredKitchens);
+    }); */
+    setFilter(formData.search);
   }, [formData.search]);
 
   // Atualiza o estado de autenticação na mudança de usuário
