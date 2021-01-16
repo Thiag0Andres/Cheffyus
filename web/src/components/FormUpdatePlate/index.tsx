@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 // Redux e Auth
 import { useSelector, RootStateOrAny } from "react-redux";
 import { ApplicationState } from "../../store";
-import { useDispatch } from "react-redux";
 
 // Types
 import { UserDelivery } from "../../store/ducks/userDelivery/types";
@@ -29,8 +28,6 @@ import { FaInfoCircle } from "react-icons/fa";
 
 import api from "../../services/api";
 
-import "./styles.scss";
-
 interface UploadFile {
   file: any;
   name: string;
@@ -48,15 +45,17 @@ interface File {
   size: number;
 }
 
-const FormAddPlate: React.FC = () => {
+interface Props {
+  detail: any;
+}
+
+const FormUpdatePlate: React.FC<Props> = ({ detail }) => {
   const user: UserDelivery = useSelector(
     (state: ApplicationState) => state.userDelivery.userDelivery
   );
   const token: TokenDelivery = useSelector(
     (state: RootStateOrAny) => state.tokenDelivery.tokenDelivery.tokenDelivery
   );
-
-  const dispatch = useDispatch();
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -69,13 +68,19 @@ const FormAddPlate: React.FC = () => {
     { id: 2, description: "Paid Delivery", value: "paid" },
   ]);
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    price: "",
-    delivery_time: "",
+    name: detail.name,
+    description: detail.description,
+    price: detail.price,
+    delivery_time: detail.delivery_time,
     delivery_time_max: "",
-    categoryId: 0,
+    categoryId: detail.category.id,
   });
+
+  useEffect(() => {
+    setSelectedItems(detail.delivery_type);
+  }, []);
+
+  console.log(detail);
 
   // Chamada a api
   useEffect(() => {
@@ -128,7 +133,7 @@ const FormAddPlate: React.FC = () => {
     }
   };
 
-  const AddPlate = (url_image: any) => {
+  const UpdatePlate = (url_image: any) => {
     const { name, description, price, delivery_time, categoryId } = formData;
 
     const body = {
@@ -149,24 +154,32 @@ const FormAddPlate: React.FC = () => {
       // ReceiptImages: [{}],
     };
 
-    const url = "https://mycheffy.herokuapp.com/";
+    const url = `https://mycheffy.herokuapp.com/plate/edit/${detail.id}`;
 
     api
-      .post(url + "plate", body, {
+      .post(url, body, {
         headers: {
           "x-access-token": token,
           "content-type": "application/json",
         },
       })
-      .then(() => {
-        history.push("/food/grid-foods");
-        enqueueSnackbar("Plate successfully registered!", {
+      .then((response) => {
+        const data = response.data;
+        //console.log("edit plate", data);
+
+        history.push({
+          pathname: `/food/profile-chef/${detail.chef.id}`,
+          state: {
+            detail: detail.chef,
+          },
+        });
+        enqueueSnackbar(response.data.message, {
           variant: "success",
         });
       })
       .catch((error) => {
         console.log(error);
-        enqueueSnackbar("Failed to register.", { variant: "error" });
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
       });
   };
 
@@ -188,14 +201,14 @@ const FormAddPlate: React.FC = () => {
 
           const url_image = response.data.url;
 
-          AddPlate(url_image);
+          UpdatePlate(url_image);
         })
         .catch((error) => {
           console.log(error);
           enqueueSnackbar("Failed to load image.", { variant: "error" });
         });
     } else {
-      AddPlate(null);
+      UpdatePlate(null);
     }
   };
 
@@ -209,6 +222,7 @@ const FormAddPlate: React.FC = () => {
               className="input"
               type="text"
               name="name"
+              value={formData.name}
               onChange={handleInputChange}
               required
             />
@@ -228,6 +242,7 @@ const FormAddPlate: React.FC = () => {
               as="textarea"
               rows={3}
               name="description"
+              value={formData.description}
               onChange={handleInputChange}
             />
           </Form.Group>
@@ -240,6 +255,7 @@ const FormAddPlate: React.FC = () => {
                 type="number"
                 placeholder="$"
                 name="price"
+                value={formData.price}
                 onChange={handleInputChange}
                 required
               />
@@ -260,6 +276,7 @@ const FormAddPlate: React.FC = () => {
                 type="text"
                 placeholder="20 min"
                 name="delivery_time"
+                value={formData.delivery_time}
                 onChange={handleInputChange}
                 required
               />
@@ -273,6 +290,7 @@ const FormAddPlate: React.FC = () => {
                 type="number"
                 placeholder="30 min"
                 name="delivery_time_max"
+                value={formData.delivery_time_max}
                 onChange={handleInputChange}
                 required
               />
@@ -285,6 +303,7 @@ const FormAddPlate: React.FC = () => {
               className="input-category"
               as="select"
               name="categoryId"
+              value={formData.categoryId}
               onChange={handleInputChange}
               required
             >
@@ -341,7 +360,7 @@ const FormAddPlate: React.FC = () => {
           </Form.Group> */}
 
           <Button className="button" type="submit" onClick={handleSubmit}>
-            Post plate
+            Update plate
           </Button>
         </Form>
       </Col>
@@ -349,4 +368,4 @@ const FormAddPlate: React.FC = () => {
   );
 };
 
-export default FormAddPlate;
+export default FormUpdatePlate;

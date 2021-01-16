@@ -160,6 +160,15 @@
             height: 20px;
             color: $white;
           }
+
+          .icon {
+            color: $red_classic;
+            cursor: pointer;
+
+            &:hover {
+              color: $red_dark;
+            }
+          }
         }
 
         &:hover {

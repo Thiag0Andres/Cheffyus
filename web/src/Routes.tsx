@@ -41,6 +41,7 @@ import Cart from "./containers/OrderFood/Cart";
 import ProfileChefFood from "./containers/OrderFood/ProfileChef";
 import SettingsFood from "./containers/OrderFood/Settings";
 import AddPlate from "./containers/OrderFood/AddPlate";
+import UpdatePlate from "./containers/OrderFood/UpdatePlate";
 import SuccessPayment from "./containers/OrderFood/SuccessPayment";
 
 export default function Routes() {
@@ -144,6 +145,11 @@ export default function Routes() {
 
         {/* Order Food Pages by chef */}
         <ChefOrderFoodRoute exact path="/food/add-plate" component={AddPlate} />
+        <ChefOrderFoodRoute
+          exact
+          path="/food/update-plate/:update"
+          component={UpdatePlate}
+        />
 
         <Redirect from="*" to="/" />
       </Switch>

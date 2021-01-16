@@ -71,7 +71,7 @@ const FormSignup: React.FC = () => {
     const url = "https://mycheffy.herokuapp.com/";
 
     api
-      .post(url + "user/", body)
+      .post(url + "user", body)
       .then((response) => {
         const data = response.data.result;
         //console.log(data);

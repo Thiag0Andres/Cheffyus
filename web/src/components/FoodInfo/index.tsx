@@ -88,16 +88,12 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
       cart.map((item: any) => {
         if (
           item.plate.chef.id === detail.chef.id &&
-          item.plate.id === detail.id
+          (item.plate.id === detail.id || item.id !== detail.id) &&
+          userDelivery.id !== detail.chef.id
         ) {
           return setPlate("CASE1");
-        } else if (
-          item.plate.chef.id === detail.chef.id &&
-          item.id !== detail.id
-        ) {
-          return setPlate("CASE2");
         } else if (item.plate.chef.id !== detail.chef.id) {
-          return setPlate("CASE3");
+          return setPlate("CASE2");
         }
       });
     };
@@ -160,7 +156,10 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
 
   const handleNextPageRequest = () => {
     if (isLogged) {
-      if (cart.length === 0) {
+      if (
+        (plate === "CASE1" || cart.length === 0) &&
+        userDelivery.id !== detail.chef.id
+      ) {
         if (userDelivery.address.length !== 0) {
           handleSubmit();
         } else {
@@ -168,18 +167,12 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
             variant: "error",
           });
         }
-      } else if (plate === "CASE1") {
-        handleSubmit();
       } else if (plate === "CASE2") {
-        if (userDelivery.address.length !== 0) {
-          handleSubmit();
-        } else {
-          enqueueSnackbar("Please add an address", {
-            variant: "error",
-          });
-        }
-      } else if (plate === "CASE3") {
         enqueueSnackbar("You can only order food from the same Chef", {
+          variant: "error",
+        });
+      } else if (userDelivery.id === detail.chef.id) {
+        enqueueSnackbar("You cannot add your own food", {
           variant: "error",
         });
       }
@@ -190,6 +183,9 @@ const FoodInfo: React.FC<Props> = ({ detail }) => {
       });
     }
   };
+
+  //console.log(userDelivery.id);
+  //console.log(detail.chef.id);
 
   const handleInputChange = async (event: ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;

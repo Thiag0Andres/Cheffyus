@@ -200,21 +200,29 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
           <div className="drawer-user">
             <p>User</p>
             {userDelivery.user_type === "chef" && (
-              <Link className="text3" to="/food/add-plate">
-                Add new food
-              </Link>
+              <>
+                <Link className="text3" to="/food/add-plate">
+                  Add new food
+                </Link>
+                <Link
+                  className="text3"
+                  to={{
+                    pathname: `/food/profile-chef/${userDelivery.id}`,
+                    state: {
+                      detail: userDelivery,
+                    },
+                  }}
+                >
+                  Profile
+                </Link>
+              </>
             )}
-            <Link
-              className="text3"
-              to={{
-                pathname: `/food/profile-chef/${userDelivery.id}`,
-                state: {
-                  detail: userDelivery,
-                },
-              }}
-            >
-              Profile
-            </Link>
+            {userDelivery.user_type === "user" ||
+              (userDelivery.user_type === "driver" && (
+                <Link className="text3" to="/food/settings">
+                  Profile
+                </Link>
+              ))}
             <Link className="text3" to="/food/settings">
               Settings
             </Link>
@@ -309,34 +317,59 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                     >
                       <Row className="row1">
                         {userDelivery.user_type === "chef" && (
-                          <Col
-                            className="col"
-                            xl="4"
-                            lg="4"
-                            md="4"
-                            xs="4"
-                            sm="4"
-                          >
-                            <Link className="item" to="/food/add-plate">
-                              <GiFoodTruck size={32} />
-                              Add new food
-                            </Link>
-                          </Col>
+                          <>
+                            <Col
+                              className="col"
+                              xl="4"
+                              lg="4"
+                              md="4"
+                              xs="4"
+                              sm="4"
+                            >
+                              <Link className="item" to="/food/add-plate">
+                                <GiFoodTruck size={32} />
+                                Add new food
+                              </Link>
+                            </Col>
+                            <Col
+                              className="col"
+                              xl="4"
+                              lg="4"
+                              md="4"
+                              xs="4"
+                              sm="4"
+                            >
+                              <Link
+                                className="item"
+                                to={{
+                                  pathname: `/food/profile-chef/${userDelivery.id}`,
+                                  state: {
+                                    detail: userDelivery,
+                                  },
+                                }}
+                              >
+                                <FaRegUser size={32} />
+                                Profile
+                              </Link>
+                            </Col>
+                          </>
                         )}
-                        <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
-                          <Link
-                            className="item"
-                            to={{
-                              pathname: `/food/profile-chef/${userDelivery.id}`,
-                              state: {
-                                detail: userDelivery,
-                              },
-                            }}
-                          >
-                            <FaRegUser size={32} />
-                            Profile
-                          </Link>
-                        </Col>
+                        {userDelivery.user_type === "user" ||
+                          (userDelivery.user_type === "driver" && (
+                            <Col
+                              className="col"
+                              xl="4"
+                              lg="4"
+                              md="4"
+                              xs="4"
+                              sm="4"
+                            >
+                              <Link className="item" to="/food/settings">
+                                <FaRegUser size={32} />
+                                Profile
+                              </Link>
+                            </Col>
+                          ))}
                         <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
                           <Link className="item" to="/food/settings">
                             <GiSettingsKnobs size={32} />
