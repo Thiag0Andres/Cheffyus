@@ -1,9 +1,11 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
+// Routes
 import AdministratorRentKitchenRoute from "../src/routes/AdministratorRentKitchenRoute";
 import PrivateRentKitchenRoute from "../src/routes/PrivateRentKitchenRoute";
 import PrivateOrderFoodRoute from "../src/routes/PrivateOrderFoodRoute";
+import ChefOrderFoodRoute from "../src/routes/ChefOrderFoodRoute";
 
 //Containers
 import HomeScreen from "./containers/HomeScreen";
@@ -38,6 +40,7 @@ import Food from "./containers/OrderFood/Food";
 import Cart from "./containers/OrderFood/Cart";
 import ProfileChefFood from "./containers/OrderFood/ProfileChef";
 import SettingsFood from "./containers/OrderFood/Settings";
+import AddPlate from "./containers/OrderFood/AddPlate";
 import SuccessPayment from "./containers/OrderFood/SuccessPayment";
 
 export default function Routes() {
@@ -138,6 +141,9 @@ export default function Routes() {
           path="/success-payment"
           component={SuccessPayment}
         />
+
+        {/* Order Food Pages by chef */}
+        <ChefOrderFoodRoute exact path="/food/add-plate" component={AddPlate} />
 
         <Redirect from="*" to="/" />
       </Switch>

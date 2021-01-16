@@ -36,7 +36,7 @@ import { useSnackbar } from "notistack";
 
 //Icons
 import { FaRegUser, FaShoppingCart } from "react-icons/fa";
-import { GiSettingsKnobs } from "react-icons/gi";
+import { GiSettingsKnobs, GiFoodTruck } from "react-icons/gi";
 import { BiMenu } from "react-icons/bi";
 import { GoSearch } from "react-icons/go";
 
@@ -199,15 +199,19 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
         <Hidden mdUp implementation="css">
           <div className="drawer-user">
             <p>User</p>
+            {userDelivery.user_type === "chef" && (
+              <Link className="text3" to="/food/add-plate">
+                Add new food
+              </Link>
+            )}
             <Link
               className="text3"
-              to="/food/settings"
-              /*               to={{
-                pathname: `/food/profile-user/${userDelivery.name}`,
+              to={{
+                pathname: `/food/profile-chef/${userDelivery.id}`,
                 state: {
                   detail: userDelivery,
                 },
-              }} */
+              }}
             >
               Profile
             </Link>
@@ -304,22 +308,36 @@ const NavBarFood: React.FC<Props> = (props: Props) => {
                       onMouseOver={() => setShow(true)}
                     >
                       <Row className="row1">
-                        <Col className="col" xl="6" lg="6" md="6" xs="6" sm="6">
+                        {userDelivery.user_type === "chef" && (
+                          <Col
+                            className="col"
+                            xl="4"
+                            lg="4"
+                            md="4"
+                            xs="4"
+                            sm="4"
+                          >
+                            <Link className="item" to="/food/add-plate">
+                              <GiFoodTruck size={32} />
+                              Add new food
+                            </Link>
+                          </Col>
+                        )}
+                        <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
                           <Link
                             className="item"
-                            to="/food/settings"
-                            /*                        to={{
-                              pathname: `/food/profile-user/${userDelivery.name}`,
+                            to={{
+                              pathname: `/food/profile-chef/${userDelivery.id}`,
                               state: {
                                 detail: userDelivery,
                               },
-                            }} */
+                            }}
                           >
                             <FaRegUser size={32} />
                             Profile
                           </Link>
                         </Col>
-                        <Col className="col" xl="6" lg="6" md="6" xs="6" sm="6">
+                        <Col className="col" xl="4" lg="4" md="4" xs="4" sm="4">
                           <Link className="item" to="/food/settings">
                             <GiSettingsKnobs size={32} />
                             Settings
